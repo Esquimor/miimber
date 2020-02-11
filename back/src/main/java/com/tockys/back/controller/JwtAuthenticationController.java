@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tockys.back.config.JwtTokenUtil;
 import com.tockys.back.model.JwtRequest;
 import com.tockys.back.model.JwtResponse;
+import com.tockys.back.model.UserDTO;
 import com.tockys.back.service.JwtUserDetailsService;
 
 @RestController
@@ -40,6 +41,11 @@ public class JwtAuthenticationController {
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		
 		return ResponseEntity.ok(new JwtResponse(token));
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<?> registerUser(@RequestBody UserDTO user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 	
 	private void authenticate(String username, String password) throws Exception {
