@@ -1,4 +1,4 @@
-package com.tockys.back.model;
+package com.tockys.back.helper;
 
 import java.io.Serializable;
 

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tockys.back.config.JwtTokenUtil;
-import com.tockys.back.model.JwtRequest;
-import com.tockys.back.model.JwtResponse;
-import com.tockys.back.model.UserDTO;
+import com.tockys.back.dto.UserRegisterDTO;
+import com.tockys.back.helper.JwtRequest;
+import com.tockys.back.helper.JwtResponse;
 import com.tockys.back.service.JwtUserDetailsService;
 
 @RestController
@@ -44,7 +44,7 @@ public class JwtAuthenticationController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> registerUser(@RequestBody UserDTO user) throws Exception {
+	public ResponseEntity<?> registerUser(@RequestBody UserRegisterDTO user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 	

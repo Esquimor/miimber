@@ -1,11 +1,14 @@
 package com.tockys.back.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tockys.back.model.enums.UserRoleEnum;
+
+import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="app_user")
+@Table(name="users")
 public class User {
 
 	@Id
@@ -25,6 +28,20 @@ public class User {
 	
 	@Column(name = "last_name")
 	private String lastName;
+	
+	@Column(name = "role")
+	private UserRoleEnum role = UserRoleEnum.User;
+	
+	@OneToMany(mappedBy = "user")
+    private List<Member> members;
+	
+	public long getId() {
+		return this.id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 	public String getUsername() {
 		return this.username;
@@ -56,5 +73,29 @@ public class User {
 	
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public UserRoleEnum getRole() {
+		return this.role;
+	}
+	
+	public void setRole(UserRoleEnum role) {
+		this.role = role;
+	}
+	
+	public List<Member> getMembers() {
+		return this.members;
+	}
+	
+	public void setMembers(List<Member> members) {
+		this.members = members;
+	}
+	
+	public void addMember(Member member) {
+		this.members.add(member);
+	}
+	
+	public void removeMember(Member member) {
+		this.members.remove(member);
 	}
 }

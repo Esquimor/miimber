@@ -1,6 +1,6 @@
-package com.tockys.back.model;
+package com.tockys.back.dto;
 
-public class UserDTO {
+public class UserRegisterDTO {
 	
 	private String username;
 	private String password;
