@@ -1,7 +1,14 @@
 <template>
   <TemplateSign>
     <template v-slot:rigth>
-      rigth
+      <v-form v-model="valid">
+        <v-text-field
+          v-model="email"
+          :rules="emailRules"
+          label="First name"
+          required
+        ></v-text-field>
+      </v-form>
     </template>
     <template v-slot:left>
       <div class="Login-img" />
@@ -18,6 +25,17 @@ export default {
   name: "Login",
   components: {
     TemplateSign
+  },
+  data() {
+    return {
+      valid: false,
+      email: "",
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ],
+      password: ""
+    };
   }
 };
 </script>

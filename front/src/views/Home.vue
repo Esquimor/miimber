@@ -1,6 +1,6 @@
 <template>
   <TemplateDefault>
-    Home
+    {{ $t("message") }}
   </TemplateDefault>
 </template>
 
