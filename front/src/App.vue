@@ -3,9 +3,9 @@
 </template>
 
 <script>
-"use strict"
+"use strict";
 
 export default {
-  name: "App",
+  name: "App"
 };
 </script>

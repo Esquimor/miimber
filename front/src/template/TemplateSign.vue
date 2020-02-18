@@ -1,33 +1,33 @@
 <template>
   <div class="TemplateSign">
-      <div class="TemplateSign-rigth">
-          <div class="TemplateSign-rigth-form">
-              <slot name="rigth"/>
-          </div>
+    <div class="TemplateSign-rigth">
+      <div class="TemplateSign-rigth-form">
+        <slot name="rigth" />
       </div>
-      <div class="TemplateSign-left">
-          <slot name="left"/>
-      </div>
+    </div>
+    <div class="TemplateSign-left">
+      <slot name="left" />
+    </div>
   </div>
 </template>
 
 <script>
-"use strict"
+"use strict";
 
 export default {
-    name: "TemplateSign"
-}
+  name: "TemplateSign"
+};
 </script>
 
 <style lang="scss">
 .TemplateSign {
-    display: flex;
-    height: 100vh;
-    &-rigth {
-        width: 60vw;
-    }
-    &-left {
-        width: 40vw;
-    }
+  display: flex;
+  height: 100vh;
+  &-rigth {
+    width: 60vw;
+  }
+  &-left {
+    width: 40vw;
+  }
 }
 </style>

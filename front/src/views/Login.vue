@@ -1,23 +1,23 @@
 <template>
-    <TemplateSign>
-        <template v-slot:rigth>
-            rigth
-        </template>
-        <template v-slot:left>
-            <div class="Login-img"/>
-        </template>
-    </TemplateSign>
+  <TemplateSign>
+    <template v-slot:rigth>
+      rigth
+    </template>
+    <template v-slot:left>
+      <div class="Login-img" />
+    </template>
+  </TemplateSign>
 </template>
 
 <script>
 "use strict";
 
-import TemplateSign from "@/template/TemplateSign"
+import TemplateSign from "@/template/TemplateSign";
 
 export default {
   name: "Login",
   components: {
-      TemplateSign
+    TemplateSign
   }
 };
 </script>

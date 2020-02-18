@@ -7,12 +7,12 @@
 <script>
 "use strict";
 
-import TemplateDefault from "@/template/TemplateDefault"
+import TemplateDefault from "@/template/TemplateDefault";
 
 export default {
   name: "Home",
   components: {
-    TemplateDefault,
+    TemplateDefault
   }
 };
 </script>
