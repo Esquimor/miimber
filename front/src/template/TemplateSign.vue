@@ -1,9 +1,7 @@
 <template>
   <div class="TemplateSign">
     <div class="TemplateSign-rigth">
-      <div class="TemplateSign-rigth-form">
-        <slot name="rigth" />
-      </div>
+      <slot name="rigth" />
     </div>
     <div class="TemplateSign-left">
       <slot name="left" />
@@ -24,10 +22,15 @@ export default {
   display: flex;
   height: 100vh;
   &-rigth {
-    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 40vw;
   }
   &-left {
-    width: 40vw;
+    width: 60vw;
   }
 }
 </style>

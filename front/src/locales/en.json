@@ -1,3 +1,25 @@
 {
-  "message": "hello i18n !!"
+  "message": "hello i18n !!",
+  "login": {
+    "utils": {
+      "title": "Sign in",
+      "submit": "Let's go",
+      "remember": "Remember"
+    },
+    "email": {
+      "label": "Email",
+      "required": "Email is required.",
+      "valid": "Email must be valid",
+      "placeholder": "ex: email@example.com"
+    },
+    "password": {
+      "label": "Password",
+      "required": "Password is required",
+      "placeholder": "ex: Sup3r_S3cre7!"
+    },
+    "register": {
+      "label": "Don't have an account yet ? ",
+      "link": "Join now."
+    }
+  }
 }
