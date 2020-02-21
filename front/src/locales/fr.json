@@ -10,7 +10,7 @@
       "label": "Mail",
       "required": "Le mail est requis.",
       "valid": "Le mail doit être valide.",
-      "placeholder": "ex: email@exemple.com"
+      "placeholder": "ex: mail@exemple.com"
     },
     "password": {
       "label": "Mot de passe",
@@ -20,6 +20,24 @@
     "register": {
       "label": "Pas encore de compte ? ",
       "link": "S'enregistrer ici."
+    }
+  },
+  "register": {
+    "utils": {
+      "title": "S'enregistrer",
+      "submit": "S'enregistrer"
+    },
+    "email": {
+      "label": "Mail",
+      "placeholder": "ex: mail@exemple.com"
+    },
+    "password": {
+      "label": "Mot de passe",
+      "confirm": "Confirmation"
+    },
+    "login": {
+      "label": "Déjà un compte. ",
+      "link": "Se connecter."
     }
   }
 }

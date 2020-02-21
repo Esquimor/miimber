@@ -21,5 +21,23 @@
       "label": "Don't have an account yet ? ",
       "link": "Join now."
     }
+  },
+  "register": {
+    "utils": {
+      "title": "Sign up",
+      "submit": "Sign up"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "ex: email@example.com"
+    },
+    "password": {
+      "label": "Password",
+      "confirm": "Confirm"
+    },
+    "login": {
+      "label": "Already an account. ",
+      "link": "Sign in."
+    }
   }
 }
