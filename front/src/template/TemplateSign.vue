@@ -4,7 +4,7 @@
       <slot name="rigth" />
     </div>
     <div class="TemplateSign-left">
-      <slot name="left" />
+      <slot name="left"><div class="TemplateSign-left-img"/></slot>
     </div>
   </div>
 </template>
@@ -31,6 +31,11 @@ export default {
   }
   &-left {
     width: 60vw;
+    &-img {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(#1565c0, #42a5f5);
+    }
   }
 }
 </style>

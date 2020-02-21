@@ -36,12 +36,11 @@
       <div class="Login-bottom">
         <span
           >{{ $t("login.register.label") }}
-          <a href="#">{{ $t("login.register.link") }}</a></span
-        >
+          <router-link :to="{ name: 'register' }"
+            >{{ $t("login.register.link") }}
+          </router-link>
+        </span>
       </div>
-    </template>
-    <template v-slot:left>
-      <div class="Login-img" />
     </template>
   </TemplateSign>
 </template>
@@ -63,6 +62,9 @@ export default {
       password: "",
       remember: false
     };
+  },
+  methods: {
+    submit() {}
   }
 };
 </script>
@@ -90,11 +92,6 @@ export default {
   &-bottom {
     position: absolute;
     bottom: 10px;
-  }
-  &-img {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(#1565c0, #42a5f5);
   }
 }
 </style>
