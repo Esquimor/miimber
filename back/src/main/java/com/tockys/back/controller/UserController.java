@@ -59,7 +59,7 @@ public class UserController {
 		User user = userOptional.get();
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
-		user.setUsername(userDto.getUsername());
+		user.setEmail(userDto.getEmail());
 		return user;
 	}
 }

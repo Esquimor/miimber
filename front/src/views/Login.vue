@@ -64,7 +64,19 @@ export default {
     };
   },
   methods: {
-    submit() {}
+    submit() {
+      this.loading = true;
+      this.$store
+        .dispatch("login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {})
+        .catch(() => {
+          this.loading = false;
+          this.password = "";
+        });
+    }
   }
 };
 </script>

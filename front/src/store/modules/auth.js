@@ -1,9 +1,25 @@
 import api from "@/utils/api";
-import * as types from "./../types";
+//import * as types from "./../types";
 
 export default {
-  state: {},
+  state: {
+    user: {}
+  },
   getters: {},
-  actions: {},
+  actions: {
+    login(_, { email, password }) {
+      return api
+        .postNoAuth("login", {
+          email: email,
+          password: password
+        })
+        .then(data => {
+          console.log(data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    }
+  },
   mutations: {}
 };
