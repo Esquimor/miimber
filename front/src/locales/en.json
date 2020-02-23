@@ -4,7 +4,8 @@
     "utils": {
       "title": "Sign in",
       "submit": "Let's go",
-      "remember": "Remember"
+      "remember": "Remember",
+      "error": "An error has happened. Try again."
     },
     "email": {
       "label": "Email",
