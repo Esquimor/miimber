@@ -23,7 +23,7 @@ import com.tockys.back.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class JwtAuthenticationController {
+public class AuthController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
