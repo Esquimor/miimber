@@ -18,10 +18,15 @@ $danger-invert: findColorInvert($danger);
 $text: hsl(0, 0%, 29%);
 $text-invert: findColorInvert($text);
 
+$black-ter: hsl(0, 0%, 14%);
+$grey-darker:hsl(0, 0%, 21%);
 $grey: hsl(0, 0%, 48%);
 $grey-lighter: hsl(0, 0%, 86%);
 $grey-lightest: hsl(0, 0%, 93%);
 $white-ter: hsl(0, 0%, 96%);
+
+$background-dashboard: #1565c0;
+$background-dashboard-invert: findColorInvert($background-dashboard);
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (

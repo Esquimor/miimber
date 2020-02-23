@@ -42,5 +42,11 @@
       "label": "Already an account. ",
       "link": "Sign in."
     }
+  },
+  "dashboard": {
+    "menu": {
+      "menu": "Menu",
+      "account": "My account"
+    }
   }
 }
