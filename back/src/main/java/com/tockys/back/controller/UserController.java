@@ -18,7 +18,7 @@ import com.tockys.back.model.User;
 import com.tockys.back.service.UserService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 	
 	@Autowired
