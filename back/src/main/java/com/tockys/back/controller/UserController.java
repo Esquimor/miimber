@@ -18,7 +18,7 @@ import com.tockys.back.model.User;
 import com.tockys.back.service.UserService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 	
 	@Autowired
@@ -59,7 +59,7 @@ public class UserController {
 		User user = userOptional.get();
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
-		user.setUsername(userDto.getUsername());
+		user.setEmail(userDto.getEmail());
 		return user;
 	}
 }

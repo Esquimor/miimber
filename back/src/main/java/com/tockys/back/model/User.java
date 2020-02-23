@@ -16,8 +16,8 @@ public class User {
 	@Column(name = "id")
 	private long id;
 	
-	@Column(name = "username")
-	private String username;
+	@Column(name = "email")
+	private String email;
 	
 	@Column(name = "password")
 	@JsonIgnore
@@ -43,12 +43,12 @@ public class User {
 		this.id = id;
 	}
 	
-	public String getUsername() {
-		return this.username;
+	public String getEmail() {
+		return this.email;
 	}
 	
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	public String getPassword() {

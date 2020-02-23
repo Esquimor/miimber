@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +19,11 @@ import com.tockys.back.dto.UserRegisterDTO;
 import com.tockys.back.helper.JwtRequest;
 import com.tockys.back.helper.JwtResponse;
 import com.tockys.back.service.JwtUserDetailsService;
+import com.tockys.back.service.UserService;
 
 @RestController
-@CrossOrigin
-public class JwtAuthenticationController {
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class AuthController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -32,12 +34,15 @@ public class JwtAuthenticationController {
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
 	
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	@Autowired
+	private UserService userService;
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 		
 		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
+				.loadUserByUsername(authenticationRequest.getEmail());
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		
 		return ResponseEntity.ok(new JwtResponse(token));
@@ -46,6 +51,13 @@ public class JwtAuthenticationController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> registerUser(@RequestBody UserRegisterDTO user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
+	}
+	
+	@RequestMapping(value = "/me", method = RequestMethod.GET)
+	public ResponseEntity<?> me() throws Exception {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+		return ResponseEntity.ok(userService.getUserByEmail(userDetails.getUsername()));
 	}
 	
 	private void authenticate(String username, String password) throws Exception {

@@ -2,14 +2,16 @@
   <TemplateSign>
     <template v-slot:rigth>
       <form class="Login-form" @submit.prevent>
-        <h1 class="Login-form-title is-size-3">
-          {{ $t("login.utils.title") }}
-        </h1>
+        <h1 class="Login-form-title is-size-3">{{ $t("login.utils.title") }}</h1>
+        <BNotification
+          v-if="error"
+          class="Login-form-error"
+          type="is-danger"
+          aria-close-label="Close notification"
+          role="alert"
+        >{{ $t("login.utils.error") }}</BNotification>
         <BField :label="$t('login.email.label')">
-          <BInput
-            v-model="email"
-            :placeholder="$t('login.email.placeholder')"
-          ></BInput>
+          <BInput v-model="email" :placeholder="$t('login.email.placeholder')"></BInput>
         </BField>
         <BField :label="$t('login.password.label')">
           <BInput
@@ -19,26 +21,20 @@
             password-reveal
           ></BInput>
         </BField>
-        <BCheckbox class="Login-form-remember" v-model="remember">
-          {{ $t("login.utils.remember") }}
-        </BCheckbox>
+        <BCheckbox class="Login-form-remember" v-model="remember">{{ $t("login.utils.remember") }}</BCheckbox>
         <div class="Login-form-submit">
           <button
             type="submit"
             class="button is-primary"
             :class="{ 'is-loading': loading }"
             @click="submit"
-          >
-            {{ $t("login.utils.submit") }}
-          </button>
+          >{{ $t("login.utils.submit") }}</button>
         </div>
       </form>
       <div class="Login-bottom">
-        <span
-          >{{ $t("login.register.label") }}
-          <router-link :to="{ name: 'register' }"
-            >{{ $t("login.register.link") }}
-          </router-link>
+        <span>
+          {{ $t("login.register.label") }}
+          <router-link :to="{ name: 'register' }">{{ $t("login.register.link") }}</router-link>
         </span>
       </div>
     </template>
@@ -60,11 +56,27 @@ export default {
       loading: false,
       email: "",
       password: "",
-      remember: false
+      remember: false,
+      error: false
     };
   },
   methods: {
-    submit() {}
+    submit() {
+      this.loading = true;
+      this.$store
+        .dispatch("login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push({ name: "dashboard" });
+        })
+        .catch(() => {
+          this.loading = false;
+          this.password = "";
+          this.error = true;
+        });
+    }
   }
 };
 </script>
@@ -78,6 +90,9 @@ export default {
     &-title {
       text-align: center;
       padding-bottom: 2rem;
+    }
+    &-error {
+      width: 246px;
     }
     &-submit {
       display: flex;

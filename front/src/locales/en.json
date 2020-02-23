@@ -4,7 +4,8 @@
     "utils": {
       "title": "Sign in",
       "submit": "Let's go",
-      "remember": "Remember"
+      "remember": "Remember",
+      "error": "An error has happened. Try again."
     },
     "email": {
       "label": "Email",
@@ -25,7 +26,8 @@
   "register": {
     "utils": {
       "title": "Sign up",
-      "submit": "Sign up"
+      "submit": "Sign up",
+      "error": "An error has happened. Try again."
     },
     "email": {
       "label": "Email",
@@ -33,7 +35,8 @@
     },
     "password": {
       "label": "Password",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "notSame": "Passwords don't match."
     },
     "login": {
       "label": "Already an account. ",
