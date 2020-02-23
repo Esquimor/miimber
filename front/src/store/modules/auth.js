@@ -13,8 +13,10 @@ export default {
           email: email,
           password: password
         })
-        .then(data => {
-          console.log(data);
+        .then(response => {
+          if (response.status !== 200) return Promise.reject();
+          localStorage.setItem("token", response.data.token);
+          return Promise.resolve();
         })
         .catch(e => {
           return Promise.reject(e);
