@@ -19,6 +19,19 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    register(_, { email, password }) {
+      return api
+        .postNoAuth("register", {
+          email: email,
+          password: password
+        })
+        .then(data => {
+          console.log(data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {}

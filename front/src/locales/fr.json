@@ -25,7 +25,8 @@
   "register": {
     "utils": {
       "title": "S'enregistrer",
-      "submit": "S'enregistrer"
+      "submit": "S'enregistrer",
+      "error": "Une erreur est survenue. Merci de réessayer."
     },
     "email": {
       "label": "Mail",
@@ -33,7 +34,8 @@
     },
     "password": {
       "label": "Mot de passe",
-      "confirm": "Confirmation"
+      "confirm": "Confirmation",
+      "notSame": "Les mots de passes ne sont pas identiques."
     },
     "login": {
       "label": "Déjà un compte. ",
