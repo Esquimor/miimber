@@ -69,7 +69,7 @@ export default {
           password: this.password
         })
         .then(() => {
-          this.$router.push({ name: "dashboard" });
+          this.$router.push({ name: "dashboard-home" });
         })
         .catch(() => {
           this.loading = false;

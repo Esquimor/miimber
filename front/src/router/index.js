@@ -3,7 +3,9 @@ import VueRouter from "vue-router";
 import Home from "@/views/Home";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
-import Dashboard from "@/views/Dashboard";
+import Dashboard from "@/views/dashboard/Dashboard";
+import DashboardHome from "@/views/dashboard/DashboardHome";
+import DashboardSession from "@/views/dashboard/DashboardSession";
 import Error404 from "@/views/Error404";
 
 Vue.use(VueRouter);
@@ -27,7 +29,19 @@ const routes = [
   {
     path: "/dashboard",
     name: "dashboard",
-    component: Dashboard
+    component: Dashboard,
+    children: [
+      {
+        path: "",
+        name: "dashboard-home",
+        component: DashboardHome
+      },
+      {
+        path: "session",
+        name: "dashboard-session",
+        component: DashboardSession
+      }
+    ]
   },
   {
     path: "*",

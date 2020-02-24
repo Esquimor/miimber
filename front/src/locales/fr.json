@@ -47,6 +47,9 @@
     "menu": {
       "menu": "Menu",
       "account": "Mon compte"
+    },
+    "panel": {
+      "session": "Séance"
     }
   }
 }

@@ -1,19 +1,13 @@
 <template>
-  <TemplateDefault>
-    {{ $t("message") }}
-  </TemplateDefault>
+  <div>{{ $t("message") }}</div>
 </template>
 
 <script>
 "use strict";
 
-import TemplateDefault from "@/template/TemplateDefault";
-
 export default {
   name: "Home",
-  components: {
-    TemplateDefault
-  }
+  components: {}
 };
 </script>
 
