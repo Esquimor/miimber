@@ -1,5 +1,4 @@
 {
-  "message": "hello i18n !!",
   "login": {
     "utils": {
       "title": "Sign in",
@@ -41,15 +40,6 @@
     "login": {
       "label": "Already an account. ",
       "link": "Sign in."
-    }
-  },
-  "dashboard": {
-    "menu": {
-      "menu": "Menu",
-      "account": "My account"
-    },
-    "panel": {
-      "session": "Session"
     }
   }
 }

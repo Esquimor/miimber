@@ -25,7 +25,7 @@
 <script>
 "use strict";
 
-import DashboardPanelItem from "@/components/dashboard/panel/DashboardPanelItem";
+import DashboardPanelItem from "@/modules/dashboard/components/panel/DashboardPanelItem";
 
 export default {
   name: "Dashboard",
@@ -63,7 +63,7 @@ export default {
   &-main {
     display: flex;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     &-panel {
       display: flex;
       flex-direction: column;

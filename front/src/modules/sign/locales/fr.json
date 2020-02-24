@@ -1,5 +1,4 @@
 {
-  "message": "bonjour i18n !!",
   "login": {
     "utils": {
       "title": "Login",
@@ -41,15 +40,6 @@
     "login": {
       "label": "Déjà un compte. ",
       "link": "Se connecter."
-    }
-  },
-  "dashboard": {
-    "menu": {
-      "menu": "Menu",
-      "account": "Mon compte"
-    },
-    "panel": {
-      "session": "Séance"
     }
   }
 }
