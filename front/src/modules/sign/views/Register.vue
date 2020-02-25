@@ -51,7 +51,7 @@
 <script>
 "use strict";
 
-import TemplateSign from "@/template/TemplateSign";
+import TemplateSign from "@sign/template/TemplateSign";
 
 export default {
   name: "Register",

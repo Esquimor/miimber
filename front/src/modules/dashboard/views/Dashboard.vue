@@ -25,7 +25,7 @@
 <script>
 "use strict";
 
-import DashboardPanelItem from "@/modules/dashboard/components/panel/DashboardPanelItem";
+import DashboardPanelItem from "@dashboard/components/panel/DashboardPanelItem";
 
 export default {
   name: "Dashboard",
