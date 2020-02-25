@@ -3,11 +3,14 @@ import VueI18n from "vue-i18n";
 
 Vue.use(VueI18n);
 
-const dashboard = () => import("@dashboard/locales/index.js");
-const home = () => import("@home/locales/index.js");
-const sign = () => import("@sign/locales/index.js");
+import dashboard from "@dashboard/locales/index.js";
+import home from "@home/locales/index.js";
+import sign from "@sign/locales/index.js";
 
-const messages = Object.assign({}, home, dashboard, sign);
+const fr = Object.assign({}, dashboard.fr, home.fr, sign.fr);
+const en = Object.assign({}, dashboard.en, home.en, sign.en);
+
+const messages = Object.assign({}, { fr }, { en });
 
 export default new VueI18n({
   locale: window.navigator.language || process.env.VUE_APP_I18N_LOCALE || "en",
