@@ -64,7 +64,7 @@ export default {
     submit() {
       this.loading = true;
       this.$store
-        .dispatch("login", {
+        .dispatch("sign/login", {
           email: this.email,
           password: this.password
         })

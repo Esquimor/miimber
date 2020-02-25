@@ -1,13 +1,11 @@
 import api from "@/utils/api";
-import * as types from "@/utils/types";
+// import * as types from "@/utils/types";
 
 export default {
-  state: {
-    user: {}
-  },
+  namespaced: true,
   getters: {},
   actions: {
-    login({ commit }, { email, password }) {
+    login({ dispatch }, { email, password }) {
       return api
         .postNoAuth("login", {
           email: email,
@@ -16,8 +14,7 @@ export default {
         .then(response => {
           if (response.status !== 200) return Promise.reject();
           localStorage.setItem("token", response.data.token);
-          return api.get("me").then(({ data }) => {
-            commit(types.SET_USER, data.user);
+          return dispatch("core/getMe", null, { root: true }).then(() => {
             return Promise.resolve();
           });
         })
@@ -39,9 +36,5 @@ export default {
         });
     }
   },
-  mutations: {
-    [types.SET_USER](state, user) {
-      state.user = user;
-    }
-  }
+  mutations: {}
 };

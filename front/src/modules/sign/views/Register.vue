@@ -83,7 +83,7 @@ export default {
       }
       this.loading = true;
       this.$store
-        .dispatch("register", {
+        .dispatch("sign/register", {
           email: this.email,
           password: this.password
         })
