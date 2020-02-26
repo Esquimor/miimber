@@ -5,7 +5,8 @@ export default {
       account: "Mon compte"
     },
     panel: {
-      session: "Séance"
+      sessions: "Séances",
+      organizations: "Organisations"
     }
   }
 };

@@ -1,5 +1,8 @@
 <template>
-  <router-link class="DashboardPanelItem" :to="{ name: route }">{{ label }}</router-link>
+  <router-link class="DashboardPanelItem" :to="{ name: route }">
+    <BIcon :icon="icon" />
+    <span>{{ label }}</span>
+  </router-link>
 </template>
 
 <script>
@@ -15,6 +18,10 @@ export default {
     label: {
       type: String,
       required: true
+    },
+    icon: {
+      type: String,
+      required: true
     }
   }
 };
@@ -22,14 +29,19 @@ export default {
 
 <style lang="scss">
 .DashboardPanelItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 0.5rem;
-  border-left: 5px solid transparent;
-  color: $black;
+  color: $white;
   &:hover {
-    background-color: $grey-lighter;
+    background-color: $background-dashboard-hover;
+    color: $white;
   }
   &.router-link-active {
-    border-left-color: $primary;
+    background-color: $white;
+    color: $background-dashboard;
   }
 }
 </style>

@@ -1,65 +1,43 @@
 <template>
-  <div class="Dashboard">
-    <header class="Dashboard-header">
-      <router-link :to="{ name: 'dashboard-home' }">
-        <BIcon icon="home" />
-        <span>{{ $t('dashboard.menu.menu') }}</span>
-      </router-link>
-      <div class="Dashboard-header-separator" />
-      <router-link :to="{ name: 'dashboard-home' }">
-        <BIcon icon="account" />
-        <span>{{ $t('dashboard.menu.account') }}</span>
-      </router-link>
-    </header>
+  <TemplateDefault>
     <main class="Dashboard-main">
       <div class="Dashboard-main-panel">
-        <DashboardPanelItem route="dashboard-session" :label="$t('dashboard.panel.session')" />
+        <DashboardPanelItem
+          route="dashboard-sessions"
+          icon="account-group"
+          :label="$t('dashboard.panel.sessions')"
+        />
+        <DashboardPanelItem
+          route="dashboard-organizations"
+          icon="sitemap"
+          :label="$t('dashboard.panel.organizations')"
+        />
       </div>
       <div class="Dashboard-main-content">
         <router-view></router-view>
       </div>
     </main>
-  </div>
+  </TemplateDefault>
 </template>
 
 <script>
 "use strict";
+
+import TemplateDefault from "@core/template/TemplateDefault";
 
 import DashboardPanelItem from "@dashboard/components/panel/DashboardPanelItem";
 
 export default {
   name: "Dashboard",
   components: {
-    DashboardPanelItem
+    DashboardPanelItem,
+    TemplateDefault
   }
 };
 </script>
 
 <style lang="scss">
 .Dashboard {
-  &-header {
-    display: flex;
-    justify-content: space-around;
-    background-color: $background-dashboard;
-    color: $white;
-    &-separator {
-      flex-grow: 1;
-    }
-    > a {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem;
-      &:hover {
-        background-color: $background-dashboard-hover;
-      }
-      > * {
-        color: $white;
-        &:hover {
-          color: $white-ter;
-        }
-      }
-    }
-  }
   &-main {
     display: flex;
     width: 100vw;
@@ -67,11 +45,11 @@ export default {
     &-panel {
       display: flex;
       flex-direction: column;
-      width: 20vw;
-      background-color: $grey-lightest;
+      width: 120px;
+      background-color: $background-dashboard;
     }
     &-content {
-      width: 80vw;
+      flex-grow: 1;
       padding: 1rem;
     }
   }

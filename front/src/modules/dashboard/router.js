@@ -1,6 +1,7 @@
 import Dashboard from "@dashboard/views/Dashboard";
-import DashboardHome from "@dashboard/views/DashboardHome";
-import DashboardSession from "@dashboard/views/DashboardSession";
+import Home from "@dashboard/views/Home";
+import Sessions from "@dashboard/views/session/Sessions";
+import Organizations from "@dashboard/views/organization/Organizations";
 
 export default [
   {
@@ -11,12 +12,17 @@ export default [
       {
         path: "",
         name: "dashboard-home",
-        component: DashboardHome
+        component: Home
       },
       {
-        path: "session",
-        name: "dashboard-session",
-        component: DashboardSession
+        path: "sessions",
+        name: "dashboard-sessions",
+        component: Sessions
+      },
+      {
+        path: "organizations",
+        name: "dashboard-organizations",
+        component: Organizations
       }
     ]
   }

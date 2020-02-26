@@ -8,6 +8,7 @@ import routerDashboard from "@dashboard/router.js";
 import routerError from "@error/router.js";
 import routerHome from "@home/router.js";
 import routerSign from "@sign/router.js";
+import routerSettings from "@settings/router.js";
 
 const routes = [];
 
@@ -19,6 +20,7 @@ const router = new VueRouter({
     routerDashboard,
     routerHome,
     routerSign,
+    routerSettings,
     routerError
   )
 });

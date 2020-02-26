@@ -25,7 +25,8 @@ module.exports = {
         "@dashboard": path.resolve(__dirname, "src/modules/dashboard"),
         "@error": path.resolve(__dirname, "src/modules/error"),
         "@home": path.resolve(__dirname, "src/modules/home"),
-        "@sign": path.resolve(__dirname, "src/modules/sign")
+        "@sign": path.resolve(__dirname, "src/modules/sign"),
+        "@settings": path.resolve(__dirname, "src/modules/settings")
       }
     }
   }
