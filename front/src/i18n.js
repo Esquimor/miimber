@@ -3,25 +3,20 @@ import VueI18n from "vue-i18n";
 
 Vue.use(VueI18n);
 
-function loadLocaleMessages() {
-  const locales = require.context(
-    "./locales",
-    true,
-    /[A-Za-z0-9-_,\s]+\.json$/i
-  );
-  const messages = {};
-  locales.keys().forEach(key => {
-    const matched = key.match(/([A-Za-z0-9-_]+)\./i);
-    if (matched && matched.length > 1) {
-      const locale = matched[1];
-      messages[locale] = locales(key);
-    }
-  });
-  return messages;
-}
+import dashboard from "@dashboard/locales/index.js";
+import home from "@home/locales/index.js";
+import sign from "@sign/locales/index.js";
+
+const fr = Object.assign({}, dashboard.fr, home.fr, sign.fr);
+const en = Object.assign({}, dashboard.en, home.en, sign.en);
+
+const messages = {
+  fr,
+  en
+};
 
 export default new VueI18n({
   locale: window.navigator.language || process.env.VUE_APP_I18N_LOCALE || "en",
   fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "en",
-  messages: loadLocaleMessages()
+  messages: messages
 });
