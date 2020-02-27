@@ -2,7 +2,9 @@ export default {
   settings: {
     title: "Paramètres",
     profile: {
-      title: "Profil"
+      title: "Profil",
+      firstName: "Prénom",
+      lastName: "Nom"
     },
     account: {
       title: "Compte"

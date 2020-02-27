@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +46,13 @@ public class UserController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		return ResponseEntity.ok(userService.updateUser(user));
+	}
+	
+	@RequestMapping(value = "/me", method = RequestMethod.GET)
+	public ResponseEntity<?> me() throws Exception {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+		return ResponseEntity.ok(convertToDto(userService.getUserByEmail(userDetails.getUsername())));
 	}
 	
 	private UserDTO convertToDto(User user) {

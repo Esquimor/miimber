@@ -6,7 +6,6 @@ import Organizations from "@dashboard/views/organization/Organizations";
 export default [
   {
     path: "/dashboard",
-    name: "dashboard",
     component: Dashboard,
     children: [
       {
