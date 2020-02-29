@@ -4,11 +4,31 @@
       <BField :label="$t('settings.security.oldPassword')">
         <BInput type="password" v-model="oldPassword" password-reveal required></BInput>
       </BField>
-      <BField :label="$t('settings.security.newPassword')">
-        <BInput type="password" v-model="newPassword" password-reveal required></BInput>
+      <BField
+        :label="$t('settings.security.newPassword')"
+        :type="errorSamePassword ? 'is-danger' : ''"
+      >
+        <BInput
+          type="password"
+          v-model="newPassword"
+          @input="errorSamePassword = false"
+          password-reveal
+          required
+        ></BInput>
       </BField>
-      <BField :label="$t('settings.security.confirmPassword')">
-        <BInput type="password" v-model="confirmPassword" password-reveal required></BInput>
+      <BField
+        :label="$t('settings.security.confirmPassword')"
+        :type="errorSamePassword ? 'is-danger' : ''"
+        :message="errorSamePassword ? $t('settings.security.notSame') : ''"
+      >
+        <BInput
+          type="password"
+          v-model="confirmPassword"
+          @blur="verifySamePassword"
+          @input="errorSamePassword = false"
+          password-reveal
+          required
+        ></BInput>
       </BField>
       <div class="Security-form-button">
         <button
@@ -25,6 +45,8 @@
 <script>
 "use strict";
 
+import { mapGetters } from "vuex";
+
 import TemplateSettings from "@settings/template/TemplateSettings";
 
 export default {
@@ -37,11 +59,40 @@ export default {
       oldPassword: "",
       newPassword: "",
       confirmPassword: "",
-      loading: false
+      loading: false,
+      errorSamePassword: false
     };
   },
+  computed: {
+    ...mapGetters({
+      me: "core/me"
+    })
+  },
   methods: {
-    changePassword() {}
+    changePassword() {
+      if (this.errorSamePassword) return;
+      this.loading = true;
+      this.$store
+        .dispatch("settings/updatePassword", {
+          newPassword: this.newPassword,
+          oldPassword: this.oldPassword,
+          id: this.me.id
+        })
+        .then(() => {
+          this.loading = false;
+          this.$buefy.toast.open({
+            message: this.$t("settings.security.success"),
+            type: "is-success"
+          });
+        })
+        .catch(() => {
+          this.loading = false;
+        });
+    },
+    verifySamePassword() {
+      return (this.errorSamePassword =
+        this.newPassword !== this.confirmPassword);
+    }
   }
 };
 </script>

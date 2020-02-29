@@ -58,6 +58,13 @@ export default {
         })
         .then(() => {
           this.loading = false;
+          this.$buefy.toast.open({
+            message: this.$t("settings.profile.success"),
+            type: "is-success"
+          });
+        })
+        .catch(() => {
+          this.loading = false;
         });
     }
   },

@@ -6,7 +6,8 @@ export default {
       firstName: "First name",
       lastName: "Last name",
       email: "Email",
-      update: "Update profile"
+      update: "Update profile",
+      success: "Profile updated."
     },
     account: {
       title: "Account"
@@ -16,7 +17,9 @@ export default {
       oldPassword: "Password",
       newPassword: "New password",
       confirmPassword: "Confirm",
-      change: "Update password"
+      change: "Update password",
+      notSame: "Passwords don't match.",
+      success: "Password changed."
     },
     organization: {
       title: "Organization"

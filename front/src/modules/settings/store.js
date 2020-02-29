@@ -18,6 +18,19 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    updatePassword(_, { oldPassword, newPassword, id }) {
+      return api
+        .put(`user/${id}`, {
+          oldPassword,
+          newPassword
+        })
+        .then(() => {
+          return Promise.resolve();
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {}
