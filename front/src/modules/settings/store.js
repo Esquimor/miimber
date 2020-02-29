@@ -1,10 +1,14 @@
 import api from "@/utils/api";
-//import * as types from "@/utils/types";
+import * as types from "@/utils/types";
 
 export default {
   namespaced: true,
-  state: {},
-  getters: {},
+  state: {
+    organizations: []
+  },
+  getters: {
+    organizations: state => state.organizations
+  },
   actions: {
     updateProfile({ dispatch }, { lastName, firstName, id }) {
       return api
@@ -31,7 +35,22 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    getOrganizationOwnered({ commit }) {
+      return api
+        .get("organization/ownered")
+        .then(({ data }) => {
+          commit(types.SET_ORGANIZATION_OWNERED, data);
+          return Promise.resolve();
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
-  mutations: {}
+  mutations: {
+    [types.SET_ORGANIZATION_OWNERED](state, organizations) {
+      state.organizations = organizations;
+    }
+  }
 };

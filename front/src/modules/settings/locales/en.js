@@ -22,7 +22,9 @@ export default {
       success: "Password changed."
     },
     organization: {
-      title: "Organization"
+      title: "Organization",
+      listTitle: "List of yours organizations",
+      listEmpty: "You don't own any organizarion."
     }
   }
 };

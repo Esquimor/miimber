@@ -10,7 +10,7 @@
       <BField :label="$t('settings.profile.lastName')">
         <BInput v-model="editMe.lastName" />
       </BField>
-      <div class="Profile-form-button">
+      <div class="SettingsProfile-form-button">
         <button
           class="button is-primary"
           :class="{'is-loading': loading}"

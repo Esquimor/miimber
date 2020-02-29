@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tockys.back.dto.UserDTO;
 import com.tockys.back.dto.UserPasswordDTO;
+import com.tockys.back.helper.Helper;
 import com.tockys.back.model.User;
 import com.tockys.back.service.UserService;
 
@@ -34,10 +35,13 @@ public class UserController {
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 	
+	@Autowired
+	private Helper helper;
+	
 	@RequestMapping(value = "/me", method = RequestMethod.GET)
 	public ResponseEntity<?> me() throws Exception {
         UserDetails currentUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return ResponseEntity.ok(convertToDto(getUserToken(currentUser)));
+		return ResponseEntity.ok(convertToDto(helper.getUserToken(currentUser)));
 	}
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
@@ -46,7 +50,7 @@ public class UserController {
 		if (user == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
-        User tokenUser = getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        User tokenUser = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		if (user.getId() != tokenUser.getId()) {
 			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 		}
@@ -55,7 +59,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/{id}/password", method = RequestMethod.PUT)
 	public ResponseEntity<?> putPasswordUser(@RequestBody UserPasswordDTO userDTO, @PathVariable Long id) {
-        User tokenUser = getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        User tokenUser = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		if (id != tokenUser.getId()) {
 			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 		}
@@ -64,10 +68,6 @@ public class UserController {
 		}
 		userService.updatePasswordUser(tokenUser, userDTO.getNewPassword());
 		return new ResponseEntity(HttpStatus.OK);
-	}
-	
-	private User getUserToken(UserDetails currentUser) {
-		return userService.getUserByEmail(currentUser.getUsername());
 	}
 	
 	private UserDTO convertToDto(User user) {

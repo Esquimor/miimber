@@ -30,7 +30,7 @@
           required
         ></BInput>
       </BField>
-      <div class="Security-form-button">
+      <div class="SettingsSecurity-form-button">
         <button
           class="button is-primary"
           :class="{'is-loading': loading}"

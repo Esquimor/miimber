@@ -9,25 +9,22 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.tockys.back.model.enums.RoleEnum;
+
 @Entity
 @Table(name="members")
 public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
 	private long id;
 	
     @ManyToOne
-    @JoinColumn(name="user_id")
     private User user;
     
-    @ManyToOne
-    @JoinColumn(name="role_id")
-    private Role role;
+	private RoleEnum role = RoleEnum.MEMBER;
     
     @ManyToOne
-    @JoinColumn(name="organization_id")
     private Organization organization;
 	
 	public long getId() {
@@ -42,11 +39,11 @@ public class Member {
 		this.user = user;
 	}
 	
-	public Role getRole() {
+	public RoleEnum getType() {
 		return this.role;
 	}
 	
-	public void setRole(Role role) {
+	public void setType(RoleEnum role) {
 		this.role = role;
 	}
 	
