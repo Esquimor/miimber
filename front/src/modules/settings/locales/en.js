@@ -4,7 +4,9 @@ export default {
     profile: {
       title: "Profile",
       firstName: "First name",
-      lastName: "Last name"
+      lastName: "Last name",
+      email: "Email",
+      update: "Update profile"
     },
     account: {
       title: "Account"

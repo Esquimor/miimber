@@ -29,14 +29,10 @@ public class UserController {
     @Autowired
     private ModelMapper modelMapper;
 	
-	@RequestMapping(value = "/user/", method = RequestMethod.GET)
-	public ResponseEntity<?> getUsers() {
-		return ResponseEntity.ok(userService.getUsers());
-	}
-	
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getUser(@PathVariable Long id) {
-		return ResponseEntity.ok(userService.getUserById(id));
+	@RequestMapping(value = "/me", method = RequestMethod.GET)
+	public ResponseEntity<?> me() throws Exception {
+        UserDetails currentUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return ResponseEntity.ok(convertToDto(getUserToken(currentUser)));
 	}
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
@@ -45,14 +41,15 @@ public class UserController {
 		if (user == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
+        User tokenUser = getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		if (user.getId() != tokenUser.getId()) {
+			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+		}
 		return ResponseEntity.ok(userService.updateUser(user));
 	}
 	
-	@RequestMapping(value = "/me", method = RequestMethod.GET)
-	public ResponseEntity<?> me() throws Exception {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
-		return ResponseEntity.ok(convertToDto(userService.getUserByEmail(userDetails.getUsername())));
+	private User getUserToken(UserDetails currentUser) {
+		return userService.getUserByEmail(currentUser.getUsername());
 	}
 	
 	private UserDTO convertToDto(User user) {
@@ -68,7 +65,6 @@ public class UserController {
 		User user = userOptional.get();
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
-		user.setEmail(userDto.getEmail());
 		return user;
 	}
 }

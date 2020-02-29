@@ -1,12 +1,22 @@
 <template>
   <TemplateSettings :title="$t('settings.profile.title')">
-    <form>
+    <form @submit.prevent>
+      <BField :label="$t('settings.profile.email')">
+        <BInput v-model="editMe.email" type="email" required />
+      </BField>
       <BField :label="$t('settings.profile.firstName')">
         <BInput v-model="editMe.firstName" />
       </BField>
       <BField :label="$t('settings.profile.lastName')">
         <BInput v-model="editMe.lastName" />
       </BField>
+      <div class="Profile-form-button">
+        <button
+          class="button is-primary"
+          :class="{'is-loading': loading}"
+          @click="update"
+        >{{ $t('settings.profile.update') }}</button>
+      </div>
     </form>
   </TemplateSettings>
 </template>
@@ -26,8 +36,10 @@ export default {
   data() {
     return {
       editMe: {
-        firstName: ""
-      }
+        firstName: "",
+        lastName: ""
+      },
+      loading: false
     };
   },
   computed: {
@@ -35,8 +47,28 @@ export default {
       me: "core/me"
     })
   },
+  methods: {
+    update() {
+      this.loading = true;
+      this.$store
+        .dispatch("settings/updateProfile", {
+          firstName: this.editMe.firstName,
+          lastName: this.editMe.lastName,
+          id: this.me.id
+        })
+        .then(() => {
+          this.loading = false;
+        });
+    }
+  },
   mounted() {
-    if (this.me) this.editMe = this.me;
+    if (this.me !== null) {
+      this.$nextTick(() => {
+        this.editMe.email = this.me.email;
+        this.editMe.firstName = this.me.firstName;
+        this.editMe.lastName = this.me.lastName;
+      });
+    }
   },
   watch: {
     me(newValue) {

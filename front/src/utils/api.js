@@ -16,15 +16,15 @@ export default {
     });
   },
   post(endpoint, params) {
-    return axios.post(`${route}/${endpoint}`, params, setToken());
+    return axios.post(`${route}/${endpoint}`, params, { headers: setToken() });
   },
   put(endpoint, params) {
-    return axios.put(`${route}/${endpoint}`, params, setToken());
+    return axios.put(`${route}/${endpoint}`, params, { headers: setToken() });
   },
   delete(endpoint, params) {
     return axios.delete(
       `${route}/${endpoint}`,
-      Object.assign(setToken(), { params: params })
+      Object.assign({ headers: setToken() }, { params: params })
     );
   }
 };

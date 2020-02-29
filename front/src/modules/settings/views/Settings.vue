@@ -4,7 +4,7 @@
       <nav class="Settings-nav">
         <div class="Settings-nav-head">{{ $t('settings.title') }}</div>
         <SettingsNavItem route="settings-profile" :label="$t('settings.profile.title')" />
-        <SettingsNavItem route="settings-account" :label="$t('settings.account.title')" />
+        <!--<SettingsNavItem route="settings-account" :label="$t('settings.account.title')" />-->
         <SettingsNavItem route="settings-security" :label="$t('settings.security.title')" />
         <SettingsNavItem route="settings-organization" :label="$t('settings.organization.title')" />
       </nav>
