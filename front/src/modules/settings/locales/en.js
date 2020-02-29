@@ -12,7 +12,11 @@ export default {
       title: "Account"
     },
     security: {
-      title: "Security"
+      title: "Security",
+      oldPassword: "Password",
+      newPassword: "New password",
+      confirmPassword: "Confirm",
+      change: "Update password"
     },
     organization: {
       title: "Organization"

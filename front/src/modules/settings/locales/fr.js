@@ -12,7 +12,11 @@ export default {
       title: "Compte"
     },
     security: {
-      title: "Sécurité"
+      title: "Sécurité",
+      oldPassword: "Mot de passe",
+      newPassword: "Nouveau mot de passe",
+      confirmPassword: "Confirmer",
+      change: "Mettre à jour le mot de passe"
     },
     organization: {
       title: "Organisation"
