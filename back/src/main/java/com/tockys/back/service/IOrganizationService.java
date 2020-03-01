@@ -7,4 +7,6 @@ import com.tockys.back.model.User;
 
 public interface IOrganizationService {
 	List<Organization> getOrganizationOwnered(User user);
+	
+	Organization createOrganization(Organization organization);
 }

@@ -20,4 +20,9 @@ public class OrganizationService implements IOrganizationService {
 	public List<Organization> getOrganizationOwnered(User user) {
 		return organizationRepository.findByMembersUserAndMembersRole(user, RoleEnum.OWNER);
 	}
+
+	@Override
+	public Organization createOrganization(Organization organization) {
+		return organizationRepository.save(organization);
+	}
 }

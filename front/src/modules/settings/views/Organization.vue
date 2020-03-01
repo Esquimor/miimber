@@ -1,19 +1,27 @@
 <template>
-  <TemplateSettings :title="$t('settings.organization.title')" ref="container">
-    <div class="SettingsOrganization-list">
+  <TemplateSettings :title="$t('settings.organization.title')">
+    <div v-if="!loading" class="SettingsOrganization-list">
       <h2 class="subtitle is-5">{{ $t('settings.organization.listTitle') }}</h2>
       <template v-if="organizations.length >0">
         <div
           v-for="organization in organizations"
           :key="organization.key"
-          class="SettingsOrganizaorganizationtion-list-item"
-        >{{ organization }}</div>
+          class="SettingsOrganization-list-item"
+        >
+          <span class="SettingsOrganization-list-item-name">{{ organization.name }}</span>
+          <a href="#" class="button is-primary">Voir</a>
+        </div>
       </template>
-      <div class="SettingsOrganization-list-empty">
+      <div v-else class="SettingsOrganization-list-empty">
         <span>{{ $t('settings.organization.listEmpty')}}</span>
       </div>
     </div>
-    <div class="SettingsOrganization-add"></div>
+    <div class="SettingsOrganization-create">
+      <h2 class="subtitle is-5">{{ $t('settings.organization.create') }}</h2>
+      <div class="SettingsOrganization-create-button">
+        <button class="button is-primary">{{ $t('settings.organization.button') }}</button>
+      </div>
+    </div>
   </TemplateSettings>
 </template>
 
@@ -30,17 +38,21 @@ export default {
   components: {
     TemplateSettings
   },
+  data() {
+    return {
+      loading: true
+    };
+  },
   computed: {
     ...mapGetters({
       organizations: "settings/organizations"
     })
   },
   mounted() {
-    const loadingComponent = this.$buefy.loading.open({
-      container: this.$refs.container.$el
-    });
+    const loadingComponent = this.$buefy.loading.open();
     this.$store.dispatch("settings/getOrganizationOwnered").then(() => {
       loadingComponent.close();
+      this.loading = false;
     });
   }
 };
@@ -51,9 +63,29 @@ export default {
   &-list {
     overflow: auto;
     max-width: 600px;
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0.5rem;
+      &:nth-child(even) {
+        background-color: $grey-lightest;
+      }
+      &-name {
+        font-weight: 700;
+      }
+    }
     &-empty {
       display: flex;
       justify-content: center;
+      align-items: center;
+    }
+  }
+  &-create {
+    margin-top: 1rem;
+    &-button {
+      display: flex;
+      justify-content: flex-start;
       align-items: center;
     }
   }

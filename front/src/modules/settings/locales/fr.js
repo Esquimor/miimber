@@ -24,7 +24,9 @@ export default {
     organization: {
       title: "Organisation",
       listTitle: "Listes de vos organisations",
-      listEmpty: "Vous ne possédez aucune organisation."
+      listEmpty: "Vous ne possédez aucune organisation.",
+      create: "Créer une organisation",
+      button: "Créer"
     }
   }
 };

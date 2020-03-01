@@ -1,5 +1,6 @@
 package com.tockys.back.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,6 +25,16 @@ public class Organization {
 	
 	@OneToMany(mappedBy = "organization")
     private List<Member> members;
+	
+	public Organization() {
+		this.name = "";
+		this.members = new ArrayList<Member>();
+	}
+	
+	public Organization(String name) {
+		this.name = name;
+		this.members = new ArrayList<Member>();
+	}
 	
 	public long getId() {
 		return this.id;
