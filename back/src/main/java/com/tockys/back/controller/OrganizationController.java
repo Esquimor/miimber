@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,6 +67,15 @@ public class OrganizationController {
         newOrganization.addMember(newMember);
         
         return ResponseEntity.ok(OrganizationToDTO(newOrganization));
+	}
+
+	@RequestMapping(value = "/organization/name/{name}", method = RequestMethod.GET)
+	public ResponseEntity<?> nameExit(@PathVariable String name) throws Exception {
+		Organization organization = organizationService.getOrganizationByName(name);
+		if (organization == null) {
+			return new ResponseEntity(HttpStatus.OK);
+		}
+		return new ResponseEntity(HttpStatus.CONFLICT);
 	}
 	
 	private OrganizationDTO OrganizationToDTO(Organization organization) {

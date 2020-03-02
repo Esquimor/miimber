@@ -9,4 +9,6 @@ public interface IOrganizationService {
 	List<Organization> getOrganizationOwnered(User user);
 	
 	Organization createOrganization(Organization organization);
+	
+	Organization getOrganizationByName(String name);
 }

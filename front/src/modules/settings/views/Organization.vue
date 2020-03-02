@@ -19,7 +19,10 @@
     <div class="SettingsOrganization-create">
       <h2 class="subtitle is-5">{{ $t('settings.organization.create') }}</h2>
       <div class="SettingsOrganization-create-button">
-        <button class="button is-primary">{{ $t('settings.organization.button') }}</button>
+        <router-link
+          class="button is-primary"
+          :to="{ name: 'settings-organization-create' }"
+        >{{ $t('settings.organization.button') }}</router-link>
       </div>
     </div>
   </TemplateSettings>
@@ -42,6 +45,9 @@ export default {
     return {
       loading: true
     };
+  },
+  methods: {
+    create() {}
   },
   computed: {
     ...mapGetters({

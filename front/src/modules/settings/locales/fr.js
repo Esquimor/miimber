@@ -27,6 +27,10 @@ export default {
       listEmpty: "Vous ne possédez aucune organisation.",
       create: "Créer une organisation",
       button: "Créer"
+    },
+    organizationCreate: {
+      name: "Nom",
+      alreadyTaken: "Ce nom est déjà pris."
     }
   }
 };

@@ -11,4 +11,6 @@ import com.tockys.back.model.enums.RoleEnum;
 public interface OrganizationRepository extends CrudRepository<Organization, Long> {
 	
 	List<Organization> findByMembersUserAndMembersRole(User user, RoleEnum owner);
+	
+	Organization findByName(String name);
 }

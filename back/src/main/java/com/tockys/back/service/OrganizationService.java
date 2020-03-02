@@ -25,4 +25,9 @@ public class OrganizationService implements IOrganizationService {
 	public Organization createOrganization(Organization organization) {
 		return organizationRepository.save(organization);
 	}
+
+	@Override
+	public Organization getOrganizationByName(String name) {
+		return organizationRepository.findByName(name);
+	}
 }

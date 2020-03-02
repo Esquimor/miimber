@@ -3,6 +3,7 @@ import Profile from "@settings/views/Profile";
 //import Account from "@settings/views/Account";
 import Security from "@settings/views/Security";
 import Organization from "@settings/views/Organization";
+import OrganizationCreate from "@settings/views/OrganizationCreate";
 
 export default [
   {
@@ -30,5 +31,10 @@ export default [
         component: Organization
       }
     ]
+  },
+  {
+    path: "/settings/organization/create",
+    name: "settings-organization-create",
+    component: OrganizationCreate
   }
 ];

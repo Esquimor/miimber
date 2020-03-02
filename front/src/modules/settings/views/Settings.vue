@@ -33,7 +33,7 @@ export default {
 .Settings {
   display: flex;
   margin: 1rem auto;
-  width: 800px;
+  max-width: 800px;
   &-nav {
     display: flex;
     flex-direction: column;
