@@ -1,33 +1,43 @@
 <template>
   <TemplateSettings :title="$t('settings.organization.title')">
     <div v-if="!loading" class="SettingsOrganization-list">
-      <h2 class="subtitle is-5">{{ $t('settings.organization.listTitle') }}</h2>
-      <template v-if="organizations.length >0">
+      <h2 class="subtitle is-5">{{ $t("settings.organization.listTitle") }}</h2>
+      <template v-if="organizations.length > 0">
         <div
           v-for="organization in organizations"
           :key="organization.key"
           class="SettingsOrganization-list-item"
         >
-          <span class="SettingsOrganization-list-item-name">{{ organization.name }}</span>
-          <a href="#" class="button is-primary">Voir</a>
+          <span class="SettingsOrganization-list-item-name">{{
+            organization.name
+          }}</span>
+
+          <router-link
+            class="button is-primary"
+            :to="{
+              name: 'organization-general',
+              params: { id: organization.id }
+            }"
+            >{{ $t("settings.organization.manage") }}</router-link
+          >
         </div>
       </template>
       <div v-else class="SettingsOrganization-list-empty">
-        <span>{{ $t('settings.organization.listEmpty')}}</span>
+        <span>{{ $t("settings.organization.listEmpty") }}</span>
       </div>
     </div>
     <div class="SettingsOrganization-create">
-      <h2 class="subtitle is-5">{{ $t('settings.organization.create') }}</h2>
+      <h2 class="subtitle is-5">{{ $t("settings.organization.create") }}</h2>
       <div class="SettingsOrganization-create-button">
         <router-link
           class="button is-primary"
           :to="{ name: 'settings-organization-create' }"
-        >{{ $t('settings.organization.button') }}</router-link>
+          >{{ $t("settings.organization.button") }}</router-link
+        >
       </div>
     </div>
   </TemplateSettings>
 </template>
-
 
 <script>
 "use strict";
