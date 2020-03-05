@@ -1,13 +1,14 @@
 <template>
-  <div>General</div>
+  <div>template</div>
 </template>
 
 <script>
 "use strict";
 
 export default {
-  name: "OrganizationGeneral"
+  name: "TempateModal"
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+</style>

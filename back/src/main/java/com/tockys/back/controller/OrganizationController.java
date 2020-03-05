@@ -19,6 +19,7 @@ import com.stripe.model.Customer;
 import com.stripe.model.Subscription;
 import com.tockys.back.dto.OrganizationCreateDTO;
 import com.tockys.back.dto.OrganizationDTO;
+import com.tockys.back.dto.OrganizationManageDTO;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.helper.StripeService;
 import com.tockys.back.model.Member;
@@ -54,6 +55,26 @@ public class OrganizationController {
         	responseOrganization.add(OrganizationToDTO(organization));
         }
 		return ResponseEntity.ok(responseOrganization);
+	}
+	
+	@RequestMapping(value = "/organization/{id}/manage", method = RequestMethod.GET)
+	public ResponseEntity<?> getOrganizationById(@PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Member member = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        
+        if (member == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        
+        if (member.getType().equals(RoleEnum.MEMBER)) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        
+        return ResponseEntity.ok(OrganizationToManageDTO(
+        		member.getOrganization(), 
+				stripeService.getSubscription(member.getOrganization().getStripe())
+			));
 	}
 	
 	@RequestMapping(value = "/organization/", method = RequestMethod.POST)
@@ -94,5 +115,14 @@ public class OrganizationController {
         				organization.getId(),
         				organization.getName()
         		);
+	}
+	
+	private OrganizationManageDTO OrganizationToManageDTO(Organization organization, Subscription subscription) {
+		return new OrganizationManageDTO(
+				organization.getId(),
+				organization.getName(),
+				organization.getMembers(),
+				 subscription
+			);
 	}
 }

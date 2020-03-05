@@ -44,6 +44,11 @@ public class StripeService {
 		return Subscription.create(subscriptionParams);
 	}
 	
+	public Subscription getSubscription(String subscriptionId) throws StripeException {
+        Stripe.apiKey = apiKey;
+		return Subscription.retrieve(subscriptionId);
+	}
+	
 	public Charge chargeCustomerByCard(Customer customer, String currency, Long amount) throws StripeException {
         Stripe.apiKey = apiKey;
 		ChargeCreateParams chargeParams =

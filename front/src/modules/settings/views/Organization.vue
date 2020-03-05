@@ -8,18 +8,19 @@
           :key="organization.key"
           class="SettingsOrganization-list-item"
         >
-          <span class="SettingsOrganization-list-item-name">{{
+          <span class="SettingsOrganization-list-item-name">
+            {{
             organization.name
-          }}</span>
+            }}
+          </span>
 
           <router-link
             class="button is-primary"
             :to="{
-              name: 'organization-general',
+              name: 'organization-information',
               params: { id: organization.id }
             }"
-            >{{ $t("settings.organization.manage") }}</router-link
-          >
+          >{{ $t("settings.organization.manage") }}</router-link>
         </div>
       </template>
       <div v-else class="SettingsOrganization-list-empty">
@@ -32,8 +33,7 @@
         <router-link
           class="button is-primary"
           :to="{ name: 'settings-organization-create' }"
-          >{{ $t("settings.organization.button") }}</router-link
-        >
+        >{{ $t("settings.organization.button") }}</router-link>
       </div>
     </div>
   </TemplateSettings>

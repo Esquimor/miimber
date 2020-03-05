@@ -7,3 +7,6 @@ export const SET_USER = "SET_USER";
 
 // Settings
 export const SET_ORGANIZATION_OWNERED = "SET_ORGANIZATION_OWNERED";
+
+// Organization
+export const SET_ORGANIZATION = "SET_ORGANIZATION";

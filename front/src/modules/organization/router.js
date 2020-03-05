@@ -1,5 +1,6 @@
 import Organization from "@organization/views/Organization";
-import General from "@organization/views/General";
+import Information from "@organization/views/Information";
+import Members from "@organization/views/Members";
 
 export default [
   {
@@ -7,9 +8,14 @@ export default [
     component: Organization,
     children: [
       {
-        path: "general",
-        name: "organization-general",
-        component: General
+        path: "information",
+        name: "organization-information",
+        component: Information
+      },
+      {
+        path: "members",
+        name: "organization-members",
+        component: Members
       }
     ]
   }
