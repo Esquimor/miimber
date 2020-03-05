@@ -1,6 +1,6 @@
 <template>
   <router-link class="DashboardPanelItem" :to="{ name: route }">
-    <BIcon :icon="icon" />
+    <BIcon :icon="icon" class="DashboardPanelItem-icon" />
     <span>{{ label }}</span>
   </router-link>
 </template>
@@ -30,8 +30,7 @@ export default {
 <style lang="scss">
 .DashboardPanelItem {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 0.5rem;
   color: $white;
@@ -42,6 +41,9 @@ export default {
   &.router-link-active {
     background-color: $white;
     color: $background-dashboard;
+  }
+  &-icon {
+    margin: 0 0.5rem;
   }
 }
 </style>

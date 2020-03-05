@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tockys.back.model.User;
@@ -16,6 +17,9 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
 
 	@Override
 	public Optional<User> getUserById(long id) throws EntityNotFoundException {
@@ -45,5 +49,11 @@ public class UserService implements IUserService {
 	@Override
 	public void deleteUserById(long id) {
 		userRepository.deleteById(id);
+	}
+
+	@Override
+	public void updatePasswordUser(User user, String newPassword) {
+		user.setPassword(bcryptEncoder.encode(newPassword));
+		userRepository.save(user);
 	}
 }

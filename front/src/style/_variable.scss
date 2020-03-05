@@ -5,7 +5,7 @@ $light: hsl(0, 0%, 96%);
 $light-invert: findColorInvert($light);
 $dark: hsl(0, 0%, 21%);
 $dark-invert: findColorInvert($dark);
-$primary: #1e88e5;
+$primary: rgb(30, 136, 229);
 $primary-invert: findColorInvert($primary);
 $info: hsl(204, 71%, 53%);
 $info-invert: findColorInvert($info);
@@ -24,11 +24,14 @@ $grey: hsl(0, 0%, 48%);
 $grey-lighter: hsl(0, 0%, 86%);
 $grey-lightest: hsl(0, 0%, 93%);
 $white-ter: hsl(0, 0%, 96%);
+$white-bis: hsl(0, 0%, 98%);
 
 $background-dashboard: #003969;
 $background-dashboard-invert: findColorInvert($background-dashboard);
 $background-dashboard-hover: #073052;
 $background-dashboard-hover-invert: findColorInvert($background-dashboard-hover);
+
+$background-price: rgba(30, 136, 229, 0.05);
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (

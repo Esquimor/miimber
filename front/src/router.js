@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "./store";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,26 @@ const router = new VueRouter({
     routerSettings,
     routerError
   )
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.path.search("/settings") || to.path.search("/dashboard")) {
+    if (store.state.core.me) {
+      next();
+    } else if (localStorage.getItem("token")) {
+      store
+        .dispatch("core/getMe")
+        .then(() => {
+          next();
+        })
+        .catch(() => {
+          next("/login");
+        });
+    } else {
+      next("/login");
+    }
+  }
+  next();
 });
 
 export default router;

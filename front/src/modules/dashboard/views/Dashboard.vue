@@ -45,7 +45,7 @@ export default {
     &-panel {
       display: flex;
       flex-direction: column;
-      width: 120px;
+      width: 200px;
       background-color: $background-dashboard;
     }
     &-content {

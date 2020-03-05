@@ -6,9 +6,10 @@ Vue.use(VueI18n);
 import dashboard from "@dashboard/locales/index.js";
 import home from "@home/locales/index.js";
 import sign from "@sign/locales/index.js";
+import settings from "@settings/locales/index.js";
 
-const fr = Object.assign({}, dashboard.fr, home.fr, sign.fr);
-const en = Object.assign({}, dashboard.en, home.en, sign.en);
+const fr = Object.assign({}, dashboard.fr, home.fr, sign.fr, settings.fr);
+const en = Object.assign({}, dashboard.en, home.en, sign.en, settings.en);
 
 const messages = {
   fr,

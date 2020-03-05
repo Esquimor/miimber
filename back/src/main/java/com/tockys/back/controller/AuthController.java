@@ -53,13 +53,6 @@ public class AuthController {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 	
-	@RequestMapping(value = "/me", method = RequestMethod.GET)
-	public ResponseEntity<?> me() throws Exception {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
-		return ResponseEntity.ok(userService.getUserByEmail(userDetails.getUsername()));
-	}
-	
 	private void authenticate(String username, String password) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
