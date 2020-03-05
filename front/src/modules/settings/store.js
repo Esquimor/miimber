@@ -46,6 +46,20 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    createOrganization(_, { token, name, subscription }) {
+      return api
+        .post("organization/", {
+          tokenId: token,
+          name,
+          subscription
+        })
+        .then(data => {
+          console.log(data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
   },
   mutations: {

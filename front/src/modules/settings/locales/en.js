@@ -30,7 +30,21 @@ export default {
     },
     organizationCreate: {
       name: "Name",
-      alreadyTaken: "This name is already taken."
+      alreadyTaken: "This name is already taken.",
+      subscriptions: {
+        monthly: {
+          title: "Monthly subscription",
+          price: "14,99 € per month"
+        },
+        sixMonth: {
+          title: "Six-month subscription",
+          price: "9,99 € per month"
+        }
+      },
+      cardNumber: "Card number",
+      expiry: "Expiry date",
+      cvc: "CVC",
+      button: "Add"
     }
   }
 };

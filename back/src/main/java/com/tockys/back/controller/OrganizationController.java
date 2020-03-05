@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.stripe.model.Customer;
+import com.stripe.model.Subscription;
 import com.tockys.back.dto.OrganizationCreateDTO;
 import com.tockys.back.dto.OrganizationDTO;
 import com.tockys.back.helper.Helper;
+import com.tockys.back.helper.StripeService;
 import com.tockys.back.model.Member;
 import com.tockys.back.model.Organization;
 import com.tockys.back.model.User;
@@ -34,6 +37,9 @@ public class OrganizationController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private StripeService stripeService;
 	
 	@Autowired
 	private Helper helper;
@@ -55,8 +61,13 @@ public class OrganizationController {
         UserDetails currentUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = helper.getUserToken(currentUser);
         
+        Customer customer = stripeService.createCustomer(organizationDto.getTokenId(), user.getEmail());
+        
+        Subscription subscription = stripeService.createSubscription(customer, organizationDto.getSubscription());
+        
         Organization newOrganization = new Organization(organizationDto.getName());
         newOrganization= organizationService.createOrganization(newOrganization);
+        newOrganization.setStripe(subscription.getId());
         
         Member newMember = new Member();
         newMember.setOrganization(newOrganization);

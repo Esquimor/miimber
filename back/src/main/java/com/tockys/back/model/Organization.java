@@ -23,6 +23,9 @@ public class Organization {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "stripe")
+	private String stripe;
+	
 	@OneToMany(mappedBy = "organization")
     private List<Member> members;
 	
@@ -46,6 +49,14 @@ public class Organization {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getStripe() {
+		return this.stripe;
+	}
+	
+	public void setStripe(String stripe) {
+		this.stripe = stripe;
 	}
 	
 	public List<Member> getMembers() {
