@@ -27,6 +27,14 @@ export default {
         },
         MEMBER: {
           description: "Est inscrit dans l'organisation."
+        },
+        OFFICE: {
+          description:
+            "Aide à gérer l'organisation. Peut créer des sessions et changer les droits des membres."
+        },
+        OFFICE_INSTRUCTOR: {
+          description:
+            "Aide à gérer l'organisation. Peut créer des sessions et changer les droits des membres. Ainsi que le rôle d'instructeur."
         }
       }
     }

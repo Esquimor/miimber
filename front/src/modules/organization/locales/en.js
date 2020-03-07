@@ -26,6 +26,14 @@ export default {
         },
         MEMBER: {
           description: "Is register in the organization."
+        },
+        OFFICE: {
+          description:
+            "Help to manage the organization. Can create session and change user right."
+        },
+        OFFICE_INSTRUCTOR: {
+          description:
+            "Help to manage the organization. Can create session and change user right. Is also a instructor."
         }
       }
     }

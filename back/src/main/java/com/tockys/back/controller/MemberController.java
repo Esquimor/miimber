@@ -39,12 +39,26 @@ public class MemberController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         Member memberUser = memberService.getMemberByOrganizationAndByUser(member.getOrganization(), user);
-        if (memberUser.getType() != RoleEnum.OWNER) {
+        if (memberUser.getType() == RoleEnum.MEMBER) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        if (memberUser.getType() != RoleEnum.OWNER && memberDto.getRole() == RoleEnum.OWNER) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        if (member.getType() == RoleEnum.OWNER && memberUser.getType() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         member.setType(memberDto.getRole());
         return ResponseEntity.ok(convertMemberToMemberResponseDTO(memberService.updateMember(member)));
 	}
+	
+	@RequestMapping(value = "member/me/{id}", method = RequestMethod.GET) 
+	public ResponseEntity<?> memberMe(@PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        Member member = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        return ResponseEntity.ok(convertMemberToMemberResponseDTO(member));
+	}
+	
 	
 	private MemberResponseDTO convertMemberToMemberResponseDTO(Member member) {
 		return new MemberResponseDTO(member);

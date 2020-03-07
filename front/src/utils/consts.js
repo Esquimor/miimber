@@ -6,7 +6,9 @@ export const STRIPE_PLAN = {
 export const ROLE = {
   OWNER: "OWNER",
   INSTRUCTOR: "INSTRUCTOR",
-  MEMBER: "MEMBER"
+  MEMBER: "MEMBER",
+  OFFICE: "OFFICE",
+  OFFICE_INSTRUCTOR: "OFFICE_INSTRUCTOR"
 };
 
 export const MODAL_SIZE = {

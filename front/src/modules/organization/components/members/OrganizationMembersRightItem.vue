@@ -4,7 +4,7 @@
       <BIcon :icon="getIcon" />
     </div>
     <div class="OrganizationMembersRightItem-left">
-      <h4 class="has-text-bold">{{ title }}</h4>
+      <h4 class="has-text-weight-bold">{{ title }}</h4>
       <p>{{ description }}</p>
     </div>
   </div>
@@ -42,6 +42,9 @@ export default {
   cursor: pointer;
   display: flex;
   padding: 0.5rem;
+  &.unselectable {
+    cursor: not-allowed;
+  }
   &.is-selected {
     background-color: $background-price;
     .OrganizationMembersRightItem-right {

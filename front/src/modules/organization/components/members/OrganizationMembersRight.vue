@@ -16,10 +16,23 @@
         @close="error = false"
       >{{ $t('organization.members.rightModal.error') }}</BNotification>
       <OrganizationMembersRightItem
+        :class="{'unselectable': meMember.role !== ROLE.OWNER}"
         :title="$t('core.role.OWNER')"
         :description="$t('organization.members.rightModal.OWNER.description')"
         :selected="ROLE.OWNER === editRole"
         @click.native="changeRole(ROLE.OWNER)"
+      />
+      <OrganizationMembersRightItem
+        :title="$t('core.role.OFFICE_INSTRUCTOR')"
+        :description="$t('organization.members.rightModal.OFFICE_INSTRUCTOR.description')"
+        :selected="ROLE.OFFICE_INSTRUCTOR === editRole"
+        @click.native="changeRole(ROLE.OFFICE_INSTRUCTOR)"
+      />
+      <OrganizationMembersRightItem
+        :title="$t('core.role.OFFICE')"
+        :description="$t('organization.members.rightModal.OFFICE.description')"
+        :selected="ROLE.OFFICE === editRole"
+        @click.native="changeRole(ROLE.OFFICE)"
       />
       <OrganizationMembersRightItem
         :title="$t('core.role.INSTRUCTOR')"
@@ -39,6 +52,8 @@
 
 <script>
 "use strict";
+
+import { mapGetters } from "vuex";
 
 import { ROLE } from "@/utils/consts";
 
@@ -65,12 +80,15 @@ export default {
       ROLE: ROLE,
       editRole: this.member.role,
       size: {
-        width: "350px",
+        width: "450px",
         height: "auto"
       }
     };
   },
   computed: {
+    ...mapGetters({
+      meMember: "core/member"
+    }),
     title() {
       return `${this.$t("organization.members.rightModal.title")} ${
         this.member.firstName
@@ -79,6 +97,7 @@ export default {
   },
   methods: {
     changeRole(role) {
+      if (this.meMember.role !== ROLE.OWNER && role === ROLE.OWNER) return;
       this.editRole = role;
     },
     confirm() {

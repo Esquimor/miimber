@@ -2,8 +2,10 @@ export default {
   core: {
     role: {
       OWNER: "Président",
-      INSTRUCTOR: "Insctructeur",
-      MEMBER: "Membre"
+      INSTRUCTOR: "Instructeur",
+      MEMBER: "Membre",
+      OFFICE: "Membre du bureau",
+      OFFICE_INSTRUCTOR: "Membre du bureau et Instructeur"
     },
     utils: {
       delete: "Supprimer",

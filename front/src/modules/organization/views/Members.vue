@@ -19,7 +19,7 @@
           :label="$t('organization.members.table.role')"
           width="250"
         >{{ $t(`core.role.${row.role}`) }}</BTableColumn>
-        <BTableColumn centered>
+        <BTableColumn class="OrganizationMembers-column-manage">
           <BDropdown aria-role="list">
             <button class="button is-primary" slot="trigger">
               <span>{{ $t('organization.members.manage') }}</span>
@@ -100,6 +100,11 @@ export default {
       > .icon {
         width: 35px;
       }
+    }
+  }
+  &-column {
+    &-manage {
+      justify-content: center !important;
     }
   }
 }

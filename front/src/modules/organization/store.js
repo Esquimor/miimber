@@ -11,11 +11,15 @@ export default {
     organizationMembers: state => state.organization.members
   },
   actions: {
-    setOrganization({ commit }, id) {
+    setOrganization({ commit, dispatch }, id) {
       return api
         .get(`organization/${id}/manage`)
-        .then(({ data }) => {
-          commit(types.SET_ORGANIZATION, data);
+        .then(organization => {
+          dispatch("core/getMember", organization.data.id, { root: true }).then(
+            () => {
+              commit(types.SET_ORGANIZATION, organization.data);
+            }
+          );
         })
         .catch(e => {
           return Promise.reject(e);
@@ -27,11 +31,9 @@ export default {
           role
         })
         .then(({ data }) => {
-          console.log(data);
           commit(types.CHANGE_MEMBER_ROLE, data);
         })
         .catch(e => {
-          console.log(e);
           return Promise.reject(e);
         });
     }
