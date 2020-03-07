@@ -8,3 +8,9 @@ export const ROLE = {
   INSTRUCTOR: "INSTRUCTOR",
   MEMBER: "MEMBER"
 };
+
+export const MODAL_SIZE = {
+  SMALL: "SMALL",
+  MEDIUM: "MEDIUM",
+  BIG: "BIG"
+};

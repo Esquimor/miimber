@@ -86,7 +86,7 @@ public class OrganizationManageDTO extends OrganizationDTO {
 				);
 	}
 
-	public class MemberDTO {
+	private class MemberDTO {
 		
 		private Long id;
 		private String lastName;

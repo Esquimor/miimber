@@ -22,23 +22,24 @@
         <BTableColumn centered>
           <BDropdown aria-role="list">
             <button class="button is-primary" slot="trigger">
-              <span>Click me!</span>
+              <span>{{ $t('organization.members.manage') }}</span>
+              <BIcon icon="settings" size="is-small" />
             </button>
 
             <BDropdownItem
               class="OrganizationMembers-right OrganizationMembers-dropdown-item"
               aria-role="listitem"
-              @click="changeRight(row.id)"
+              @click="changeRight(row)"
             >
               <BIcon icon="account-key" />
-              <span class="is-size-6">Droit</span>
+              <span class="is-size-6">{{ $t('organization.members.right') }}</span>
             </BDropdownItem>
             <BDropdownItem
               class="OrganizationMembers-delete OrganizationMembers-dropdown-item"
               aria-role="listitem"
             >
               <BIcon icon="delete" />
-              <span class="is-size-6">Delete</span>
+              <span class="is-size-6">{{ $t('core.utils.delete') }}</span>
             </BDropdownItem>
           </BDropdown>
         </BTableColumn>
@@ -52,6 +53,8 @@
 
 import { mapGetters } from "vuex";
 
+import OrganizationMembersRight from "@organization/components/members/OrganizationMembersRight";
+
 export default {
   name: "OrganizationMembers",
   computed: {
@@ -63,8 +66,15 @@ export default {
     return {};
   },
   methods: {
-    changeRight() {
-      console.log("a");
+    changeRight(member) {
+      this.$buefy.modal.open({
+        parent: this,
+        component: OrganizationMembersRight,
+        canCancel: false,
+        props: {
+          member
+        }
+      });
     }
   }
 };

@@ -20,11 +20,29 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    changeRight({ commit }, { id, role }) {
+      return api
+        .put(`member/${id}`, {
+          role
+        })
+        .then(({ data }) => {
+          console.log(data);
+          commit(types.CHANGE_MEMBER_ROLE, data);
+        })
+        .catch(e => {
+          console.log(e);
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
     [types.SET_ORGANIZATION](state, organization) {
       state.organization = organization;
+    },
+    [types.CHANGE_MEMBER_ROLE](state, { id, role }) {
+      const member = state.organization.members.find(m => m.id === id);
+      member.role = role;
     }
   }
 };

@@ -9,4 +9,10 @@ public interface IMemberService {
 	Member createMember(Member member);
 	
 	Member getMemberByOrganizationIdAndByUser(Long id, User user);
+	
+	Member getMemberByOrganizationAndByUser(Organization organization, User user);
+	
+	Member updateMember(Member member);
+	
+	Member getMember(Long id);
 }
