@@ -1,5 +1,9 @@
 <template>
   <div class="OrganizationMembers">
+    <header class="OrganizationMembers-header">
+      <h2 class="title is-4">{{ $t('organization.members.title') }}</h2>
+      <BButton type="is-primary" icon-left="plus" @click="add">{{ $t('core.utils.add') }}</BButton>
+    </header>
     <BTable :data="members" striped paginated :per-page="25">
       <template v-slot="{ row }">
         <BTableColumn
@@ -53,17 +57,16 @@
 
 import { mapGetters } from "vuex";
 
+import OrganizationMembersAdd from "@organization/components/members/OrganizationMembersAdd";
 import OrganizationMembersRight from "@organization/components/members/OrganizationMembersRight";
 
 export default {
   name: "OrganizationMembers",
   computed: {
     ...mapGetters({
-      members: "organization/organizationMembers"
+      members: "organization/organizationMembers",
+      canChangeOrganization: "core/canChangeOrganization"
     })
-  },
-  data() {
-    return {};
   },
   methods: {
     changeRight(member) {
@@ -75,6 +78,13 @@ export default {
           member
         }
       });
+    },
+    add() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: OrganizationMembersAdd,
+        canCancel: false
+      });
     }
   }
 };
@@ -82,6 +92,11 @@ export default {
 
 <style lang="scss">
 .OrganizationMembers {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   &-right {
     &:hover {
       background-color: $warning !important;

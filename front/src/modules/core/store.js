@@ -1,6 +1,8 @@
 import api from "@/utils/api";
 import * as types from "@/utils/types";
 
+import { ROLE } from "@/utils/consts";
+
 export default {
   namespaced: true,
   state: {
@@ -9,7 +11,16 @@ export default {
   },
   getters: {
     me: state => state.me,
-    member: state => state.member
+    member: state => state.member,
+    memberIsOwner: state => !!state.member && state.member.role === ROLE.OWNER,
+    canChangeOrganization: state => {
+      return (
+        !!state.member &&
+        [ROLE.OWNER, ROLE.OFFICE, ROLE.OFFICE_INSTRUCTOR].includes(
+          state.member.role
+        )
+      );
+    }
   },
   actions: {
     getMe({ commit }) {

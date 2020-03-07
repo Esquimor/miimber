@@ -36,6 +36,9 @@ export default {
           description:
             "Aide à gérer l'organisation. Peut créer des sessions et changer les droits des membres. Ainsi que le rôle d'instructeur."
         }
+      },
+      add: {
+        title: "Ajouter un membre"
       }
     }
   }

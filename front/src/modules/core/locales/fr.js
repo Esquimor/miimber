@@ -11,7 +11,8 @@ export default {
       delete: "Supprimer",
       cancel: "Annuler",
       confirm: "Confirmer",
-      change: "Changer"
+      change: "Changer",
+      add: "Ajouter"
     }
   }
 };

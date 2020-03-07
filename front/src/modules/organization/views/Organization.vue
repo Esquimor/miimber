@@ -1,6 +1,6 @@
 <template>
   <TemplateDefault>
-    <div class="Organization" v-if="!loading">
+    <div class="Organization" v-if="!loading && organization !== null">
       <header class="Organization-header">
         <h1 class="title is-3">{{ organization.name }}</h1>
       </header>

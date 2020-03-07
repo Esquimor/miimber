@@ -35,6 +35,9 @@ export default {
           description:
             "Help to manage the organization. Can create session and change user right. Is also a instructor."
         }
+      },
+      add: {
+        title: "Add a member"
       }
     }
   }

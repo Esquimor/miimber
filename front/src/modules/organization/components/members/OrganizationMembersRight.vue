@@ -16,7 +16,7 @@
         @close="error = false"
       >{{ $t('organization.members.rightModal.error') }}</BNotification>
       <OrganizationMembersRightItem
-        :class="{'unselectable': meMember.role !== ROLE.OWNER}"
+        :class="{'unselectable': !memberIsOwner}"
         :title="$t('core.role.OWNER')"
         :description="$t('organization.members.rightModal.OWNER.description')"
         :selected="ROLE.OWNER === editRole"
@@ -87,7 +87,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      meMember: "core/member"
+      memberIsOwner: "core/memberIsOwner"
     }),
     title() {
       return `${this.$t("organization.members.rightModal.title")} ${
@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     changeRole(role) {
-      if (this.meMember.role !== ROLE.OWNER && role === ROLE.OWNER) return;
+      if (!this.memberIsOwner && role === ROLE.OWNER) return;
       this.editRole = role;
     },
     confirm() {
