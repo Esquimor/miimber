@@ -38,7 +38,17 @@ export default {
         }
       },
       add: {
-        title: "Ajouter un membre"
+        title: "Ajouter un membre",
+        success: "Membre ajouté",
+        label: {
+          email: "Saisir l'adresse mail du membre",
+          role: "Role du membre",
+          firstName: "Prénom",
+          lastName: "Nom"
+        },
+        alreadyExist: "Cet utilisateur est déjà membre de votre organisation.",
+        noMember:
+          "Aucun compte n'a était trouvé avec ce mail. Remplissez les champs pour créer un compte avec le membre."
       }
     }
   }

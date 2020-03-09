@@ -1,6 +1,7 @@
 package com.tockys.back.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,14 @@ public class OrganizationService implements IOrganizationService {
 	@Override
 	public Organization getOrganizationByName(String name) {
 		return organizationRepository.findByName(name);
+	}
+
+	@Override
+	public Organization getOrganization(Long id) {
+		Optional<Organization> organization = organizationRepository.findById(id);
+		if (organization.isEmpty()) {
+			return null;
+		}
+		return organization.get();
 	}
 }

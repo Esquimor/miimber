@@ -37,7 +37,17 @@ export default {
         }
       },
       add: {
-        title: "Add a member"
+        title: "Add a member",
+        success: "Member added",
+        label: {
+          email: "Enter Email Address",
+          role: "Role of the member",
+          firstName: "First Name",
+          lastName: "Last Name"
+        },
+        alreadyExist: "This user is already a member of your organization.",
+        noMember:
+          "No account was found with this email. Fill the fields to create an account with the member."
       }
     }
   }

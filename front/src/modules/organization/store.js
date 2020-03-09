@@ -36,6 +36,25 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    addMemberAndUser(
+      { commit },
+      { organizationId, email, firstName, lastName, role }
+    ) {
+      return api
+        .post("member/user", {
+          idOrganization: organizationId,
+          email,
+          firstName,
+          lastName,
+          role
+        })
+        .then(({ data }) => {
+          commit(types.ADD_MEMBER, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
@@ -45,6 +64,9 @@ export default {
     [types.CHANGE_MEMBER_ROLE](state, { id, role }) {
       const member = state.organization.members.find(m => m.id === id);
       member.role = role;
+    },
+    [types.ADD_MEMBER](state, member) {
+      state.organization.members = [...state.organization.members, member];
     }
   }
 };

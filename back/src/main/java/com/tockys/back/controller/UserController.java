@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tockys.back.dto.UserDTO;
 import com.tockys.back.dto.UserPasswordDTO;
 import com.tockys.back.helper.Helper;
+import com.tockys.back.model.Member;
+import com.tockys.back.model.Organization;
 import com.tockys.back.model.User;
+import com.tockys.back.service.MemberService;
 import com.tockys.back.service.UserService;
 
 @RestController
@@ -28,6 +31,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MemberService memberService;
 	
     @Autowired
     private ModelMapper modelMapper;
@@ -68,6 +74,19 @@ public class UserController {
 		}
 		userService.updatePasswordUser(tokenUser, userDTO.getNewPassword());
 		return new ResponseEntity(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/user/email/{email}/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> nameExit(@PathVariable String email, @PathVariable Long id) throws Exception {
+		User user = userService.getUserByEmail(email);
+		if (user == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		Member member = memberService.getMemberByOrganizationIdAndByUser(id, user);
+		if (member != null) {
+			return new ResponseEntity(HttpStatus.CONFLICT);
+		}
+		return ResponseEntity.ok(convertToDto(user));
 	}
 	
 	private UserDTO convertToDto(User user) {

@@ -1,8 +1,10 @@
 <template>
   <div class="OrganizationMembers">
     <header class="OrganizationMembers-header">
-      <h2 class="title is-4">{{ $t('organization.members.title') }}</h2>
-      <BButton type="is-primary" icon-left="plus" @click="add">{{ $t('core.utils.add') }}</BButton>
+      <h2 class="title is-4">{{ $t("organization.members.title") }}</h2>
+      <BButton type="is-primary" icon-left="plus" @click="add">{{
+        $t("core.utils.add")
+      }}</BButton>
     </header>
     <BTable :data="members" striped paginated :per-page="25">
       <template v-slot="{ row }">
@@ -11,22 +13,25 @@
           :label="$t('organization.members.table.firstName')"
           width="250"
           sortable
-        >{{ row.firstName }}</BTableColumn>
+          >{{ row.firstName }}</BTableColumn
+        >
         <BTableColumn
           field="lastName"
           :label="$t('organization.members.table.lastName')"
           width="250"
           sortable
-        >{{ row.lastName }}</BTableColumn>
+          >{{ row.lastName }}</BTableColumn
+        >
         <BTableColumn
           field="role"
           :label="$t('organization.members.table.role')"
           width="250"
-        >{{ $t(`core.role.${row.role}`) }}</BTableColumn>
+          >{{ $t(`core.role.${row.role}`) }}</BTableColumn
+        >
         <BTableColumn class="OrganizationMembers-column-manage">
           <BDropdown aria-role="list">
             <button class="button is-primary" slot="trigger">
-              <span>{{ $t('organization.members.manage') }}</span>
+              <span>{{ $t("organization.members.manage") }}</span>
               <BIcon icon="settings" size="is-small" />
             </button>
 
@@ -36,14 +41,16 @@
               @click="changeRight(row)"
             >
               <BIcon icon="account-key" />
-              <span class="is-size-6">{{ $t('organization.members.right') }}</span>
+              <span class="is-size-6">{{
+                $t("organization.members.right")
+              }}</span>
             </BDropdownItem>
             <BDropdownItem
               class="OrganizationMembers-delete OrganizationMembers-dropdown-item"
               aria-role="listitem"
             >
               <BIcon icon="delete" />
-              <span class="is-size-6">{{ $t('core.utils.delete') }}</span>
+              <span class="is-size-6">{{ $t("core.utils.delete") }}</span>
             </BDropdownItem>
           </BDropdown>
         </BTableColumn>

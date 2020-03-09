@@ -11,4 +11,6 @@ public interface IOrganizationService {
 	Organization createOrganization(Organization organization);
 	
 	Organization getOrganizationByName(String name);
+	
+	Organization getOrganization(Long id);
 }
