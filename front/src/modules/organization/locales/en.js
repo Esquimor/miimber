@@ -48,6 +48,9 @@ export default {
         alreadyExist: "This user is already a member of your organization.",
         noMember:
           "No account was found with this email. Fill the fields to create an account with the member."
+      },
+      remove: {
+        success: "Member removed"
       }
     }
   }

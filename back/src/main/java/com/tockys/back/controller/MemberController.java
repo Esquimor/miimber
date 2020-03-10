@@ -104,7 +104,32 @@ public class MemberController {
         
         return ResponseEntity.ok(convertMemberToMemberCreateResponseDTO(memberService.createMember(newMember)));
 	}
-	
+
+	@RequestMapping(value = "/member/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteMember(@PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Member member = memberService.getMember(id);
+        if (member == null ) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        
+        Member memberUser = memberService.getMemberByOrganizationAndByUser(member.getOrganization(), user);
+        if (memberUser == null ) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        
+        if (memberUser.getType() == RoleEnum.MEMBER || memberUser.getType() == RoleEnum.INSTRUCTOR) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        
+        if (member.getType() == RoleEnum.OWNER && memberUser.getType() != RoleEnum.OWNER) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        
+        memberService.deleteMember(member);
+        return new ResponseEntity(HttpStatus.OK);
+	}
 	
 	private MemberResponseDTO convertMemberToMemberResponseDTO(Member member) {
 		return new MemberResponseDTO(member);

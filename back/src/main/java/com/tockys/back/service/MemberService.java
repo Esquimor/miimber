@@ -45,5 +45,10 @@ public class MemberService implements IMemberService {
 		return member.get();
 	}
 
+	@Override
+	public void deleteMember(Member member) {
+		memberRepository.delete(member);
+	}
+
 
 }

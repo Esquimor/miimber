@@ -2,9 +2,11 @@
   <div class="OrganizationMembers">
     <header class="OrganizationMembers-header">
       <h2 class="title is-4">{{ $t("organization.members.title") }}</h2>
-      <BButton type="is-primary" icon-left="plus" @click="add">{{
+      <BButton type="is-primary" icon-left="plus" @click="add">
+        {{
         $t("core.utils.add")
-      }}</BButton>
+        }}
+      </BButton>
     </header>
     <BTable :data="members" striped paginated :per-page="25">
       <template v-slot="{ row }">
@@ -13,21 +15,18 @@
           :label="$t('organization.members.table.firstName')"
           width="250"
           sortable
-          >{{ row.firstName }}</BTableColumn
-        >
+        >{{ row.firstName }}</BTableColumn>
         <BTableColumn
           field="lastName"
           :label="$t('organization.members.table.lastName')"
           width="250"
           sortable
-          >{{ row.lastName }}</BTableColumn
-        >
+        >{{ row.lastName }}</BTableColumn>
         <BTableColumn
           field="role"
           :label="$t('organization.members.table.role')"
           width="250"
-          >{{ $t(`core.role.${row.role}`) }}</BTableColumn
-        >
+        >{{ $t(`core.role.${row.role}`) }}</BTableColumn>
         <BTableColumn class="OrganizationMembers-column-manage">
           <BDropdown aria-role="list">
             <button class="button is-primary" slot="trigger">
@@ -41,13 +40,16 @@
               @click="changeRight(row)"
             >
               <BIcon icon="account-key" />
-              <span class="is-size-6">{{
+              <span class="is-size-6">
+                {{
                 $t("organization.members.right")
-              }}</span>
+                }}
+              </span>
             </BDropdownItem>
             <BDropdownItem
               class="OrganizationMembers-delete OrganizationMembers-dropdown-item"
               aria-role="listitem"
+              @click="remove(row.id)"
             >
               <BIcon icon="delete" />
               <span class="is-size-6">{{ $t("core.utils.delete") }}</span>
@@ -84,6 +86,14 @@ export default {
         props: {
           member
         }
+      });
+    },
+    remove(id) {
+      this.$store.dispatch("organization/removeMember", id).then(() => {
+        this.$buefy.toast.open({
+          message: this.$t("organization.members.remove.success"),
+          type: "is-success"
+        });
       });
     },
     add() {

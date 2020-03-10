@@ -55,6 +55,16 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    removeMember({ commit }, id) {
+      return api
+        .delete(`member/${id}`)
+        .then(() => {
+          commit(types.REMOVE_MEMBER, id);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
@@ -67,6 +77,11 @@ export default {
     },
     [types.ADD_MEMBER](state, member) {
       state.organization.members = [...state.organization.members, member];
+    },
+    [types.REMOVE_MEMBER](state, id) {
+      state.organization.members = state.organization.members.filter(
+        m => m.id !== id
+      );
     }
   }
 };

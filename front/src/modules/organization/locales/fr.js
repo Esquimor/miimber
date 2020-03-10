@@ -49,6 +49,9 @@ export default {
         alreadyExist: "Cet utilisateur est déjà membre de votre organisation.",
         noMember:
           "Aucun compte n'a était trouvé avec ce mail. Remplissez les champs pour créer un compte avec le membre."
+      },
+      remove: {
+        success: "Membre enlevé"
       }
     }
   }
