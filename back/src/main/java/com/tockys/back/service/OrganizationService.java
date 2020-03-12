@@ -40,4 +40,9 @@ public class OrganizationService implements IOrganizationService {
 		}
 		return organization.get();
 	}
+
+	@Override
+	public Organization editOrganization(Organization organization) {
+		return organizationRepository.save(organization);
+	}
 }

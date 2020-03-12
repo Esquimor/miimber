@@ -20,6 +20,7 @@ import com.stripe.model.Subscription;
 import com.tockys.back.dto.OrganizationCreateDTO;
 import com.tockys.back.dto.OrganizationDTO;
 import com.tockys.back.dto.OrganizationManageDTO;
+import com.tockys.back.dto.OrganizationRequestDTO;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.helper.StripeService;
 import com.tockys.back.model.Member;
@@ -108,6 +109,19 @@ public class OrganizationController {
 			return new ResponseEntity(HttpStatus.OK);
 		}
 		return new ResponseEntity(HttpStatus.CONFLICT);
+	}
+	
+	@RequestMapping(value = "/organization/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editOrganization(@RequestBody OrganizationRequestDTO organizationDto, @PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Member memberUser = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        if (!memberUser.canEditOrganization()) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        Organization organization = organizationService.getOrganization(id);
+        organization.setName(organizationDto.getName());
+        return ResponseEntity.ok(OrganizationToDTO(organizationService.editOrganization(organization)));
 	}
 	
 	private OrganizationDTO OrganizationToDTO(Organization organization) {

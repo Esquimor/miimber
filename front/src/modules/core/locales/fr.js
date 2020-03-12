@@ -13,7 +13,8 @@ export default {
       confirm: "Confirmer",
       change: "Changer",
       add: "Ajouter",
-      remove: "Retirer"
+      remove: "Retirer",
+      edit: "Modifier"
     }
   }
 };

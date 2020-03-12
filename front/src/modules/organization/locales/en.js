@@ -1,7 +1,10 @@
 export default {
   organization: {
-    information: {
-      title: "Information",
+    organization: {
+      edit: {
+        title: "Edit Organization",
+        success: "Organization edited"
+      },
       label: {
         name: "Name"
       }

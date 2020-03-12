@@ -13,4 +13,6 @@ public interface IOrganizationService {
 	Organization getOrganizationByName(String name);
 	
 	Organization getOrganization(Long id);
+	
+	Organization editOrganization(Organization organization);
 }

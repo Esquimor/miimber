@@ -3,12 +3,10 @@
     <div class="Organization" v-if="!loading && organization !== null">
       <header class="Organization-header">
         <h1 class="title is-3">{{ organization.name }}</h1>
+        <BButton icon-left="pencil" type="is-primary" @click="edit">{{ $t('core.utils.edit') }}</BButton>
       </header>
       <div class="Organization-tabs tabs">
         <ul>
-          <router-link tag="li" :to="{ name: 'organization-information' }">
-            <a href="#">{{ $t('organization.information.title') }}</a>
-          </router-link>
           <router-link tag="li" :to="{ name: 'organization-members' }">
             <a href="#">{{ $t('organization.members.title') }}</a>
           </router-link>
@@ -28,6 +26,8 @@ import { mapGetters } from "vuex";
 
 import TemplateDefault from "@core/template/TemplateDefault";
 
+import OrganizationOrganizationEdit from "@organization/components/organization/OrganizationOrganizationEdit";
+
 export default {
   name: "Organization",
   components: {
@@ -42,6 +42,18 @@ export default {
     ...mapGetters({
       organization: "organization/organization"
     })
+  },
+  methods: {
+    edit() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: OrganizationOrganizationEdit,
+        canCancel: false,
+        props: {
+          name: this.organization.name
+        }
+      });
+    }
   },
   mounted() {
     const loadingComponent = this.$buefy.loading.open();
@@ -61,7 +73,8 @@ export default {
   margin: 0 auto;
   &-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     padding: 0.5rem;
   }
   &-tabs {

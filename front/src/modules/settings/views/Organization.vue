@@ -17,7 +17,7 @@
           <router-link
             class="button is-primary"
             :to="{
-              name: 'organization-information',
+              name: 'organization-members',
               params: { id: organization.id }
             }"
           >{{ $t("settings.organization.manage") }}</router-link>

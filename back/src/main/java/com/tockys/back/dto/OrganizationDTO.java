@@ -1,7 +1,5 @@
 package com.tockys.back.dto;
 
-import com.tockys.back.model.enums.RoleEnum;
-
 public class OrganizationDTO {
 
 	private long id;

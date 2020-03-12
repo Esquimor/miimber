@@ -6,7 +6,7 @@
       </header>
     </slot>
     <slot name="main">
-      <main class="TemplateModal-main">
+      <main class="TemplateModal-main" :class="{'has-padding': hasPadding}">
         <slot />
       </main>
     </slot>
@@ -48,6 +48,10 @@ export default {
       default: false
     },
     loading: {
+      type: Boolean,
+      default: false
+    },
+    hasPadding: {
       type: Boolean,
       default: false
     }
@@ -97,6 +101,9 @@ export default {
   }
   &-main {
     flex-grow: 1;
+    &.has-padding {
+      padding: 0.75rem;
+    }
   }
   &-footer {
     display: flex;

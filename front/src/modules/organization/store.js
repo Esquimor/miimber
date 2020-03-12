@@ -25,6 +25,16 @@ export default {
           return Promise.reject(e);
         });
     },
+    editOrganization({ commit, state }, name) {
+      return api
+        .put(`organization/${state.organization.id}`, { name })
+        .then(({ data }) => {
+          commit(types.EDIT_ORGANIZATION, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
     changeRight({ commit }, { id, role }) {
       return api
         .put(`member/${id}`, {
@@ -83,6 +93,9 @@ export default {
   mutations: {
     [types.SET_ORGANIZATION](state, organization) {
       state.organization = organization;
+    },
+    [types.EDIT_ORGANIZATION](state, organization) {
+      state.organization.name = organization.name;
     },
     [types.CHANGE_MEMBER_ROLE](state, { id, role }) {
       const member = state.organization.members.find(m => m.id === id);
