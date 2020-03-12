@@ -7,21 +7,14 @@
   >
     <div class="OrganizationMembersAdd">
       <BField :label="$t('organization.members.add.label.email')">
-        <BInput
-          type="email"
-          v-model="email"
-          @blur="verifyMember"
-          @input="emptyMember"
-          required
-        ></BInput>
+        <BInput type="email" v-model="email" @blur="verifyMember" @input="emptyMember" required></BInput>
       </BField>
       <div v-if="noMember" class="OrganizationMembersAdd-noMember">
         <BNotification
           class="OrganizationMembersAdd-noMember-notification"
           type="is-info"
           aria-close-label="Close notification"
-          >{{ $t("organization.members.add.noMember") }}</BNotification
-        >
+        >{{ $t("organization.members.add.noMember") }}</BNotification>
         <div class="columns">
           <div class="column">
             <BField :label="$t('organization.members.add.label.firstName')">
@@ -40,12 +33,8 @@
         class="OrganizationMembersAdd-alreadyExist"
         type="is-danger"
         aria-close-label="Close notification"
-        >{{ $t("organization.members.add.alreadyExist") }}</BNotification
-      >
-      <div
-        v-else-if="!noMember && !!member"
-        class="OrganizationMembersAdd-member"
-      >
+      >{{ $t("organization.members.add.alreadyExist") }}</BNotification>
+      <div v-else-if="!noMember && !!member" class="OrganizationMembersAdd-member">
         <div class="columns">
           <div class="column">
             <BField :label="$t('organization.members.add.label.firstName')">
@@ -59,16 +48,6 @@
           </div>
         </div>
       </div>
-      <BField :label="$t('organization.members.add.label.role')">
-        <b-select v-model="role" expanded>
-          <option
-            v-for="roleType in ROLE"
-            :value="roleType"
-            :key="roleType.item"
-            >{{ $t(`core.role.${roleType}`) }}</option
-          >
-        </b-select>
-      </BField>
     </div>
   </TemplateModal>
 </template>
@@ -80,8 +59,6 @@ import api from "@/utils/api";
 
 import { mapGetters } from "vuex";
 
-import { ROLE } from "@/utils/consts";
-
 import TemplateModal from "@core/template/TemplateModal";
 
 export default {
@@ -92,11 +69,9 @@ export default {
   data() {
     return {
       loading: false,
-      ROLE: ROLE,
       email: "",
       firstName: "",
       lastName: "",
-      role: ROLE.MEMBER,
       member: null,
       noMember: false,
       alreadyExist: false
@@ -116,8 +91,7 @@ export default {
             organizationId: this.organization.id,
             email: this.email,
             firstName: this.firstName,
-            lastName: this.lastName,
-            role: this.role
+            lastName: this.lastName
           })
           .then(() => {
             this.$buefy.toast.open({
@@ -130,11 +104,21 @@ export default {
             this.$emit("close");
           });
       } else {
-        this.$store.dispatch("organization/addMember", {
-          organizationId: this.organization.id,
-          userId: this.member.id,
-          role: this.role
-        });
+        this.$store
+          .dispatch("organization/addMember", {
+            organizationId: this.organization.id,
+            userId: this.member.id
+          })
+          .then(() => {
+            this.$buefy.toast.open({
+              message: this.$t("organization.members.add.success"),
+              type: "is-success"
+            });
+            this.$emit("close");
+          })
+          .catch(() => {
+            this.$emit("close");
+          });
       }
     },
     emptyMember() {

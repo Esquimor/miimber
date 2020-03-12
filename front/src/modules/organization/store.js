@@ -56,6 +56,19 @@ export default {
           return Promise.reject(e);
         });
     },
+    addMember({ commit }, { organizationId, userId }) {
+      return api
+        .post("member/", {
+          idOrganization: organizationId,
+          idUser: userId
+        })
+        .then(({ data }) => {
+          commit(types.ADD_MEMBER, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
     removeMember({ commit }, id) {
       return api
         .delete(`member/${id}`)

@@ -4,7 +4,7 @@ import com.tockys.back.model.enums.RoleEnum;
 
 public class MemberDTO {
 
-	private RoleEnum role;
+	private RoleEnum role = RoleEnum.MEMBER;
 	
 	public RoleEnum getRole() {
 		return this.role;

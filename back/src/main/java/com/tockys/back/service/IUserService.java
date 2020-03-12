@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.tockys.back.model.User;
 
 public interface IUserService {
-	Optional<User> getUserById(long id);
+	User getUserById(long id);
 	
 	List<User> getUsers();
 	

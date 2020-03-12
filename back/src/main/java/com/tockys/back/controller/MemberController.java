@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tockys.back.dto.MemberByOrganizationRequestDTO;
 import com.tockys.back.dto.MemberCreateResponseDTO;
 import com.tockys.back.dto.MemberDTO;
+import com.tockys.back.dto.MemberRequestDTO;
 import com.tockys.back.dto.MemberResponseDTO;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.model.Member;
@@ -100,6 +101,39 @@ public class MemberController {
         Member newMember = new Member();
         newMember.setUser(newUser);
         newMember.setType(memberByOrganizationRequestDto.getRole());
+        newMember.setOrganization(organization);
+        
+        return ResponseEntity.ok(convertMemberToMemberCreateResponseDTO(memberService.createMember(newMember)));
+	}
+	
+	@RequestMapping(value = "/member/", method = RequestMethod.POST)
+	public ResponseEntity<?> createMember(@RequestBody MemberRequestDTO memberDto) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Organization organization = organizationService.getOrganization(memberDto.getIdOrganization());
+        
+        Member memberUser = memberService.getMemberByOrganizationAndByUser(organization, user);
+        if (memberUser == null ) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        
+        if (memberUser.getType() == RoleEnum.MEMBER || memberUser.getType() == RoleEnum.INSTRUCTOR) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        
+        User userToMember = userService.getUserById(memberDto.getIdUser());
+        if (userToMember == null ) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        Member existingMember = memberService.getMemberByOrganizationAndByUser(organization, userToMember);
+        if (existingMember != null) {
+        	return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+        
+        Member newMember = new Member();
+        newMember.setUser(userToMember);
+        newMember.setType(memberDto.getRole());
         newMember.setOrganization(organization);
         
         return ResponseEntity.ok(convertMemberToMemberCreateResponseDTO(memberService.createMember(newMember)));

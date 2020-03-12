@@ -95,11 +95,10 @@ public class UserController {
 	}
 	
 	private User convertToEntity(UserDTO userDto, long id) {
-		Optional<User> userOptional = userService.getUserById(id);
-		if (userOptional.isEmpty()) {
+		User user = userService.getUserById(id);
+		if (user == null) {
 			return null;
 		}
-		User user = userOptional.get();
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
 		return user;
