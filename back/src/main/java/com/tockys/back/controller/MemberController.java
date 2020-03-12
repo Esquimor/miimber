@@ -1,6 +1,8 @@
 package com.tockys.back.controller;
 
 import java.util.UUID;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,6 +63,14 @@ public class MemberController {
         }
         if (member.getType() == RoleEnum.OWNER && memberUser.getType() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        if (member.getType() == RoleEnum.OWNER) {
+            Predicate<Member> byType = m -> m.getType() == RoleEnum.OWNER;
+            int numberOwners = member.getOrganization().getMembers().stream().filter(byType)
+                    .collect(Collectors.toList()).size();
+            if (numberOwners == 1) {
+            	return new ResponseEntity(HttpStatus.CONFLICT);
+            }
         }
         member.setType(memberDto.getRole());
         return ResponseEntity.ok(convertMemberToMemberResponseDTO(memberService.updateMember(member)));
@@ -146,6 +156,10 @@ public class MemberController {
         Member member = memberService.getMember(id);
         if (member == null ) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        
+        if (member.getOrganization().getMembers().size() == 1) {
+        	return new ResponseEntity(HttpStatus.CONFLICT);
         }
         
         Member memberUser = memberService.getMemberByOrganizationAndByUser(member.getOrganization(), user);

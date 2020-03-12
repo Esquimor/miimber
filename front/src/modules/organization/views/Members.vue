@@ -52,7 +52,7 @@
               @click="remove(row.id)"
             >
               <BIcon icon="delete" />
-              <span class="is-size-6">{{ $t("core.utils.delete") }}</span>
+              <span class="is-size-6">{{ $t("core.utils.remove") }}</span>
             </BDropdownItem>
           </BDropdown>
         </BTableColumn>
