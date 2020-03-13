@@ -56,6 +56,9 @@ export default {
       remove: {
         success: "Membre retiré"
       }
+    },
+    settings: {
+      title: "Paramètres"
     }
   }
 };

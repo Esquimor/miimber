@@ -85,7 +85,7 @@ public class OrganizationController {
         
         Customer customer = stripeService.createCustomer(organizationDto.getTokenId(), user.getEmail());
         
-        Subscription subscription = stripeService.createSubscription(customer, organizationDto.getSubscription());
+        Subscription subscription = stripeService.createSubscription(customer, organizationDto.getSubscription(), 1L);
         
         Organization newOrganization = new Organization(organizationDto.getName());
         newOrganization= organizationService.createOrganization(newOrganization);

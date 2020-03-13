@@ -22,6 +22,7 @@ import com.tockys.back.dto.MemberDTO;
 import com.tockys.back.dto.MemberRequestDTO;
 import com.tockys.back.dto.MemberResponseDTO;
 import com.tockys.back.helper.Helper;
+import com.tockys.back.helper.StripeService;
 import com.tockys.back.model.Member;
 import com.tockys.back.model.Organization;
 import com.tockys.back.model.User;
@@ -36,6 +37,9 @@ public class MemberController {
 	
 	@Autowired
 	private Helper helper;
+
+	@Autowired
+	private StripeService stripeService;
 	
 	@Autowired
 	private MemberService memberService;
@@ -113,6 +117,8 @@ public class MemberController {
         newMember.setType(memberByOrganizationRequestDto.getRole());
         newMember.setOrganization(organization);
         
+        stripeService.addOneMemberSubscription(organization.getStripe());
+        
         return ResponseEntity.ok(convertMemberToMemberCreateResponseDTO(memberService.createMember(newMember)));
 	}
 	
@@ -146,6 +152,8 @@ public class MemberController {
         newMember.setType(memberDto.getRole());
         newMember.setOrganization(organization);
         
+        stripeService.addOneMemberSubscription(organization.getStripe());
+        
         return ResponseEntity.ok(convertMemberToMemberCreateResponseDTO(memberService.createMember(newMember)));
 	}
 
@@ -174,6 +182,8 @@ public class MemberController {
         if (member.getType() == RoleEnum.OWNER && memberUser.getType() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
+        
+        stripeService.removeOneMemberSubscription(member.getOrganization().getStripe());
         
         memberService.deleteMember(member);
         return new ResponseEntity(HttpStatus.OK);

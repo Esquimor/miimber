@@ -10,6 +10,9 @@
           <router-link tag="li" :to="{ name: 'organization-members' }">
             <a href="#">{{ $t('organization.members.title') }}</a>
           </router-link>
+          <router-link tag="li" :to="{ name: 'organization-settings' }">
+            <a href="#">{{ $t('organization.settings.title') }}</a>
+          </router-link>
         </ul>
       </div>
       <main class="Organization-main">

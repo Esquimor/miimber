@@ -55,6 +55,9 @@ export default {
       remove: {
         success: "Member removed"
       }
+    },
+    settings: {
+      title: "Settings"
     }
   }
 };

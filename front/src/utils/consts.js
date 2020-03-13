@@ -1,6 +1,6 @@
 export const STRIPE_PLAN = {
-  ONE_MONTH: "plan_Gqftgduj3vwRZh",
-  SIX_MONTH: "plan_GqfruWPqpkeipI"
+  ONE_MONTH: "test42",
+  SIX_MONTH: "test42"
 };
 
 export const ROLE = {
