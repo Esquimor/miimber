@@ -1,6 +1,7 @@
 import Organization from "@organization/views/Organization";
 import Members from "@organization/views/Members";
 import Settings from "@organization/views/Settings";
+import Sessions from "@organization/views/Sessions";
 
 export default [
   {
@@ -16,6 +17,11 @@ export default [
         path: "settings",
         name: "organization-settings",
         component: Settings
+      },
+      {
+        path: "sessions",
+        name: "organization-sessions",
+        component: Sessions
       }
     ]
   }

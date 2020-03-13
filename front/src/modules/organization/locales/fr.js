@@ -73,6 +73,9 @@ export default {
         button: "Suppimer votre organisation",
         success: "Organisation supprimée"
       }
+    },
+    sessions: {
+      title: "Sessions"
     }
   }
 };

@@ -65,6 +65,9 @@ export default {
         button: "Delete your organization",
         success: "Organization deleted"
       }
+    },
+    sessions: {
+      title: "Sessions"
     }
   }
 };
