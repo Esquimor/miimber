@@ -57,7 +57,14 @@ export default {
       }
     },
     settings: {
-      title: "Settings"
+      title: "Settings",
+      delete: {
+        title: "Delete organization",
+        description:
+          "Once you delete your organization, there is no going back. Please be certain.",
+        button: "Delete your organization",
+        success: "Organization deleted"
+      }
     }
   }
 };

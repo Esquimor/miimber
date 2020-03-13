@@ -21,6 +21,7 @@ import com.tockys.back.dto.OrganizationCreateDTO;
 import com.tockys.back.dto.OrganizationDTO;
 import com.tockys.back.dto.OrganizationManageDTO;
 import com.tockys.back.dto.OrganizationRequestDTO;
+import com.tockys.back.dto.OrganizationTokenRequestDTO;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.helper.StripeService;
 import com.tockys.back.model.Member;
@@ -111,17 +112,52 @@ public class OrganizationController {
 		return new ResponseEntity(HttpStatus.CONFLICT);
 	}
 	
+	@RequestMapping(value = "/organization/{id}/card", method = RequestMethod.PUT)
+	public ResponseEntity<?> editCardOrganization(@RequestBody OrganizationTokenRequestDTO organizationDto, @PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Member memberUser = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        if (memberUser == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        if (memberUser.getType() != RoleEnum.OWNER) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        stripeService.updateCardForSubscription(memberUser.getOrganization().getStripe(), organizationDto.getToken());
+        return new ResponseEntity(HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/organization/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editOrganization(@RequestBody OrganizationRequestDTO organizationDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Member memberUser = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        if (memberUser == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
         if (!memberUser.canEditOrganization()) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        Organization organization = organizationService.getOrganization(id);
+        Organization organization = memberUser.getOrganization();
         organization.setName(organizationDto.getName());
         return ResponseEntity.ok(OrganizationToDTO(organizationService.editOrganization(organization)));
+	}
+	
+	@RequestMapping(value = "/organization/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteOrganization(@PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Member memberUser = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        if (memberUser == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        if (memberUser.getType() != RoleEnum.OWNER) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        Organization organization = memberUser.getOrganization();
+        stripeService.deleteSubscription(organization.getStripe());
+        organizationService.deleteOrganization(organization);
+        return new ResponseEntity(HttpStatus.OK);
 	}
 	
 	private OrganizationDTO OrganizationToDTO(Organization organization) {

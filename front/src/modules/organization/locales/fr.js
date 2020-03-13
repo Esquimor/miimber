@@ -58,7 +58,21 @@ export default {
       }
     },
     settings: {
-      title: "Paramètres"
+      title: "Paramètres",
+      stripe: {
+        title: "Changer de moyen de paiement",
+        description:
+          "Vous pouvez changer le moyen de paiement de votre organisation",
+        button: "Changer",
+        success: "Moyen de paiement modifié"
+      },
+      delete: {
+        title: "Supprimer l'organisation",
+        description:
+          "Une organisation supprimée n'est pas récupérable. Soyez en sûrs.",
+        button: "Suppimer votre organisation",
+        success: "Organisation supprimée"
+      }
     }
   }
 };

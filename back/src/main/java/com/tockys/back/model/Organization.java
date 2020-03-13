@@ -3,6 +3,7 @@ package com.tockys.back.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Organization {
 	@Column(name = "stripe")
 	private String stripe;
 	
-	@OneToMany(mappedBy = "organization")
+	@OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
     private List<Member> members;
 	
 	public Organization() {
@@ -46,7 +47,7 @@ public class Organization {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}

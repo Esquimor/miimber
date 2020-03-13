@@ -45,4 +45,9 @@ public class OrganizationService implements IOrganizationService {
 	public Organization editOrganization(Organization organization) {
 		return organizationRepository.save(organization);
 	}
+
+	@Override
+	public void deleteOrganization(Organization organization) {
+		organizationRepository.delete(organization);
+	}
 }

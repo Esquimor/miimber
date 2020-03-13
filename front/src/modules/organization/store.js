@@ -35,6 +35,28 @@ export default {
           return Promise.reject(e);
         });
     },
+    deleteOrganization({ state }) {
+      return api
+        .delete(`organization/${state.organization.id}`)
+        .then(() => {
+          return Promise.resolve();
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    updateCardOrganization({ state }, { token }) {
+      return api
+        .put(`organization/${state.organization.id}/card`, {
+          token
+        })
+        .then(() => {
+          return Promise.resolve();
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
     changeRight({ commit }, { id, role }) {
       return api
         .put(`member/${id}`, {

@@ -1,10 +1,14 @@
 package com.tockys.back.helper;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
+import com.stripe.model.Card;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 import com.stripe.model.Subscription;
@@ -32,6 +36,42 @@ public class StripeService {
 		    .build();
 	
 		return Customer.create(customerParams);
+	}
+	
+	public Subscription updateCardForSubscription(String subscriptionId, String token) throws StripeException {
+        Stripe.apiKey = apiKey;
+        Subscription subscription = getSubscription(subscriptionId);
+		String customerId = subscription.getCustomer();
+		
+		Customer customer =
+				  Customer.retrieve(customerId);
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("source", token);
+
+		Card card =
+		  (Card) customer.getSources().create(params);
+
+		SubscriptionUpdateParams subscriptionParams =
+		  SubscriptionUpdateParams.builder()
+		  	.setDefaultPaymentMethod(card.getId())
+		    .build();
+		
+		return subscription.update(subscriptionParams);
+	}
+	
+	public Customer updateEmailCustomerForSubscription(String subscriptionId, String email) throws StripeException {
+        Stripe.apiKey = apiKey;
+        Subscription subscription = getSubscription(subscriptionId);
+		String customerId = subscription.getCustomer();
+		
+		Customer customer =
+				  Customer.retrieve(customerId);
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("email", email);
+
+		return customer.update(params);
 	}
 	
 	public Subscription createSubscription(Customer customer, String plan, Long quantity) throws StripeException {
@@ -76,6 +116,13 @@ public class StripeService {
 		    .build();
 		
 		return subscription.update(params);
+	}
+	
+	public Subscription deleteSubscription(String subscriptionId) throws StripeException {
+        Stripe.apiKey = apiKey;
+        Subscription subscription = getSubscription(subscriptionId);
+        
+		return subscription.cancel();
 	}
 	
 	public Subscription addOneMemberSubscription(String subscriptionId) throws StripeException {
