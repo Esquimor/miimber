@@ -26,10 +26,12 @@ import com.tockys.back.helper.Helper;
 import com.tockys.back.helper.StripeService;
 import com.tockys.back.model.Member;
 import com.tockys.back.model.Organization;
+import com.tockys.back.model.TypeSession;
 import com.tockys.back.model.User;
 import com.tockys.back.model.enums.RoleEnum;
 import com.tockys.back.service.MemberService;
 import com.tockys.back.service.OrganizationService;
+import com.tockys.back.service.TypeSessionService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -40,6 +42,9 @@ public class OrganizationController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private TypeSessionService typeSessionService;
 	
 	@Autowired
 	private StripeService stripeService;
@@ -99,6 +104,12 @@ public class OrganizationController {
         newMember = memberService.createMember(newMember);
         
         newOrganization.addMember(newMember);
+        
+        TypeSession newTypeSession = new TypeSession();
+        newTypeSession.setOrganization(newOrganization);
+        newTypeSession.setName("Default");
+        
+        typeSessionService.createTypeSession(newTypeSession);
         
         return ResponseEntity.ok(OrganizationToDTO(newOrganization));
 	}

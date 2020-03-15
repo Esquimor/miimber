@@ -30,6 +30,9 @@ public class Organization {
 	@OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
     private List<Member> members;
 	
+	@OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
+    private List<TypeSession> typeSessions;
+	
 	public Organization() {
 		this.name = "";
 		this.members = new ArrayList<Member>();
@@ -74,5 +77,21 @@ public class Organization {
 	
 	public void removeMember(Member member) {
 		this.members.remove(member);
+	}
+	
+	public List<TypeSession> getTypeSessions() {
+		return this.typeSessions;
+	}
+	
+	public void setTypeSessions(List<TypeSession> typeSessions) {
+		this.typeSessions = typeSessions;
+	}
+	
+	public void addTypeSession(TypeSession typeSession) {
+		this.typeSessions.add(typeSession);
+	}
+	
+	public void removeTypeSession(TypeSession typeSession) {
+		this.typeSessions.remove(typeSession);
 	}
 }
