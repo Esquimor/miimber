@@ -22,11 +22,11 @@
     </router-link>
     <div v-if="router === ROUTER.SESSIONS" class="OrganizationOrganizationMenu-sublink">
       <router-link
-        :to="{ name: 'organization-sessions' }"
+        :to="{ name: 'organization-sessions-types' }"
         class="OrganizationOrganizationMenu-sublink-item"
         @click.native="router = ROUTER.SESSIONS"
       >
-        <span>{{ $t('organization.sessions.title') }}</span>
+        <span>{{ $t('organization.typeSessions.title') }}</span>
       </router-link>
     </div>
     <router-link
@@ -57,6 +57,25 @@ export default {
       ROUTER: ROUTER,
       router: ROUTER.MEMBERS
     };
+  },
+  mounted() {
+    switch (this.$router.history.current.name) {
+      case "organization-members":
+        this.router = ROUTER.MEMBERS;
+        break;
+      case "organization-sessions":
+      case "organization-sessions-types":
+        this.router = ROUTER.SESSIONS;
+        break;
+
+      case "organization-settings":
+        this.router = ROUTER.SETTINGS;
+        break;
+
+      default:
+        this.router = ROUTER.MEMBERS;
+        break;
+    }
   }
 };
 </script>
@@ -88,7 +107,10 @@ export default {
     padding: 0.5rem 0rem 0.5rem 1rem;
     &-item {
       border-left: 2px solid $grey;
-      padding: 0.2rem 0rem 0.2rem 0.25rem;
+      padding: 0.2rem 0rem 0.2rem 0.5rem;
+      &.router-link-active {
+        border-color: $primary;
+      }
     }
   }
 }

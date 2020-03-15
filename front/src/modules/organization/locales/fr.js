@@ -76,6 +76,9 @@ export default {
     },
     sessions: {
       title: "Sessions"
+    },
+    typeSessions: {
+      title: "Catégories"
     }
   }
 };
