@@ -9,7 +9,7 @@
         />
         <DashboardPanelItem
           route="dashboard-organizations"
-          icon="sitemap"
+          icon="calendar-multiple"
           :label="$t('dashboard.panel.organizations')"
         />
       </div>

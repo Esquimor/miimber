@@ -2,25 +2,47 @@
   <TemplateDefault>
     <div class="Organization" v-if="!loading && organization !== null">
       <header class="Organization-header">
-        <h1 class="title is-3">{{ organization.name }}</h1>
-        <BButton icon-left="pencil" type="is-primary" @click="edit">{{ $t('core.utils.edit') }}</BButton>
+        <div class="Organization-header-wrapper">
+          <h1 class="is-size-3">{{ organization.name }}</h1>
+          <BButton
+            icon-left="pencil"
+            type="is-primary"
+            @click="edit"
+            outlined
+          >{{ $t('core.utils.edit') }}</BButton>
+        </div>
       </header>
-      <div class="Organization-tabs tabs">
-        <ul>
-          <router-link tag="li" :to="{ name: 'organization-members' }">
-            <a href="#">{{ $t('organization.members.title') }}</a>
-          </router-link>
-          <router-link tag="li" :to="{ name: 'organization-sessions' }">
-            <a href="#">{{ $t('organization.sessions.title') }}</a>
-          </router-link>
-          <router-link tag="li" :to="{ name: 'organization-settings' }">
-            <a href="#">{{ $t('organization.settings.title') }}</a>
-          </router-link>
-        </ul>
+      <div class="Organization-content">
+        <b-menu class="Organization-menu">
+          <b-menu-list>
+            <b-menu-item
+              :label="$t('organization.members.title')"
+              icon="account-group"
+              tag="router-link"
+              :to="{ name: 'organization-members' }"
+            ></b-menu-item>
+          </b-menu-list>
+          <b-menu-list>
+            <b-menu-item
+              :label="$t('organization.sessions.title')"
+              icon="calendar-multiple"
+              tag="router-link"
+              :to="{ name: 'organization-sessions' }"
+            ></b-menu-item>
+          </b-menu-list>
+          <b-menu-list>
+            <b-menu-item
+              :label="$t('organization.settings.title')"
+              icon="settings"
+              tag="router-link"
+              :to="{ name: 'organization-settings' }"
+            ></b-menu-item>
+          </b-menu-list>
+        </b-menu>
+        <div class="Organization-main">
+          <router-view></router-view>
+        </div>
       </div>
-      <main class="Organization-main">
-        <router-view></router-view>
-      </main>
     </div>
   </TemplateDefault>
 </template>
@@ -75,28 +97,58 @@ export default {
 
 <style lang="scss">
 .Organization {
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   &-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 0.5rem;
+    background-color: $primary-light;
+    border-bottom: 1px solid $grey;
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 400px;
+      margin: 2rem;
+    }
   }
-  &-tabs {
-    > ul {
-      > li {
+  &-content {
+    display: flex;
+  }
+  &-menu {
+    max-width: 170px;
+    width: 20%;
+    &-home {
+      > a {
+        border-radius: 0px;
         &.router-link-active {
-          > a {
-            border-bottom: 1px solid $primary;
-            color: $primary;
-          }
+          background-color: $white !important;
+          color: #363636 !important;
+        }
+        &:hover {
+          background-color: whitesmoke !important;
+          color: #363636 !important;
+        }
+        &.router-link-exact-active {
+          background-color: $primary !important;
+          color: $white !important;
+        }
+      }
+    }
+    > .menu-list {
+      a {
+        border-radius: 0px;
+        &.router-link-active {
+          background-color: $primary;
+          color: $white;
         }
       }
     }
   }
   &-main {
-    padding: 0 1rem 1rem;
+    flex-grow: 1;
+    padding: 1rem;
   }
 }
 </style>
