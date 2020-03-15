@@ -7,9 +7,9 @@
       >{{ $t('organization.settings.stripe.description') }}</h3>
       <div>
         <BButton
-          type="is-primary"
+          type="is-warning"
+          icon-left="credit-card"
           @click="stripeOrganization"
-          outlined
         >{{ $t('organization.settings.stripe.button') }}</BButton>
       </div>
     </div>
@@ -21,8 +21,8 @@
       <div>
         <BButton
           type="is-danger"
+          icon-left="delete"
           @click="deleteOrganization"
-          outlined
         >{{ $t('organization.settings.delete.button') }}</BButton>
       </div>
     </div>

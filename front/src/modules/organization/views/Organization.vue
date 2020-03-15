@@ -13,32 +13,7 @@
         </div>
       </header>
       <div class="Organization-content">
-        <b-menu class="Organization-menu">
-          <b-menu-list>
-            <b-menu-item
-              :label="$t('organization.members.title')"
-              icon="account-group"
-              tag="router-link"
-              :to="{ name: 'organization-members' }"
-            ></b-menu-item>
-          </b-menu-list>
-          <b-menu-list>
-            <b-menu-item
-              :label="$t('organization.sessions.title')"
-              icon="calendar-multiple"
-              tag="router-link"
-              :to="{ name: 'organization-sessions' }"
-            ></b-menu-item>
-          </b-menu-list>
-          <b-menu-list>
-            <b-menu-item
-              :label="$t('organization.settings.title')"
-              icon="settings"
-              tag="router-link"
-              :to="{ name: 'organization-settings' }"
-            ></b-menu-item>
-          </b-menu-list>
-        </b-menu>
+        <OrganizationOrganizationMenu />
         <div class="Organization-main">
           <router-view></router-view>
         </div>
@@ -54,16 +29,19 @@ import { mapGetters } from "vuex";
 
 import TemplateDefault from "@core/template/TemplateDefault";
 
+import OrganizationOrganizationMenu from "@organization/components/organization/OrganizationOrganizationMenu";
 import OrganizationOrganizationEdit from "@organization/components/organization/OrganizationOrganizationEdit";
 
 export default {
   name: "Organization",
   components: {
-    TemplateDefault
+    TemplateDefault,
+    OrganizationOrganizationMenu
   },
   data() {
     return {
-      loading: true
+      loading: true,
+      isActiveSession: true
     };
   },
   computed: {
