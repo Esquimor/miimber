@@ -1,5 +1,7 @@
 package com.tockys.back.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class TypeSessionService implements ITypeSessionService {
 	@Override
 	public TypeSession createTypeSession(TypeSession typeSession) {
 		return typeSessionRepository.save(typeSession);
+	}
+
+	@Override
+	public List<TypeSession> getTypeSessionByOrganizationId(long id) {
+		return typeSessionRepository.findByOrganizationId(id);
 	}
 
 }

@@ -1,13 +1,5 @@
 <template>
-  <div class="OrganizationMembers">
-    <header class="OrganizationMembers-header">
-      <h2 class="title is-4">{{ $t("organization.members.title") }}</h2>
-      <BButton type="is-primary" icon-left="plus" @click="add">
-        {{
-        $t("core.utils.add")
-        }}
-      </BButton>
-    </header>
+  <OrganizationTemplateList :title="$t('organization.members.title')" @add="add" :loading="false">
     <BTable :data="members" striped paginated :per-page="25">
       <template v-slot="{ row }">
         <BTableColumn
@@ -58,7 +50,7 @@
         </BTableColumn>
       </template>
     </BTable>
-  </div>
+  </OrganizationTemplateList>
 </template>
 
 <script>
@@ -66,11 +58,16 @@
 
 import { mapGetters } from "vuex";
 
+import OrganizationTemplateList from "@organization/templates/OrganizationTemplateList";
+
 import OrganizationMembersAdd from "@organization/components/members/OrganizationMembersAdd";
 import OrganizationMembersRight from "@organization/components/members/OrganizationMembersRight";
 
 export default {
   name: "OrganizationMembers",
+  components: {
+    OrganizationTemplateList
+  },
   computed: {
     ...mapGetters({
       members: "organization/organizationMembers",
@@ -109,11 +106,6 @@ export default {
 
 <style lang="scss">
 .OrganizationMembers {
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
   &-right {
     &:hover {
       background-color: $warning !important;

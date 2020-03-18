@@ -4,11 +4,13 @@ import * as types from "@/utils/types";
 export default {
   namespaced: true,
   state: {
-    organization: null
+    organization: null,
+    typeSessions: []
   },
   getters: {
     organization: state => state.organization,
-    organizationMembers: state => state.organization.members
+    organizationMembers: state => state.organization.members,
+    typeSessions: state => state.typeSessions
   },
   actions: {
     setOrganization({ commit, dispatch }, id) {
@@ -110,6 +112,16 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    setTypeSession({ commit, state }) {
+      return api
+        .get(`organization/${state.organization.id}/type-sessions/`)
+        .then(({ data }) => {
+          commit(types.SET_TYPE_SESSIONS, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
@@ -130,6 +142,9 @@ export default {
       state.organization.members = state.organization.members.filter(
         m => m.id !== id
       );
+    },
+    [types.SET_TYPE_SESSIONS](state, typeSessions) {
+      state.typeSessions = typeSessions;
     }
   }
 };

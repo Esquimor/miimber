@@ -22,6 +22,7 @@ import com.tockys.back.dto.OrganizationDTO;
 import com.tockys.back.dto.OrganizationManageDTO;
 import com.tockys.back.dto.OrganizationRequestDTO;
 import com.tockys.back.dto.OrganizationTokenRequestDTO;
+import com.tockys.back.dto.TypeSessionDTO;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.helper.StripeService;
 import com.tockys.back.model.Member;
@@ -169,6 +170,29 @@ public class OrganizationController {
         stripeService.deleteSubscription(organization.getStripe());
         organizationService.deleteOrganization(organization);
         return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/organization/{id}/type-sessions/", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllTypeSessionsFromOrganization(@PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Member memberUser = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        if (memberUser == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        List<TypeSessionDTO> listTypeSessions = new ArrayList<TypeSessionDTO>();
+        
+        for (TypeSession typeSesion: typeSessionService.getTypeSessionByOrganizationId(id)) {
+        	listTypeSessions.add(TypeSessionToDTO(typeSesion));
+        }
+        return ResponseEntity.ok(listTypeSessions);
+	}
+	
+	private TypeSessionDTO TypeSessionToDTO(TypeSession typeSession) {
+		return new TypeSessionDTO(
+					typeSession.getId(),
+					typeSession.getName()
+				);
 	}
 	
 	private OrganizationDTO OrganizationToDTO(Organization organization) {

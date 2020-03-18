@@ -70,7 +70,16 @@ export default {
       title: "Sessions"
     },
     typeSessions: {
-      title: "Categories"
+      title: "Categories",
+      table: {
+        name: "Name"
+      },
+      add: {
+        title: "Add a category"
+      },
+      label: {
+        name: "Name"
+      }
     }
   }
 };

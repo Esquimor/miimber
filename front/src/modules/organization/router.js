@@ -25,7 +25,7 @@ export default [
         component: Sessions
       },
       {
-        path: "sessions/types",
+        path: "sessions/categories",
         name: "organization-sessions-types",
         component: TypeSessions
       }
