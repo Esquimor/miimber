@@ -83,7 +83,8 @@ export default {
         name: "Nom"
       },
       add: {
-        title: "Ajouter une catégorie"
+        title: "Ajouter une catégorie",
+        success: "Catégorie ajoutée"
       },
       label: {
         name: "Nom"

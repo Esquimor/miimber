@@ -35,7 +35,18 @@ export default {
     };
   },
   methods: {
-    confirm() {}
+    confirm() {
+      this.loading = true;
+      this.$store
+        .dispatch("organization/addTypeSession", this.typeSession)
+        .then(() => {
+          this.$buefy.toast.open({
+            message: this.$t("organization.typeSessions.add.success"),
+            type: "is-primary"
+          });
+          this.$emit("close");
+        });
+    }
   }
 };
 </script>

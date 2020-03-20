@@ -122,6 +122,20 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    addTypeSession({ commit, state }, { name }) {
+      return api
+        .post("type-session/", {
+          name,
+          organizationId: state.organization.id
+        })
+        .then(({ data }) => {
+          console.log(data);
+          commit(types.ADD_TYPE_SESSION, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
@@ -145,6 +159,9 @@ export default {
     },
     [types.SET_TYPE_SESSIONS](state, typeSessions) {
       state.typeSessions = typeSessions;
+    },
+    [types.ADD_TYPE_SESSION](state, typeSession) {
+      state.typeSessions.push(typeSession);
     }
   }
 };
