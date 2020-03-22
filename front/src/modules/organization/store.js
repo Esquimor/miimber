@@ -130,8 +130,19 @@ export default {
           organizationId: state.organization.id
         })
         .then(({ data }) => {
-          console.log(data);
           commit(types.ADD_TYPE_SESSION, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    editTypeSession({ commit }, { name, id }) {
+      return api
+        .put(`type-session/${id}`, {
+          name
+        })
+        .then(({ data }) => {
+          commit(types.EDIT_TYPE_SESSION, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -162,6 +173,10 @@ export default {
     },
     [types.ADD_TYPE_SESSION](state, typeSession) {
       state.typeSessions.push(typeSession);
+    },
+    [types.EDIT_TYPE_SESSION](state, { name, id }) {
+      const editedTypeSession = state.typeSessions.find(t => t.id === id);
+      editedTypeSession.name = name;
     }
   }
 };

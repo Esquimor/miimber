@@ -1,6 +1,6 @@
 <template>
   <TemplateModal
-    :title="$t('organization.typeSessions.add.title')"
+    :title="$t('organization.typeSessions.edit.title')"
     :loading="loading"
     hasPadding
     @cancel="$emit('close')"
@@ -22,14 +22,21 @@
 import TemplateModal from "@core/template/TemplateModal";
 
 export default {
-  name: "OrganizationTypeSessionsModalAdd",
+  name: "OrganizationTypeSessionsModalEdit",
   components: {
     TemplateModal
+  },
+  props: {
+    element: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
       loading: false,
       typeSession: {
+        id: 0,
         name: ""
       }
     };
@@ -39,14 +46,22 @@ export default {
       if (!this.typeSession.name) return;
       this.loading = true;
       this.$store
-        .dispatch("organization/addTypeSession", this.typeSession)
+        .dispatch("organization/editTypeSession", this.typeSession)
         .then(() => {
           this.$buefy.toast.open({
-            message: this.$t("organization.typeSessions.add.success"),
+            message: this.$t("organization.typeSessions.edit.success"),
             type: "is-primary"
           });
           this.$emit("close");
         });
+    }
+  },
+  watch: {
+    element: {
+      immediate: true,
+      handler(newVal) {
+        this.typeSession = newVal;
+      }
     }
   }
 };

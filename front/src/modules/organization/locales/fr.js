@@ -16,7 +16,6 @@ export default {
         lastName: "Nom",
         role: "Rôle"
       },
-      manage: "Gérer",
       right: "Droit",
       rightModal: {
         title: "Droit de",
@@ -85,6 +84,10 @@ export default {
       add: {
         title: "Ajouter une catégorie",
         success: "Catégorie ajoutée"
+      },
+      edit: {
+        title: "Modifier une catégorie",
+        success: "Catégorie modifiée"
       },
       label: {
         name: "Nom"

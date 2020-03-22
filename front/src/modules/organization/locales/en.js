@@ -16,7 +16,6 @@ export default {
         lastName: "Last Name",
         role: "Role"
       },
-      manage: "Manage",
       right: "Right",
       rightModal: {
         title: "Right of",
@@ -76,7 +75,11 @@ export default {
       },
       add: {
         title: "Add a category",
-        success: "Cateogory added"
+        success: "Category added"
+      },
+      edit: {
+        title: "Edit a category",
+        success: "Category edited"
       },
       label: {
         name: "Name"

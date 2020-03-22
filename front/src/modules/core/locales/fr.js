@@ -14,7 +14,8 @@ export default {
       change: "Changer",
       add: "Ajouter",
       remove: "Retirer",
-      edit: "Modifier"
+      edit: "Modifier",
+      manage: "Gérer"
     }
   }
 };
