@@ -147,6 +147,18 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    deleteTypeSession({ commit }, id) {
+      return api
+        .put(`type-session/${id}`, {
+          name
+        })
+        .then(() => {
+          commit(types.DELETE_TYPE_SESSION, id);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
@@ -177,6 +189,9 @@ export default {
     [types.EDIT_TYPE_SESSION](state, { name, id }) {
       const editedTypeSession = state.typeSessions.find(t => t.id === id);
       editedTypeSession.name = name;
+    },
+    [types.DELETE_TYPE_SESSION](state, id) {
+      state.typeSessions = state.typeSessions.filter(t => t.id !== id);
     }
   }
 };

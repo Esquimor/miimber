@@ -12,7 +12,7 @@
           sortable
         >{{ row.name }}</BTableColumn>
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
-          <OrganizationTypeSessionsDropdown @edit="edit(row)" @delete="deleteItem(row)" />
+          <OrganizationTypeSessionsDropdown @edit="edit(row)" @delete="deleteItem(row.id)" />
         </BTableColumn>
       </template>
     </BTable>
@@ -63,7 +63,25 @@ export default {
         props: { element }
       });
     },
-    deleteItem() {}
+    deleteItem(id) {
+      this.$buefy.dialog.confirm({
+        title: this.$t("organization.typeSessions.delete.title"),
+        message: this.$t("organization.typeSessions.delete.message"),
+        confirmText: this.$t("core.utils.delete"),
+        type: "is-danger",
+        hasIcon: true,
+        onConfirm: () => {
+          this.$store
+            .dispatch("organization/deleteTypeSession", id)
+            .then(() => {
+              this.$buefy.toast.open({
+                message: this.$t("organization.typeSessions.delete.success"),
+                type: "is-primary"
+              });
+            });
+        }
+      });
+    }
   },
   mounted() {
     this.$store.dispatch("organization/setTypeSession").then(() => {

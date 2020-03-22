@@ -81,6 +81,11 @@ export default {
         title: "Edit a category",
         success: "Category edited"
       },
+      delete: {
+        title: "Delete a category",
+        message: "Do you really want to delete this category ?",
+        success: "Category deleted"
+      },
       label: {
         name: "Name"
       }

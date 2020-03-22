@@ -8,7 +8,7 @@
       <BIcon icon="pencil" />
       <span class="is-size-6">{{ $t('core.utils.edit') }}</span>
     </BDropdownItem>
-    <BDropdownItem class="CoreDropdownItem is-danger" aria-role="listitem" @click="$emit('click')">
+    <BDropdownItem class="CoreDropdownItem is-danger" aria-role="listitem" @click="$emit('delete')">
       <BIcon icon="delete" />
       <span class="is-size-6">{{ $t('core.utils.delete') }}</span>
     </BDropdownItem>

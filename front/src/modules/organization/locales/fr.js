@@ -89,6 +89,11 @@ export default {
         title: "Modifier une catégorie",
         success: "Catégorie modifiée"
       },
+      delete: {
+        title: "Supprimer une catégorie",
+        message: "Êtez-vous sur de supprimer la catégorie ?",
+        success: "Catégorie supprimée"
+      },
       label: {
         name: "Nom"
       }
