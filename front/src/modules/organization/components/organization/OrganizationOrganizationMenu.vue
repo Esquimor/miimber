@@ -5,8 +5,12 @@
       class="OrganizationOrganizationMenu-link"
       @click.native="router = ROUTER.MEMBERS"
     >
-      <BIcon size="is-small" icon="account-group" class="OrganizationOrganizationMenu-link-icon" />
-      <span>{{ $t('organization.members.title') }}</span>
+      <BIcon
+        size="is-small"
+        icon="account-group"
+        class="OrganizationOrganizationMenu-link-icon"
+      />
+      <span>{{ $t("organization.members.title") }}</span>
     </router-link>
     <router-link
       :to="{ name: 'organization-sessions' }"
@@ -18,15 +22,18 @@
         icon="calendar-multiple"
         class="OrganizationOrganizationMenu-link-icon"
       />
-      <span>{{ $t('organization.sessions.title') }}</span>
+      <span>{{ $t("organization.sessions.title") }}</span>
     </router-link>
-    <div v-if="router === ROUTER.SESSIONS" class="OrganizationOrganizationMenu-sublink">
+    <div
+      v-if="router === ROUTER.SESSIONS"
+      class="OrganizationOrganizationMenu-sublink"
+    >
       <router-link
         :to="{ name: 'organization-sessions-types' }"
         class="OrganizationOrganizationMenu-sublink-item"
         @click.native="router = ROUTER.SESSIONS"
       >
-        <span>{{ $t('organization.typeSessions.title') }}</span>
+        <span>{{ $t("organization.typeSessions.title") }}</span>
       </router-link>
     </div>
     <router-link
@@ -34,8 +41,12 @@
       class="OrganizationOrganizationMenu-link"
       @click.native="router = ROUTER.SETTINGS"
     >
-      <BIcon size="is-small" icon="settings" class="OrganizationOrganizationMenu-link-icon" />
-      <span>{{ $t('organization.settings.title') }}</span>
+      <BIcon
+        size="is-small"
+        icon="settings"
+        class="OrganizationOrganizationMenu-link-icon"
+      />
+      <span>{{ $t("organization.settings.title") }}</span>
     </router-link>
   </div>
 </template>

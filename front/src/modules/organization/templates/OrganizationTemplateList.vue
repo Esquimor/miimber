@@ -2,7 +2,9 @@
   <div class="OrganizationTemplateList">
     <header class="OrganizationTemplateList-header">
       <h2 class="title is-4">{{ title }}</h2>
-      <BButton type="is-primary" icon-left="plus" @click="$emit('add')">{{ $t("core.utils.add") }}</BButton>
+      <BButton type="is-primary" icon-left="plus" @click="$emit('add')">{{
+        $t("core.utils.add")
+      }}</BButton>
     </header>
     <main class="OrganizationTemplateList-main" ref="template">
       <slot />

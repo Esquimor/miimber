@@ -9,9 +9,7 @@
           class="SettingsOrganization-list-item"
         >
           <span class="SettingsOrganization-list-item-name">
-            {{
-            organization.name
-            }}
+            {{ organization.name }}
           </span>
 
           <router-link
@@ -20,7 +18,8 @@
               name: 'organization-members',
               params: { id: organization.id }
             }"
-          >{{ $t("settings.organization.manage") }}</router-link>
+            >{{ $t("settings.organization.manage") }}</router-link
+          >
         </div>
       </template>
       <div v-else class="SettingsOrganization-list-empty">
@@ -33,7 +32,8 @@
         <router-link
           class="button is-primary"
           :to="{ name: 'settings-organization-create' }"
-        >{{ $t("settings.organization.button") }}</router-link>
+          >{{ $t("settings.organization.button") }}</router-link
+        >
       </div>
     </div>
   </TemplateSettings>

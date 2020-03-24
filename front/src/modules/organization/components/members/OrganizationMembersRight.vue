@@ -14,9 +14,10 @@
         aria-close-label="Close notification"
         role="alert"
         @close="error = false"
-      >{{ $t('organization.members.rightModal.error') }}</BNotification>
+        >{{ $t("organization.members.rightModal.error") }}</BNotification
+      >
       <OrganizationMembersRightItem
-        :class="{'unselectable': !memberIsOwner}"
+        :class="{ unselectable: !memberIsOwner }"
         :title="$t('core.role.OWNER')"
         :description="$t('organization.members.rightModal.OWNER.description')"
         :selected="ROLE.OWNER === editRole"
@@ -24,7 +25,9 @@
       />
       <OrganizationMembersRightItem
         :title="$t('core.role.OFFICE_INSTRUCTOR')"
-        :description="$t('organization.members.rightModal.OFFICE_INSTRUCTOR.description')"
+        :description="
+          $t('organization.members.rightModal.OFFICE_INSTRUCTOR.description')
+        "
         :selected="ROLE.OFFICE_INSTRUCTOR === editRole"
         @click.native="changeRole(ROLE.OFFICE_INSTRUCTOR)"
       />
@@ -36,7 +39,9 @@
       />
       <OrganizationMembersRightItem
         :title="$t('core.role.INSTRUCTOR')"
-        :description="$t('organization.members.rightModal.INSTRUCTOR.description')"
+        :description="
+          $t('organization.members.rightModal.INSTRUCTOR.description')
+        "
         :selected="ROLE.INSTRUCTOR === editRole"
         @click.native="changeRole(ROLE.INSTRUCTOR)"
       />

@@ -10,9 +10,13 @@
           field="name"
           :label="$t('organization.typeSessions.table.name')"
           sortable
-        >{{ row.name }}</BTableColumn>
+          >{{ row.name }}</BTableColumn
+        >
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
-          <OrganizationTypeSessionsDropdown @edit="edit(row)" @delete="deleteItem(row.id)" />
+          <OrganizationTypeSessionsDropdown
+            @edit="edit(row)"
+            @delete="deleteItem(row.id)"
+          />
         </BTableColumn>
       </template>
     </BTable>
@@ -84,12 +88,11 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("organization/setTypeSession").then(() => {
+    this.$store.dispatch("organization/setTypeSessions").then(() => {
       this.loading = false;
     });
   }
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

@@ -27,8 +27,8 @@
 "use strict";
 
 export default {
-  name: "OrganizationTypeSessionsDropdown"
+  name: "OrganizationSessionsDropdown"
 };
 </script>
 
-<style></style>
+<style lang="scss"></style>

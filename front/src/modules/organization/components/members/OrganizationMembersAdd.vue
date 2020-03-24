@@ -7,14 +7,21 @@
   >
     <div class="OrganizationMembersAdd">
       <BField :label="$t('organization.members.add.label.email')">
-        <BInput type="email" v-model="email" @blur="verifyMember" @input="emptyMember" required></BInput>
+        <BInput
+          type="email"
+          v-model="email"
+          @blur="verifyMember"
+          @input="emptyMember"
+          required
+        ></BInput>
       </BField>
       <div v-if="noMember" class="OrganizationMembersAdd-noMember">
         <BNotification
           class="OrganizationMembersAdd-noMember-notification"
           type="is-info"
           aria-close-label="Close notification"
-        >{{ $t("organization.members.add.noMember") }}</BNotification>
+          >{{ $t("organization.members.add.noMember") }}</BNotification
+        >
         <div class="columns">
           <div class="column">
             <BField :label="$t('organization.members.add.label.firstName')">
@@ -33,8 +40,12 @@
         class="OrganizationMembersAdd-alreadyExist"
         type="is-danger"
         aria-close-label="Close notification"
-      >{{ $t("organization.members.add.alreadyExist") }}</BNotification>
-      <div v-else-if="!noMember && !!member" class="OrganizationMembersAdd-member">
+        >{{ $t("organization.members.add.alreadyExist") }}</BNotification
+      >
+      <div
+        v-else-if="!noMember && !!member"
+        class="OrganizationMembersAdd-member"
+      >
         <div class="columns">
           <div class="column">
             <BField :label="$t('organization.members.add.label.firstName')">

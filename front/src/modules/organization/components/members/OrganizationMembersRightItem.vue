@@ -1,5 +1,8 @@
 <template>
-  <div class="OrganizationMembersRightItem" :class="{'is-selected': selected}">
+  <div
+    class="OrganizationMembersRightItem"
+    :class="{ 'is-selected': selected }"
+  >
     <div class="OrganizationMembersRightItem-right">
       <BIcon :icon="getIcon" />
     </div>

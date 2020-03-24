@@ -1,7 +1,7 @@
 <template>
   <BDropdown aria-role="list" positio="is-bottom-left">
     <button class="button is-primary" slot="trigger">
-      <span>{{ $t('core.utils.manage') }}</span>
+      <span>{{ $t("core.utils.manage") }}</span>
       <BIcon icon="settings" size="is-small" />
     </button>
     <BDropdownItem
@@ -10,11 +10,15 @@
       @click="$emit('changeRight')"
     >
       <BIcon icon="pencil" />
-      <span class="is-size-6">{{ $t('organization.members.right') }}</span>
+      <span class="is-size-6">{{ $t("organization.members.right") }}</span>
     </BDropdownItem>
-    <BDropdownItem class="CoreDropdownItem is-danger" aria-role="listitem" @click="$emit('remove')">
+    <BDropdownItem
+      class="CoreDropdownItem is-danger"
+      aria-role="listitem"
+      @click="$emit('remove')"
+    >
       <BIcon icon="delete" />
-      <span class="is-size-6">{{ $t('core.utils.delete') }}</span>
+      <span class="is-size-6">{{ $t("core.utils.delete") }}</span>
     </BDropdownItem>
   </BDropdown>
 </template>
@@ -27,5 +31,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

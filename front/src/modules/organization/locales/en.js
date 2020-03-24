@@ -66,7 +66,15 @@ export default {
       }
     },
     sessions: {
-      title: "Sessions"
+      title: "Sessions",
+      table: {
+        name: "Name"
+      },
+      delete: {
+        title: "Delete a session",
+        message: "Do you really want to delete this session ?",
+        success: "Session deleted"
+      }
     },
     typeSessions: {
       title: "Categories",

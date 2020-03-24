@@ -5,12 +5,14 @@ export default {
   namespaced: true,
   state: {
     organization: null,
-    typeSessions: []
+    typeSessions: [],
+    sessions: []
   },
   getters: {
     organization: state => state.organization,
     organizationMembers: state => state.organization.members,
-    typeSessions: state => state.typeSessions
+    typeSessions: state => state.typeSessions,
+    sessions: state => state.sessions
   },
   actions: {
     setOrganization({ commit, dispatch }, id) {
@@ -113,9 +115,9 @@ export default {
           return Promise.reject(e);
         });
     },
-    setTypeSession({ commit, state }) {
+    setTypeSessions({ commit, state }) {
       return api
-        .get(`organization/${state.organization.id}/type-sessions/`)
+        .get(`organization/${state.organization.id}/type-session/`)
         .then(({ data }) => {
           commit(types.SET_TYPE_SESSIONS, data);
         })
@@ -159,6 +161,16 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    setSessions({ commit, state }) {
+      return api
+        .get(`organization/${state.organization.id}/session/`)
+        .then(({ data }) => {
+          commit(types.SET_SESSIONS, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
@@ -192,6 +204,9 @@ export default {
     },
     [types.DELETE_TYPE_SESSION](state, id) {
       state.typeSessions = state.typeSessions.filter(t => t.id !== id);
+    },
+    [types.SET_SESSIONS](state, sessions) {
+      state.sessions = sessions;
     }
   }
 };

@@ -22,16 +22,19 @@ import com.tockys.back.dto.OrganizationDTO;
 import com.tockys.back.dto.OrganizationManageDTO;
 import com.tockys.back.dto.OrganizationRequestDTO;
 import com.tockys.back.dto.OrganizationTokenRequestDTO;
+import com.tockys.back.dto.SessionDTO;
 import com.tockys.back.dto.TypeSessionDTO;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.helper.StripeService;
 import com.tockys.back.model.Member;
 import com.tockys.back.model.Organization;
+import com.tockys.back.model.Session;
 import com.tockys.back.model.TypeSession;
 import com.tockys.back.model.User;
 import com.tockys.back.model.enums.RoleEnum;
 import com.tockys.back.service.MemberService;
 import com.tockys.back.service.OrganizationService;
+import com.tockys.back.service.SessionService;
 import com.tockys.back.service.TypeSessionService;
 
 @RestController
@@ -46,6 +49,9 @@ public class OrganizationController {
 	
 	@Autowired
 	private TypeSessionService typeSessionService;
+	
+	@Autowired
+	private SessionService sessionService;
 	
 	@Autowired
 	private StripeService stripeService;
@@ -172,7 +178,7 @@ public class OrganizationController {
         return new ResponseEntity(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/organization/{id}/type-sessions/", method = RequestMethod.GET)
+	@RequestMapping(value = "/organization/{id}/type-session/", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllTypeSessionsFromOrganization(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
@@ -186,6 +192,26 @@ public class OrganizationController {
         	listTypeSessions.add(TypeSessionToDTO(typeSesion));
         }
         return ResponseEntity.ok(listTypeSessions);
+	}
+	
+	@RequestMapping(value= "/organization/{id}/session/", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllSessionsFromOrganization(@PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Member memberUser = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        if (memberUser == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        List<SessionDTO> listSessions = new ArrayList<SessionDTO>();
+        
+        for (Session typeSesion: sessionService.getSessionByOrganizationId(id)) {
+        	listSessions.add(SessionToDTO(typeSesion));
+        }
+        return ResponseEntity.ok(listSessions);
+	}
+	
+	private SessionDTO SessionToDTO(Session session) {
+		return new SessionDTO(session);
 	}
 	
 	private TypeSessionDTO TypeSessionToDTO(TypeSession typeSession) {

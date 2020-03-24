@@ -2,7 +2,12 @@
   <TemplateSettings :title="$t('settings.security.title')">
     <form @submit.prevent>
       <BField :label="$t('settings.security.oldPassword')">
-        <BInput type="password" v-model="oldPassword" password-reveal required></BInput>
+        <BInput
+          type="password"
+          v-model="oldPassword"
+          password-reveal
+          required
+        ></BInput>
       </BField>
       <BField
         :label="$t('settings.security.newPassword')"
@@ -33,14 +38,15 @@
       <div class="SettingsSecurity-form-button">
         <button
           class="button is-primary"
-          :class="{'is-loading': loading}"
+          :class="{ 'is-loading': loading }"
           @click="changePassword"
-        >{{ $t('settings.security.change') }}</button>
+        >
+          {{ $t("settings.security.change") }}
+        </button>
       </div>
     </form>
   </TemplateSettings>
 </template>
-
 
 <script>
 "use strict";
@@ -97,5 +103,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

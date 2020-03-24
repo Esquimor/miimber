@@ -1,12 +1,12 @@
 <template>
-  <div class="DashboardSession">Session</div>
+  <div>edit</div>
 </template>
 
 <script>
 "use strict";
 
 export default {
-  name: "DashboardSession"
+  name: "OrganizationSessionsModalEdit"
 };
 </script>
 

@@ -74,7 +74,18 @@ export default {
       }
     },
     sessions: {
-      title: "Sessions"
+      title: "Sessions",
+      table: {
+        name: "Nom"
+      },
+      add: {
+        title: "Ajouter une session"
+      },
+      delete: {
+        title: "Supprimer une session",
+        message: "Êtez-vous sur de supprimer la session ?",
+        success: "Session supprimé"
+      }
     },
     typeSessions: {
       title: "Catégories",
