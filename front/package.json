@@ -15,6 +15,7 @@
     "buefy": "^0.8.13",
     "cleave.js": "^1.5.8",
     "core-js": "^3.6.4",
+    "dayjs": "^1.8.23",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-i18n": "^8.15.6",

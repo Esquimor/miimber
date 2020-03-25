@@ -2,6 +2,8 @@
 export const SET_ME = "SET_ME";
 export const UPDATE_ME_BY_PROFILE = "UPDATE_ME_BY_PROFILE";
 export const SET_MEMBER_ME = "SET_MEMBER_ME";
+export const OPEN_SIDE_BAR = "OPEN_SIDE_BAR";
+export const CLOSE_SIDE_BAR = "CLOSE_SIDE_BAR";
 
 // Sign
 export const SET_USER = "SET_USER";
@@ -20,3 +22,6 @@ export const ADD_TYPE_SESSION = "ADD_TYPE_SESSION";
 export const EDIT_TYPE_SESSION = "EDIT_TYPE_SESSION";
 export const DELETE_TYPE_SESSION = "DELETE_TYPE_SESSION";
 export const SET_SESSIONS = "SET_SESSIONS";
+export const ADD_SESSION = "ADD_SESSION";
+export const EDIT_SESSION = "EDIT_SESSION";
+export const DELETE_SESSION = "DELETE_SESSION";

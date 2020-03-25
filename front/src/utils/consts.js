@@ -16,3 +16,9 @@ export const MODAL_SIZE = {
   MEDIUM: "MEDIUM",
   BIG: "BIG"
 };
+
+export const PANEL_SIZE = {
+  SMALL: "400px",
+  MEDIUM: "650px",
+  BIG: "800px"
+};

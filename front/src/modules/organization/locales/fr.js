@@ -79,12 +79,23 @@ export default {
         name: "Nom"
       },
       add: {
-        title: "Ajouter une session"
+        title: "Ajouter une session",
+        success: "Session ajouté"
+      },
+      edit: {
+        title: "Modifier une session",
+        success: "Session modifié"
       },
       delete: {
         title: "Supprimer une session",
         message: "Êtez-vous sur de supprimer la session ?",
         success: "Session supprimé"
+      },
+      label: {
+        startHour: "Heure de début",
+        endHour: "Heure de fin",
+        sessionDate: "Date de la session",
+        typeSession: "Catégorie"
       }
     },
     typeSessions: {

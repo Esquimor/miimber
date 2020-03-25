@@ -70,10 +70,24 @@ export default {
       table: {
         name: "Name"
       },
+      add: {
+        title: "Add a session",
+        success: "Session added"
+      },
+      edit: {
+        title: "Edit a session",
+        success: "Session edited"
+      },
       delete: {
         title: "Delete a session",
         message: "Do you really want to delete this session ?",
         success: "Session deleted"
+      },
+      label: {
+        startHour: "Start time",
+        endHour: "End time",
+        sessionDate: "Date of the session",
+        typeSession: "Category"
       }
     },
     typeSessions: {

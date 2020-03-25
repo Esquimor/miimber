@@ -30,8 +30,8 @@ import { mapGetters } from "vuex";
 
 import OrganizationTemplateList from "@organization/templates/OrganizationTemplateList";
 
-import OrganizationSessionsModalAdd from "@organization/components/sessions/OrganizationSessionsModalAdd";
-import OrganizationSessionsModalEdit from "@organization/components/sessions/OrganizationSessionsModalEdit";
+import OrganizationSessionsAdd from "@organization/components/sessions/OrganizationSessionsAdd";
+import OrganizationSessionsEdit from "@organization/components/sessions/OrganizationSessionsEdit";
 
 import OrganizationSessionsDropdown from "@organization/components/sessions/OrganizationSessionsDropdown";
 
@@ -53,18 +53,14 @@ export default {
   },
   methods: {
     add() {
-      this.$buefy.modal.open({
-        parent: this,
-        component: OrganizationSessionsModalAdd,
-        canCancel: false
+      this.$store.dispatch("core/openSideBar", {
+        component: OrganizationSessionsAdd
       });
     },
-    edit(element) {
-      this.$buefy.modal.open({
-        parent: this,
-        component: OrganizationSessionsModalEdit,
-        canCancel: false,
-        props: { element }
+    edit(session) {
+      this.$store.dispatch("core/openSideBar", {
+        component: OrganizationSessionsEdit,
+        props: { session }
       });
     },
     deleteItem(id) {

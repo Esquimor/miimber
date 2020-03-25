@@ -10,13 +10,9 @@
           field="name"
           :label="$t('organization.typeSessions.table.name')"
           sortable
-          >{{ row.name }}</BTableColumn
-        >
+        >{{ row.name }}</BTableColumn>
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
-          <OrganizationTypeSessionsDropdown
-            @edit="edit(row)"
-            @delete="deleteItem(row.id)"
-          />
+          <OrganizationTypeSessionsDropdown @edit="edit(row)" @delete="deleteItem(row.id)" />
         </BTableColumn>
       </template>
     </BTable>
@@ -30,8 +26,8 @@ import { mapGetters } from "vuex";
 
 import OrganizationTemplateList from "@organization/templates/OrganizationTemplateList";
 
-import OrganizationTypeSessionsModalAdd from "@organization/components/typeSessions/OrganizationTypeSessionsModalAdd";
-import OrganizationTypeSessionsModalEdit from "@organization/components/typeSessions/OrganizationTypeSessionsModalEdit";
+import OrganizationTypeSessionsAdd from "@organization/components/typeSessions/OrganizationTypeSessionsAdd";
+import OrganizationTypeSessionsEdit from "@organization/components/typeSessions/OrganizationTypeSessionsEdit";
 
 import OrganizationTypeSessionsDropdown from "@organization/components/typeSessions/OrganizationTypeSessionsDropdown";
 
@@ -55,14 +51,14 @@ export default {
     add() {
       this.$buefy.modal.open({
         parent: this,
-        component: OrganizationTypeSessionsModalAdd,
+        component: OrganizationTypeSessionsAdd,
         canCancel: false
       });
     },
     edit(element) {
       this.$buefy.modal.open({
         parent: this,
-        component: OrganizationTypeSessionsModalEdit,
+        component: OrganizationTypeSessionsEdit,
         canCancel: false,
         props: { element }
       });

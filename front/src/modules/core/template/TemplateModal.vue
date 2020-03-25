@@ -16,16 +16,12 @@
           class="button is-outlined is-danger"
           @click="$emit('cancel')"
           :disabled="loading"
-        >
-          {{ $t("core.utils.cancel") }}
-        </button>
+        >{{ $t("core.utils.cancel") }}</button>
         <button
           class="button is-primary"
           :class="{ 'is-loading': loading }"
           @click="$emit('confirm')"
-        >
-          {{ $t("core.utils.confirm") }}
-        </button>
+        >{{ $t("core.utils.confirm") }}</button>
       </footer>
     </slot>
   </div>
@@ -98,12 +94,14 @@ export default {
   z-index: 100;
   margin: 0 auto;
   border-radius: 10px;
-  overflow: hidden;
   &-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     background-color: $grey-lightest;
     padding: 0.5rem;
   }
   &-main {
+    overflow: auto;
     flex-grow: 1;
     &.has-padding {
       padding: 0.75rem;
@@ -114,6 +112,8 @@ export default {
     justify-content: flex-end;
     background-color: $grey-lightest;
     padding: 0.5rem;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     > button {
       margin-left: 0.5rem;
     }

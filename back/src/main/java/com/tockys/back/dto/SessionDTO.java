@@ -30,16 +30,16 @@ public class SessionDTO {
 		this.id = id;
 	}
 
-	public OffsetDateTime getStart() {
-		return start;
+	public String getStart() {
+		return this.start.toString();
 	}
 
 	public void setStart(OffsetDateTime start) {
 		this.start = start;
 	}
 
-	public OffsetDateTime getEnd() {
-		return end;
+	public String getEnd() {
+		return this.end.toString();
 	}
 
 	public void setEnd(OffsetDateTime end) {

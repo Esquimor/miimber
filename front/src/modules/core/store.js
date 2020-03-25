@@ -7,7 +7,10 @@ export default {
   namespaced: true,
   state: {
     me: null,
-    member: null
+    member: null,
+    sideBar: {
+      open: false
+    }
   },
   getters: {
     me: state => state.me,
@@ -20,7 +23,9 @@ export default {
           state.member.role
         )
       );
-    }
+    },
+    sideBar: state => state.sideBar,
+    sideBarProps: state => state.sideBar.open && state.sideBar.props
   },
   actions: {
     getMe({ commit }) {
@@ -42,6 +47,12 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    openSideBar({ commit }, payload) {
+      commit(types.OPEN_SIDE_BAR, payload);
+    },
+    closeSideBar({ commit }) {
+      commit(types.CLOSE_SIDE_BAR);
     }
   },
   mutations: {
@@ -54,6 +65,16 @@ export default {
     },
     [types.SET_MEMBER_ME](state, member) {
       state.member = member;
+    },
+    [types.OPEN_SIDE_BAR](state, { component, props }) {
+      state.sideBar = {
+        component,
+        open: true,
+        props
+      };
+    },
+    [types.CLOSE_SIDE_BAR](state) {
+      state.sideBar.open = false;
     }
   }
 };
