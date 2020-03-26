@@ -8,6 +8,8 @@ import com.tockys.back.model.TypeSession;
 public class SessionDTO {
 
 	public long id;
+	private String title;
+	private String description;
 	private OffsetDateTime start;
 	private OffsetDateTime end;
 	private long organizationId;
@@ -16,6 +18,8 @@ public class SessionDTO {
 	
 	public SessionDTO(Session session) {
 		this.id = session.getId();
+		this.title = session.getTitle();
+		this.description = session.getDescription();
 		this.start = session.getStart();
 		this.end = session.getEnd();
 		this.organizationId = session.getOrganization().getId();
@@ -68,6 +72,22 @@ public class SessionDTO {
 
 	public void setTypeSession(TypeSessionDTO typeSession) {
 		this.typeSession = typeSession;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	private class TypeSessionDTO {

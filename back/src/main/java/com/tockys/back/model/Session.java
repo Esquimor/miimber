@@ -19,6 +19,12 @@ public class Session {
 	@Column(name = "id")
 	private long id; 
 	
+	@Column(name = "title")
+	private String title;
+	
+	@Column(name = "description")
+	private String description;
+	
 	@Column(name = "startDate", columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private OffsetDateTime start;
 	
@@ -40,6 +46,22 @@ public class Session {
 	
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public String getTitle() {
+		return this.title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	public OffsetDateTime getStart() {

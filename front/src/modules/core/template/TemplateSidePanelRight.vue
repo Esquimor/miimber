@@ -18,13 +18,17 @@
             class="button is-outlined is-danger"
             @click="closeSideBar"
             :disabled="loading"
-          >{{ $t("core.utils.cancel") }}</button>
+          >
+            {{ $t("core.utils.cancel") }}
+          </button>
           <button
             class="button is-primary"
             :class="{ 'is-loading': loading }"
             :disabled="disabled"
             @click="$emit('confirm')"
-          >{{ $t("core.utils.confirm") }}</button>
+          >
+            {{ $t("core.utils.confirm") }}
+          </button>
         </footer>
       </slot>
     </div>
@@ -59,7 +63,7 @@ export default {
   computed: {
     contentStyle() {
       return {
-        width: this.size
+        maxWidth: this.size
       };
     }
   },
@@ -97,7 +101,8 @@ export default {
     }
     &-main {
       flex-grow: 1;
-      padding: 0.5rem;
+      padding: 1rem;
+      overflow-y: auto;
     }
     &-footer {
       display: flex;

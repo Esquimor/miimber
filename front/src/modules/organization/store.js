@@ -172,12 +172,33 @@ export default {
           return Promise.reject(e);
         });
     },
-    addSession({ commit, state }, { start, end, typeSessionId }) {
+    addSession(
+      { commit, state },
+      {
+        title,
+        description,
+        start,
+        end,
+        typeSessionId,
+        startDate,
+        endDate,
+        periodicity,
+        days,
+        repeat
+      }
+    ) {
       return api
         .post("session/", {
+          title,
+          description,
           start,
           end,
           typeSessionId,
+          startDate,
+          endDate,
+          periodicity,
+          days,
+          repeat,
           organizationId: state.organization.id
         })
         .then(({ data }) => {

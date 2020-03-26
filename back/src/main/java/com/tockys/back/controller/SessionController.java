@@ -1,5 +1,10 @@
 package com.tockys.back.controller;
 
+import java.time.DayOfWeek;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tockys.back.dto.SessionCreateDTO;
 import com.tockys.back.dto.SessionDTO;
 import com.tockys.back.dto.SessionEditDTO;
+import com.tockys.back.enumItem.PeriodicityEnum;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.model.Member;
 import com.tockys.back.model.Session;
@@ -57,13 +63,60 @@ public class SessionController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
-        Session session = new Session();
-        session.setStart(sessionDto.getStart());
-        session.setEnd(sessionDto.getEnd());
-        session.setTypeSession(typeSession);
-        session.setOrganization(memberUser.getOrganization());
+        List<Session> listSession = new ArrayList<Session>();
+        OffsetDateTime cursor =  sessionDto.getStartDate();
+        OffsetDateTime endDate = sessionDto.getEndDate().plusDays(1);
+        switch (sessionDto.getPeriodicity()) {
+        	case ONCE: {
+                Session session = new Session();
+                session.setTitle(sessionDto.getTitle());
+                session.setDescription(sessionDto.getDescription());
+                session.setStart(sessionDto.getStart());
+                session.setEnd(sessionDto.getEnd());
+                session.setTypeSession(typeSession);
+                session.setOrganization(memberUser.getOrganization());
+                listSession.add(sessionService.createSession(session));
+        	}
+        	case EVERYDAY: {
+        		while(cursor.isBefore(endDate)) {
+        			Session session = new Session();
+                    session.setTitle(sessionDto.getTitle());
+                    session.setDescription(sessionDto.getDescription());
+                    session.setStart(mixDateAndTime(cursor, sessionDto.getStart()));
+                    session.setEnd(mixDateAndTime(cursor, sessionDto.getEnd()));
+                    session.setTypeSession(typeSession);
+                    session.setOrganization(memberUser.getOrganization());
+                    listSession.add(sessionService.createSession(session));
+                    cursor = cursor.plusDays(1);
+        		}
+        		break;
+        	}
+        	case BY_WEEK: {
+        		while(cursor.isBefore(endDate)) {
+        			if (sessionDto.getDays().contains(cursor.getDayOfWeek().getValue())) {
+            			Session session = new Session();
+                        session.setTitle(sessionDto.getTitle());
+                        session.setDescription(sessionDto.getDescription());
+                        session.setStart(mixDateAndTime(cursor, sessionDto.getStart()));
+                        session.setEnd(mixDateAndTime(cursor, sessionDto.getEnd()));
+                        session.setTypeSession(typeSession);
+                        session.setOrganization(memberUser.getOrganization());
+                        listSession.add(sessionService.createSession(session));
+        			}
+        			if (cursor.getDayOfWeek() == DayOfWeek.SUNDAY) {
+        				cursor.plusWeeks(sessionDto.getRepeat() - 1);
+        			}
+                    cursor = cursor.plusDays(1);
+        		}
+        		break;
+        	}
+        	default : {
+        		return new ResponseEntity(HttpStatus.CONFLICT);
+        	}
+        }
+
         
-		return ResponseEntity.ok(SessionToSessionDto(sessionService.createSession(session)));
+		return ResponseEntity.ok(listSessionToListSessionDto(listSession));
 	}
 	
 	@RequestMapping(value = "/session/{id}", method = RequestMethod.PUT)
@@ -118,7 +171,19 @@ public class SessionController {
         return new ResponseEntity(HttpStatus.OK);
 	}
 	
+	private List<SessionDTO> listSessionToListSessionDto(List<Session> listSession) {
+		List<SessionDTO> listSessionDto = new ArrayList<SessionDTO>();
+		for(Session session: listSession) {
+			listSessionDto.add(SessionToSessionDto(session));
+		}
+		return listSessionDto;
+	}
+	
 	private SessionDTO SessionToSessionDto(Session session) {
 		return new SessionDTO(session);
+	}
+	
+	private OffsetDateTime mixDateAndTime(OffsetDateTime date, OffsetDateTime time) {
+		return OffsetDateTime.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth() + 1, time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getOffset());
 	}
 }

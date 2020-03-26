@@ -7,16 +7,12 @@
     <BTable :data="sessions" striped paginated :per-page="25">
       <template v-slot="{ row }">
         <BTableColumn
-          field="name"
-          :label="$t('organization.sessions.table.name')"
+          field="title"
+          :label="$t('organization.sessions.table.title')"
           sortable
-          >{{ row.name }}</BTableColumn
-        >
+        >{{ row.title }}</BTableColumn>
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
-          <OrganizationSessionsDropdown
-            @edit="edit(row)"
-            @delete="deleteItem(row.id)"
-          />
+          <OrganizationSessionsDropdown @edit="edit(row)" @delete="deleteItem(row.id)" />
         </BTableColumn>
       </template>
     </BTable>
