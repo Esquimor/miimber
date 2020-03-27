@@ -1,6 +1,10 @@
 import api from "@/utils/api";
 import * as types from "@/utils/types";
 
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
+
 export default {
   namespaced: true,
   state: {
@@ -162,9 +166,12 @@ export default {
           return Promise.reject(e);
         });
     },
-    setSessions({ commit, state }) {
+    setSessions({ commit, state }, { minDate, maxDate }) {
       return api
-        .get(`organization/${state.organization.id}/session/`)
+        .get(`organization/${state.organization.id}/session/`, {
+          minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
+          maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
+        })
         .then(({ data }) => {
           commit(types.SET_SESSIONS, data);
         })
@@ -276,9 +283,16 @@ export default {
     [types.ADD_SESSIONS](state, sessions) {
       state.sessions = state.sessions.concat(sessions);
     },
-    [types.EDIT_SESSION](state, { name, id }) {
+    [types.EDIT_SESSION](
+      state,
+      { title, description, start, end, typeSession, id }
+    ) {
       const editedSession = state.sessions.find(s => s.id === id);
-      editedSession.name = name;
+      editedSession.title = title;
+      editedSession.description = description;
+      editedSession.start = start;
+      editedSession.end = end;
+      editedSession.typeSession = typeSession;
     },
     [types.DELETE_SESSION](state, id) {
       state.sessions = state.sessions.filter(s => s.id !== id);

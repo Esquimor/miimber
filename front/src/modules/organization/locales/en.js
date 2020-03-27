@@ -68,7 +68,11 @@ export default {
     sessions: {
       title: "Sessions",
       table: {
-        title: "Title"
+        title: "Title",
+        date: "Day",
+        start: "Start",
+        end: "End",
+        typeSession: "Category"
       },
       add: {
         title: "Add a session",
@@ -93,7 +97,9 @@ export default {
         recurrence: "Recurrence",
         title: "Title",
         repeat: "Repeat every",
-        description: "Description"
+        description: "Description",
+        search: "Search",
+        between: "Between"
       }
     },
     typeSessions: {

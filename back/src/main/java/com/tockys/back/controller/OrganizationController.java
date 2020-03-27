@@ -1,5 +1,6 @@
 package com.tockys.back.controller;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stripe.model.Customer;
@@ -195,7 +197,7 @@ public class OrganizationController {
 	}
 	
 	@RequestMapping(value= "/organization/{id}/session/", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllSessionsFromOrganization(@PathVariable Long id) throws Exception {
+	public ResponseEntity<?> getAllSessionsFromOrganization(@PathVariable Long id, @RequestParam String minDate, @RequestParam String maxDate) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Member memberUser = memberService.getMemberByOrganizationIdAndByUser(id, user);
@@ -204,7 +206,7 @@ public class OrganizationController {
         }
         List<SessionDTO> listSessions = new ArrayList<SessionDTO>();
         
-        for (Session typeSesion: sessionService.getSessionByOrganizationId(id)) {
+        for (Session typeSesion: sessionService.getSessionByOrganizationId(id, OffsetDateTime.parse(minDate), OffsetDateTime.parse(maxDate))) {
         	listSessions.add(SessionToDTO(typeSesion));
         }
         return ResponseEntity.ok(listSessions);

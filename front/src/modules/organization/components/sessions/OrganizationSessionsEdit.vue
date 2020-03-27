@@ -37,6 +37,7 @@
             :firstDayOfWeek="1"
             :monthNames="monthNames"
             :dayNames="dayNames"
+            :nearbyMonthDays="false"
           ></BDatepicker>
         </BField>
       </div>
@@ -113,7 +114,6 @@ export default {
     canConfirm() {
       return (
         !!this.session.title &&
-        !!this.session.description &&
         !!this.session.startHour &&
         !!this.session.endHour &&
         !!this.session.typeSession &&

@@ -4,13 +4,44 @@
     @add="add"
     :loading="loading"
   >
-    <BTable :data="sessions" striped paginated :per-page="25">
+    <div class="OrganizationSession-search">
+      <div class="columns">
+        <div class="column">
+          <BField :label="$t('organization.sessions.label.search')">
+            <BInput v-model="search" type="search"></BInput>
+          </BField>
+        </div>
+        <div class="column">
+          <BField :label="$t('organization.sessions.label.between')">
+            <BDatepicker v-model="dates" range @input="setSessions" :nearbyMonthDays="false"></BDatepicker>
+          </BField>
+        </div>
+      </div>
+    </div>
+    <BTable :data="filteredSession" striped paginated :per-page="25">
       <template v-slot="{ row }">
         <BTableColumn
           field="title"
           :label="$t('organization.sessions.table.title')"
           sortable
         >{{ row.title }}</BTableColumn>
+        <BTableColumn
+          field="title"
+          :label="$t('organization.sessions.table.date')"
+        >{{ row.start | formatDate }}</BTableColumn>
+        <BTableColumn
+          field="title"
+          :label="$t('organization.sessions.table.start')"
+        >{{ row.start | formatHour }}</BTableColumn>
+        <BTableColumn
+          field="title"
+          :label="$t('organization.sessions.table.end')"
+        >{{ row.end | formatHour }}</BTableColumn>
+        <BTableColumn
+          field="title"
+          :label="$t('organization.sessions.table.typeSession')"
+          sortable
+        >{{ row.typeSession.name }}</BTableColumn>
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
           <OrganizationSessionsDropdown @edit="edit(row)" @delete="deleteItem(row.id)" />
         </BTableColumn>
@@ -23,6 +54,8 @@
 "use strict";
 
 import { mapGetters } from "vuex";
+
+import dayjs from "dayjs";
 
 import OrganizationTemplateList from "@organization/templates/OrganizationTemplateList";
 
@@ -39,13 +72,30 @@ export default {
   },
   data() {
     return {
-      loading: true
+      loading: true,
+      dates: [],
+      search: ""
     };
   },
   computed: {
     ...mapGetters({
       sessions: "organization/sessions"
-    })
+    }),
+    reorderByDate() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      const reorderByDate = this.sessions.sort((a, b) =>
+        dayjs(a.start).isAfter(dayjs(b.start))
+      );
+      return reorderByDate;
+    },
+    filteredSession() {
+      if (this.search === "") return this.reorderByDate;
+
+      const lowerCaseSearch = this.search.toLowerCase();
+      return this.reorderByDate.filter(p => {
+        return p.title.toLowerCase().search(lowerCaseSearch) !== -1;
+      });
+    }
   },
   methods: {
     add() {
@@ -75,14 +125,36 @@ export default {
           });
         }
       });
+    },
+    setSessions() {
+      this.loading = true;
+      this.$store
+        .dispatch("organization/setSessions", {
+          minDate: this.dates[0],
+          maxDate: this.dates[1]
+        })
+        .then(() => {
+          this.loading = false;
+        });
     }
   },
   mounted() {
-    this.$store.dispatch("organization/setSessions").then(() => {
-      this.$store.dispatch("organization/setTypeSessions").then(() => {
-        this.loading = false;
+    this.dates = [
+      dayjs().toDate(),
+      dayjs()
+        .add(1, "month")
+        .toDate()
+    ];
+    this.$store
+      .dispatch("organization/setSessions", {
+        minDate: this.dates[0],
+        maxDate: this.dates[1]
+      })
+      .then(() => {
+        this.$store.dispatch("organization/setTypeSessions").then(() => {
+          this.loading = false;
+        });
       });
-    });
   }
 };
 </script>

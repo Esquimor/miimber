@@ -29,6 +29,20 @@ Vue.directive("cleave", {
   }
 });
 
+import dayjs from "dayjs";
+
+Vue.filter("formatHour", function(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  return dayjs(date).format("HH:mm");
+});
+
+Vue.filter("formatDate", function(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  return dayjs(date).format("DD/MM/YYYY");
+});
+
 new Vue({
   router,
   store,

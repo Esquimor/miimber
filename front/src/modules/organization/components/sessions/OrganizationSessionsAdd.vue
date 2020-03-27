@@ -89,6 +89,7 @@
             :firstDayOfWeek="1"
             :monthNames="monthNames"
             :dayNames="dayNames"
+            :nearbyMonthDays="false"
           ></BDatepicker>
         </BField>
       </div>
@@ -104,6 +105,7 @@
             :firstDayOfWeek="1"
             :monthNames="monthNames"
             :dayNames="dayNames"
+            :nearbyMonthDays="false"
           ></BDatepicker>
         </BField>
       </div>
@@ -118,6 +120,7 @@
             :firstDayOfWeek="1"
             :monthNames="monthNames"
             :dayNames="dayNames"
+            :nearbyMonthDays="false"
           ></BDatepicker>
         </BField>
       </div>
@@ -262,6 +265,26 @@ export default {
   },
   mounted() {
     this.session.typeSession = this.typeSessions[0].id;
+  },
+  watch: {
+    "session.startDate"(newVal) {
+      if (!this.session.endDate) return;
+      if (!newVal) return;
+      if (dayjs(newVal).isAfter(dayjs(this.session.endDate))) {
+        const temp = this.session.endDate;
+        this.session.endDate = newVal;
+        this.session.startDate = temp;
+      }
+    },
+    "session.endDate"(newVal) {
+      if (!this.session.startDate) return;
+      if (!newVal) return;
+      if (dayjs(newVal).isBefore(dayjs(this.session.startDate))) {
+        const temp = this.session.startDate;
+        this.session.startDate = newVal;
+        this.session.endDate = temp;
+      }
+    }
   }
 };
 </script>

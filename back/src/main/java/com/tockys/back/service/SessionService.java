@@ -1,5 +1,6 @@
 package com.tockys.back.service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +17,8 @@ public class SessionService implements ISessionService {
 	private SessionRepository sessionRepository;
 	
 	@Override
-	public List<Session> getSessionByOrganizationId(long id) {
-		return sessionRepository.findByOrganizationId(id);
+	public List<Session> getSessionByOrganizationId(long id, OffsetDateTime min, OffsetDateTime max) {
+		return sessionRepository.findByOrganizationIdAndStartBetween(id, min, max);
 	}
 
 	@Override
