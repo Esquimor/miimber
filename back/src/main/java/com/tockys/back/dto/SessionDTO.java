@@ -35,18 +35,16 @@ public class SessionDTO {
 		this.id = id;
 	}
 
-	public String getStart() {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME; 
-		return formatter.format(this.start);
+	public OffsetDateTime getStart() {
+		return this.start;
 	}
 
 	public void setStart(OffsetDateTime start) {
 		this.start = start;
 	}
 
-	public String getEnd() {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME; 
-		return formatter.format(this.end);
+	public OffsetDateTime getEnd() {
+		return this.end;
 	}
 
 	public void setEnd(OffsetDateTime end) {

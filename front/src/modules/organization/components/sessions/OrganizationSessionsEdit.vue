@@ -34,6 +34,9 @@
             icon="calendar-today"
             trap-focus
             :minDate="minDate"
+            :firstDayOfWeek="1"
+            :monthNames="monthNames"
+            :dayNames="dayNames"
           ></BDatepicker>
         </BField>
       </div>
@@ -64,6 +67,8 @@
 
 import { mapGetters } from "vuex";
 
+import calendar from "@core/mixins/calendar";
+
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
@@ -72,6 +77,7 @@ import TemplateSidePanelRight from "@core/template/TemplateSidePanelRight";
 
 export default {
   name: "OrganizationSessionsEdit",
+  mixins: [calendar],
   components: {
     TemplateSidePanelRight
   },
@@ -152,6 +158,8 @@ export default {
       immediate: true,
       handler(newVal) {
         this.session = {
+          title: newVal.title,
+          description: newVal.description,
           startHour: dayjs(newVal.start).toDate(),
           endHour: dayjs(newVal.end).toDate(),
           typeSession: newVal.typeSession.id,

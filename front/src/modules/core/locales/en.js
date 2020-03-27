@@ -63,6 +63,34 @@ export default {
     },
     timeShort: {
       minutes: "min."
+    },
+    months: {
+      JANUARY: "January",
+      FEBRUARY: "February",
+      MARCH: "March",
+      APRIL: "Apil",
+      MAY: "May",
+      JUNE: "June",
+      JULY: "July",
+      AUGUST: "August",
+      SEPTEMBER: "September",
+      OCTOBER: "October",
+      NOVEMBER: "November",
+      DECEMBER: "December"
+    },
+    monthsShort: {
+      JANUARY: "Jan",
+      FEBRUARY: "Feb",
+      MARCH: "Mar",
+      APRIL: "Apr",
+      MAY: "May",
+      JUNE: "Jun",
+      JULY: "Jul",
+      AUGUST: "Aug",
+      SEPTEMBER: "Sep",
+      OCTOBER: "Oct",
+      NOVEMBER: "Nov",
+      DECEMBER: "Déc"
     }
   }
 };

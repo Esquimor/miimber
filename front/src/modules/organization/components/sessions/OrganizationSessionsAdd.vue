@@ -86,6 +86,9 @@
             icon="calendar-today"
             trap-focus
             :minDate="minDate"
+            :firstDayOfWeek="1"
+            :monthNames="monthNames"
+            :dayNames="dayNames"
           ></BDatepicker>
         </BField>
       </div>
@@ -98,6 +101,9 @@
             icon="calendar-today"
             trap-focus
             :minDate="minDate"
+            :firstDayOfWeek="1"
+            :monthNames="monthNames"
+            :dayNames="dayNames"
           ></BDatepicker>
         </BField>
       </div>
@@ -109,6 +115,9 @@
             trap-focus
             position="is-bottom-left"
             :minDate="minDate"
+            :firstDayOfWeek="1"
+            :monthNames="monthNames"
+            :dayNames="dayNames"
           ></BDatepicker>
         </BField>
       </div>
@@ -141,6 +150,8 @@
 
 import { mapGetters } from "vuex";
 
+import calendar from "@core/mixins/calendar";
+
 import { SESSION_RECURRENCE, SESSION_REPEAT } from "@/utils/consts";
 
 import dayjs from "dayjs";
@@ -153,6 +164,7 @@ import OrganizationSessionsDays from "@organization/components/sessions/Organiza
 
 export default {
   name: "OrganizationSessionsAdd",
+  mixins: [calendar],
   components: {
     TemplateSidePanelRight,
     OrganizationSessionsDays
