@@ -22,12 +22,22 @@
             hourFormat="24"
             trap-focus
             required
+            :hoursLabel="$t('core.time.hours')"
+            :minutesLabel="$t('core.timeShort.minutes')"
           ></BClockpicker>
         </BField>
       </div>
       <div class="column">
         <BField :label="$t('organization.sessions.label.endHour')">
-          <BClockpicker v-model="session.endHour" icon="clock" hourFormat="24" trap-focus required></BClockpicker>
+          <BClockpicker
+            v-model="session.endHour"
+            icon="clock"
+            hourFormat="24"
+            trap-focus
+            required
+            :hoursLabel="$t('core.time.hours')"
+            :minutesLabel="$t('core.timeShort.minutes')"
+          ></BClockpicker>
         </BField>
       </div>
     </div>
@@ -97,6 +107,7 @@
             v-model="session.endDate"
             icon="calendar-today"
             trap-focus
+            position="is-bottom-left"
             :minDate="minDate"
           ></BDatepicker>
         </BField>

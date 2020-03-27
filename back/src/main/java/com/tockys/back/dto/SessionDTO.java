@@ -1,6 +1,7 @@
 package com.tockys.back.dto;
 
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.tockys.back.model.Session;
 import com.tockys.back.model.TypeSession;
@@ -35,7 +36,8 @@ public class SessionDTO {
 	}
 
 	public String getStart() {
-		return this.start.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME; 
+		return formatter.format(this.start);
 	}
 
 	public void setStart(OffsetDateTime start) {
@@ -43,7 +45,8 @@ public class SessionDTO {
 	}
 
 	public String getEnd() {
-		return this.end.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME; 
+		return formatter.format(this.end);
 	}
 
 	public void setEnd(OffsetDateTime end) {

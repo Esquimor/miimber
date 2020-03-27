@@ -56,6 +56,13 @@ export default {
       TWO: "2 Semaines",
       THREE: "3 Semaines",
       FOUR: "4 Semaines"
+    },
+    time: {
+      hours: "heures",
+      minutes: "minutes"
+    },
+    timeShort: {
+      minutes: "min."
     }
   }
 };

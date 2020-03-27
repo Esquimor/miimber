@@ -23,6 +23,7 @@ import com.tockys.back.dto.SessionEditDTO;
 import com.tockys.back.enumItem.PeriodicityEnum;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.model.Member;
+import com.tockys.back.model.Organization;
 import com.tockys.back.model.Session;
 import com.tockys.back.model.TypeSession;
 import com.tockys.back.model.User;
@@ -65,7 +66,7 @@ public class SessionController {
         
         List<Session> listSession = new ArrayList<Session>();
         OffsetDateTime cursor =  sessionDto.getStartDate();
-        OffsetDateTime endDate = sessionDto.getEndDate().plusDays(1);
+        OffsetDateTime endDate = sessionDto.getEndDate().plusDays(2);
         switch (sessionDto.getPeriodicity()) {
         	case ONCE: {
                 Session session = new Session();
@@ -78,33 +79,25 @@ public class SessionController {
                 listSession.add(sessionService.createSession(session));
         	}
         	case EVERYDAY: {
+                cursor = cursor.plusDays(1);
         		while(cursor.isBefore(endDate)) {
-        			Session session = new Session();
-                    session.setTitle(sessionDto.getTitle());
-                    session.setDescription(sessionDto.getDescription());
-                    session.setStart(mixDateAndTime(cursor, sessionDto.getStart()));
-                    session.setEnd(mixDateAndTime(cursor, sessionDto.getEnd()));
-                    session.setTypeSession(typeSession);
-                    session.setOrganization(memberUser.getOrganization());
-                    listSession.add(sessionService.createSession(session));
+                    listSession.add(sessionService.createSession(
+                    		createSessionBySessionDtoAndDate(sessionDto, cursor, typeSession, memberUser.getOrganization())
+                    		));
                     cursor = cursor.plusDays(1);
         		}
         		break;
         	}
         	case BY_WEEK: {
+                cursor = cursor.plusDays(1);
         		while(cursor.isBefore(endDate)) {
         			if (sessionDto.getDays().contains(cursor.getDayOfWeek().getValue())) {
-            			Session session = new Session();
-                        session.setTitle(sessionDto.getTitle());
-                        session.setDescription(sessionDto.getDescription());
-                        session.setStart(mixDateAndTime(cursor, sessionDto.getStart()));
-                        session.setEnd(mixDateAndTime(cursor, sessionDto.getEnd()));
-                        session.setTypeSession(typeSession);
-                        session.setOrganization(memberUser.getOrganization());
-                        listSession.add(sessionService.createSession(session));
+                        listSession.add(sessionService.createSession(
+                        		createSessionBySessionDtoAndDate(sessionDto, cursor, typeSession, memberUser.getOrganization())
+                        		));
         			}
         			if (cursor.getDayOfWeek() == DayOfWeek.SUNDAY) {
-        				cursor.plusWeeks(sessionDto.getRepeat() - 1);
+        				cursor = cursor.plusWeeks(sessionDto.getRepeat() - 1);
         			}
                     cursor = cursor.plusDays(1);
         		}
@@ -141,6 +134,8 @@ public class SessionController {
         if (typeSession == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+        session.setTitle(sessionDto.getTitle());
+        session.setDescription(sessionDto.getDescription());
         session.setStart(sessionDto.getStart());
         session.setEnd(sessionDto.getEnd());
         session.setTypeSession(typeSession);
@@ -183,7 +178,18 @@ public class SessionController {
 		return new SessionDTO(session);
 	}
 	
+	private Session createSessionBySessionDtoAndDate(SessionCreateDTO sessionDto, OffsetDateTime date, TypeSession typeSession, Organization organization) {
+		Session session = new Session();
+        session.setTitle(sessionDto.getTitle());
+        session.setDescription(sessionDto.getDescription());
+        session.setStart(mixDateAndTime(date, sessionDto.getStart()));
+        session.setEnd(mixDateAndTime(date, sessionDto.getEnd()));
+        session.setTypeSession(typeSession);
+        session.setOrganization(organization);
+        return session;
+	}
+	
 	private OffsetDateTime mixDateAndTime(OffsetDateTime date, OffsetDateTime time) {
-		return OffsetDateTime.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth() + 1, time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getOffset());
+		return OffsetDateTime.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getOffset());
 	}
 }

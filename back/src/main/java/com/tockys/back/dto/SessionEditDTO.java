@@ -4,10 +4,24 @@ import java.time.OffsetDateTime;
 
 public class SessionEditDTO {
 
+	private String title;
+	private String description;
 	private OffsetDateTime start;
 	private OffsetDateTime end;
 	private long typeSessionId;
-	
+
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public OffsetDateTime getStart() {
 		return start;
 	}

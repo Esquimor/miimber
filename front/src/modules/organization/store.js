@@ -202,15 +202,20 @@ export default {
           organizationId: state.organization.id
         })
         .then(({ data }) => {
-          commit(types.ADD_SESSION, data);
+          commit(types.ADD_SESSIONS, data);
         })
         .catch(e => {
           return Promise.reject(e);
         });
     },
-    editSession({ commit }, { start, end, typeSessionId, id }) {
+    editSession(
+      { commit },
+      { title, description, start, end, typeSessionId, id }
+    ) {
       return api
         .put(`session/${id}`, {
+          title,
+          description,
           start,
           end,
           typeSessionId
@@ -268,8 +273,8 @@ export default {
     [types.SET_SESSIONS](state, sessions) {
       state.sessions = sessions;
     },
-    [types.ADD_SESSION](state, session) {
-      state.sessions.push(session);
+    [types.ADD_SESSIONS](state, sessions) {
+      state.sessions = state.sessions.concat(sessions);
     },
     [types.EDIT_SESSION](state, { name, id }) {
       const editedSession = state.sessions.find(s => s.id === id);

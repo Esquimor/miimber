@@ -14,7 +14,7 @@ public class SessionCreateDTO {
 	private OffsetDateTime startDate;
 	private OffsetDateTime endDate;
 	private PeriodicityEnum periodicity;
-	private List<Long> days;
+	private List<Integer> days;
 	private int repeat;
 	private long typeSessionId;
 	private long organizationId;
@@ -74,10 +74,10 @@ public class SessionCreateDTO {
 	public void setPeriodicity(PeriodicityEnum periodicity) {
 		this.periodicity = periodicity;
 	}
-	public List<Long> getDays() {
+	public List<Integer> getDays() {
 		return days;
 	}
-	public void setDays(List<Long> days) {
+	public void setDays(List<Integer> days) {
 		this.days = days;
 	}
 	public int getRepeat() {

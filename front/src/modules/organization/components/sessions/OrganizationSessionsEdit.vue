@@ -8,21 +8,20 @@
   >
     <div class="columns">
       <div class="column">
+        <BField :label="$t('organization.sessions.label.title')">
+          <BInput v-model="session.title" required></BInput>
+        </BField>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
         <BField :label="$t('organization.sessions.label.startHour')">
-          <BTimepicker
-            v-model="session.startHour"
-            icon="alarm"
-            trap-focus
-          ></BTimepicker>
+          <BTimepicker v-model="session.startHour" icon="alarm" trap-focus></BTimepicker>
         </BField>
       </div>
       <div class="column">
         <BField :label="$t('organization.sessions.label.endHour')">
-          <BTimepicker
-            v-model="session.endHour"
-            icon="alarm"
-            trap-focus
-          ></BTimepicker>
+          <BTimepicker v-model="session.endHour" icon="alarm" trap-focus></BTimepicker>
         </BField>
       </div>
     </div>
@@ -40,18 +39,20 @@
       </div>
       <div class="column">
         <BField :label="$t('organization.sessions.label.typeSession')">
-          <BSelect
-            placeholder="Select a name"
-            v-model="session.typeSession"
-            expanded
-          >
+          <BSelect placeholder="Select a name" v-model="session.typeSession" expanded>
             <option
               v-for="typeSession in typeSessions"
               :value="typeSession.id"
               :key="typeSession.id"
-              >{{ typeSession.name }}</option
-            >
+            >{{ typeSession.name }}</option>
           </BSelect>
+        </BField>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <BField :label="$t('organization.sessions.label.description')">
+          <BInput v-model="session.description" maxlength="500" type="textarea"></BInput>
         </BField>
       </div>
     </div>
@@ -88,6 +89,8 @@ export default {
       loading: false,
       minDate: minDate,
       session: {
+        title: "",
+        description: "",
         startHour: null,
         endHour: null,
         typeSession: null,
@@ -103,6 +106,8 @@ export default {
     }),
     canConfirm() {
       return (
+        !!this.session.title &&
+        !!this.session.description &&
         !!this.session.startHour &&
         !!this.session.endHour &&
         !!this.session.typeSession &&
@@ -123,6 +128,8 @@ export default {
       end.setMinutes(this.session.endHour.getMinutes());
       this.$store
         .dispatch("organization/editSession", {
+          title: this.session.title,
+          description: this.session.description,
           start: dayjs(start).format("YYYY-MM-DDTHH:mm:ssZ"),
           end: dayjs(end).format("YYYY-MM-DDTHH:mm:ssZ"),
           typeSessionId: this.session.typeSession,
@@ -146,7 +153,7 @@ export default {
       handler(newVal) {
         this.session = {
           startHour: dayjs(newVal.start).toDate(),
-          endHour: dayjs(newVal.start).toDate(),
+          endHour: dayjs(newVal.end).toDate(),
           typeSession: newVal.typeSession.id,
           sessionDate: dayjs(newVal.start).toDate(),
           id: newVal.id

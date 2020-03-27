@@ -18,17 +18,13 @@
             class="button is-outlined is-danger"
             @click="closeSideBar"
             :disabled="loading"
-          >
-            {{ $t("core.utils.cancel") }}
-          </button>
+          >{{ $t("core.utils.cancel") }}</button>
           <button
             class="button is-primary"
             :class="{ 'is-loading': loading }"
             :disabled="disabled"
             @click="$emit('confirm')"
-          >
-            {{ $t("core.utils.confirm") }}
-          </button>
+          >{{ $t("core.utils.confirm") }}</button>
         </footer>
       </slot>
     </div>
@@ -86,7 +82,7 @@ export default {
   &-background {
     cursor: pointer;
     flex-grow: 1;
-    background-color: $grey-lightest;
+    background-color: $grey;
     opacity: 0.5;
   }
   &-content {
