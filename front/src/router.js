@@ -10,6 +10,7 @@ import routerError from "@error/router.js";
 import routerHome from "@home/router.js";
 import routerSign from "@sign/router.js";
 import routerSettings from "@settings/router.js";
+import routerOrganization from "@organization/router.js";
 
 const routes = [];
 
@@ -22,12 +23,17 @@ const router = new VueRouter({
     routerHome,
     routerSign,
     routerSettings,
+    routerOrganization,
     routerError
   )
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.path.search("/settings") || to.path.search("/dashboard")) {
+  if (
+    to.path.search("/settings") !== -1 ||
+    to.path.search("/dashboard") !== -1 ||
+    to.path.search("/organization") !== -1
+  ) {
     if (store.state.core.me) {
       next();
     } else if (localStorage.getItem("token")) {
@@ -37,13 +43,14 @@ router.beforeEach((to, from, next) => {
           next();
         })
         .catch(() => {
-          next("/login");
+          next({ name: "login" });
         });
     } else {
-      next("/login");
+      next({ name: "login" });
     }
+  } else {
+    next();
   }
-  next();
 });
 
 export default router;

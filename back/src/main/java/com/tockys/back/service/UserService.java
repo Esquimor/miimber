@@ -22,8 +22,12 @@ public class UserService implements IUserService {
 	private PasswordEncoder bcryptEncoder;
 
 	@Override
-	public Optional<User> getUserById(long id) throws EntityNotFoundException {
-		return userRepository.findById(id);
+	public User getUserById(long id) throws EntityNotFoundException {
+		Optional<User> user = userRepository.findById(id);
+		if (user.isEmpty()) {
+			return null;
+		}
+		return user.get();
 	}
 
 	@Override

@@ -21,6 +21,9 @@ export default {
   put(endpoint, params) {
     return axios.put(`${route}/${endpoint}`, params, { headers: setToken() });
   },
+  patch(endpoint, params) {
+    return axios.put(`${route}/${endpoint}`, params, { headers: setToken() });
+  },
   delete(endpoint, params) {
     return axios.delete(
       `${route}/${endpoint}`,

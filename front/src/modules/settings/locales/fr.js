@@ -26,7 +26,8 @@ export default {
       listTitle: "Listes de vos organisations",
       listEmpty: "Vous ne possédez aucune organisation.",
       create: "Créer une organisation",
-      button: "Créer"
+      button: "Créer",
+      manage: "Gérer"
     },
     organizationCreate: {
       name: "Nom",

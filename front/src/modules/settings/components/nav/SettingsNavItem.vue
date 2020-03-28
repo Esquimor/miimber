@@ -1,5 +1,7 @@
 <template>
-  <router-link class="SettingsNavItem" :to="{ name: route }">{{label}}</router-link>
+  <router-link class="SettingsNavItem" :to="{ name: route }">{{
+    label
+  }}</router-link>
 </template>
 
 <script>

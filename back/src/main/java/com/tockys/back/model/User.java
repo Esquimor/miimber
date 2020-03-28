@@ -32,6 +32,9 @@ public class User {
 	@Column(name = "role")
 	private UserRoleEnum role = UserRoleEnum.User;
 	
+	@Column(name = "token")
+	private String token;
+	
 	@OneToMany(mappedBy = "user")
     private List<Member> members;
 	
@@ -81,6 +84,14 @@ public class User {
 	
 	public void setRole(UserRoleEnum role) {
 		this.role = role;
+	}
+	
+	public String getToken() {
+		return this.token;
+	}
+	
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	public List<Member> getMembers() {

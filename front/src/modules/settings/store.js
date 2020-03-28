@@ -40,7 +40,7 @@ export default {
       return api
         .get("organization/ownered")
         .then(({ data }) => {
-          commit(types.SET_ORGANIZATION_OWNERED, data);
+          commit(types.STG_SET_ORGANIZATION_OWNERED, data);
           return Promise.resolve();
         })
         .catch(e => {
@@ -63,7 +63,7 @@ export default {
     }
   },
   mutations: {
-    [types.SET_ORGANIZATION_OWNERED](state, organizations) {
+    [types.STG_SET_ORGANIZATION_OWNERED](state, organizations) {
       state.organizations = organizations;
     }
   }

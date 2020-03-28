@@ -27,6 +27,13 @@ public class Member {
     @ManyToOne
     private Organization organization;
 	
+	public boolean canEditOrganization() {
+		if (this.role == RoleEnum.MEMBER || this.role == RoleEnum.INSTRUCTOR) {
+			return false;
+		}
+		return true;
+	}
+	
 	public long getId() {
 		return this.id;
 	}

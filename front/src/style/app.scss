@@ -10,3 +10,21 @@
 * {
   font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
+
+
+.CoreDropdownItem {
+  display: flex !important;
+  align-content: center;
+  justify-content: flex-start;
+  > .icon {
+    width: 35px;
+  }
+  @each $name, $color in $colors {
+    &.is-#{$name} {
+      &:hover {
+        background-color: nth($color, 1) !important;
+        color: nth($color, 2);
+      }
+    }
+  }
+}

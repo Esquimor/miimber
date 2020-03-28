@@ -4,12 +4,12 @@
       <div class="Dashboard-main-panel">
         <DashboardPanelItem
           route="dashboard-sessions"
-          icon="account-group"
+          icon="calendar-multiple"
           :label="$t('dashboard.panel.sessions')"
         />
         <DashboardPanelItem
           route="dashboard-organizations"
-          icon="sitemap"
+          icon="account-group"
           :label="$t('dashboard.panel.organizations')"
         />
       </div>
@@ -40,7 +40,7 @@ export default {
 .Dashboard {
   &-main {
     display: flex;
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     &-panel {
       display: flex;
@@ -50,7 +50,6 @@ export default {
     }
     &-content {
       flex-grow: 1;
-      padding: 1rem;
     }
   }
 }

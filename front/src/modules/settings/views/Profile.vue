@@ -13,9 +13,11 @@
       <div class="SettingsProfile-form-button">
         <button
           class="button is-primary"
-          :class="{'is-loading': loading}"
+          :class="{ 'is-loading': loading }"
           @click="update"
-        >{{ $t('settings.profile.update') }}</button>
+        >
+          {{ $t("settings.profile.update") }}
+        </button>
       </div>
     </form>
   </TemplateSettings>
@@ -85,5 +87,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

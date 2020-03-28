@@ -1,7 +1,8 @@
 <template>
-  <TemplateSettings :title="$t('settings.account.title')">Profile</TemplateSettings>
+  <TemplateSettings :title="$t('settings.account.title')"
+    >Profile</TemplateSettings
+  >
 </template>
-
 
 <script>
 "use strict";
@@ -16,5 +17,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

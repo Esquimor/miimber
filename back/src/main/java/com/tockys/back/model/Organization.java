@@ -3,6 +3,7 @@ package com.tockys.back.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,17 +27,27 @@ public class Organization {
 	@Column(name = "stripe")
 	private String stripe;
 	
-	@OneToMany(mappedBy = "organization")
+	@OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
     private List<Member> members;
+	
+	@OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
+    private List<TypeSession> typeSessions;
+	
+	@OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
+    private List<Session> sessions;
 	
 	public Organization() {
 		this.name = "";
 		this.members = new ArrayList<Member>();
+		this.typeSessions = new ArrayList<TypeSession>();
+		this.sessions = new ArrayList<Session>();
 	}
 	
 	public Organization(String name) {
 		this.name = name;
 		this.members = new ArrayList<Member>();
+		this.typeSessions = new ArrayList<TypeSession>();
+		this.sessions = new ArrayList<Session>();
 	}
 	
 	public long getId() {
@@ -46,7 +57,7 @@ public class Organization {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -73,5 +84,37 @@ public class Organization {
 	
 	public void removeMember(Member member) {
 		this.members.remove(member);
+	}
+	
+	public List<TypeSession> getTypeSessions() {
+		return this.typeSessions;
+	}
+	
+	public void setTypeSessions(List<TypeSession> typeSessions) {
+		this.typeSessions = typeSessions;
+	}
+	
+	public void addTypeSession(TypeSession typeSession) {
+		this.typeSessions.add(typeSession);
+	}
+	
+	public void removeTypeSession(TypeSession typeSession) {
+		this.typeSessions.remove(typeSession);
+	}
+	
+	public List<Session> getSessions() {
+		return this.sessions;
+	}
+	
+	public void setSessions(List<Session> sessions) {
+		this.sessions = sessions;
+	}
+	
+	public void addSession(Session session) {
+		this.sessions.add(session);
+	}
+	
+	public void removeSession(Session session) {
+		this.sessions.remove(session);
 	}
 }
