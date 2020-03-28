@@ -8,6 +8,8 @@ import com.tockys.back.model.User;
 public interface IOrganizationService {
 	List<Organization> getOrganizationOwnered(User user);
 	
+	List<Organization> getOrganizationByUser(User user);
+	
 	Organization createOrganization(Organization organization);
 	
 	Organization getOrganizationByName(String name);

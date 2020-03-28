@@ -1,5 +1,7 @@
 package com.tockys.back.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tockys.back.dto.OrganizationDTO;
 import com.tockys.back.dto.UserDTO;
 import com.tockys.back.dto.UserPasswordDTO;
 import com.tockys.back.helper.Helper;
@@ -23,6 +26,7 @@ import com.tockys.back.model.Member;
 import com.tockys.back.model.Organization;
 import com.tockys.back.model.User;
 import com.tockys.back.service.MemberService;
+import com.tockys.back.service.OrganizationService;
 import com.tockys.back.service.UserService;
 
 @RestController
@@ -34,6 +38,9 @@ public class UserController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private OrganizationService organizationService;
 	
     @Autowired
     private ModelMapper modelMapper;
@@ -88,6 +95,18 @@ public class UserController {
 		}
 		return ResponseEntity.ok(convertToDto(user));
 	}
+
+	@RequestMapping(value = "/user/organization", method = RequestMethod.GET)
+	public ResponseEntity<?> getUserOrganization() throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        List<OrganizationDTO> responseOrganization = new ArrayList<OrganizationDTO>();
+        for (Organization organization : organizationService.getOrganizationOwnered(user)) 
+        { 
+        	responseOrganization.add(OrganizationToDTO(organization));
+        }
+		return ResponseEntity.ok(responseOrganization);
+	}
 	
 	private UserDTO convertToDto(User user) {
 		UserDTO userDto = modelMapper.map(user, UserDTO.class);
@@ -102,5 +121,12 @@ public class UserController {
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
 		return user;
+	}
+
+	private OrganizationDTO OrganizationToDTO(Organization organization) {
+		return new OrganizationDTO(
+        				organization.getId(),
+        				organization.getName()
+        		);
 	}
 }

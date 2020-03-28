@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.stripe.model.Customer;
 import com.stripe.model.Subscription;
+import com.tockys.back.dto.OrganizationCompleteDTO;
 import com.tockys.back.dto.OrganizationCreateDTO;
 import com.tockys.back.dto.OrganizationDTO;
 import com.tockys.back.dto.OrganizationManageDTO;
@@ -91,6 +92,21 @@ public class OrganizationController {
         		member.getOrganization(), 
 				stripeService.getSubscription(member.getOrganization().getStripe())
 			));
+	}
+	
+	@RequestMapping(value = "/organization/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getOrganization(@PathVariable long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+		Organization organization = organizationService.getOrganization(id);
+		
+		if (organization == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		Member member = memberService.getMemberByOrganizationAndByUser(organization, user);
+		
+		return ResponseEntity.ok(OrganizationToCompleteDTO(organization, member));
 	}
 	
 	@RequestMapping(value = "/organization/", method = RequestMethod.POST)
@@ -199,11 +215,7 @@ public class OrganizationController {
 	@RequestMapping(value= "/organization/{id}/session/", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllSessionsFromOrganization(@PathVariable Long id, @RequestParam String minDate, @RequestParam String maxDate) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        Member memberUser = memberService.getMemberByOrganizationIdAndByUser(id, user);
-        if (memberUser == null) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+
         List<SessionDTO> listSessions = new ArrayList<SessionDTO>();
         
         for (Session typeSesion: sessionService.getSessionByOrganizationId(id, OffsetDateTime.parse(minDate), OffsetDateTime.parse(maxDate))) {
@@ -237,5 +249,12 @@ public class OrganizationController {
 				organization.getMembers(),
 				 subscription
 			);
+	}
+	
+	private OrganizationCompleteDTO OrganizationToCompleteDTO(Organization organization, Member member) {
+		return new OrganizationCompleteDTO(
+				organization,
+				member
+				);
 	}
 }

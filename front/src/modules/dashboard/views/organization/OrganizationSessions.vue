@@ -1,9 +1,5 @@
 <template>
-  <OrganizationTemplateList
-    :title="$t('organization.sessions.title')"
-    @add="add"
-    :loading="loading"
-  >
+  <div v-if="!loading">
     <div class="OrganizationSession-search">
       <div class="columns">
         <div class="column">
@@ -38,12 +34,10 @@
           :label="$t('organization.sessions.table.typeSession')"
           sortable
         >{{ row.typeSession.name }}</BTableColumn>
-        <BTableColumn class="OrganizationMembers-column-manage" :width="200">
-          <OrganizationSessionsDropdown @edit="edit(row)" @delete="deleteItem(row.id)" />
-        </BTableColumn>
+        <BTableColumn class="OrganizationMembers-column-manage" :width="200"></BTableColumn>
       </template>
     </BTable>
-  </OrganizationTemplateList>
+  </div>
 </template>
 
 <script>
@@ -53,19 +47,8 @@ import { mapGetters } from "vuex";
 
 import dayjs from "dayjs";
 
-import OrganizationTemplateList from "@organization/templates/OrganizationTemplateList";
-
-import OrganizationSessionsAdd from "@organization/components/sessions/OrganizationSessionsAdd";
-import OrganizationSessionsEdit from "@organization/components/sessions/OrganizationSessionsEdit";
-
-import OrganizationSessionsDropdown from "@organization/components/sessions/OrganizationSessionsDropdown";
-
 export default {
-  name: "OrganizationSessions",
-  components: {
-    OrganizationTemplateList,
-    OrganizationSessionsDropdown
-  },
+  name: "DashboardOrganizationSessions",
   data() {
     return {
       loading: true,
@@ -75,7 +58,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      sessions: "organization/sessions"
+      sessions: "dashboard/organizationSessions"
     }),
     reorderByDate() {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -94,38 +77,11 @@ export default {
     }
   },
   methods: {
-    add() {
-      this.$store.dispatch("core/openSideBar", {
-        component: OrganizationSessionsAdd
-      });
-    },
-    edit(session) {
-      this.$store.dispatch("core/openSideBar", {
-        component: OrganizationSessionsEdit,
-        props: { session }
-      });
-    },
-    deleteItem(id) {
-      this.$buefy.dialog.confirm({
-        title: this.$t("organization.sessions.delete.title"),
-        message: this.$t("organization.sessions.delete.message"),
-        confirmText: this.$t("core.utils.delete"),
-        type: "is-danger",
-        hasIcon: true,
-        onConfirm: () => {
-          this.$store.dispatch("organization/deleteSession", id).then(() => {
-            this.$buefy.toast.open({
-              message: this.$t("organization.sessions.delete.success"),
-              type: "is-primary"
-            });
-          });
-        }
-      });
-    },
     setSessions() {
       this.loading = true;
       this.$store
-        .dispatch("organization/setSessions", {
+        .dispatch("dashboard/setOrganizationSessions", {
+          id: this.$route.params.id,
           minDate: this.dates[0],
           maxDate: this.dates[1]
         })
@@ -142,17 +98,17 @@ export default {
         .toDate()
     ];
     this.$store
-      .dispatch("organization/setSessions", {
+      .dispatch("dashboard/setOrganizationSessions", {
+        id: this.$route.params.id,
         minDate: this.dates[0],
         maxDate: this.dates[1]
       })
       .then(() => {
-        this.$store.dispatch("organization/setTypeSessions").then(() => {
-          this.loading = false;
-        });
+        this.loading = false;
       });
   }
 };
 </script>
 
-<style></style>
+<style lang="scss">
+</style>

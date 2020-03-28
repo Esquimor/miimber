@@ -30,18 +30,18 @@ export default {
   actions: {
     getMe({ commit }) {
       return api.get("me").then(({ data }) => {
-        commit(types.SET_ME, data);
+        commit(types.COR_SET_ME, data);
         return Promise.resolve();
       });
     },
     updateMeByProfile({ commit }, payload) {
-      commit(types.UPDATE_ME_BY_PROFILE, payload);
+      commit(types.COR_UPDATE_ME_BY_PROFILE, payload);
     },
     getMember({ commit }, idOrganization) {
       return api
         .get(`member/me/${idOrganization}`)
         .then(({ data }) => {
-          commit(types.SET_MEMBER_ME, data);
+          commit(types.COR_SET_MEMBER_ME, data);
           return Promise.resolve();
         })
         .catch(e => {
@@ -49,31 +49,31 @@ export default {
         });
     },
     openSideBar({ commit }, payload) {
-      commit(types.OPEN_SIDE_BAR, payload);
+      commit(types.COR_OPEN_SIDE_BAR, payload);
     },
     closeSideBar({ commit }) {
-      commit(types.CLOSE_SIDE_BAR);
+      commit(types.COR_CLOSE_SIDE_BAR);
     }
   },
   mutations: {
-    [types.SET_ME](state, user) {
+    [types.COR_SET_ME](state, user) {
       state.me = user;
     },
-    [types.UPDATE_ME_BY_PROFILE](state, { firstName, lastName }) {
+    [types.COR_UPDATE_ME_BY_PROFILE](state, { firstName, lastName }) {
       state.me.lastName = lastName;
       state.me.firstName = firstName;
     },
-    [types.SET_MEMBER_ME](state, member) {
+    [types.COR_SET_MEMBER_ME](state, member) {
       state.member = member;
     },
-    [types.OPEN_SIDE_BAR](state, { component, props }) {
+    [types.COR_OPEN_SIDE_BAR](state, { component, props }) {
       state.sideBar = {
         component,
         open: true,
         props
       };
     },
-    [types.CLOSE_SIDE_BAR](state) {
+    [types.COR_CLOSE_SIDE_BAR](state) {
       state.sideBar.open = false;
     }
   }

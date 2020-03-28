@@ -15,7 +15,9 @@ export default {
       add: "Add",
       remove: "Remove",
       edit: "Edit",
-      manage: "Manage"
+      manage: "Manage",
+      see: "See",
+      administer: "Administer"
     },
     recurrence: {
       ONCE: "Once",

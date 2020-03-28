@@ -7,6 +7,14 @@ export default {
     panel: {
       sessions: "Sessions",
       organizations: "Organizations"
+    },
+    organization: {
+      table: {
+        name: "Name"
+      },
+      label: {
+        list: "Lists of your organizations"
+      }
     }
   }
 };

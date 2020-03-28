@@ -23,6 +23,11 @@ public class OrganizationService implements IOrganizationService {
 	}
 
 	@Override
+	public List<Organization> getOrganizationByUser(User user) {
+		return organizationRepository.findByMembersUser(user);
+	}
+
+	@Override
 	public Organization createOrganization(Organization organization) {
 		return organizationRepository.save(organization);
 	}

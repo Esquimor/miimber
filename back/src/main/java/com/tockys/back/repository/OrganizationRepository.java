@@ -12,5 +12,7 @@ public interface OrganizationRepository extends CrudRepository<Organization, Lon
 	
 	List<Organization> findByMembersUserAndMembersRole(User user, RoleEnum owner);
 	
+	List<Organization> findByMembersUser(User user);
+	
 	Organization findByName(String name);
 }

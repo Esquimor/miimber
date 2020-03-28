@@ -25,7 +25,7 @@ export default {
         .then(organization => {
           dispatch("core/getMember", organization.data.id, { root: true }).then(
             () => {
-              commit(types.SET_ORGANIZATION, organization.data);
+              commit(types.ORG_SET_ORGANIZATION, organization.data);
             }
           );
         })
@@ -37,7 +37,7 @@ export default {
       return api
         .put(`organization/${state.organization.id}`, { name })
         .then(({ data }) => {
-          commit(types.EDIT_ORGANIZATION, data);
+          commit(types.ORG_EDIT_ORGANIZATION, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -71,7 +71,7 @@ export default {
           role
         })
         .then(({ data }) => {
-          commit(types.CHANGE_MEMBER_ROLE, data);
+          commit(types.ORG_CHANGE_MEMBER_ROLE, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -90,7 +90,7 @@ export default {
           role
         })
         .then(({ data }) => {
-          commit(types.ADD_MEMBER, data);
+          commit(types.ORG_ADD_MEMBER, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -103,7 +103,7 @@ export default {
           idUser: userId
         })
         .then(({ data }) => {
-          commit(types.ADD_MEMBER, data);
+          commit(types.ORG_ADD_MEMBER, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -113,7 +113,7 @@ export default {
       return api
         .delete(`member/${id}`)
         .then(() => {
-          commit(types.REMOVE_MEMBER, id);
+          commit(types.ORG_REMOVE_MEMBER, id);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -123,7 +123,7 @@ export default {
       return api
         .get(`organization/${state.organization.id}/type-session/`)
         .then(({ data }) => {
-          commit(types.SET_TYPE_SESSIONS, data);
+          commit(types.ORG_SET_TYPE_SESSIONS, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -136,7 +136,7 @@ export default {
           organizationId: state.organization.id
         })
         .then(({ data }) => {
-          commit(types.ADD_TYPE_SESSION, data);
+          commit(types.ORG_ADD_TYPE_SESSION, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -148,7 +148,7 @@ export default {
           name
         })
         .then(({ data }) => {
-          commit(types.EDIT_TYPE_SESSION, data);
+          commit(types.ORG_EDIT_TYPE_SESSION, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -160,7 +160,7 @@ export default {
           name
         })
         .then(() => {
-          commit(types.DELETE_TYPE_SESSION, id);
+          commit(types.ORG_DELETE_TYPE_SESSION, id);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -173,7 +173,7 @@ export default {
           maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
         })
         .then(({ data }) => {
-          commit(types.SET_SESSIONS, data);
+          commit(types.ORG_SET_SESSIONS, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -209,7 +209,7 @@ export default {
           organizationId: state.organization.id
         })
         .then(({ data }) => {
-          commit(types.ADD_SESSIONS, data);
+          commit(types.ORG_ADD_SESSIONS, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -228,7 +228,7 @@ export default {
           typeSessionId
         })
         .then(({ data }) => {
-          commit(types.EDIT_SESSION, data);
+          commit(types.ORG_EDIT_SESSION, data);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -238,7 +238,7 @@ export default {
       return api
         .delete(`session/${id}`)
         .then(() => {
-          commit(types.DELETE_SESSION, id);
+          commit(types.ORG_DELETE_SESSION, id);
         })
         .catch(e => {
           return Promise.reject(e);
@@ -246,44 +246,44 @@ export default {
     }
   },
   mutations: {
-    [types.SET_ORGANIZATION](state, organization) {
+    [types.ORG_SET_ORGANIZATION](state, organization) {
       state.organization = organization;
     },
-    [types.EDIT_ORGANIZATION](state, organization) {
+    [types.ORG_EDIT_ORGANIZATION](state, organization) {
       state.organization.name = organization.name;
     },
-    [types.CHANGE_MEMBER_ROLE](state, { id, role }) {
+    [types.ORG_CHANGE_MEMBER_ROLE](state, { id, role }) {
       const member = state.organization.members.find(m => m.id === id);
       member.role = role;
     },
-    [types.ADD_MEMBER](state, member) {
+    [types.ORG_ADD_MEMBER](state, member) {
       state.organization.members = [...state.organization.members, member];
     },
-    [types.REMOVE_MEMBER](state, id) {
+    [types.ORG_REMOVE_MEMBER](state, id) {
       state.organization.members = state.organization.members.filter(
         m => m.id !== id
       );
     },
-    [types.SET_TYPE_SESSIONS](state, typeSessions) {
+    [types.ORG_SET_TYPE_SESSIONS](state, typeSessions) {
       state.typeSessions = typeSessions;
     },
-    [types.ADD_TYPE_SESSION](state, typeSession) {
+    [types.ORG_ADD_TYPE_SESSION](state, typeSession) {
       state.typeSessions.push(typeSession);
     },
-    [types.EDIT_TYPE_SESSION](state, { name, id }) {
+    [types.ORG_EDIT_TYPE_SESSION](state, { name, id }) {
       const editedTypeSession = state.typeSessions.find(t => t.id === id);
       editedTypeSession.name = name;
     },
-    [types.DELETE_TYPE_SESSION](state, id) {
+    [types.ORG_DELETE_TYPE_SESSION](state, id) {
       state.typeSessions = state.typeSessions.filter(t => t.id !== id);
     },
-    [types.SET_SESSIONS](state, sessions) {
+    [types.ORG_SET_SESSIONS](state, sessions) {
       state.sessions = sessions;
     },
-    [types.ADD_SESSIONS](state, sessions) {
+    [types.ORG_ADD_SESSIONS](state, sessions) {
       state.sessions = state.sessions.concat(sessions);
     },
-    [types.EDIT_SESSION](
+    [types.ORG_EDIT_SESSION](
       state,
       { title, description, start, end, typeSession, id }
     ) {
@@ -294,7 +294,7 @@ export default {
       editedSession.end = end;
       editedSession.typeSession = typeSession;
     },
-    [types.DELETE_SESSION](state, id) {
+    [types.ORG_DELETE_SESSION](state, id) {
       state.sessions = state.sessions.filter(s => s.id !== id);
     }
   }
