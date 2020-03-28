@@ -1,5 +1,6 @@
 package com.tockys.back.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class MemberService implements IMemberService {
 	@Override
 	public Member getMemberByOrganizationIdAndByUser(Long id, User user) {
 		return memberRepository.findOneByOrganizationIdAndUser(id, user);
+	}
+
+	@Override
+	public List<Member> getMemberByOrganizationId(Long id) {
+		return memberRepository.findByOrganizationId(id);
 	}
 
 	@Override

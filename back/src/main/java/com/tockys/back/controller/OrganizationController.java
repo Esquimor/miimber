@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.stripe.model.Customer;
 import com.stripe.model.Subscription;
+import com.tockys.back.dto.MemberCompleteDTO;
 import com.tockys.back.dto.OrganizationCompleteDTO;
 import com.tockys.back.dto.OrganizationCreateDTO;
 import com.tockys.back.dto.OrganizationDTO;
@@ -214,14 +215,22 @@ public class OrganizationController {
 	
 	@RequestMapping(value= "/organization/{id}/session/", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllSessionsFromOrganization(@PathVariable Long id, @RequestParam String minDate, @RequestParam String maxDate) throws Exception {
-        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-
         List<SessionDTO> listSessions = new ArrayList<SessionDTO>();
         
         for (Session typeSesion: sessionService.getSessionByOrganizationId(id, OffsetDateTime.parse(minDate), OffsetDateTime.parse(maxDate))) {
         	listSessions.add(SessionToDTO(typeSesion));
         }
         return ResponseEntity.ok(listSessions);
+	}
+	
+	@RequestMapping(value = "/organization/{id}/member/", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllMembersFromOrganization(@PathVariable Long id) throws Exception {
+		List<MemberCompleteDTO> listMembers = new ArrayList<MemberCompleteDTO>();
+		
+		for (Member member: memberService.getMemberByOrganizationId(id)) {
+			listMembers.add(MemberToMemberCompleteDTO(member));
+		}
+		return ResponseEntity.ok(listMembers);
 	}
 	
 	private SessionDTO SessionToDTO(Session session) {
@@ -256,5 +265,9 @@ public class OrganizationController {
 				organization,
 				member
 				);
+	}
+	
+	private MemberCompleteDTO MemberToMemberCompleteDTO(Member member) {
+		return new MemberCompleteDTO(member);
 	}
 }

@@ -10,12 +10,14 @@ export default {
   state: {
     organization: {},
     organizationSessions: [],
+    organizationMembers: [],
     organizations: []
   },
   getters: {
     organizations: state => state.organizations,
     organization: state => state.organization,
-    organizationSessions: state => state.organizationSessions
+    organizationSessions: state => state.organizationSessions,
+    organizationMembers: state => state.organizationMembers
   },
   actions: {
     setOrganizations({ commit }) {
@@ -35,8 +37,13 @@ export default {
           maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
         })
         .then(({ data }) => {
-          commit(types.DASH_SET_ORGANIZATION_SESSION, data);
+          commit(types.DASH_SET_ORGANIZATION_SESSIONS, data);
         });
+    },
+    setOrganizationMembers({ commit }, id) {
+      return api.get(`organization/${id}/member/`).then(({ data }) => {
+        commit(types.DASH_SET_ORGANIZATION_MEMBERS, data);
+      });
     }
   },
   mutations: {
@@ -46,8 +53,11 @@ export default {
     [types.DASH_SET_ORGANIZATION](state, organization) {
       state.organization = organization;
     },
-    [types.DASH_SET_ORGANIZATION_SESSION](state, sessions) {
+    [types.DASH_SET_ORGANIZATION_SESSIONS](state, sessions) {
       state.organizationSessions = sessions;
+    },
+    [types.DASH_SET_ORGANIZATION_MEMBERS](state, members) {
+      state.organizationMembers = members;
     }
   }
 };
