@@ -9,14 +9,14 @@
         class="TemplateDashboard-nav-link"
         >{{ $t("dashboard.session.label.information") }}</router-link
       >
-      <router-link
+      <!--<router-link
         :to="{
           name: 'dashboard-session-attendee',
           params: { id: $route.params.id }
         }"
         class="TemplateDashboard-nav-link"
         >{{ $t("dashboard.session.label.attendee") }}</router-link
-      >
+      >-->
       <router-link
         v-if="isInsctructorOrganization"
         :to="{
