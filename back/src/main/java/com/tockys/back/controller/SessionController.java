@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tockys.back.dto.SessionCreateDTO;
 import com.tockys.back.dto.SessionDTO;
 import com.tockys.back.dto.SessionEditDTO;
+import com.tockys.back.dto.SessionReadDTO;
 import com.tockys.back.enumItem.PeriodicityEnum;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.model.Member;
@@ -46,6 +47,21 @@ public class SessionController {
 	
 	@Autowired
 	private Helper helper;
+	
+	@RequestMapping(value = "/session/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getSession(@PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Session session = sessionService.getSessionById(id);
+        
+        if (session == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        
+        Member member = memberService.getMemberByOrganizationAndByUser(session.getOrganization(), user);
+
+		return ResponseEntity.ok(SessionAndMemberToSessionReadDTO(session, member));
+	}
 	
 	@RequestMapping(value = "/session/", method = RequestMethod.POST)
 	public ResponseEntity<?> createSession(@RequestBody SessionCreateDTO sessionDto) throws Exception {
@@ -191,5 +207,9 @@ public class SessionController {
 	
 	private OffsetDateTime mixDateAndTime(OffsetDateTime date, OffsetDateTime time) {
 		return OffsetDateTime.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getOffset());
+	}
+	
+	private SessionReadDTO SessionAndMemberToSessionReadDTO(Session session, Member member) {
+		return new SessionReadDTO(session, member);
 	}
 }

@@ -4,9 +4,11 @@
       v-for="day in DAYS"
       :key="day.item"
       class="OrganizationSessionsDay-item"
-      :class="{'is-selected': days.some(d => d === day.value)}"
+      :class="{ 'is-selected': days.some(d => d === day.value) }"
       @click="$emit('click', day.value)"
-    >{{ $t(`core.daysShort.${day.label}`) }}</div>
+    >
+      {{ $t(`core.daysShort.${day.label}`) }}
+    </div>
   </div>
 </template>
 

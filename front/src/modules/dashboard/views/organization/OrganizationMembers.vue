@@ -6,16 +6,19 @@
           field="firstName"
           :label="$t('organization.members.table.firstName')"
           sortable
-        >{{ row.firstName }}</BTableColumn>
+          >{{ row.firstName }}</BTableColumn
+        >
         <BTableColumn
           field="lastName"
           :label="$t('organization.members.table.lastName')"
           sortable
-        >{{ row.lastName }}</BTableColumn>
+          >{{ row.lastName }}</BTableColumn
+        >
         <BTableColumn
           field="role"
           :label="$t('organization.members.table.role')"
-        >{{ $t(`core.role.${row.role}`) }}</BTableColumn>
+          >{{ $t(`core.role.${row.role}`) }}</BTableColumn
+        >
       </template>
     </BTable>
   </div>

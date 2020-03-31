@@ -1,5 +1,6 @@
 package com.tockys.back.controller;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,17 +17,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tockys.back.dto.OrganizationDTO;
 import com.tockys.back.dto.UserDTO;
 import com.tockys.back.dto.UserPasswordDTO;
+import com.tockys.back.dto.UserSessionDTO;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.model.Member;
 import com.tockys.back.model.Organization;
+import com.tockys.back.model.Session;
 import com.tockys.back.model.User;
 import com.tockys.back.service.MemberService;
 import com.tockys.back.service.OrganizationService;
+import com.tockys.back.service.SessionService;
 import com.tockys.back.service.UserService;
 
 @RestController
@@ -41,6 +46,9 @@ public class UserController {
 	
 	@Autowired
 	private OrganizationService organizationService;
+	
+	@Autowired
+	private SessionService sessionService;
 	
     @Autowired
     private ModelMapper modelMapper;
@@ -108,6 +116,18 @@ public class UserController {
 		return ResponseEntity.ok(responseOrganization);
 	}
 	
+	@RequestMapping(value = "/user/session/", method = RequestMethod.GET)
+	public ResponseEntity<?> getUserSessions(@RequestParam String minDate, @RequestParam String maxDate) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        List<UserSessionDTO> sessions = new ArrayList<UserSessionDTO>();
+        for (Session session : sessionService.getSessionByUserAndDate(user, OffsetDateTime.parse(minDate), OffsetDateTime.parse(maxDate)))
+        {
+        	sessions.add(SessionToUserSessionDTO(session));
+        }
+        return ResponseEntity.ok(sessions);
+	}
+	
 	private UserDTO convertToDto(User user) {
 		UserDTO userDto = modelMapper.map(user, UserDTO.class);
 		return userDto;
@@ -128,5 +148,9 @@ public class UserController {
         				organization.getId(),
         				organization.getName()
         		);
+	}
+	
+	private UserSessionDTO SessionToUserSessionDTO(Session session) {
+		return new UserSessionDTO(session);
 	}
 }

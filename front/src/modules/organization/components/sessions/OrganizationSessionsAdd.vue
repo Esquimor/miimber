@@ -44,7 +44,11 @@
     <div class="columns">
       <div
         class="column"
-        :class="{'is-half': recurrence.periodicity === SESSION_RECURRENCE.ONCE || recurrence.periodicity === SESSION_RECURRENCE.EVERYDAY}"
+        :class="{
+          'is-half':
+            recurrence.periodicity === SESSION_RECURRENCE.ONCE ||
+            recurrence.periodicity === SESSION_RECURRENCE.EVERYDAY
+        }"
       >
         <BField :label="$t('organization.sessions.label.recurrence')">
           <BSelect v-model="recurrence.periodicity" expanded required>
@@ -52,13 +56,17 @@
               v-for="recurrence in SESSION_RECURRENCE"
               :value="recurrence"
               :key="recurrence.item"
-            >{{ $t(`core.recurrence.${recurrence}`) }}</option>
+              >{{ $t(`core.recurrence.${recurrence}`) }}</option
+            >
           </BSelect>
         </BField>
       </div>
       <div
         class="column"
-        v-if="recurrence.periodicity === SESSION_RECURRENCE.BY_WEEK || recurrence.periodicity === SESSION_RECURRENCE.CUSTOM"
+        v-if="
+          recurrence.periodicity === SESSION_RECURRENCE.BY_WEEK ||
+            recurrence.periodicity === SESSION_RECURRENCE.CUSTOM
+        "
       >
         <BField :label="$t('organization.sessions.label.repeat')">
           <BSelect v-model="recurrence.repeat" expanded required>
@@ -66,19 +74,29 @@
               v-for="repeat in SESSION_REPEAT"
               :value="repeat.value"
               :key="repeat.item"
-            >{{ $t(`core.repeatWeek.${repeat.label}`) }}</option>
+              >{{ $t(`core.repeatWeek.${repeat.label}`) }}</option
+            >
           </BSelect>
         </BField>
       </div>
     </div>
-    <div class="columns" v-if="recurrence.periodicity === SESSION_RECURRENCE.BY_WEEK">
+    <div
+      class="columns"
+      v-if="recurrence.periodicity === SESSION_RECURRENCE.BY_WEEK"
+    >
       <div class="column">
         <BField label="Jours">
-          <OrganizationSessionsDays @click="changeDays" :days="recurrence.days" />
+          <OrganizationSessionsDays
+            @click="changeDays"
+            :days="recurrence.days"
+          />
         </BField>
       </div>
     </div>
-    <div class="columns" v-if="recurrence.periodicity === SESSION_RECURRENCE.ONCE">
+    <div
+      class="columns"
+      v-if="recurrence.periodicity === SESSION_RECURRENCE.ONCE"
+    >
       <div class="column is-half">
         <BField :label="$t('organization.sessions.label.sessionDate')">
           <BDatepicker
@@ -94,7 +112,10 @@
         </BField>
       </div>
     </div>
-    <div class="columns" v-if="recurrence.periodicity !== SESSION_RECURRENCE.ONCE">
+    <div
+      class="columns"
+      v-if="recurrence.periodicity !== SESSION_RECURRENCE.ONCE"
+    >
       <div class="column">
         <BField :label="$t('organization.sessions.label.startDate')">
           <BDatepicker
@@ -133,7 +154,8 @@
               v-for="typeSession in typeSessions"
               :value="typeSession.id"
               :key="typeSession.id"
-            >{{ typeSession.name }}</option>
+              >{{ typeSession.name }}</option
+            >
           </BSelect>
         </BField>
       </div>
@@ -141,7 +163,11 @@
     <div class="columns">
       <div class="column">
         <BField :label="$t('organization.sessions.label.description')">
-          <BInput v-model="session.description" maxlength="500" type="textarea"></BInput>
+          <BInput
+            v-model="session.description"
+            maxlength="500"
+            type="textarea"
+          ></BInput>
         </BField>
       </div>
     </div>

@@ -1,28 +1,30 @@
 <template>
   <TemplateDashboard :title="title" :loading="loading" hasNav>
-    <template v-if="canChangeOrganization" v-slot:header>
-      <router-link
-        :to="{ name: 'organization-members', params: { id: $route.params.id } }"
-        class="button is-primary"
-        >{{ $t("core.utils.manage") }}</router-link
-      >
-    </template>
     <template v-slot:nav>
       <router-link
         :to="{
-          name: 'dashboard-organization-sessions',
+          name: 'dashboard-session-information',
           params: { id: $route.params.id }
         }"
         class="TemplateDashboard-nav-link"
-        >{{ $t("dashboard.organization.label.sessions") }}</router-link
+        >{{ $t("dashboard.session.label.information") }}</router-link
       >
       <router-link
         :to="{
-          name: 'dashboard-organization-members',
+          name: 'dashboard-session-attendee',
           params: { id: $route.params.id }
         }"
         class="TemplateDashboard-nav-link"
-        >{{ $t("dashboard.organization.label.members") }}</router-link
+        >{{ $t("dashboard.session.label.attendee") }}</router-link
+      >
+      <router-link
+        v-if="isInsctructorOrganization"
+        :to="{
+          name: 'dashboard-session-emerge',
+          params: { id: $route.params.id }
+        }"
+        class="TemplateDashboard-nav-link"
+        >{{ $t("dashboard.session.label.emerge") }}</router-link
       >
     </template>
     <router-view></router-view>
@@ -37,7 +39,7 @@ import { mapGetters } from "vuex";
 import TemplateDashboard from "@dashboard/template/TemplateDashboard";
 
 export default {
-  name: "DashboardOrganization",
+  name: "DashboardSession",
   components: {
     TemplateDashboard
   },
@@ -48,16 +50,16 @@ export default {
   },
   computed: {
     ...mapGetters({
-      organization: "dashboard/organization",
-      canChangeOrganization: "dashboard/canChangeOrganization"
+      session: "dashboard/session",
+      isInsctructorOrganization: "dashboard/isInsctructorOrganization"
     }),
     title() {
-      return this.loading ? "" : this.organization.name;
+      return this.loading ? "" : this.session.title;
     }
   },
   mounted() {
     this.$store
-      .dispatch("dashboard/setOrganization", this.$route.params.id)
+      .dispatch("dashboard/setSession", this.$route.params.id)
       .then(() => {
         this.loading = false;
       });
@@ -65,9 +67,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.DashboardOrganization {
-  &-link {
-  }
-}
-</style>
+<style lang="scss"></style>

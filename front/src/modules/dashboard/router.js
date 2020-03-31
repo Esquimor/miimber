@@ -1,6 +1,12 @@
 import Dashboard from "@dashboard/views/Dashboard";
 import Home from "@dashboard/views/Home";
+
 import Sessions from "@dashboard/views/session/Sessions";
+import Session from "@dashboard/views/session/Session";
+import SessionEmerge from "@dashboard/views/session/SessionEmerge";
+import SessionInformation from "@dashboard/views/session/SessionInformation";
+import SessionAttendee from "@dashboard/views/session/SessionAttendee";
+
 import Organizations from "@dashboard/views/organization/Organizations";
 import Organization from "@dashboard/views/organization/Organization";
 import OrganizationSessions from "@dashboard/views/organization/OrganizationSessions";
@@ -17,9 +23,30 @@ export default [
         component: Home
       },
       {
-        path: "sessions",
+        path: "session",
         name: "dashboard-sessions",
         component: Sessions
+      },
+      {
+        path: "session/:id",
+        component: Session,
+        children: [
+          {
+            path: "emerge",
+            name: "dashboard-session-emerge",
+            component: SessionEmerge
+          },
+          {
+            path: "information",
+            name: "dashboard-session-information",
+            component: SessionInformation
+          },
+          {
+            path: "attendee",
+            name: "dashboard-session-attendee",
+            component: SessionAttendee
+          }
+        ]
       },
       {
         path: "organization",
