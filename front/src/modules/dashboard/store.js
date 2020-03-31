@@ -96,6 +96,16 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    removeUserPresentSession({ commit }, id) {
+      return api
+        .delete(`attendee/${id}`)
+        .then(() => {
+          commit(types.DASH_REMOVE_USER_PRESENT_SESSION, id);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
@@ -116,6 +126,16 @@ export default {
     },
     [types.DASH_SET_SESSION](state, session) {
       state.session = session;
+    },
+    [types.DASH_SET_USER_PRESENT_SESSION](state, attendee) {
+      const userEdited = state.session.users.find(
+        u => u.id === attendee.userId
+      );
+      userEdited.attendeeId = attendee.id;
+    },
+    [types.DASH_REMOVE_USER_PRESENT_SESSION](state, id) {
+      const userEdited = state.session.users.find(u => u.attendeeId === id);
+      userEdited.attendeeId = null;
     }
   }
 };

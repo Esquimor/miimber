@@ -12,7 +12,10 @@
           :width="100"
           :label="$t('dashboard.session.emerge.table.present')"
         >
-          <BCheckbox @click.native="setUser(row.id)"></BCheckbox>
+          <BCheckbox
+            :value="!!row.attendeeId"
+            @click.native="setUser(row)"
+          ></BCheckbox>
         </BTableColumn>
       </template>
     </BTable>
@@ -32,8 +35,14 @@ export default {
     })
   },
   methods: {
-    setUser(id) {
-      this.$store.dispatch("dashboard/setUserPresentSession", id);
+    setUser(user) {
+      if (user.attendeeId === 0 || user.attendeeId === null)
+        this.$store.dispatch("dashboard/setUserPresentSession", user.id);
+      else
+        this.$store.dispatch(
+          "dashboard/removeUserPresentSession",
+          user.attendeeId
+        );
     }
   }
 };

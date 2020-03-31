@@ -41,14 +41,14 @@ public class SessionReadDTO {
 				List<Member> members = session.getOrganization().getMembers();
 				List<Attendee> attendees = session.getAttendees();
 				for(Member memberOrganization: members) {
-					boolean isPresent = false;
+					Long attendeId = 0L;
 					for(Attendee attendee: attendees) {
 						if (attendee.getUser().getId() == member.getUser().getId()) {
-							isPresent = true;
+							attendeId = attendee.getId();
 							break;
 						}
 					}
-					this.users.add(new UserDTO(memberOrganization, isPresent));
+					this.users.add(new UserDTO(memberOrganization, attendeId));
 				}
 				
 				for(Attendee attendee: attendees) {
@@ -61,7 +61,7 @@ public class SessionReadDTO {
 						}
 					}
 					if (isMember == false) {
-						this.users.add(new UserDTO(user));
+						this.users.add(new UserDTO(user, attendee.getId()));
 					}
 				}
 			}
@@ -228,24 +228,24 @@ public class SessionReadDTO {
 		private String lastName;
 		private String email;
 		private MemberDTO member;
-		private boolean isPresent;
+		private long attendeeId;
 		
-		public UserDTO(Member member, boolean isPresent) {
+		public UserDTO(Member member, long attendeeId) {
 			User user = member.getUser();
 			this.setId(user.getId());
 			this.setFirstName(user.getFirstName());
 			this.setLastName(user.getLastName());
 			this.setEmail(user.getEmail());
 			this.setMember(new MemberDTO(member));
-			this.setPresent(isPresent);
+			this.setAttendeeId(attendeeId);
 		}
 		
-		public UserDTO(User user) {
+		public UserDTO(User user, long attendeeId) {
 			this.setId(user.getId());
 			this.setFirstName(user.getFirstName());
 			this.setLastName(user.getLastName());
 			this.setEmail(user.getEmail());
-			this.setPresent(true);
+			this.setAttendeeId(attendeeId);
 		}
 		
 		public long getId() {
@@ -288,12 +288,12 @@ public class SessionReadDTO {
 			this.member = member;
 		}
 
-		public boolean isPresent() {
-			return isPresent;
+		public long getAttendeeId() {
+			return attendeeId;
 		}
 
-		public void setPresent(boolean isPresent) {
-			this.isPresent = isPresent;
+		public void setAttendeeId(long attendeeId) {
+			this.attendeeId = attendeeId;
 		}
 
 		private class MemberDTO {

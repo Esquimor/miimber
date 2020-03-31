@@ -1,5 +1,7 @@
 package com.tockys.back.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,20 @@ public class AttendeeService implements IAttendeeService {
 	@Override
 	public Attendee createAttendee(Attendee attendee) {
 		return attendeeRepository.save(attendee);
+	}
+
+	@Override
+	public Attendee getAttendeeById(Long id) {
+		Optional<Attendee> attendee = attendeeRepository.findById(id);
+		if (attendee.isEmpty()) {
+			return null;
+		}
+		return attendee.get();
+	}
+
+	@Override
+	public void removeAttendee(Attendee attendee) {
+		attendeeRepository.delete(attendee);
 	}
 
 }

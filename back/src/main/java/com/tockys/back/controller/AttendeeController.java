@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,5 +75,29 @@ public class AttendeeController {
         attendee.setDateCheck(attendeeDTO.getDateCheck());
         
         return ResponseEntity.ok(new AttendeeCreateResponseDTO(attendeeService.createAttendee(attendee)));
+	}
+	
+	@RequestMapping(value = "/attendee/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeAttendee(@PathVariable Long id) throws Exception {
+		Attendee attendee = attendeeService.getAttendeeById(id);
+		
+		if (attendee == null) {
+        	return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        Member member = memberService.getMemberByOrganizationAndByUser(attendee.getSession().getOrganization(), user);
+        
+        if (member == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+        if (member.getType() == RoleEnum.MEMBER || member.getType() == RoleEnum.OFFICE) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        
+        attendeeService.removeAttendee(attendee);
+
+        return new ResponseEntity(HttpStatus.OK);
 	}
 }
