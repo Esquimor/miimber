@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tockys.back.model.Session;
+import com.tockys.back.model.User;
 import com.tockys.back.repository.SessionRepository;
 
 @Service
@@ -43,6 +44,11 @@ public class SessionService implements ISessionService {
 	@Override
 	public Session editSession(Session session) {
 		return sessionRepository.save(session);
+	}
+
+	@Override
+	public List<Session> getSessionByUserAndDate(User user, OffsetDateTime min, OffsetDateTime max) {
+		return sessionRepository.findByOrganizationMembersUserAndStartBetween(user, min, max);
 	}
 
 }

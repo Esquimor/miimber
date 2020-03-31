@@ -38,6 +38,9 @@ public class User {
 	@OneToMany(mappedBy = "user")
     private List<Member> members;
 	
+	@OneToMany(mappedBy = "user")
+    private List<Attendee> attendees;
+	
 	public long getId() {
 		return this.id;
 	}
@@ -108,5 +111,21 @@ public class User {
 	
 	public void removeMember(Member member) {
 		this.members.remove(member);
+	}
+	
+	public List<Attendee> getAttendees() {
+		return this.attendees;
+	}
+	
+	public void setAttendees(List<Attendee> attendees) {
+		this.attendees = attendees;
+	}
+	
+	public void addAttendee(Attendee attendee) {
+		this.attendees.add(attendee);
+	}
+	
+	public void removeAttendee(Attendee attendee) {
+		this.attendees.remove(attendee);
 	}
 }

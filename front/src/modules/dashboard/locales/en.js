@@ -13,7 +13,26 @@ export default {
         name: "Name"
       },
       label: {
-        list: "Lists of your organizations"
+        list: "Your organizations",
+        sessions: "Sessions",
+        members: "Members"
+      }
+    },
+    session: {
+      label: {
+        date: "Date",
+        typeSession: "Category",
+        start: "Start",
+        end: "End",
+        information: "Information",
+        attendee: "Participants",
+        emerge: "Emerge"
+      },
+      emerge: {
+        table: {
+          name: "Name",
+          present: "Present"
+        }
       }
     }
   }

@@ -1,6 +1,9 @@
 <template>
   <div class="TemplateDashboard">
-    <header class="TemplateDashboard-header" :class="{'has-not-Nav': !hasNav}">
+    <header
+      class="TemplateDashboard-header"
+      :class="{ 'has-not-Nav': !hasNav }"
+    >
       <h1 class="title is-5">{{ title }}</h1>
       <slot name="header" />
     </header>

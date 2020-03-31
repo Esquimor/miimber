@@ -1,6 +1,7 @@
 package com.tockys.back.model;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +32,9 @@ public class Session {
 	
 	@Column(name = "endDate", columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private OffsetDateTime end;
+	
+	@OneToMany(mappedBy = "session")
+    private List<Attendee> attendees;
     
     @ManyToOne
     private Organization organization;
@@ -102,5 +107,21 @@ public class Session {
 	
 	public void setTypeSession(TypeSession typeSession) {
 		this.typeSession = typeSession;
+	}
+	
+	public List<Attendee> getAttendees() {
+		return this.attendees;
+	}
+	
+	public void setAttendees(List<Attendee> attendees) {
+		this.attendees = attendees;
+	}
+	
+	public void addAttendee(Attendee attendee) {
+		this.attendees.add(attendee);
+	}
+	
+	public void removeAttendee(Attendee attendee) {
+		this.attendees.remove(attendee);
 	}
 }

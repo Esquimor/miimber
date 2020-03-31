@@ -1,15 +1,22 @@
 <template>
-  <TemplateDashboard :title="$t('dashboard.organization.label.list')" :loading="loading">
+  <TemplateDashboard
+    :title="$t('dashboard.organization.label.list')"
+    :loading="loading"
+  >
     <BTable :data="organizations" striped paginated :per-page="25">
       <template v-slot="{ row }">
         <BTableColumn
           field="name"
           :label="$t('dashboard.organization.table.name')"
           sortable
-        >{{ row.name }}</BTableColumn>
+          >{{ row.name }}</BTableColumn
+        >
         <BTableColumn class="DashboardOrganizations-column-manage" :width="200">
           <router-link
-            :to="{name: 'dashboard-organization-sessions', params: {id: row.id }}"
+            :to="{
+              name: 'dashboard-organization-sessions',
+              params: { id: row.id }
+            }"
             class="button is-primary"
           >
             <BIcon icon="eye" />
