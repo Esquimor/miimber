@@ -16,20 +16,12 @@
     <div class="columns">
       <div class="column">
         <BField :label="$t('organization.sessions.label.startHour')">
-          <BTimepicker
-            v-model="session.startHour"
-            icon="alarm"
-            trap-focus
-          ></BTimepicker>
+          <BTimepicker v-model="session.startHour" icon="alarm" trap-focus></BTimepicker>
         </BField>
       </div>
       <div class="column">
         <BField :label="$t('organization.sessions.label.endHour')">
-          <BTimepicker
-            v-model="session.endHour"
-            icon="alarm"
-            trap-focus
-          ></BTimepicker>
+          <BTimepicker v-model="session.endHour" icon="alarm" trap-focus></BTimepicker>
         </BField>
       </div>
     </div>
@@ -51,29 +43,32 @@
       </div>
       <div class="column">
         <BField :label="$t('organization.sessions.label.typeSession')">
-          <BSelect
-            placeholder="Select a name"
-            v-model="session.typeSession"
-            expanded
-          >
+          <BSelect placeholder="Select a name" v-model="session.typeSession" expanded>
             <option
               v-for="typeSession in typeSessions"
               :value="typeSession.id"
               :key="typeSession.id"
-              >{{ typeSession.name }}</option
-            >
+            >{{ typeSession.name }}</option>
           </BSelect>
+        </BField>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column" :class="{'is-half': !hasLimit}">
+        <BField :label="$t('organization.sessions.label.hasLimit')" style="height: 68px;">
+          <BSwitch v-model="hasLimit">{{ hasLimit ? $t('core.utils.yes') : $t('core.utils.no') }}</BSwitch>
+        </BField>
+      </div>
+      <div class="column" v-if="hasLimit">
+        <BField :label="$t('organization.sessions.label.limit')">
+          <BNumberinput v-model="session.limit" min="1"></BNumberinput>
         </BField>
       </div>
     </div>
     <div class="columns">
       <div class="column">
         <BField :label="$t('organization.sessions.label.description')">
-          <BInput
-            v-model="session.description"
-            maxlength="500"
-            type="textarea"
-          ></BInput>
+          <BInput v-model="session.description" maxlength="500" type="textarea"></BInput>
         </BField>
       </div>
     </div>
@@ -112,6 +107,7 @@ export default {
     return {
       loading: false,
       minDate: minDate,
+      hasLimit: false,
       session: {
         title: "",
         description: "",
@@ -119,7 +115,8 @@ export default {
         endHour: null,
         typeSession: null,
         sessionDate: null,
-        id: 0
+        id: 0,
+        limit: 1
       }
     };
   },
@@ -156,7 +153,8 @@ export default {
           start: dayjs(start).format("YYYY-MM-DDTHH:mm:ssZ"),
           end: dayjs(end).format("YYYY-MM-DDTHH:mm:ssZ"),
           typeSessionId: this.session.typeSession,
-          id: this.session.id
+          id: this.session.id,
+          limit: this.session.limit
         })
         .then(() => {
           this.$buefy.toast.open({
@@ -174,6 +172,7 @@ export default {
     "props.session": {
       immediate: true,
       handler(newVal) {
+        this.hasLimit = newVal.limit > 0;
         this.session = {
           title: newVal.title,
           description: newVal.description,
@@ -181,7 +180,8 @@ export default {
           endHour: dayjs(newVal.end).toDate(),
           typeSession: newVal.typeSession.id,
           sessionDate: dayjs(newVal.start).toDate(),
-          id: newVal.id
+          id: newVal.id,
+          limit: newVal.limit
         };
       }
     }

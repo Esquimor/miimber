@@ -56,8 +56,7 @@
               v-for="recurrence in SESSION_RECURRENCE"
               :value="recurrence"
               :key="recurrence.item"
-              >{{ $t(`core.recurrence.${recurrence}`) }}</option
-            >
+            >{{ $t(`core.recurrence.${recurrence}`) }}</option>
           </BSelect>
         </BField>
       </div>
@@ -74,29 +73,19 @@
               v-for="repeat in SESSION_REPEAT"
               :value="repeat.value"
               :key="repeat.item"
-              >{{ $t(`core.repeatWeek.${repeat.label}`) }}</option
-            >
+            >{{ $t(`core.repeatWeek.${repeat.label}`) }}</option>
           </BSelect>
         </BField>
       </div>
     </div>
-    <div
-      class="columns"
-      v-if="recurrence.periodicity === SESSION_RECURRENCE.BY_WEEK"
-    >
+    <div class="columns" v-if="recurrence.periodicity === SESSION_RECURRENCE.BY_WEEK">
       <div class="column">
         <BField label="Jours">
-          <OrganizationSessionsDays
-            @click="changeDays"
-            :days="recurrence.days"
-          />
+          <OrganizationSessionsDays @click="changeDays" :days="recurrence.days" />
         </BField>
       </div>
     </div>
-    <div
-      class="columns"
-      v-if="recurrence.periodicity === SESSION_RECURRENCE.ONCE"
-    >
+    <div class="columns" v-if="recurrence.periodicity === SESSION_RECURRENCE.ONCE">
       <div class="column is-half">
         <BField :label="$t('organization.sessions.label.sessionDate')">
           <BDatepicker
@@ -112,10 +101,7 @@
         </BField>
       </div>
     </div>
-    <div
-      class="columns"
-      v-if="recurrence.periodicity !== SESSION_RECURRENCE.ONCE"
-    >
+    <div class="columns" v-if="recurrence.periodicity !== SESSION_RECURRENCE.ONCE">
       <div class="column">
         <BField :label="$t('organization.sessions.label.startDate')">
           <BDatepicker
@@ -147,6 +133,18 @@
       </div>
     </div>
     <div class="columns">
+      <div class="column" :class="{'is-half': !hasLimit}">
+        <BField :label="$t('organization.sessions.label.hasLimit')" style="height: 68px;">
+          <BSwitch v-model="hasLimit">{{ hasLimit ? $t('core.utils.yes') : $t('core.utils.no') }}</BSwitch>
+        </BField>
+      </div>
+      <div class="column" v-if="hasLimit">
+        <BField :label="$t('organization.sessions.label.limit')">
+          <BNumberinput v-model="session.limit" min="0"></BNumberinput>
+        </BField>
+      </div>
+    </div>
+    <div class="columns">
       <div class="column is-half">
         <BField :label="$t('organization.sessions.label.typeSession')">
           <BSelect v-model="session.typeSession" expanded>
@@ -154,8 +152,7 @@
               v-for="typeSession in typeSessions"
               :value="typeSession.id"
               :key="typeSession.id"
-              >{{ typeSession.name }}</option
-            >
+            >{{ typeSession.name }}</option>
           </BSelect>
         </BField>
       </div>
@@ -163,11 +160,7 @@
     <div class="columns">
       <div class="column">
         <BField :label="$t('organization.sessions.label.description')">
-          <BInput
-            v-model="session.description"
-            maxlength="500"
-            type="textarea"
-          ></BInput>
+          <BInput v-model="session.description" maxlength="500" type="textarea"></BInput>
         </BField>
       </div>
     </div>
@@ -211,6 +204,7 @@ export default {
     return {
       loading: false,
       minDate: minDate,
+      hasLimit: false,
       session: {
         title: "",
         startHour: null,
@@ -218,7 +212,8 @@ export default {
         typeSession: null,
         startDate: null,
         endDate: null,
-        description: ""
+        description: "",
+        limit: 0
       },
       recurrence: {
         periodicity: SESSION_RECURRENCE.ONCE,
@@ -239,7 +234,7 @@ export default {
         !!this.session.startHour &&
         !!this.session.endHour &&
         !!this.session.typeSession &&
-        !!this.session.startHour
+        !!this.session.startDate
       );
     }
   },
@@ -263,11 +258,14 @@ export default {
           startDate: dayjs(this.session.startDate).format(
             "YYYY-MM-DDTHH:mm:ssZ"
           ),
-          endDate: dayjs(this.session.endDate).format("YYYY-MM-DDTHH:mm:ssZ"),
+          endDate: this.session.endDate
+            ? dayjs(this.session.endDate).format("YYYY-MM-DDTHH:mm:ssZ")
+            : null,
           typeSessionId: this.session.typeSession,
           periodicity: this.recurrence.periodicity,
           days: this.recurrence.days,
-          repeat: this.recurrence.repeat
+          repeat: this.recurrence.repeat,
+          limit: this.session.limit
         })
         .then(() => {
           this.$buefy.toast.open({

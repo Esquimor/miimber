@@ -21,7 +21,6 @@ import com.tockys.back.dto.SessionCreateDTO;
 import com.tockys.back.dto.SessionDTO;
 import com.tockys.back.dto.SessionEditDTO;
 import com.tockys.back.dto.SessionReadDTO;
-import com.tockys.back.enumItem.PeriodicityEnum;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.model.Member;
 import com.tockys.back.model.Organization;
@@ -60,7 +59,7 @@ public class SessionController {
         
         Member member = memberService.getMemberByOrganizationAndByUser(session.getOrganization(), user);
 
-		return ResponseEntity.ok(SessionAndMemberToSessionReadDTO(session, member));
+		return ResponseEntity.ok(SessionAndMemberToSessionReadDTO(session, member, user.getId()));
 	}
 	
 	@RequestMapping(value = "/session/", method = RequestMethod.POST)
@@ -82,19 +81,15 @@ public class SessionController {
         
         List<Session> listSession = new ArrayList<Session>();
         OffsetDateTime cursor =  sessionDto.getStartDate();
-        OffsetDateTime endDate = sessionDto.getEndDate().plusDays(2);
         switch (sessionDto.getPeriodicity()) {
         	case ONCE: {
-                Session session = new Session();
-                session.setTitle(sessionDto.getTitle());
-                session.setDescription(sessionDto.getDescription());
-                session.setStart(sessionDto.getStart());
-                session.setEnd(sessionDto.getEnd());
-                session.setTypeSession(typeSession);
-                session.setOrganization(memberUser.getOrganization());
-                listSession.add(sessionService.createSession(session));
+                listSession.add(sessionService.createSession(
+                		createSessionBySessionDtoAndDate(sessionDto, sessionDto.getStart(), typeSession, memberUser.getOrganization())
+                		));
+        		break;
         	}
         	case EVERYDAY: {
+                OffsetDateTime endDate = sessionDto.getEndDate().plusDays(2);
                 cursor = cursor.plusDays(1);
         		while(cursor.isBefore(endDate)) {
                     listSession.add(sessionService.createSession(
@@ -105,6 +100,7 @@ public class SessionController {
         		break;
         	}
         	case BY_WEEK: {
+                OffsetDateTime endDate = sessionDto.getEndDate().plusDays(2);
                 cursor = cursor.plusDays(1);
         		while(cursor.isBefore(endDate)) {
         			if (sessionDto.getDays().contains(cursor.getDayOfWeek().getValue())) {
@@ -155,6 +151,7 @@ public class SessionController {
         session.setStart(sessionDto.getStart());
         session.setEnd(sessionDto.getEnd());
         session.setTypeSession(typeSession);
+        session.setLimit(sessionDto.getLimit());
 
 		return ResponseEntity.ok(SessionToSessionDto(sessionService.editSession(session)));
 	}
@@ -202,6 +199,7 @@ public class SessionController {
         session.setEnd(mixDateAndTime(date, sessionDto.getEnd()));
         session.setTypeSession(typeSession);
         session.setOrganization(organization);
+        session.setLimit(sessionDto.getLimit());
         return session;
 	}
 	
@@ -209,7 +207,7 @@ public class SessionController {
 		return OffsetDateTime.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getOffset());
 	}
 	
-	private SessionReadDTO SessionAndMemberToSessionReadDTO(Session session, Member member) {
-		return new SessionReadDTO(session, member);
+	private SessionReadDTO SessionAndMemberToSessionReadDTO(Session session, Member member, Long userId) {
+		return new SessionReadDTO(session, member, userId);
 	}
 }

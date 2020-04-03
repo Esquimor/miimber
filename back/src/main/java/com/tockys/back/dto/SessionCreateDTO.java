@@ -18,6 +18,7 @@ public class SessionCreateDTO {
 	private int repeat;
 	private long typeSessionId;
 	private long organizationId;
+	private int limit;
 	
 
 	public OffsetDateTime getStart() {
@@ -85,5 +86,11 @@ public class SessionCreateDTO {
 	}
 	public void setRepeat(int repeat) {
 		this.repeat = repeat;
+	}
+	public int getLimit() {
+		return limit;
+	}
+	public void setLimit(int limit) {
+		this.limit = limit;
 	}
 }

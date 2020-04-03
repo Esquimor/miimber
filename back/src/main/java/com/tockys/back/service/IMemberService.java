@@ -21,4 +21,6 @@ public interface IMemberService {
 	Member getMember(Long id);
 	
 	void deleteMember(Member member);
+	
+	boolean existsMemberByUserAndOrganization(User user, Organization organization);
 }

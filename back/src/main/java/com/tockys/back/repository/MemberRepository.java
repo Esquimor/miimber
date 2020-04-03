@@ -14,4 +14,6 @@ public interface MemberRepository extends CrudRepository<Member, Long> {
 	Member findOneByOrganizationAndUser(Organization organization, User user);
 	
 	List<Member> findByOrganizationId(Long id);
+	
+	boolean existsMemberByUserAndOrganization(User user, Organization organization);
 }

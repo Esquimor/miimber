@@ -15,15 +15,15 @@ export default {
     organizationMembers: [],
     organizations: [],
     sessions: [],
-    session: null
+    session: null,
   },
   getters: {
-    organizations: state => state.organizations,
-    organization: state => state.organization,
-    organizationSessions: state => state.organizationSessions,
-    organizationMembers: state => state.organizationMembers,
-    sessions: state => state.sessions,
-    canChangeOrganization: state => {
+    organizations: (state) => state.organizations,
+    organization: (state) => state.organization,
+    organizationSessions: (state) => state.organizationSessions,
+    organizationMembers: (state) => state.organizationMembers,
+    sessions: (state) => state.sessions,
+    canChangeOrganization: (state) => {
       return (
         !!state.organization &&
         [ROLE.OWNER, ROLE.OFFICE_INSTRUCTOR, ROLE.OFFICE].includes(
@@ -31,16 +31,21 @@ export default {
         )
       );
     },
-    session: state => state.session,
-    isInsctructorOrganization: state => {
+    session: (state) => state.session,
+    isInsctructorOrganization: (state) => {
       return (
         !!state.session &&
+        !!state.session.me.member &&
         [ROLE.OWNER, ROLE.OFFICE_INSTRUCTOR, ROLE.INSCTRUCTOR].includes(
-          state.session.member.role
+          state.session.me.member.role
         )
       );
     },
-    sessionUsers: state => (state.session ? state.session.users : [])
+    sessionUsers: (state) => (state.session ? state.session.users : []),
+    sessionRegistereds: (state) =>
+      state.session ? state.session.registereds : [],
+    userRegistered: (state) => !!state.session && !!state.session.me.registered,
+    getUserForSession: (state) => !!state.session && state.session.me,
   },
   actions: {
     setOrganizations({ commit }) {
@@ -57,7 +62,7 @@ export default {
       return api
         .get(`organization/${id}/session/`, {
           minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
-          maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
+          maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ"),
         })
         .then(({ data }) => {
           commit(types.DASH_SET_ORGANIZATION_SESSIONS, data);
@@ -72,7 +77,7 @@ export default {
       return api
         .get("user/session/", {
           minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
-          maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
+          maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ"),
         })
         .then(({ data }) => {
           commit(types.DASH_SET_SESSIONS, data);
@@ -88,12 +93,12 @@ export default {
         .post(`attendee/`, {
           userId: id,
           sessionId: state.session.id,
-          dateCheck: Date.now()
+          dateCheck: Date.now(),
         })
         .then(({ data }) => {
           commit(types.DASH_SET_USER_PRESENT_SESSION, data);
         })
-        .catch(e => {
+        .catch((e) => {
           return Promise.reject(e);
         });
     },
@@ -103,10 +108,33 @@ export default {
         .then(() => {
           commit(types.DASH_REMOVE_USER_PRESENT_SESSION, id);
         })
-        .catch(e => {
+        .catch((e) => {
           return Promise.reject(e);
         });
-    }
+    },
+    registered({ commit }, id) {
+      return api
+        .post("registered/", {
+          sessionId: id,
+          dateRegistered: dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ"),
+        })
+        .then(({ data }) => {
+          commit(types.DASH_ADD_REGISTERED, data);
+        })
+        .catch((e) => {
+          return Promise.reject(e);
+        });
+    },
+    unsubscribe({ commit }, id) {
+      return api
+        .delete(`registered/${id}`)
+        .then(() => {
+          commit(types.DASH_REMOVE_REGISTERED, id);
+        })
+        .catch((e) => {
+          return Promise.reject(e);
+        });
+    },
   },
   mutations: {
     [types.DASH_SET_ORGANIZATIONS](state, organizations) {
@@ -129,13 +157,23 @@ export default {
     },
     [types.DASH_SET_USER_PRESENT_SESSION](state, attendee) {
       const userEdited = state.session.users.find(
-        u => u.id === attendee.userId
+        (u) => u.id === attendee.userId
       );
       userEdited.attendeeId = attendee.id;
     },
     [types.DASH_REMOVE_USER_PRESENT_SESSION](state, id) {
-      const userEdited = state.session.users.find(u => u.attendeeId === id);
+      const userEdited = state.session.users.find((u) => u.attendeeId === id);
       userEdited.attendeeId = null;
-    }
-  }
+    },
+    [types.DASH_ADD_REGISTERED](state, registered) {
+      state.session.registereds.push(registered);
+      state.session.me.registered = registered;
+    },
+    [types.DASH_REMOVE_REGISTERED](state, id) {
+      state.session.registereds = state.session.registereds.filter(
+        (r) => r.id !== id
+      );
+      state.session.me.registered = null;
+    },
+  },
 };
