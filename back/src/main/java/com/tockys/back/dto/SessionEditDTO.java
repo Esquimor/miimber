@@ -9,6 +9,7 @@ public class SessionEditDTO {
 	private OffsetDateTime start;
 	private OffsetDateTime end;
 	private long typeSessionId;
+	private int limit;
 
 	public String getTitle() {
 		return title;
@@ -39,5 +40,11 @@ public class SessionEditDTO {
 	}
 	public void setTypeSessionId(long typeSessionId) {
 		this.typeSessionId = typeSessionId;
+	}
+	public int getLimit() {
+		return limit;
+	}
+	public void setLimit(int limit) {
+		this.limit = limit;
 	}
 }

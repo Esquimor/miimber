@@ -50,10 +50,6 @@ public class Session {
     
     @ManyToOne
     private TypeSession typeSession;
-    
-    public Session() {
-    	this.limit = 0;
-    }
 	
 	public long getId() {
 		return this.id;

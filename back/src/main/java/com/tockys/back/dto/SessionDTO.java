@@ -16,6 +16,7 @@ public class SessionDTO {
 	private long organizationId;
 	private long templateSessionId;
 	private TypeSessionDTO typeSession;
+	private int limit;
 	
 	public SessionDTO(Session session) {
 		this.id = session.getId();
@@ -25,6 +26,7 @@ public class SessionDTO {
 		this.end = session.getEnd();
 		this.organizationId = session.getOrganization().getId();
 		this.typeSession = new TypeSessionDTO(session.getTypeSession());
+		this.setLimit(session.getLimit());
 	}
 	
 	public long getId() {
@@ -89,6 +91,14 @@ public class SessionDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
 	}
 
 	private class TypeSessionDTO {

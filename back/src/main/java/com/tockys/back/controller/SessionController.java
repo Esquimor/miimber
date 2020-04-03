@@ -81,20 +81,15 @@ public class SessionController {
         
         List<Session> listSession = new ArrayList<Session>();
         OffsetDateTime cursor =  sessionDto.getStartDate();
-        OffsetDateTime endDate = sessionDto.getEndDate().plusDays(2);
         switch (sessionDto.getPeriodicity()) {
         	case ONCE: {
-                Session session = new Session();
-                session.setTitle(sessionDto.getTitle());
-                session.setDescription(sessionDto.getDescription());
-                session.setStart(sessionDto.getStart());
-                session.setEnd(sessionDto.getEnd());
-                session.setTypeSession(typeSession);
-                session.setOrganization(memberUser.getOrganization());
-                session.setLimit(sessionDto.getLimit());
-                listSession.add(sessionService.createSession(session));
+                listSession.add(sessionService.createSession(
+                		createSessionBySessionDtoAndDate(sessionDto, sessionDto.getStart(), typeSession, memberUser.getOrganization())
+                		));
+        		break;
         	}
         	case EVERYDAY: {
+                OffsetDateTime endDate = sessionDto.getEndDate().plusDays(2);
                 cursor = cursor.plusDays(1);
         		while(cursor.isBefore(endDate)) {
                     listSession.add(sessionService.createSession(
@@ -105,6 +100,7 @@ public class SessionController {
         		break;
         	}
         	case BY_WEEK: {
+                OffsetDateTime endDate = sessionDto.getEndDate().plusDays(2);
                 cursor = cursor.plusDays(1);
         		while(cursor.isBefore(endDate)) {
         			if (sessionDto.getDays().contains(cursor.getDayOfWeek().getValue())) {
@@ -155,6 +151,7 @@ public class SessionController {
         session.setStart(sessionDto.getStart());
         session.setEnd(sessionDto.getEnd());
         session.setTypeSession(typeSession);
+        session.setLimit(sessionDto.getLimit());
 
 		return ResponseEntity.ok(SessionToSessionDto(sessionService.editSession(session)));
 	}
