@@ -21,7 +21,6 @@ import com.tockys.back.dto.SessionCreateDTO;
 import com.tockys.back.dto.SessionDTO;
 import com.tockys.back.dto.SessionEditDTO;
 import com.tockys.back.dto.SessionReadDTO;
-import com.tockys.back.enumItem.PeriodicityEnum;
 import com.tockys.back.helper.Helper;
 import com.tockys.back.model.Member;
 import com.tockys.back.model.Organization;
@@ -60,7 +59,7 @@ public class SessionController {
         
         Member member = memberService.getMemberByOrganizationAndByUser(session.getOrganization(), user);
 
-		return ResponseEntity.ok(SessionAndMemberToSessionReadDTO(session, member));
+		return ResponseEntity.ok(SessionAndMemberToSessionReadDTO(session, member, user.getId()));
 	}
 	
 	@RequestMapping(value = "/session/", method = RequestMethod.POST)
@@ -92,6 +91,7 @@ public class SessionController {
                 session.setEnd(sessionDto.getEnd());
                 session.setTypeSession(typeSession);
                 session.setOrganization(memberUser.getOrganization());
+                session.setLimit(sessionDto.getLimit());
                 listSession.add(sessionService.createSession(session));
         	}
         	case EVERYDAY: {
@@ -202,6 +202,7 @@ public class SessionController {
         session.setEnd(mixDateAndTime(date, sessionDto.getEnd()));
         session.setTypeSession(typeSession);
         session.setOrganization(organization);
+        session.setLimit(sessionDto.getLimit());
         return session;
 	}
 	
@@ -209,7 +210,7 @@ public class SessionController {
 		return OffsetDateTime.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getOffset());
 	}
 	
-	private SessionReadDTO SessionAndMemberToSessionReadDTO(Session session, Member member) {
-		return new SessionReadDTO(session, member);
+	private SessionReadDTO SessionAndMemberToSessionReadDTO(Session session, Member member, Long userId) {
+		return new SessionReadDTO(session, member, userId);
 	}
 }

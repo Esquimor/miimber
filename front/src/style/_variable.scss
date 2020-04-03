@@ -34,6 +34,9 @@ $background-dashboard-hover-invert: findColorInvert($background-dashboard-hover)
 
 $background-price: rgba(30, 136, 229, 0.05);
 
+$background-dashboard-template: #e1f5fe;
+$background-dashboard-template-invert: findColorInvert($background-dashboard-template);
+
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
     "white": ($white, $black),

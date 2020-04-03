@@ -56,5 +56,10 @@ public class MemberService implements IMemberService {
 		memberRepository.delete(member);
 	}
 
+	@Override
+	public boolean existsMemberByUserAndOrganization(User user, Organization organization) {
+		return existsMemberByUserAndOrganization(user, organization);
+	}
+
 
 }

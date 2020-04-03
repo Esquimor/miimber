@@ -26,12 +26,21 @@ export default {
         end: "End",
         information: "Information",
         attendee: "Participants",
-        emerge: "Emerge"
+        emerge: "Emerge",
+        registered: "Registered",
+        imRegistered: "I'm registering",
+        iUnsubscribe: "I unsubscribe"
       },
       emerge: {
         table: {
           name: "Name",
           present: "Present"
+        }
+      },
+      registered: {
+        empty: "Nobody is registered for this session.",
+        table: {
+          name: "Name"
         }
       }
     }

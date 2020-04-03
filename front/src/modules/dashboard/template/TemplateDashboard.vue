@@ -1,9 +1,6 @@
 <template>
   <div class="TemplateDashboard">
-    <header
-      class="TemplateDashboard-header"
-      :class="{ 'has-not-Nav': !hasNav }"
-    >
+    <header class="TemplateDashboard-header" :class="{ 'has-not-Nav': !hasNav }">
       <h1 class="title is-5">{{ title }}</h1>
       <slot name="header" />
     </header>
@@ -81,7 +78,7 @@ export default {
     display: flex;
     justify-content: space-between;
     padding: 2rem;
-    background-color: $white-ter;
+    background-color: $background-dashboard-template;
     &.has-not-Nav {
       padding-bottom: 4rem;
       border-bottom: 1px solid $grey-lighter;
@@ -90,9 +87,9 @@ export default {
   &-nav {
     height: 2rem;
     padding: 0 2rem;
-    background-color: $white-ter;
+    background-color: $background-dashboard-template;
     &-link {
-      border-top: 3px solid $white-ter;
+      border-top: 3px solid $background-dashboard-template;
       padding: 0.7rem;
       background-color: $white;
       height: 100%;

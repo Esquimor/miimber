@@ -33,8 +33,14 @@ public class Session {
 	@Column(name = "endDate", columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private OffsetDateTime end;
 	
+	@Column(name = "limitUsers")
+	private int limit;
+	
 	@OneToMany(mappedBy = "session")
     private List<Attendee> attendees;
+	
+	@OneToMany(mappedBy = "session")
+    private List<Registered> registereds;
     
     @ManyToOne
     private Organization organization;
@@ -44,6 +50,10 @@ public class Session {
     
     @ManyToOne
     private TypeSession typeSession;
+    
+    public Session() {
+    	this.limit = 0;
+    }
 	
 	public long getId() {
 		return this.id;
@@ -85,6 +95,14 @@ public class Session {
 		this.end = end;
 	}
 	
+	public int getLimit() {
+		return this.limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+	
 	public Organization getOrganization() {
 		return this.organization;
 	}
@@ -123,5 +141,21 @@ public class Session {
 	
 	public void removeAttendee(Attendee attendee) {
 		this.attendees.remove(attendee);
+	}
+	
+	public List<Registered> getRegistereds() {
+		return this.registereds;
+	}
+	
+	public void setRegistereds(List<Registered> registereds) {
+		this.registereds = registereds;
+	}
+	
+	public void addRegistered(Registered registered) {
+		this.registereds.add(registered);
+	}
+	
+	public void removeRegistered(Registered registered) {
+		this.registereds.remove(registered);
 	}
 }

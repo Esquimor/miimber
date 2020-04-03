@@ -41,6 +41,9 @@ public class User {
 	@OneToMany(mappedBy = "user")
     private List<Attendee> attendees;
 	
+	@OneToMany(mappedBy = "user")
+    private List<Registered> registereds;
+	
 	public long getId() {
 		return this.id;
 	}
@@ -127,5 +130,21 @@ public class User {
 	
 	public void removeAttendee(Attendee attendee) {
 		this.attendees.remove(attendee);
+	}
+	
+	public List<Registered> getRegistereds() {
+		return this.registereds;
+	}
+	
+	public void setRegistereds(List<Registered> registereds) {
+		this.registereds = registereds;
+	}
+	
+	public void addRegistered(Registered registered) {
+		this.registereds.add(registered);
+	}
+	
+	public void removeRegistered(Registered registered) {
+		this.registereds.remove(registered);
 	}
 }

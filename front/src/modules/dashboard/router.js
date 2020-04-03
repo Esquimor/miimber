@@ -5,7 +5,8 @@ import Sessions from "@dashboard/views/session/Sessions";
 import Session from "@dashboard/views/session/Session";
 import SessionEmerge from "@dashboard/views/session/SessionEmerge";
 import SessionInformation from "@dashboard/views/session/SessionInformation";
-import SessionAttendee from "@dashboard/views/session/SessionAttendee";
+//import SessionAttendee from "@dashboard/views/session/SessionAttendee";
+import SessionRegistered from "@dashboard/views/session/SessionRegistered";
 
 import Organizations from "@dashboard/views/organization/Organizations";
 import Organization from "@dashboard/views/organization/Organization";
@@ -41,10 +42,15 @@ export default [
             name: "dashboard-session-information",
             component: SessionInformation
           },
-          {
+          /**{
             path: "attendee",
             name: "dashboard-session-attendee",
             component: SessionAttendee
+          },*/
+          {
+            path: "registered",
+            name: "dashboard-session-registered",
+            component: SessionRegistered
           }
         ]
       },
