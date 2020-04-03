@@ -1,4 +1,4 @@
-package com.tockys.back.service;
+package com.tockys.back.core.service;
 
 import java.util.ArrayList;
 
@@ -9,9 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.tockys.back.dto.UserRegisterDTO;
-import com.tockys.back.model.User;
-import com.tockys.back.repository.UserRepository;
+import com.tockys.back.user.dto.UserRegisterDTO;
+import com.tockys.back.user.model.User;
+import com.tockys.back.user.service.UserService;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

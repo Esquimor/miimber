@@ -1,9 +1,9 @@
-package com.tockys.back.service;
+package com.tockys.back.organization.service;
 
 import java.util.List;
 
-import com.tockys.back.model.Organization;
-import com.tockys.back.model.User;
+import com.tockys.back.organization.model.Organization;
+import com.tockys.back.user.model.User;
 
 public interface IOrganizationService {
 	List<Organization> getOrganizationOwnered(User user);

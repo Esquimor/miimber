@@ -1,7 +1,10 @@
-package com.tockys.back.model;
+package com.tockys.back.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tockys.back.model.enums.UserRoleEnum;
+import com.tockys.back.organization.model.Member;
+import com.tockys.back.session.model.Attendee;
+import com.tockys.back.session.model.Registered;
+import com.tockys.back.user.model.enums.UserRoleEnum;
 
 import java.util.List;
 

@@ -1,12 +1,12 @@
-package com.tockys.back.repository;
+package com.tockys.back.session.repository;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.tockys.back.model.Session;
-import com.tockys.back.model.User;
+import com.tockys.back.session.model.Session;
+import com.tockys.back.user.model.User;
 
 public interface SessionRepository extends CrudRepository<Session, Long>  {
 

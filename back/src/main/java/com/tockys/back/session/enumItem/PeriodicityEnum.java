@@ -1,4 +1,4 @@
-package com.tockys.back.enumItem;
+package com.tockys.back.session.enumItem;
 
 public enum PeriodicityEnum {
 	ONCE("O"), EVERYDAY("E"), BY_WEEK("W");

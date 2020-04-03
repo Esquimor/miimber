@@ -1,6 +1,6 @@
-package com.tockys.back.dto;
+package com.tockys.back.user.dto;
 
-public class UserPasswordDTO {
+public class UserPasswordUpdateRequestDTO {
 
 	private String oldPassword;
 	private String newPassword;

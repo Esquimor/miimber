@@ -1,4 +1,4 @@
-package com.tockys.back.controller;
+package com.tockys.back.user.controller;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -20,19 +20,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.dto.OrganizationDTO;
-import com.tockys.back.dto.UserDTO;
-import com.tockys.back.dto.UserPasswordDTO;
-import com.tockys.back.dto.UserSessionDTO;
-import com.tockys.back.helper.Helper;
-import com.tockys.back.model.Member;
-import com.tockys.back.model.Organization;
-import com.tockys.back.model.Session;
-import com.tockys.back.model.User;
-import com.tockys.back.service.MemberService;
-import com.tockys.back.service.OrganizationService;
-import com.tockys.back.service.SessionService;
-import com.tockys.back.service.UserService;
+import com.tockys.back.core.helper.Helper;
+import com.tockys.back.organization.dto.organization.OrganizationDTO;
+import com.tockys.back.organization.model.Member;
+import com.tockys.back.organization.model.Organization;
+import com.tockys.back.organization.service.MemberService;
+import com.tockys.back.organization.service.OrganizationService;
+import com.tockys.back.session.model.Session;
+import com.tockys.back.session.service.SessionService;
+import com.tockys.back.user.dto.UserUpdateRequestDTO;
+import com.tockys.back.user.dto.UserPasswordUpdateRequestDTO;
+import com.tockys.back.user.dto.UserSessionReadResponseDTO;
+import com.tockys.back.user.model.User;
+import com.tockys.back.user.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -60,13 +60,13 @@ public class UserController {
 	private Helper helper;
 	
 	@RequestMapping(value = "/me", method = RequestMethod.GET)
-	public ResponseEntity<?> me() throws Exception {
+	public ResponseEntity<?> readMe() throws Exception {
         UserDetails currentUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return ResponseEntity.ok(convertToDto(helper.getUserToken(currentUser)));
 	}
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> putUser(@RequestBody UserDTO userDto, @PathVariable Long id) {
+	public ResponseEntity<?> updateUser(@RequestBody UserUpdateRequestDTO userDto, @PathVariable Long id) {
 		User user = convertToEntity(userDto, id);
 		if (user == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -79,7 +79,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/{id}/password", method = RequestMethod.PUT)
-	public ResponseEntity<?> putPasswordUser(@RequestBody UserPasswordDTO userDTO, @PathVariable Long id) {
+	public ResponseEntity<?> updatePasswordUser(@RequestBody UserPasswordUpdateRequestDTO userDTO, @PathVariable Long id) {
         User tokenUser = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		if (id != tokenUser.getId()) {
 			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
@@ -92,7 +92,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/email/{email}/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> nameExit(@PathVariable String email, @PathVariable Long id) throws Exception {
+	public ResponseEntity<?> readNameExit(@PathVariable String email, @PathVariable Long id) throws Exception {
 		User user = userService.getUserByEmail(email);
 		if (user == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -105,7 +105,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/organization", method = RequestMethod.GET)
-	public ResponseEntity<?> getUserOrganization() throws Exception {
+	public ResponseEntity<?> readUserOrganization() throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         List<OrganizationDTO> responseOrganization = new ArrayList<OrganizationDTO>();
@@ -117,10 +117,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/session/", method = RequestMethod.GET)
-	public ResponseEntity<?> getUserSessions(@RequestParam String minDate, @RequestParam String maxDate) throws Exception {
+	public ResponseEntity<?> readUserSessions(@RequestParam String minDate, @RequestParam String maxDate) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        List<UserSessionDTO> sessions = new ArrayList<UserSessionDTO>();
+        List<UserSessionReadResponseDTO> sessions = new ArrayList<UserSessionReadResponseDTO>();
         for (Session session : sessionService.getSessionByUserAndDate(user, OffsetDateTime.parse(minDate), OffsetDateTime.parse(maxDate)))
         {
         	sessions.add(SessionToUserSessionDTO(session));
@@ -128,12 +128,12 @@ public class UserController {
         return ResponseEntity.ok(sessions);
 	}
 	
-	private UserDTO convertToDto(User user) {
-		UserDTO userDto = modelMapper.map(user, UserDTO.class);
+	private UserUpdateRequestDTO convertToDto(User user) {
+		UserUpdateRequestDTO userDto = modelMapper.map(user, UserUpdateRequestDTO.class);
 		return userDto;
 	}
 	
-	private User convertToEntity(UserDTO userDto, long id) {
+	private User convertToEntity(UserUpdateRequestDTO userDto, long id) {
 		User user = userService.getUserById(id);
 		if (user == null) {
 			return null;
@@ -150,7 +150,7 @@ public class UserController {
         		);
 	}
 	
-	private UserSessionDTO SessionToUserSessionDTO(Session session) {
-		return new UserSessionDTO(session);
+	private UserSessionReadResponseDTO SessionToUserSessionDTO(Session session) {
+		return new UserSessionReadResponseDTO(session);
 	}
 }

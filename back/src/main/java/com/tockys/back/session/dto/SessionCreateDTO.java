@@ -1,9 +1,9 @@
-package com.tockys.back.dto;
+package com.tockys.back.session.dto;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
-import com.tockys.back.enumItem.PeriodicityEnum;
+import com.tockys.back.session.enumItem.PeriodicityEnum;
 
 public class SessionCreateDTO {
 

@@ -1,4 +1,4 @@
-package com.tockys.back.model;
+package com.tockys.back.session.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

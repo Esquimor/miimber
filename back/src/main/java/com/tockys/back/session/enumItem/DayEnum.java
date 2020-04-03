@@ -1,4 +1,4 @@
-package com.tockys.back.enumItem;
+package com.tockys.back.session.enumItem;
 
 public enum DayEnum {
 	MONDAY("M"), TUESDAY("TU"), WEDNESDAY("W"), THURSDAY("TH"), FRIDAY("F"), SATURDAY("S"), SUNDAY("SU");

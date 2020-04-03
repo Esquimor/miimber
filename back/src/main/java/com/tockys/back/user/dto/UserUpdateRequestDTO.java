@@ -1,6 +1,6 @@
-package com.tockys.back.dto;
+package com.tockys.back.user.dto;
 
-public class UserDTO {
+public class UserUpdateRequestDTO {
 
 	private long id;
 	private String email;

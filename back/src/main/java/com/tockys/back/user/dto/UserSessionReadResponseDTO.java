@@ -1,10 +1,10 @@
-package com.tockys.back.dto;
+package com.tockys.back.user.dto;
 
 import java.time.OffsetDateTime;
 
-import com.tockys.back.model.Session;
+import com.tockys.back.session.model.Session;
 
-public class UserSessionDTO {
+public class UserSessionReadResponseDTO {
 
 	private long id; 
 	private String title;
@@ -13,7 +13,7 @@ public class UserSessionDTO {
 	private String typeSessionName;
 	private String organizationName;
 	
-	public UserSessionDTO(Session session) {
+	public UserSessionReadResponseDTO(Session session) {
 		this.setId(session.getId());
 		this.setTitle(session.getTitle());
 		this.setStart(session.getStart());

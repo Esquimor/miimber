@@ -1,4 +1,4 @@
-package com.tockys.back.model.enums;
+package com.tockys.back.session.model.enums;
 
 public enum RegisteredEnum {
 	TAKEN("T"), WAITING("W");

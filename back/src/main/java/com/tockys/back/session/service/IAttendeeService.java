@@ -1,6 +1,6 @@
-package com.tockys.back.service;
+package com.tockys.back.session.service;
 
-import com.tockys.back.model.Attendee;
+import com.tockys.back.session.model.Attendee;
 
 public interface IAttendeeService {
 

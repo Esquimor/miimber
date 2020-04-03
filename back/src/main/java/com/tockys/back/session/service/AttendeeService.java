@@ -1,12 +1,12 @@
-package com.tockys.back.service;
+package com.tockys.back.session.service;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tockys.back.model.Attendee;
-import com.tockys.back.repository.AttendeeRepository;
+import com.tockys.back.session.model.Attendee;
+import com.tockys.back.session.repository.AttendeeRepository;
 
 @Service
 public class AttendeeService implements IAttendeeService {

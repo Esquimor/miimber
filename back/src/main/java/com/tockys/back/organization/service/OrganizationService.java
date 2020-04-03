@@ -1,4 +1,4 @@
-package com.tockys.back.service;
+package com.tockys.back.organization.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tockys.back.model.Organization;
-import com.tockys.back.model.User;
-import com.tockys.back.model.enums.RoleEnum;
-import com.tockys.back.repository.OrganizationRepository;
+import com.tockys.back.organization.model.Organization;
+import com.tockys.back.organization.model.enums.RoleEnum;
+import com.tockys.back.organization.repository.OrganizationRepository;
+import com.tockys.back.user.model.User;
 
 @Service
 public class OrganizationService implements IOrganizationService {

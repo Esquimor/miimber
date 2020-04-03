@@ -1,8 +1,8 @@
-package com.tockys.back.service;
+package com.tockys.back.session.service;
 
 import java.util.List;
 
-import com.tockys.back.model.TypeSession;
+import com.tockys.back.session.model.TypeSession;
 
 public interface ITypeSessionService {
 

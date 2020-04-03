@@ -1,4 +1,4 @@
-package com.tockys.back.controller;
+package com.tockys.back.core.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,7 +6,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.config.JwtTokenUtil;
-import com.tockys.back.dto.UserRegisterDTO;
-import com.tockys.back.helper.JwtRequest;
-import com.tockys.back.helper.JwtResponse;
-import com.tockys.back.service.JwtUserDetailsService;
-import com.tockys.back.service.UserService;
+import com.tockys.back.core.config.JwtTokenUtil;
+import com.tockys.back.core.helper.JwtRequest;
+import com.tockys.back.core.helper.JwtResponse;
+import com.tockys.back.core.service.JwtUserDetailsService;
+import com.tockys.back.user.dto.UserRegisterDTO;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -33,9 +31,6 @@ public class AuthController {
 	
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
-	
-	@Autowired
-	private UserService userService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {

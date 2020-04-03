@@ -1,9 +1,9 @@
-package com.tockys.back.repository;
+package com.tockys.back.session.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.tockys.back.model.Registered;
-import com.tockys.back.model.Session;
+import com.tockys.back.session.model.Registered;
+import com.tockys.back.session.model.Session;
 
 public interface RegisteredRepository extends CrudRepository<Registered, Long>{
 

@@ -1,11 +1,11 @@
-package com.tockys.back.helper;
+package com.tockys.back.core.helper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.tockys.back.model.User;
-import com.tockys.back.service.UserService;
+import com.tockys.back.user.model.User;
+import com.tockys.back.user.service.UserService;
 
 @Service
 public class Helper {

@@ -1,4 +1,4 @@
-package com.tockys.back.model.enums;
+package com.tockys.back.organization.model.enums;
 
 import java.util.stream.Stream;
 

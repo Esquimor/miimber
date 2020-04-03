@@ -1,4 +1,4 @@
-package com.tockys.back.model.enums;
+package com.tockys.back.user.model.enums;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

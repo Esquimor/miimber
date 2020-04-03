@@ -1,4 +1,4 @@
-package com.tockys.back.config;
+package com.tockys.back.core.config;
 
 import java.io.IOException;
 import java.io.Serializable;

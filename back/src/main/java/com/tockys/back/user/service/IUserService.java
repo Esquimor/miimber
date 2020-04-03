@@ -1,9 +1,9 @@
-package com.tockys.back.service;
+package com.tockys.back.user.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.tockys.back.model.User;
+import com.tockys.back.user.model.User;
 
 public interface IUserService {
 	User getUserById(long id);

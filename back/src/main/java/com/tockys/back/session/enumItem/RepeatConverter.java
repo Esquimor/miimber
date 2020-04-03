@@ -1,4 +1,4 @@
-package com.tockys.back.enumItem;
+package com.tockys.back.session.enumItem;
 
 import java.util.stream.Stream;
 

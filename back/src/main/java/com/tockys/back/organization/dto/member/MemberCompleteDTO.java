@@ -1,7 +1,7 @@
-package com.tockys.back.dto;
+package com.tockys.back.organization.dto.member;
 
-import com.tockys.back.model.Member;
-import com.tockys.back.model.enums.RoleEnum;
+import com.tockys.back.organization.model.Member;
+import com.tockys.back.organization.model.enums.RoleEnum;
 
 public class MemberCompleteDTO {
 

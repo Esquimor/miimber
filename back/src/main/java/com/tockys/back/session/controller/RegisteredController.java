@@ -1,4 +1,4 @@
-package com.tockys.back.controller;
+package com.tockys.back.session.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.dto.RegisteredCreateDTO;
-import com.tockys.back.dto.RegisteredCreateResponseDTO;
-import com.tockys.back.helper.Helper;
-import com.tockys.back.model.Registered;
-import com.tockys.back.model.Session;
-import com.tockys.back.model.User;
-import com.tockys.back.model.enums.RegisteredEnum;
-import com.tockys.back.service.MemberService;
-import com.tockys.back.service.RegisteredService;
-import com.tockys.back.service.SessionService;
+import com.tockys.back.core.helper.Helper;
+import com.tockys.back.organization.service.MemberService;
+import com.tockys.back.session.dto.RegisteredCreateDTO;
+import com.tockys.back.session.dto.RegisteredCreateResponseDTO;
+import com.tockys.back.session.model.Registered;
+import com.tockys.back.session.model.Session;
+import com.tockys.back.session.model.enums.RegisteredEnum;
+import com.tockys.back.session.service.RegisteredService;
+import com.tockys.back.session.service.SessionService;
+import com.tockys.back.user.model.User;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

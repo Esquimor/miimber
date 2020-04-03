@@ -1,4 +1,4 @@
-package com.tockys.back.controller;
+package com.tockys.back.session.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.dto.AttendeeCreateDTO;
-import com.tockys.back.dto.AttendeeCreateResponseDTO;
-import com.tockys.back.helper.Helper;
-import com.tockys.back.model.Attendee;
-import com.tockys.back.model.Member;
-import com.tockys.back.model.Session;
-import com.tockys.back.model.User;
-import com.tockys.back.model.enums.RoleEnum;
-import com.tockys.back.service.AttendeeService;
-import com.tockys.back.service.MemberService;
-import com.tockys.back.service.SessionService;
-import com.tockys.back.service.UserService;
+import com.tockys.back.core.helper.Helper;
+import com.tockys.back.organization.model.Member;
+import com.tockys.back.organization.model.enums.RoleEnum;
+import com.tockys.back.organization.service.MemberService;
+import com.tockys.back.session.dto.AttendeeCreateDTO;
+import com.tockys.back.session.dto.AttendeeCreateResponseDTO;
+import com.tockys.back.session.model.Attendee;
+import com.tockys.back.session.model.Session;
+import com.tockys.back.session.service.AttendeeService;
+import com.tockys.back.session.service.SessionService;
+import com.tockys.back.user.model.User;
+import com.tockys.back.user.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -78,7 +78,7 @@ public class AttendeeController {
 	}
 	
 	@RequestMapping(value = "/attendee/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> removeAttendee(@PathVariable Long id) throws Exception {
+	public ResponseEntity<?> deleteAttendee(@PathVariable Long id) throws Exception {
 		Attendee attendee = attendeeService.getAttendeeById(id);
 		
 		if (attendee == null) {

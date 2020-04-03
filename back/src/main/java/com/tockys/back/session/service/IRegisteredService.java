@@ -1,7 +1,7 @@
-package com.tockys.back.service;
+package com.tockys.back.session.service;
 
-import com.tockys.back.model.Registered;
-import com.tockys.back.model.Session;
+import com.tockys.back.session.model.Registered;
+import com.tockys.back.session.model.Session;
 
 public interface IRegisteredService {
 

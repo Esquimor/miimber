@@ -1,4 +1,4 @@
-package com.tockys.back.service;
+package com.tockys.back.session.service;
 
 public interface ITemplateSessionService {
 

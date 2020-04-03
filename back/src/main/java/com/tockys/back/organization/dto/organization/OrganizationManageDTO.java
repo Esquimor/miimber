@@ -1,11 +1,11 @@
-package com.tockys.back.dto;
+package com.tockys.back.organization.dto.organization;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.stripe.model.Subscription;
-import com.tockys.back.model.Member;
-import com.tockys.back.model.enums.RoleEnum;
+import com.tockys.back.organization.model.Member;
+import com.tockys.back.organization.model.enums.RoleEnum;
 
 public class OrganizationManageDTO extends OrganizationDTO {
 

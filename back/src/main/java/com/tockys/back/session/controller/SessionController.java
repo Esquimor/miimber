@@ -1,4 +1,4 @@
-package com.tockys.back.controller;
+package com.tockys.back.session.controller;
 
 import java.time.DayOfWeek;
 import java.time.OffsetDateTime;
@@ -17,19 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.dto.SessionCreateDTO;
-import com.tockys.back.dto.SessionDTO;
-import com.tockys.back.dto.SessionEditDTO;
-import com.tockys.back.dto.SessionReadDTO;
-import com.tockys.back.helper.Helper;
-import com.tockys.back.model.Member;
-import com.tockys.back.model.Organization;
-import com.tockys.back.model.Session;
-import com.tockys.back.model.TypeSession;
-import com.tockys.back.model.User;
-import com.tockys.back.service.MemberService;
-import com.tockys.back.service.SessionService;
-import com.tockys.back.service.TypeSessionService;
+import com.tockys.back.core.helper.Helper;
+import com.tockys.back.organization.model.Member;
+import com.tockys.back.organization.model.Organization;
+import com.tockys.back.organization.service.MemberService;
+import com.tockys.back.session.dto.SessionCreateDTO;
+import com.tockys.back.session.dto.SessionDTO;
+import com.tockys.back.session.dto.SessionEditDTO;
+import com.tockys.back.session.dto.SessionReadDTO;
+import com.tockys.back.session.model.Session;
+import com.tockys.back.session.model.TypeSession;
+import com.tockys.back.session.service.SessionService;
+import com.tockys.back.session.service.TypeSessionService;
+import com.tockys.back.user.model.User;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -48,7 +48,7 @@ public class SessionController {
 	private Helper helper;
 	
 	@RequestMapping(value = "/session/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getSession(@PathVariable Long id) throws Exception {
+	public ResponseEntity<?> readSession(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Session session = sessionService.getSessionById(id);
@@ -125,7 +125,7 @@ public class SessionController {
 	}
 	
 	@RequestMapping(value = "/session/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> editSession(@RequestBody SessionEditDTO sessionDto, @PathVariable Long id) throws Exception {
+	public ResponseEntity<?> updateSession(@RequestBody SessionEditDTO sessionDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Session session = sessionService.getSessionById(id);

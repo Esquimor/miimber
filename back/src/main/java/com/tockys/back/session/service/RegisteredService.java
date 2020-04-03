@@ -1,13 +1,13 @@
-package com.tockys.back.service;
+package com.tockys.back.session.service;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tockys.back.model.Registered;
-import com.tockys.back.model.Session;
-import com.tockys.back.repository.RegisteredRepository;
+import com.tockys.back.session.model.Registered;
+import com.tockys.back.session.model.Session;
+import com.tockys.back.session.repository.RegisteredRepository;
 
 @Service
 public class RegisteredService implements IRegisteredService {

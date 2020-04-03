@@ -1,4 +1,4 @@
-package com.tockys.back.dto;
+package com.tockys.back.organization.dto.organization;
 
 public class OrganizationCreateDTO {
 

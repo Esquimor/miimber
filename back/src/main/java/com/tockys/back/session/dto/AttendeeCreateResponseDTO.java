@@ -1,8 +1,8 @@
-package com.tockys.back.dto;
+package com.tockys.back.session.dto;
 
 import java.time.OffsetDateTime;
 
-import com.tockys.back.model.Attendee;
+import com.tockys.back.session.model.Attendee;
 
 public class AttendeeCreateResponseDTO {
 

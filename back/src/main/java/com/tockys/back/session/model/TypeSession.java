@@ -1,4 +1,4 @@
-package com.tockys.back.model;
+package com.tockys.back.session.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.tockys.back.organization.model.Organization;
 
 @Entity
 @Table(name="type_sessions")
