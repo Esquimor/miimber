@@ -1,8 +1,8 @@
-package com.tockys.back.session.dto;
+package com.tockys.back.session.dto.session;
 
 import java.time.OffsetDateTime;
 
-public class SessionEditDTO {
+public class SessionEditRequestDTO {
 
 	private String title;
 	private String description;

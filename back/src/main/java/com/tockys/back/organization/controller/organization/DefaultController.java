@@ -19,10 +19,10 @@ import com.stripe.model.Customer;
 import com.stripe.model.Subscription;
 import com.tockys.back.core.helper.Helper;
 import com.tockys.back.core.helper.StripeService;
-import com.tockys.back.organization.dto.organization.OrganizationCompleteDTO;
-import com.tockys.back.organization.dto.organization.OrganizationCreateDTO;
-import com.tockys.back.organization.dto.organization.OrganizationDTO;
-import com.tockys.back.organization.dto.organization.OrganizationManageDTO;
+import com.tockys.back.organization.dto.organization.OrganizationAndMemberReadResponseDTO;
+import com.tockys.back.organization.dto.organization.OrganizationCreateRequestDTO;
+import com.tockys.back.organization.dto.organization.OrganizationCreateReadUpdateResponseDTO;
+import com.tockys.back.organization.dto.organization.OrganizationForManageReadResponseDTO;
 import com.tockys.back.organization.dto.organization.OrganizationRequestDTO;
 import com.tockys.back.organization.dto.organization.OrganizationTokenRequestDTO;
 import com.tockys.back.organization.model.Member;
@@ -57,10 +57,10 @@ public class DefaultController {
 	public ResponseEntity<?> readOrganization() throws Exception {
         UserDetails currentUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = helper.getUserToken(currentUser);
-        List<OrganizationDTO> responseOrganization = new ArrayList<OrganizationDTO>();
+        List<OrganizationCreateReadUpdateResponseDTO> responseOrganization = new ArrayList<OrganizationCreateReadUpdateResponseDTO>();
         for (Organization organization : organizationService.getOrganizationOwnered(user)) 
         { 
-        	responseOrganization.add(OrganizationToDTO(organization));
+        	responseOrganization.add(new OrganizationCreateReadUpdateResponseDTO(organization));
         }
 		return ResponseEntity.ok(responseOrganization);
 	}
@@ -79,7 +79,7 @@ public class DefaultController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        return ResponseEntity.ok(OrganizationToManageDTO(
+        return ResponseEntity.ok(new OrganizationForManageReadResponseDTO(
         		member.getOrganization(), 
 				stripeService.getSubscription(member.getOrganization().getStripe())
 			));
@@ -97,11 +97,11 @@ public class DefaultController {
 		
 		Member member = memberService.getMemberByOrganizationAndByUser(organization, user);
 		
-		return ResponseEntity.ok(OrganizationToCompleteDTO(organization, member));
+		return ResponseEntity.ok(new OrganizationAndMemberReadResponseDTO(organization, member));
 	}
 	
 	@RequestMapping(value = "/organization/", method = RequestMethod.POST)
-	public ResponseEntity<?> readOrganizationAll(@RequestBody OrganizationCreateDTO organizationDto) throws Exception {
+	public ResponseEntity<?> readOrganizationAll(@RequestBody OrganizationCreateRequestDTO organizationDto) throws Exception {
         UserDetails currentUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = helper.getUserToken(currentUser);
         
@@ -127,7 +127,7 @@ public class DefaultController {
         
         typeSessionService.createTypeSession(newTypeSession);
         
-        return ResponseEntity.ok(OrganizationToDTO(newOrganization));
+        return ResponseEntity.ok(new OrganizationCreateReadUpdateResponseDTO(newOrganization));
 	}
 
 	@RequestMapping(value = "/organization/name/{name}", method = RequestMethod.GET)
@@ -167,7 +167,7 @@ public class DefaultController {
         }
         Organization organization = memberUser.getOrganization();
         organization.setName(organizationDto.getName());
-        return ResponseEntity.ok(OrganizationToDTO(organizationService.editOrganization(organization)));
+        return ResponseEntity.ok(new OrganizationCreateReadUpdateResponseDTO(organizationService.editOrganization(organization)));
 	}
 	
 	@RequestMapping(value = "/organization/{id}", method = RequestMethod.DELETE)
@@ -185,28 +185,5 @@ public class DefaultController {
         stripeService.deleteSubscription(organization.getStripe());
         organizationService.deleteOrganization(organization);
         return new ResponseEntity(HttpStatus.OK);
-	}
-	
-	private OrganizationDTO OrganizationToDTO(Organization organization) {
-		return new OrganizationDTO(
-        				organization.getId(),
-        				organization.getName()
-        		);
-	}
-	
-	private OrganizationManageDTO OrganizationToManageDTO(Organization organization, Subscription subscription) {
-		return new OrganizationManageDTO(
-				organization.getId(),
-				organization.getName(),
-				organization.getMembers(),
-				 subscription
-			);
-	}
-	
-	private OrganizationCompleteDTO OrganizationToCompleteDTO(Organization organization, Member member) {
-		return new OrganizationCompleteDTO(
-				organization,
-				member
-				);
 	}
 }

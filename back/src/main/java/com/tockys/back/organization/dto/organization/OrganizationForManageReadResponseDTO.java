@@ -5,9 +5,10 @@ import java.util.List;
 
 import com.stripe.model.Subscription;
 import com.tockys.back.organization.model.Member;
+import com.tockys.back.organization.model.Organization;
 import com.tockys.back.organization.model.enums.RoleEnum;
 
-public class OrganizationManageDTO extends OrganizationDTO {
+public class OrganizationForManageReadResponseDTO extends OrganizationCreateReadUpdateResponseDTO {
 
 	private List<MemberDTO> members;
 	private Long current_period_end;
@@ -15,11 +16,20 @@ public class OrganizationManageDTO extends OrganizationDTO {
 	private String status;
 	private String plan;
 	
-	public OrganizationManageDTO(long id, String name) {
+	public OrganizationForManageReadResponseDTO(long id, String name) {
 		super(id, name);
 	}
 	
-	public OrganizationManageDTO(long id, String name, List<Member> members, Subscription subscription) {
+	public OrganizationForManageReadResponseDTO(Organization organization, Subscription subscription) {
+		super(organization.getId(), organization.getName());
+		this.setMembers(convertMembersDTO(organization.getMembers()));
+		this.setCurrentPeriodEnd(subscription.getCurrentPeriodEnd());
+		this.setCancelAtPeriodEnd(subscription.getCancelAtPeriodEnd());
+		this.setStatus(subscription.getStatus());
+		this.setPlan(subscription.getPlan().getId());
+	}
+	
+	public OrganizationForManageReadResponseDTO(long id, String name, List<Member> members, Subscription subscription) {
 		super(id, name);
 		this.setMembers(convertMembersDTO(members));
 		this.setCurrentPeriodEnd(subscription.getCurrentPeriodEnd());

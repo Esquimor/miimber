@@ -1,6 +1,6 @@
-package com.tockys.back.session.dto;
+package com.tockys.back.session.dto.typeSession;
 
-public class TypeSessionRequestDTO {
+public class TypeSessionCreateRequestDTO {
 
 	private String name;
 	private long organizationId;

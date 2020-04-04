@@ -18,11 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tockys.back.core.helper.Helper;
 import com.tockys.back.core.helper.StripeService;
-import com.tockys.back.organization.dto.member.MemberByOrganizationRequestDTO;
 import com.tockys.back.organization.dto.member.MemberCreateResponseDTO;
-import com.tockys.back.organization.dto.member.MemberDTO;
-import com.tockys.back.organization.dto.member.MemberRequestDTO;
-import com.tockys.back.organization.dto.member.MemberResponseDTO;
+import com.tockys.back.organization.dto.member.MemberUpdateRequestDTO;
+import com.tockys.back.organization.dto.member.MemberCreateRequestDTO;
+import com.tockys.back.organization.dto.member.MemberReadUpdateResponseDTO;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.model.Organization;
 import com.tockys.back.organization.model.enums.RoleEnum;
@@ -51,7 +50,7 @@ public class DefaultController {
 	private OrganizationService organizationService;
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateRole(@RequestBody MemberDTO memberDto, @PathVariable Long id) throws Exception {
+	public ResponseEntity<?> updateRole(@RequestBody MemberUpdateRequestDTO memberDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Member member = memberService.getMember(id);
@@ -77,11 +76,11 @@ public class DefaultController {
             }
         }
         member.setType(memberDto.getRole());
-        return ResponseEntity.ok(convertMemberToMemberResponseDTO(memberService.updateMember(member)));
+        return ResponseEntity.ok(new MemberReadUpdateResponseDTO(memberService.updateMember(member)));
 	}
 	
 	@RequestMapping(value = "/member/", method = RequestMethod.POST)
-	public ResponseEntity<?> createMember(@RequestBody MemberRequestDTO memberDto) throws Exception {
+	public ResponseEntity<?> createMember(@RequestBody MemberCreateRequestDTO memberDto) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Organization organization = organizationService.getOrganization(memberDto.getIdOrganization());
@@ -112,7 +111,7 @@ public class DefaultController {
         
         stripeService.addOneMemberSubscription(organization.getStripe());
         
-        return ResponseEntity.ok(convertMemberToMemberCreateResponseDTO(memberService.createMember(newMember)));
+        return ResponseEntity.ok(new MemberCreateResponseDTO(memberService.createMember(newMember)));
 	}
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.DELETE)
@@ -145,13 +144,5 @@ public class DefaultController {
         
         memberService.deleteMember(member);
         return new ResponseEntity(HttpStatus.OK);
-	}
-	
-	private MemberResponseDTO convertMemberToMemberResponseDTO(Member member) {
-		return new MemberResponseDTO(member);
-	}
-	
-	private MemberCreateResponseDTO convertMemberToMemberCreateResponseDTO(Member member) {
-		return new MemberCreateResponseDTO(member);
 	}
 }

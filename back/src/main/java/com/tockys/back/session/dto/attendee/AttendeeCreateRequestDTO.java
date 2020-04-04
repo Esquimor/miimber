@@ -1,8 +1,8 @@
-package com.tockys.back.session.dto;
+package com.tockys.back.session.dto.attendee;
 
 import java.time.OffsetDateTime;
 
-public class AttendeeCreateDTO {
+public class AttendeeCreateRequestDTO {
 
 	private long userId;
 	private long sessionId;

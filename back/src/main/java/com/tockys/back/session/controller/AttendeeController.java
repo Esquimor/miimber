@@ -16,8 +16,8 @@ import com.tockys.back.core.helper.Helper;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.model.enums.RoleEnum;
 import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.session.dto.AttendeeCreateDTO;
-import com.tockys.back.session.dto.AttendeeCreateResponseDTO;
+import com.tockys.back.session.dto.attendee.AttendeeCreateRequestDTO;
+import com.tockys.back.session.dto.attendee.AttendeeCreateResponseDTO;
 import com.tockys.back.session.model.Attendee;
 import com.tockys.back.session.model.Session;
 import com.tockys.back.session.service.AttendeeService;
@@ -45,7 +45,7 @@ public class AttendeeController {
 	private UserService userService;
 	
 	@RequestMapping(value= "/attendee/", method = RequestMethod.POST)
-	public ResponseEntity<?> createAttendee(@RequestBody AttendeeCreateDTO attendeeDTO) throws Exception {
+	public ResponseEntity<?> createAttendee(@RequestBody AttendeeCreateRequestDTO attendeeDTO) throws Exception {
 		Session session = sessionService.getSessionById(attendeeDTO.getSessionId());
 		
 		if (session == null) {

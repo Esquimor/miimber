@@ -2,7 +2,7 @@ package com.tockys.back.organization.dto.member;
 
 import com.tockys.back.organization.model.enums.RoleEnum;
 
-public class MemberDTO {
+public class MemberUpdateRequestDTO {
 
 	private RoleEnum role = RoleEnum.MEMBER;
 	

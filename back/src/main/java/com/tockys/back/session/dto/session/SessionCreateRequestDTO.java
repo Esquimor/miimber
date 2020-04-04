@@ -1,11 +1,11 @@
-package com.tockys.back.session.dto;
+package com.tockys.back.session.dto.session;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
 import com.tockys.back.session.enumItem.PeriodicityEnum;
 
-public class SessionCreateDTO {
+public class SessionCreateRequestDTO {
 
 	private String title;
 	private String description;

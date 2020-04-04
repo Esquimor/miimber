@@ -1,4 +1,4 @@
-package com.tockys.back.session.dto;
+package com.tockys.back.session.dto.session;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import com.tockys.back.session.model.TypeSession;
 import com.tockys.back.session.model.enums.RegisteredEnum;
 import com.tockys.back.user.model.User;
 
-public class SessionReadDTO {
+public class SessionReadResponseDTO {
 
 	private long id;
 	private String title;
@@ -29,7 +29,7 @@ public class SessionReadDTO {
 	private List<RegisteredDTO> registereds;
 	private int limit;
 	
-	public SessionReadDTO(Session session, Member member, Long userId) {
+	public SessionReadResponseDTO(Session session, Member member, Long userId) {
 		this.setId(session.getId());
 		this.setTitle(session.getTitle());
 		this.setDescription(session.getDescription());

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tockys.back.core.helper.Helper;
-import com.tockys.back.organization.dto.organization.OrganizationDTO;
+import com.tockys.back.organization.dto.organization.OrganizationCreateReadUpdateResponseDTO;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.model.Organization;
 import com.tockys.back.organization.service.MemberService;
@@ -108,7 +108,7 @@ public class UserController {
 	public ResponseEntity<?> readUserOrganization() throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        List<OrganizationDTO> responseOrganization = new ArrayList<OrganizationDTO>();
+        List<OrganizationCreateReadUpdateResponseDTO> responseOrganization = new ArrayList<OrganizationCreateReadUpdateResponseDTO>();
         for (Organization organization : organizationService.getOrganizationOwnered(user)) 
         { 
         	responseOrganization.add(OrganizationToDTO(organization));
@@ -143,8 +143,8 @@ public class UserController {
 		return user;
 	}
 
-	private OrganizationDTO OrganizationToDTO(Organization organization) {
-		return new OrganizationDTO(
+	private OrganizationCreateReadUpdateResponseDTO OrganizationToDTO(Organization organization) {
+		return new OrganizationCreateReadUpdateResponseDTO(
         				organization.getId(),
         				organization.getName()
         		);

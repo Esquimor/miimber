@@ -1,6 +1,6 @@
-package com.tockys.back.session.dto;
+package com.tockys.back.session.dto.typeSession;
 
-public class TypeSessionNameDTO {
+public class TypeSessionNameUpdateRequestDTO {
 
 	private String name;
 

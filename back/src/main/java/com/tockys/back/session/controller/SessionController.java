@@ -21,10 +21,10 @@ import com.tockys.back.core.helper.Helper;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.model.Organization;
 import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.session.dto.SessionCreateDTO;
-import com.tockys.back.session.dto.SessionDTO;
-import com.tockys.back.session.dto.SessionEditDTO;
-import com.tockys.back.session.dto.SessionReadDTO;
+import com.tockys.back.session.dto.session.SessionCreateRequestDTO;
+import com.tockys.back.session.dto.session.SessionEditRequestDTO;
+import com.tockys.back.session.dto.session.SessionReadResponseDTO;
+import com.tockys.back.session.dto.session.SessionShortReadResponseDTO;
 import com.tockys.back.session.model.Session;
 import com.tockys.back.session.model.TypeSession;
 import com.tockys.back.session.service.SessionService;
@@ -63,7 +63,7 @@ public class SessionController {
 	}
 	
 	@RequestMapping(value = "/session/", method = RequestMethod.POST)
-	public ResponseEntity<?> createSession(@RequestBody SessionCreateDTO sessionDto) throws Exception {
+	public ResponseEntity<?> createSession(@RequestBody SessionCreateRequestDTO sessionDto) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Member memberUser = memberService.getMemberByOrganizationIdAndByUser(sessionDto.getOrganizationId(), user);
@@ -125,7 +125,7 @@ public class SessionController {
 	}
 	
 	@RequestMapping(value = "/session/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateSession(@RequestBody SessionEditDTO sessionDto, @PathVariable Long id) throws Exception {
+	public ResponseEntity<?> updateSession(@RequestBody SessionEditRequestDTO sessionDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Session session = sessionService.getSessionById(id);
@@ -153,7 +153,7 @@ public class SessionController {
         session.setTypeSession(typeSession);
         session.setLimit(sessionDto.getLimit());
 
-		return ResponseEntity.ok(SessionToSessionDto(sessionService.editSession(session)));
+		return ResponseEntity.ok(new SessionShortReadResponseDTO(sessionService.editSession(session)));
 	}
 	
 	@RequestMapping(value= "/session/{id}", method = RequestMethod.DELETE)
@@ -179,19 +179,16 @@ public class SessionController {
         return new ResponseEntity(HttpStatus.OK);
 	}
 	
-	private List<SessionDTO> listSessionToListSessionDto(List<Session> listSession) {
-		List<SessionDTO> listSessionDto = new ArrayList<SessionDTO>();
+	private List<SessionShortReadResponseDTO> listSessionToListSessionDto(List<Session> listSession) {
+		List<SessionShortReadResponseDTO> listSessionDto = new ArrayList<SessionShortReadResponseDTO>();
 		for(Session session: listSession) {
-			listSessionDto.add(SessionToSessionDto(session));
+			listSessionDto.add(new SessionShortReadResponseDTO(session));
 		}
 		return listSessionDto;
 	}
 	
-	private SessionDTO SessionToSessionDto(Session session) {
-		return new SessionDTO(session);
-	}
 	
-	private Session createSessionBySessionDtoAndDate(SessionCreateDTO sessionDto, OffsetDateTime date, TypeSession typeSession, Organization organization) {
+	private Session createSessionBySessionDtoAndDate(SessionCreateRequestDTO sessionDto, OffsetDateTime date, TypeSession typeSession, Organization organization) {
 		Session session = new Session();
         session.setTitle(sessionDto.getTitle());
         session.setDescription(sessionDto.getDescription());
@@ -207,7 +204,7 @@ public class SessionController {
 		return OffsetDateTime.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth(), time.getHour(), time.getMinute(), time.getSecond(), time.getNano(), time.getOffset());
 	}
 	
-	private SessionReadDTO SessionAndMemberToSessionReadDTO(Session session, Member member, Long userId) {
-		return new SessionReadDTO(session, member, userId);
+	private SessionReadResponseDTO SessionAndMemberToSessionReadDTO(Session session, Member member, Long userId) {
+		return new SessionReadResponseDTO(session, member, userId);
 	}
 }

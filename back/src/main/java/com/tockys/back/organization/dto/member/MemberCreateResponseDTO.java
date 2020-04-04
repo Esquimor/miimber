@@ -3,7 +3,7 @@ package com.tockys.back.organization.dto.member;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.model.enums.RoleEnum;
 
-public class MemberCreateResponseDTO extends MemberDTO {
+public class MemberCreateResponseDTO extends MemberUpdateRequestDTO {
 	private Long id;
 	private String lastName;
 	private String firstName;

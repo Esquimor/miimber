@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tockys.back.core.helper.Helper;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.session.dto.TypeSessionDTO;
+import com.tockys.back.session.dto.typeSession.TypeSessionReadResponseDTO;
 import com.tockys.back.session.model.TypeSession;
 import com.tockys.back.session.service.TypeSessionService;
 import com.tockys.back.user.model.User;
@@ -43,12 +43,11 @@ public class TypeSessionController {
         if (memberUser == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        List<TypeSessionDTO> listTypeSessions = new ArrayList<TypeSessionDTO>();
+        List<TypeSessionReadResponseDTO> listTypeSessions = new ArrayList<TypeSessionReadResponseDTO>();
         
         for (TypeSession typeSession: typeSessionService.getTypeSessionByOrganizationId(id)) {
-        	listTypeSessions.add(new TypeSessionDTO(
-        			typeSession.getId(),
-        			typeSession.getName()
+        	listTypeSessions.add(new TypeSessionReadResponseDTO(
+        			typeSession
 				));
         }
         return ResponseEntity.ok(listTypeSessions);

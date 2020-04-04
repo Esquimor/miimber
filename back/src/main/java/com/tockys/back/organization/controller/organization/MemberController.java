@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.organization.dto.member.MemberCompleteDTO;
+import com.tockys.back.organization.dto.organization.OrganizationMembersReadResponseDTO;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.service.MemberService;
 
@@ -24,10 +24,10 @@ public class MemberController {
 	
 	@RequestMapping(value = "/organization/{id}/member/", method = RequestMethod.GET)
 	public ResponseEntity<?> readOrganizationMember(@PathVariable Long id) throws Exception {
-		List<MemberCompleteDTO> listMembers = new ArrayList<MemberCompleteDTO>();
+		List<OrganizationMembersReadResponseDTO> listMembers = new ArrayList<OrganizationMembersReadResponseDTO>();
 		
 		for (Member member: memberService.getMemberByOrganizationId(id)) {
-			listMembers.add(new MemberCompleteDTO(member));
+			listMembers.add(new OrganizationMembersReadResponseDTO(member));
 		}
 		return ResponseEntity.ok(listMembers);
 	}

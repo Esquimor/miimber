@@ -1,6 +1,6 @@
 package com.tockys.back.organization.dto.member;
 
-public class MemberRequestDTO extends MemberDTO {
+public class MemberCreateRequestDTO extends MemberUpdateRequestDTO {
 
 	private Long idOrganization;
 	private Long idUser;

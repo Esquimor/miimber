@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tockys.back.core.helper.Helper;
 import com.tockys.back.core.helper.StripeService;
-import com.tockys.back.organization.dto.member.MemberByOrganizationRequestDTO;
+import com.tockys.back.organization.dto.member.MemberAndUserCreateRequestDTO;
 import com.tockys.back.organization.dto.member.MemberCreateResponseDTO;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.model.Organization;
@@ -45,7 +45,7 @@ public class UserController {
 	private StripeService stripeService;
 	
 	@RequestMapping(value = "/member/user", method = RequestMethod.POST)
-	public ResponseEntity<?> createMemberAndUser(@RequestBody MemberByOrganizationRequestDTO memberByOrganizationRequestDto) throws Exception {
+	public ResponseEntity<?> createMemberAndUser(@RequestBody MemberAndUserCreateRequestDTO memberByOrganizationRequestDto) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Member memberUser = memberService.getMemberByOrganizationIdAndByUser(memberByOrganizationRequestDto.getIdOrganization(), user);

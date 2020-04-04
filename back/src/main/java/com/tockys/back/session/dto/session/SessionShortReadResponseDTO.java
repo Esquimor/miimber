@@ -1,4 +1,4 @@
-package com.tockys.back.session.dto;
+package com.tockys.back.session.dto.session;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import com.tockys.back.session.model.Session;
 import com.tockys.back.session.model.TypeSession;
 
-public class SessionDTO {
+public class SessionShortReadResponseDTO {
 
 	public long id;
 	private String title;
@@ -18,7 +18,7 @@ public class SessionDTO {
 	private TypeSessionDTO typeSession;
 	private int limit;
 	
-	public SessionDTO(Session session) {
+	public SessionShortReadResponseDTO(Session session) {
 		this.id = session.getId();
 		this.title = session.getTitle();
 		this.description = session.getDescription();

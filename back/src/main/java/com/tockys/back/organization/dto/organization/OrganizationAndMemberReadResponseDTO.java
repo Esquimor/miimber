@@ -4,13 +4,13 @@ import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.model.Organization;
 import com.tockys.back.organization.model.enums.RoleEnum;
 
-public class OrganizationCompleteDTO {
+public class OrganizationAndMemberReadResponseDTO {
 	
 	private long id;
 	private String name;
 	private UserDTO user;
 
-	public OrganizationCompleteDTO(Organization organization, Member member) {
+	public OrganizationAndMemberReadResponseDTO(Organization organization, Member member) {
 		this.id = organization.getId();
 		this.name = organization.getName();
 		if (member == null) {

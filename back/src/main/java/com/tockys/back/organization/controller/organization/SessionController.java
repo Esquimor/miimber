@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tockys.back.core.helper.Helper;
-import com.tockys.back.session.dto.SessionDTO;
+import com.tockys.back.session.dto.session.SessionShortReadResponseDTO;
 import com.tockys.back.session.model.Session;
 import com.tockys.back.session.service.SessionService;
 
@@ -27,10 +27,10 @@ public class SessionController {
 	
 	@RequestMapping(value= "/organization/{id}/session/", method = RequestMethod.GET)
 	public ResponseEntity<?> readOrganizationSession(@PathVariable Long id, @RequestParam String minDate, @RequestParam String maxDate) throws Exception {
-        List<SessionDTO> listSessions = new ArrayList<SessionDTO>();
+        List<SessionShortReadResponseDTO> listSessions = new ArrayList<SessionShortReadResponseDTO>();
         
         for (Session session: sessionService.getSessionByOrganizationId(id, OffsetDateTime.parse(minDate), OffsetDateTime.parse(maxDate))) {
-        	listSessions.add(new SessionDTO(session));
+        	listSessions.add(new SessionShortReadResponseDTO(session));
         }
         return ResponseEntity.ok(listSessions);
 	}

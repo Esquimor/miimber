@@ -3,19 +3,19 @@ package com.tockys.back.organization.dto.member;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.model.enums.RoleEnum;
 
-public class MemberResponseDTO extends MemberDTO {
+public class MemberReadUpdateResponseDTO extends MemberUpdateRequestDTO {
 	private Long id;
 	private Long idUser;
 	private Long idOrganization;
 	
-	public MemberResponseDTO(Member member) {
+	public MemberReadUpdateResponseDTO(Member member) {
 		this.setRole(member.getType());
 		this.id = member.getId();
 		this.idUser = member.getUser().getId();
 		this.idOrganization = member.getOrganization().getId();
 	}
 	
-	public MemberResponseDTO(RoleEnum role, Long id, Long idUser, Long idOrganization) {
+	public MemberReadUpdateResponseDTO(RoleEnum role, Long id, Long idUser, Long idOrganization) {
 		this.setRole(role);
 		this.id = id;
 		this.idUser = idUser;

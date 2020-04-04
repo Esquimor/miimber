@@ -1,9 +1,9 @@
-package com.tockys.back.organization.dto.member;
+package com.tockys.back.organization.dto.organization;
 
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.model.enums.RoleEnum;
 
-public class MemberCompleteDTO {
+public class OrganizationMembersReadResponseDTO {
 
 	private long id;
 	private RoleEnum role;
@@ -12,7 +12,7 @@ public class MemberCompleteDTO {
 	private String email;
 	private long userId;
 	
-	public MemberCompleteDTO(Member member) {
+	public OrganizationMembersReadResponseDTO(Member member) {
 		this.setId(member.getId());
 		this.setRole(member.getType());
 		this.setFirstName(member.getUser().getFirstName());

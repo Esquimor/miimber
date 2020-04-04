@@ -1,6 +1,6 @@
 package com.tockys.back.organization.dto.organization;
 
-public class OrganizationCreateDTO {
+public class OrganizationCreateRequestDTO {
 
 	private String name;
 	private String tokenId;

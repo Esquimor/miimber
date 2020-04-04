@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tockys.back.core.helper.Helper;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.session.dto.TypeSessionDTO;
-import com.tockys.back.session.dto.TypeSessionNameDTO;
-import com.tockys.back.session.dto.TypeSessionRequestDTO;
+import com.tockys.back.session.dto.typeSession.TypeSessionNameUpdateRequestDTO;
+import com.tockys.back.session.dto.typeSession.TypeSessionReadResponseDTO;
+import com.tockys.back.session.dto.typeSession.TypeSessionCreateRequestDTO;
 import com.tockys.back.session.model.TypeSession;
 import com.tockys.back.session.service.TypeSessionService;
 import com.tockys.back.user.model.User;
@@ -37,7 +37,7 @@ public class TypeSessionController {
 	
 
 	@RequestMapping(value = "/type-session/", method = RequestMethod.POST)
-	public ResponseEntity<?> createTypeSession(@RequestBody TypeSessionRequestDTO typeSessionDto) throws Exception {
+	public ResponseEntity<?> createTypeSession(@RequestBody TypeSessionCreateRequestDTO typeSessionDto) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Member memberUser = memberService.getMemberByOrganizationIdAndByUser(typeSessionDto.getOrganizationId(), user);
@@ -52,11 +52,11 @@ public class TypeSessionController {
         typeSession.setName(typeSessionDto.getName());
         typeSession.setOrganization(memberUser.getOrganization());
 
-        return ResponseEntity.ok(TypeSessionToDTO(typeSessionService.createTypeSession(typeSession)));
+        return ResponseEntity.ok(new TypeSessionReadResponseDTO(typeSessionService.createTypeSession(typeSession)));
 	}
 	
 	@RequestMapping(value = "/type-session/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateTypeSession(@RequestBody TypeSessionNameDTO typeSessionDto, @PathVariable Long id) throws Exception {
+	public ResponseEntity<?> updateTypeSession(@RequestBody TypeSessionNameUpdateRequestDTO typeSessionDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         TypeSession typeSession = typeSessionService.getTypeSessionById(id);
@@ -72,7 +72,7 @@ public class TypeSessionController {
         }
         typeSession.setName(typeSessionDto.getName());
 
-        return ResponseEntity.ok(TypeSessionToDTO(typeSessionService.editTypeSession(typeSession)));
+        return ResponseEntity.ok(new TypeSessionReadResponseDTO(typeSessionService.editTypeSession(typeSession)));
 	}
 	
 	@RequestMapping(value = "/type-session/{id}", method = RequestMethod.DELETE)
@@ -92,13 +92,5 @@ public class TypeSessionController {
         }
         typeSessionService.deleteTypeSession(typeSession);
         return new ResponseEntity(HttpStatus.OK);
-	}
-
-	
-	private TypeSessionDTO TypeSessionToDTO(TypeSession typeSession) {
-		return new TypeSessionDTO(
-					typeSession.getId(),
-					typeSession.getName()
-				);
 	}
 }

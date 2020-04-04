@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tockys.back.core.helper.Helper;
 import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.session.dto.RegisteredCreateDTO;
-import com.tockys.back.session.dto.RegisteredCreateResponseDTO;
+import com.tockys.back.session.dto.registered.RegisteredCreateRequestDTO;
+import com.tockys.back.session.dto.registered.RegisteredCreateResponseDTO;
 import com.tockys.back.session.model.Registered;
 import com.tockys.back.session.model.Session;
 import com.tockys.back.session.model.enums.RegisteredEnum;
@@ -40,7 +40,7 @@ public class RegisteredController {
 	private Helper helper;
 
 	@RequestMapping(value= "/registered/", method = RequestMethod.POST)
-	public ResponseEntity<?> createRegistered(@RequestBody RegisteredCreateDTO registeredDto) throws Exception {
+	public ResponseEntity<?> createRegistered(@RequestBody RegisteredCreateRequestDTO registeredDto) throws Exception {
 		Session session = sessionService.getSessionById(registeredDto.getSessionId());
 		
 		if (session == null) {

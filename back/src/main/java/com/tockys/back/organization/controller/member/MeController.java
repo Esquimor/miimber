@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tockys.back.core.helper.Helper;
-import com.tockys.back.organization.dto.member.MemberResponseDTO;
+import com.tockys.back.organization.dto.member.MemberReadUpdateResponseDTO;
 import com.tockys.back.organization.model.Member;
 import com.tockys.back.organization.service.MemberService;
 import com.tockys.back.user.model.User;
@@ -31,6 +31,6 @@ public class MeController {
 	public ResponseEntity<?> readMemberMe(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Member member = memberService.getMemberByOrganizationIdAndByUser(id, user);
-        return ResponseEntity.ok(new MemberResponseDTO(member));
+        return ResponseEntity.ok(new MemberReadUpdateResponseDTO(member));
 	}
 }
