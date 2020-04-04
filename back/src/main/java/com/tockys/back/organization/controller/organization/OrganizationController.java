@@ -36,7 +36,7 @@ import com.tockys.back.user.model.User;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class DefaultController {
+public class OrganizationController {
 	
 	@Autowired
 	private OrganizationService organizationService;

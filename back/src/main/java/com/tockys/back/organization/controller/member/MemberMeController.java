@@ -18,7 +18,7 @@ import com.tockys.back.user.model.User;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class MeController {
+public class MemberMeController {
 	
 	@Autowired
 	private Helper helper;

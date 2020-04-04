@@ -27,7 +27,7 @@ import com.tockys.back.user.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class UserController {
+public class MemberUserController {
 
 	@Autowired
 	private Helper helper;

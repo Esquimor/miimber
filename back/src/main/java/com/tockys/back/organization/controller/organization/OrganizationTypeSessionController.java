@@ -24,7 +24,7 @@ import com.tockys.back.user.model.User;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class TypeSessionController {
+public class OrganizationTypeSessionController {
 
 	@Autowired
 	private Helper helper;

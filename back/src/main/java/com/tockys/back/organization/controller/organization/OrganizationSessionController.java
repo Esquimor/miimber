@@ -20,7 +20,7 @@ import com.tockys.back.session.service.SessionService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class SessionController {
+public class OrganizationSessionController {
 	
 	@Autowired
 	private SessionService sessionService;

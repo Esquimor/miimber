@@ -17,7 +17,7 @@ import com.tockys.back.organization.service.MemberService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class MemberController {
+public class OrganizationMemberController {
 	
 	@Autowired
 	private MemberService memberService;
