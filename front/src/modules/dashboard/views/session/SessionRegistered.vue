@@ -1,11 +1,12 @@
 <template>
   <div class="DashboardSessionRegistered">
-    <BTable v-if="registereds.length > 0 " :data="registereds" striped>
+    <BTable v-if="registereds.length > 0" :data="registereds" striped>
       <template v-slot="{ row }">
         <BTableColumn
           field="title"
           :label="$t('dashboard.session.registered.table.name')"
-        >{{ row.user.firstName }} {{ row.user.lastName }}</BTableColumn>
+          >{{ row.user.firstName }} {{ row.user.lastName }}</BTableColumn
+        >
       </template>
     </BTable>
     <div v-else class="DashboardSessionRegistered-empty">

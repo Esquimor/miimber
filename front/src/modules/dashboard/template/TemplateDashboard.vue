@@ -1,5 +1,5 @@
 <template>
-  <div class="TemplateDashboard">
+  <TemplateDefault class="TemplateDashboard">
     <header class="TemplateDashboard-header" :class="{ 'has-not-Nav': !hasNav }">
       <h1 class="title is-5">{{ title }}</h1>
       <slot name="header" />
@@ -12,14 +12,19 @@
         <slot />
       </template>
     </main>
-  </div>
+  </TemplateDefault>
 </template>
 
 <script>
-"use str";
+"use strict";
+
+import TemplateDefault from "@core/template/TemplateDefault";
 
 export default {
   name: "TemplateDashboard",
+  components: {
+    TemplateDefault
+  },
   props: {
     title: {
       type: String,

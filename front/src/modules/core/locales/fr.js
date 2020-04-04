@@ -21,6 +21,12 @@ export default {
       yes: "Oui",
       no: "Non",
     },
+    menu: {
+      home: "Accueil",
+      sessions: "Sessions",
+      organizations: "Organisations",
+      account: "Mon compte",
+    },
     recurrence: {
       ONCE: "Une fois",
       EVERYDAY: "Tous les jours",

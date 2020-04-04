@@ -1,12 +1,17 @@
 <template>
-  <div>Home</div>
+  <TemplateDefault>Home</TemplateDefault>
 </template>
 
 <script>
 "use strict";
 
+import TemplateDefault from "@core/template/TemplateDefault";
+
 export default {
-  name: "DashboardHome"
+  name: "DashboardHome",
+  components: {
+    TemplateDefault
+  }
 };
 </script>
 

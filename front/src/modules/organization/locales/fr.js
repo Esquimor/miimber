@@ -3,41 +3,41 @@ export default {
     organization: {
       edit: {
         title: "Modifier l'Organisation",
-        success: "Organisation modifiée",
+        success: "Organisation modifiée"
       },
       label: {
-        name: "Nom",
-      },
+        name: "Nom"
+      }
     },
     members: {
       title: "Membres",
       table: {
         firstName: "Prénom",
         lastName: "Nom",
-        role: "Rôle",
+        role: "Rôle"
       },
       right: "Droit",
       rightModal: {
         title: "Droit de",
         error: "Une erreur est survenue.",
         OWNER: {
-          description: "Peut gérer l'organisation: les membres, les sessions.",
+          description: "Peut gérer l'organisation: les membres, les sessions."
         },
         INSTRUCTOR: {
           description:
-            "Peut indiquer si les membres sont présents lors d'un session.",
+            "Peut indiquer si les membres sont présents lors d'un session."
         },
         MEMBER: {
-          description: "Est inscrit dans l'organisation.",
+          description: "Est inscrit dans l'organisation."
         },
         OFFICE: {
           description:
-            "Aide à gérer l'organisation. Peut créer des sessions et changer les droits des membres.",
+            "Aide à gérer l'organisation. Peut créer des sessions et changer les droits des membres."
         },
         OFFICE_INSTRUCTOR: {
           description:
-            "Aide à gérer l'organisation. Peut créer des sessions et changer les droits des membres. Ainsi que le rôle d'instructeur.",
-        },
+            "Aide à gérer l'organisation. Peut créer des sessions et changer les droits des membres. Ainsi que le rôle d'instructeur."
+        }
       },
       add: {
         title: "Ajouter un membre",
@@ -46,15 +46,15 @@ export default {
           email: "Saisir l'adresse mail du membre",
           role: "Role du membre",
           firstName: "Prénom",
-          lastName: "Nom",
+          lastName: "Nom"
         },
         alreadyExist: "Cet utilisateur est déjà membre de votre organisation.",
         noMember:
-          "Aucun compte n'a était trouvé avec ce mail. Remplissez les champs pour créer un compte avec le membre.",
+          "Aucun compte n'a était trouvé avec ce mail. Remplissez les champs pour créer un compte avec le membre."
       },
       remove: {
-        success: "Membre retiré",
-      },
+        success: "Membre retiré"
+      }
     },
     settings: {
       title: "Paramètres",
@@ -63,15 +63,15 @@ export default {
         description:
           "Vous pouvez changer le moyen de paiement de votre organisation",
         button: "Changer",
-        success: "Moyen de paiement modifié",
+        success: "Moyen de paiement modifié"
       },
       delete: {
         title: "Supprimer l'organisation",
         description:
           "Une organisation supprimée n'est pas récupérable. Soyez en sûrs.",
         button: "Suppimer votre organisation",
-        success: "Organisation supprimée",
-      },
+        success: "Organisation supprimée"
+      }
     },
     sessions: {
       title: "Sessions",
@@ -80,20 +80,20 @@ export default {
         date: "Jour",
         start: "Début",
         end: "Fin",
-        typeSession: "Catégorie",
+        typeSession: "Catégorie"
       },
       add: {
         title: "Ajouter une session",
-        success: "Session ajouté",
+        success: "Session ajouté"
       },
       edit: {
         title: "Modifier une session",
-        success: "Session modifié",
+        success: "Session modifié"
       },
       delete: {
         title: "Supprimer une session",
         message: "Êtez-vous sur de supprimer la session ?",
-        success: "Session supprimé",
+        success: "Session supprimé"
       },
       label: {
         startHour: "Heure de début",
@@ -109,30 +109,30 @@ export default {
         search: "Rechercher",
         between: "Entre",
         hasLimit: "Nombre max. de participants ?",
-        limit: "Limite",
-      },
+        limit: "Limite"
+      }
     },
     typeSessions: {
       title: "Catégories",
       table: {
-        name: "Nom",
+        name: "Nom"
       },
       add: {
         title: "Ajouter une catégorie",
-        success: "Catégorie ajoutée",
+        success: "Catégorie ajoutée"
       },
       edit: {
         title: "Modifier une catégorie",
-        success: "Catégorie modifiée",
+        success: "Catégorie modifiée"
       },
       delete: {
         title: "Supprimer une catégorie",
         message: "Êtez-vous sur de supprimer la catégorie ?",
-        success: "Catégorie supprimée",
+        success: "Catégorie supprimée"
       },
       label: {
-        name: "Nom",
-      },
-    },
-  },
+        name: "Nom"
+      }
+    }
+  }
 };

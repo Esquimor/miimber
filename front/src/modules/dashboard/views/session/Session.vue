@@ -7,14 +7,16 @@
         type="is-primary"
         :loading="loadingRegisterd"
         @click.native="unsubscribe"
-      >{{ $t("dashboard.session.label.iUnsubscribe") }}</BButton>
+        >{{ $t("dashboard.session.label.iUnsubscribe") }}</BButton
+      >
       <BButton
         v-else
         icon-left="account-edit"
         type="is-primary"
         :loading="loadingRegisterd"
         @click.native="registerd"
-      >{{ $t("dashboard.session.label.imRegistered") }}</BButton>
+        >{{ $t("dashboard.session.label.imRegistered") }}</BButton
+      >
     </template>
     <template v-slot:nav>
       <router-link
@@ -23,7 +25,8 @@
           params: { id: $route.params.id }
         }"
         class="TemplateDashboard-nav-link"
-      >{{ $t("dashboard.session.label.information") }}</router-link>
+        >{{ $t("dashboard.session.label.information") }}</router-link
+      >
       <!--<router-link
         :to="{
           name: 'dashboard-session-attendee',
@@ -38,7 +41,8 @@
           params: { id: $route.params.id }
         }"
         class="TemplateDashboard-nav-link"
-      >{{ $t("dashboard.session.label.registered") }}</router-link>
+        >{{ $t("dashboard.session.label.registered") }}</router-link
+      >
       <router-link
         v-if="isInsctructorOrganization"
         :to="{
@@ -46,7 +50,8 @@
           params: { id: $route.params.id }
         }"
         class="TemplateDashboard-nav-link"
-      >{{ $t("dashboard.session.label.emerge") }}</router-link>
+        >{{ $t("dashboard.session.label.emerge") }}</router-link
+      >
     </template>
     <router-view></router-view>
   </TemplateDashboard>

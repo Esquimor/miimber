@@ -16,12 +16,20 @@
     <div class="columns">
       <div class="column">
         <BField :label="$t('organization.sessions.label.startHour')">
-          <BTimepicker v-model="session.startHour" icon="alarm" trap-focus></BTimepicker>
+          <BTimepicker
+            v-model="session.startHour"
+            icon="alarm"
+            trap-focus
+          ></BTimepicker>
         </BField>
       </div>
       <div class="column">
         <BField :label="$t('organization.sessions.label.endHour')">
-          <BTimepicker v-model="session.endHour" icon="alarm" trap-focus></BTimepicker>
+          <BTimepicker
+            v-model="session.endHour"
+            icon="alarm"
+            trap-focus
+          ></BTimepicker>
         </BField>
       </div>
     </div>
@@ -43,20 +51,30 @@
       </div>
       <div class="column">
         <BField :label="$t('organization.sessions.label.typeSession')">
-          <BSelect placeholder="Select a name" v-model="session.typeSession" expanded>
+          <BSelect
+            placeholder="Select a name"
+            v-model="session.typeSession"
+            expanded
+          >
             <option
               v-for="typeSession in typeSessions"
               :value="typeSession.id"
               :key="typeSession.id"
-            >{{ typeSession.name }}</option>
+              >{{ typeSession.name }}</option
+            >
           </BSelect>
         </BField>
       </div>
     </div>
     <div class="columns">
-      <div class="column" :class="{'is-half': !hasLimit}">
-        <BField :label="$t('organization.sessions.label.hasLimit')" style="height: 68px;">
-          <BSwitch v-model="hasLimit">{{ hasLimit ? $t('core.utils.yes') : $t('core.utils.no') }}</BSwitch>
+      <div class="column" :class="{ 'is-half': !hasLimit }">
+        <BField
+          :label="$t('organization.sessions.label.hasLimit')"
+          style="height: 68px;"
+        >
+          <BSwitch v-model="hasLimit">{{
+            hasLimit ? $t("core.utils.yes") : $t("core.utils.no")
+          }}</BSwitch>
         </BField>
       </div>
       <div class="column" v-if="hasLimit">
@@ -68,7 +86,11 @@
     <div class="columns">
       <div class="column">
         <BField :label="$t('organization.sessions.label.description')">
-          <BInput v-model="session.description" maxlength="500" type="textarea"></BInput>
+          <BInput
+            v-model="session.description"
+            maxlength="500"
+            type="textarea"
+          ></BInput>
         </BField>
       </div>
     </div>
