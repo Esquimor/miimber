@@ -16,27 +16,32 @@ public class RegisteredService implements IRegisteredService {
 	private RegisteredRepository registeredRepository;
 	
 	@Override
-	public Registered createRegistered(Registered registered) {
-		return registeredRepository.save(registered);
+	public Long countRegisteredBySession(Session session) {
+		return registeredRepository.countBySession(session);
 	}
 
 	@Override
-	public Registered getRegisteredById(long id) {
+	public Registered create(Registered entity) {
+		return registeredRepository.save(entity);
+	}
+
+	@Override
+	public Registered update(Registered entity) {
+		return registeredRepository.save(entity);
+	}
+
+	@Override
+	public void delete(Registered entity) {
+		registeredRepository.delete(entity);
+	}
+
+	@Override
+	public Registered get(Long id) {
 		Optional<Registered> registered =  registeredRepository.findById(id);
 		if (registered.isEmpty()) {
 			return null;
 		}
 		return registered.get();
-	}
-
-	@Override
-	public void removeRegistered(Registered registered) {
-		registeredRepository.delete(registered);
-	}
-
-	@Override
-	public Long countRegisteredBySession(Session session) {
-		return registeredRepository.countBySession(session);
 	}
 
 }

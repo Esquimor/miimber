@@ -13,24 +13,29 @@ public class AttendeeService implements IAttendeeService {
 
 	@Autowired
 	private AttendeeRepository attendeeRepository;
-	
+
 	@Override
-	public Attendee createAttendee(Attendee attendee) {
-		return attendeeRepository.save(attendee);
+	public Attendee create(Attendee entity) {
+		return attendeeRepository.save(entity);
 	}
 
 	@Override
-	public Attendee getAttendeeById(Long id) {
+	public Attendee update(Attendee entity) {
+		return attendeeRepository.save(entity);
+	}
+
+	@Override
+	public void delete(Attendee entity) {
+		attendeeRepository.delete(entity);
+	}
+
+	@Override
+	public Attendee get(Long id) {
 		Optional<Attendee> attendee = attendeeRepository.findById(id);
 		if (attendee.isEmpty()) {
 			return null;
 		}
 		return attendee.get();
-	}
-
-	@Override
-	public void removeAttendee(Attendee attendee) {
-		attendeeRepository.delete(attendee);
 	}
 
 }

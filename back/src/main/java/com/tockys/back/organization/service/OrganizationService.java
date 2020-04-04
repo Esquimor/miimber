@@ -27,10 +27,6 @@ public class OrganizationService implements IOrganizationService {
 		return organizationRepository.findByMembersUser(user);
 	}
 
-	@Override
-	public Organization createOrganization(Organization organization) {
-		return organizationRepository.save(organization);
-	}
 
 	@Override
 	public Organization getOrganizationByName(String name) {
@@ -38,21 +34,26 @@ public class OrganizationService implements IOrganizationService {
 	}
 
 	@Override
-	public Organization getOrganization(Long id) {
+	public Organization create(Organization entity) {
+		return organizationRepository.save(entity);
+	}
+
+	@Override
+	public Organization update(Organization entity) {
+		return organizationRepository.save(entity);
+	}
+
+	@Override
+	public void delete(Organization entity) {
+		organizationRepository.delete(entity);
+	}
+
+	@Override
+	public Organization get(Long id) {
 		Optional<Organization> organization = organizationRepository.findById(id);
 		if (organization.isEmpty()) {
 			return null;
 		}
 		return organization.get();
-	}
-
-	@Override
-	public Organization editOrganization(Organization organization) {
-		return organizationRepository.save(organization);
-	}
-
-	@Override
-	public void deleteOrganization(Organization organization) {
-		organizationRepository.delete(organization);
 	}
 }

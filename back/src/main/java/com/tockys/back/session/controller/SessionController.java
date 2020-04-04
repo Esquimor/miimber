@@ -51,7 +51,7 @@ public class SessionController {
 	public ResponseEntity<?> readSession(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Session session = sessionService.getSessionById(id);
+        Session session = sessionService.get(id);
         
         if (session == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -74,7 +74,7 @@ public class SessionController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        TypeSession typeSession = typeSessionService.getTypeSessionById(sessionDto.getTypeSessionId());
+        TypeSession typeSession = typeSessionService.get(sessionDto.getTypeSessionId());
         if (typeSession == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -83,7 +83,7 @@ public class SessionController {
         OffsetDateTime cursor =  sessionDto.getStartDate();
         switch (sessionDto.getPeriodicity()) {
         	case ONCE: {
-                listSession.add(sessionService.createSession(
+                listSession.add(sessionService.create(
                 		createSessionBySessionDtoAndDate(sessionDto, sessionDto.getStart(), typeSession, memberUser.getOrganization())
                 		));
         		break;
@@ -92,7 +92,7 @@ public class SessionController {
                 OffsetDateTime endDate = sessionDto.getEndDate().plusDays(2);
                 cursor = cursor.plusDays(1);
         		while(cursor.isBefore(endDate)) {
-                    listSession.add(sessionService.createSession(
+                    listSession.add(sessionService.create(
                     		createSessionBySessionDtoAndDate(sessionDto, cursor, typeSession, memberUser.getOrganization())
                     		));
                     cursor = cursor.plusDays(1);
@@ -104,7 +104,7 @@ public class SessionController {
                 cursor = cursor.plusDays(1);
         		while(cursor.isBefore(endDate)) {
         			if (sessionDto.getDays().contains(cursor.getDayOfWeek().getValue())) {
-                        listSession.add(sessionService.createSession(
+                        listSession.add(sessionService.create(
                         		createSessionBySessionDtoAndDate(sessionDto, cursor, typeSession, memberUser.getOrganization())
                         		));
         			}
@@ -128,7 +128,7 @@ public class SessionController {
 	public ResponseEntity<?> updateSession(@RequestBody SessionEditRequestDTO sessionDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Session session = sessionService.getSessionById(id);
+        Session session = sessionService.get(id);
         
         if (session == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -142,7 +142,7 @@ public class SessionController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        TypeSession typeSession = typeSessionService.getTypeSessionById(sessionDto.getTypeSessionId());
+        TypeSession typeSession = typeSessionService.get(sessionDto.getTypeSessionId());
         if (typeSession == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -153,14 +153,14 @@ public class SessionController {
         session.setTypeSession(typeSession);
         session.setLimit(sessionDto.getLimit());
 
-		return ResponseEntity.ok(new SessionShortReadResponseDTO(sessionService.editSession(session)));
+		return ResponseEntity.ok(new SessionShortReadResponseDTO(sessionService.update(session)));
 	}
 	
 	@RequestMapping(value= "/session/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteSession(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Session session = sessionService.getSessionById(id);
+        Session session = sessionService.get(id);
         
         if (session == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -174,7 +174,7 @@ public class SessionController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        sessionService.deleteSession(session);
+        sessionService.delete(session);
 
         return new ResponseEntity(HttpStatus.OK);
 	}

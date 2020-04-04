@@ -16,12 +16,6 @@ public class MemberService implements IMemberService {
 
 	@Autowired
 	private MemberRepository memberRepository;
-	
-	@Override
-	public Member createMember(Member member) {
-		return memberRepository.save(member);
-	}
-
 	@Override
 	public Member getMemberByOrganizationIdAndByUser(Long id, User user) {
 		return memberRepository.findOneByOrganizationIdAndUser(id, user);
@@ -36,29 +30,34 @@ public class MemberService implements IMemberService {
 	public Member getMemberByOrganizationAndByUser(Organization organization, User user) {
 		return memberRepository.findOneByOrganizationAndUser(organization, user);
 	}
-
+	
 	@Override
-	public Member updateMember(Member member) {
-		return memberRepository.save(member);
+	public boolean existsMemberByUserAndOrganization(User user, Organization organization) {
+		return existsMemberByUserAndOrganization(user, organization);
 	}
 
 	@Override
-	public Member getMember(Long id) {
+	public Member create(Member entity) {
+		return memberRepository.save(entity);
+	}
+
+	@Override
+	public Member update(Member entity) {
+		return memberRepository.save(entity);
+	}
+
+	@Override
+	public void delete(Member entity) {
+		memberRepository.delete(entity);
+	}
+
+	@Override
+	public Member get(Long id) {
 		Optional<Member> member = memberRepository.findById(id);
 		if (member.isEmpty()) {
 			return null;
 		}
 		return member.get();
-	}
-
-	@Override
-	public void deleteMember(Member member) {
-		memberRepository.delete(member);
-	}
-
-	@Override
-	public boolean existsMemberByUserAndOrganization(User user, Organization organization) {
-		return existsMemberByUserAndOrganization(user, organization);
 	}
 
 

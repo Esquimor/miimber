@@ -89,7 +89,7 @@ public class DefaultController {
 	public ResponseEntity<?> readOrganization(@PathVariable long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-		Organization organization = organizationService.getOrganization(id);
+		Organization organization = organizationService.get(id);
 		
 		if (organization == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -110,14 +110,14 @@ public class DefaultController {
         Subscription subscription = stripeService.createSubscription(customer, organizationDto.getSubscription(), 1L);
         
         Organization newOrganization = new Organization(organizationDto.getName());
-        newOrganization= organizationService.createOrganization(newOrganization);
+        newOrganization= organizationService.create(newOrganization);
         newOrganization.setStripe(subscription.getId());
         
         Member newMember = new Member();
         newMember.setOrganization(newOrganization);
         newMember.setUser(user);
         newMember.setType(RoleEnum.OWNER);
-        newMember = memberService.createMember(newMember);
+        newMember = memberService.create(newMember);
         
         newOrganization.addMember(newMember);
         
@@ -125,7 +125,7 @@ public class DefaultController {
         newTypeSession.setOrganization(newOrganization);
         newTypeSession.setName("Default");
         
-        typeSessionService.createTypeSession(newTypeSession);
+        typeSessionService.create(newTypeSession);
         
         return ResponseEntity.ok(new OrganizationCreateReadUpdateResponseDTO(newOrganization));
 	}
@@ -167,7 +167,7 @@ public class DefaultController {
         }
         Organization organization = memberUser.getOrganization();
         organization.setName(organizationDto.getName());
-        return ResponseEntity.ok(new OrganizationCreateReadUpdateResponseDTO(organizationService.editOrganization(organization)));
+        return ResponseEntity.ok(new OrganizationCreateReadUpdateResponseDTO(organizationService.update(organization)));
 	}
 	
 	@RequestMapping(value = "/organization/{id}", method = RequestMethod.DELETE)
@@ -183,7 +183,7 @@ public class DefaultController {
         }
         Organization organization = memberUser.getOrganization();
         stripeService.deleteSubscription(organization.getStripe());
-        organizationService.deleteOrganization(organization);
+        organizationService.delete(organization);
         return new ResponseEntity(HttpStatus.OK);
 	}
 }

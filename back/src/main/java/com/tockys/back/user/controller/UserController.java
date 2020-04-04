@@ -75,7 +75,7 @@ public class UserController {
 		if (user.getId() != tokenUser.getId()) {
 			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 		}
-		return ResponseEntity.ok(convertToDto(userService.updateUser(user)));
+		return ResponseEntity.ok(convertToDto(userService.update(user)));
 	}
 
 	@RequestMapping(value = "/user/{id}/password", method = RequestMethod.PUT)
@@ -134,7 +134,7 @@ public class UserController {
 	}
 	
 	private User convertToEntity(UserUpdateRequestDTO userDto, long id) {
-		User user = userService.getUserById(id);
+		User user = userService.get(id);
 		if (user == null) {
 			return null;
 		}

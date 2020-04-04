@@ -53,7 +53,7 @@ public class DefaultController {
 	public ResponseEntity<?> updateRole(@RequestBody MemberUpdateRequestDTO memberDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Member member = memberService.getMember(id);
+        Member member = memberService.get(id);
         if (member == null ) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -76,14 +76,14 @@ public class DefaultController {
             }
         }
         member.setType(memberDto.getRole());
-        return ResponseEntity.ok(new MemberReadUpdateResponseDTO(memberService.updateMember(member)));
+        return ResponseEntity.ok(new MemberReadUpdateResponseDTO(memberService.update(member)));
 	}
 	
 	@RequestMapping(value = "/member/", method = RequestMethod.POST)
 	public ResponseEntity<?> createMember(@RequestBody MemberCreateRequestDTO memberDto) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Organization organization = organizationService.getOrganization(memberDto.getIdOrganization());
+        Organization organization = organizationService.get(memberDto.getIdOrganization());
         
         Member memberUser = memberService.getMemberByOrganizationAndByUser(organization, user);
         if (memberUser == null ) {
@@ -94,7 +94,7 @@ public class DefaultController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        User userToMember = userService.getUserById(memberDto.getIdUser());
+        User userToMember = userService.get(memberDto.getIdUser());
         if (userToMember == null ) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -111,14 +111,14 @@ public class DefaultController {
         
         stripeService.addOneMemberSubscription(organization.getStripe());
         
-        return ResponseEntity.ok(new MemberCreateResponseDTO(memberService.createMember(newMember)));
+        return ResponseEntity.ok(new MemberCreateResponseDTO(memberService.create(newMember)));
 	}
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteMember(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Member member = memberService.getMember(id);
+        Member member = memberService.get(id);
         if (member == null ) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -142,7 +142,7 @@ public class DefaultController {
         
         stripeService.removeOneMemberSubscription(member.getOrganization().getStripe());
         
-        memberService.deleteMember(member);
+        memberService.delete(member);
         return new ResponseEntity(HttpStatus.OK);
 	}
 }

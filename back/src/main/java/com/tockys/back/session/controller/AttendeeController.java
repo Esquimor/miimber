@@ -46,7 +46,7 @@ public class AttendeeController {
 	
 	@RequestMapping(value= "/attendee/", method = RequestMethod.POST)
 	public ResponseEntity<?> createAttendee(@RequestBody AttendeeCreateRequestDTO attendeeDTO) throws Exception {
-		Session session = sessionService.getSessionById(attendeeDTO.getSessionId());
+		Session session = sessionService.get(attendeeDTO.getSessionId());
 		
 		if (session == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -63,7 +63,7 @@ public class AttendeeController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        User userChecked = userService.getUserById(attendeeDTO.getUserId());
+        User userChecked = userService.get(attendeeDTO.getUserId());
         
         if (userChecked == null) {
         	return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -74,12 +74,12 @@ public class AttendeeController {
         attendee.setUser(userChecked);
         attendee.setDateCheck(attendeeDTO.getDateCheck());
         
-        return ResponseEntity.ok(new AttendeeCreateResponseDTO(attendeeService.createAttendee(attendee)));
+        return ResponseEntity.ok(new AttendeeCreateResponseDTO(attendeeService.create(attendee)));
 	}
 	
 	@RequestMapping(value = "/attendee/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteAttendee(@PathVariable Long id) throws Exception {
-		Attendee attendee = attendeeService.getAttendeeById(id);
+		Attendee attendee = attendeeService.get(id);
 		
 		if (attendee == null) {
         	return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -96,7 +96,7 @@ public class AttendeeController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        attendeeService.removeAttendee(attendee);
+        attendeeService.delete(attendee);
 
         return new ResponseEntity(HttpStatus.OK);
 	}

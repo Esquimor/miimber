@@ -41,7 +41,7 @@ public class RegisteredController {
 
 	@RequestMapping(value= "/registered/", method = RequestMethod.POST)
 	public ResponseEntity<?> createRegistered(@RequestBody RegisteredCreateRequestDTO registeredDto) throws Exception {
-		Session session = sessionService.getSessionById(registeredDto.getSessionId());
+		Session session = sessionService.get(registeredDto.getSessionId());
 		
 		if (session == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -53,7 +53,7 @@ public class RegisteredController {
     	registered.setSession(session);
     	registered.setUser(user);
     	registered.setDateRegistered(registeredDto.getDateRegistered());
-    	registered = registeredService.createRegistered(registered);
+    	registered = registeredService.create(registered);
     	
     	long nbRegistered = registeredService.countRegisteredBySession(session);
 		RegisteredEnum status = RegisteredEnum.TAKEN;
@@ -68,7 +68,7 @@ public class RegisteredController {
 	
 	@RequestMapping(value = "/registered/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteRegistered(@PathVariable long id) throws Exception {
-		Registered registered = registeredService.getRegisteredById(id);
+		Registered registered = registeredService.get(id);
 		
 		if (registered == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -80,7 +80,7 @@ public class RegisteredController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        registeredService.removeRegistered(registered);
+        registeredService.delete(registered);
 
         return new ResponseEntity(HttpStatus.OK);
 	}

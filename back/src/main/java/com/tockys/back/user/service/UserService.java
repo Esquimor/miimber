@@ -22,15 +22,6 @@ public class UserService implements IUserService {
 	private PasswordEncoder bcryptEncoder;
 
 	@Override
-	public User getUserById(long id) throws EntityNotFoundException {
-		Optional<User> user = userRepository.findById(id);
-		if (user.isEmpty()) {
-			return null;
-		}
-		return user.get();
-	}
-
-	@Override
 	public User getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
@@ -38,16 +29,6 @@ public class UserService implements IUserService {
 	@Override
 	public List<User> getUsers() {
 		return (List<User>) userRepository.findAll();
-	}
-
-	@Override
-	public User createUser(User user) {
-		return userRepository.save(user);
-	}
-
-	@Override
-	public User updateUser(User user) {
-		return userRepository.save(user);
 	}
 
 	@Override
@@ -59,5 +40,29 @@ public class UserService implements IUserService {
 	public void updatePasswordUser(User user, String newPassword) {
 		user.setPassword(bcryptEncoder.encode(newPassword));
 		userRepository.save(user);
+	}
+
+	@Override
+	public User create(User entity) {
+		return userRepository.save(entity);
+	}
+
+	@Override
+	public User update(User entity) {
+		return userRepository.save(entity);
+	}
+
+	@Override
+	public void delete(User entity) {
+		userRepository.delete(entity);
+	}
+
+	@Override
+	public User get(Long id) {
+		Optional<User> user = userRepository.findById(id);
+		if (user.isEmpty()) {
+			return null;
+		}
+		return user.get();
 	}
 }

@@ -14,11 +14,6 @@ public class TypeSessionService implements ITypeSessionService {
 
 	@Autowired
 	private TypeSessionRepository typeSessionRepository;
-	
-	@Override
-	public TypeSession createTypeSession(TypeSession typeSession) {
-		return typeSessionRepository.save(typeSession);
-	}
 
 	@Override
 	public List<TypeSession> getTypeSessionByOrganizationId(long id) {
@@ -26,22 +21,27 @@ public class TypeSessionService implements ITypeSessionService {
 	}
 
 	@Override
-	public TypeSession getTypeSessionById(long id) {
+	public TypeSession create(TypeSession entity) {
+		return typeSessionRepository.save(entity);
+	}
+
+	@Override
+	public TypeSession update(TypeSession entity) {
+		return typeSessionRepository.save(entity);
+	}
+
+	@Override
+	public void delete(TypeSession entity) {
+		typeSessionRepository.delete(entity);
+	}
+
+	@Override
+	public TypeSession get(Long id) {
 		Optional<TypeSession> typeSession = typeSessionRepository.findById(id);
 		if (typeSession.isEmpty()) {
 			return null;
 		}
 		return typeSession.get();
-	}
-
-	@Override
-	public TypeSession editTypeSession(TypeSession typeSession) {
-		return typeSessionRepository.save(typeSession);
-	}
-
-	@Override
-	public void deleteTypeSession(TypeSession typeSession) {
-		typeSessionRepository.delete(typeSession);
 	}
 
 }

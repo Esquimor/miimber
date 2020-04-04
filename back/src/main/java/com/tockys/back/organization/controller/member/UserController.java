@@ -57,7 +57,7 @@ public class UserController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        Organization organization = organizationService.getOrganization(memberByOrganizationRequestDto.getIdOrganization());
+        Organization organization = organizationService.get(memberByOrganizationRequestDto.getIdOrganization());
         if (organization == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -67,7 +67,7 @@ public class UserController {
         newUser.setLastName(memberByOrganizationRequestDto.getLastName());
         newUser.setToken(UUID.randomUUID().toString());
 
-        newUser = userService.createUser(newUser);
+        newUser = userService.create(newUser);
         
         Member newMember = new Member();
         newMember.setUser(newUser);
@@ -76,6 +76,6 @@ public class UserController {
         
         stripeService.addOneMemberSubscription(organization.getStripe());
         
-        return ResponseEntity.ok(new MemberCreateResponseDTO(memberService.createMember(newMember)));
+        return ResponseEntity.ok(new MemberCreateResponseDTO(memberService.create(newMember)));
 	}
 }

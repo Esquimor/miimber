@@ -23,32 +23,32 @@ public class SessionService implements ISessionService {
 	}
 
 	@Override
-	public Session createSession(Session session) {
-		return sessionRepository.save(session);
+	public List<Session> getSessionByUserAndDate(User user, OffsetDateTime min, OffsetDateTime max) {
+		return sessionRepository.findByOrganizationMembersUserAndStartBetween(user, min, max);
 	}
 
 	@Override
-	public Session getSessionById(long id) {
+	public Session create(Session entity) {
+		return sessionRepository.save(entity);
+	}
+
+	@Override
+	public Session update(Session entity) {
+		return sessionRepository.save(entity);
+	}
+
+	@Override
+	public void delete(Session entity) {
+		sessionRepository.delete(entity);
+	}
+
+	@Override
+	public Session get(Long id) {
 		Optional<Session> session = sessionRepository.findById(id);
 		if (session.isEmpty()) {
 			return null;
 		}
 		return session.get();
-	}
-
-	@Override
-	public void deleteSession(Session session) {
-		sessionRepository.delete(session);
-	}
-
-	@Override
-	public Session editSession(Session session) {
-		return sessionRepository.save(session);
-	}
-
-	@Override
-	public List<Session> getSessionByUserAndDate(User user, OffsetDateTime min, OffsetDateTime max) {
-		return sessionRepository.findByOrganizationMembersUserAndStartBetween(user, min, max);
 	}
 
 }

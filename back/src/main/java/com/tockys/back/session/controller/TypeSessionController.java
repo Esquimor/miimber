@@ -52,14 +52,14 @@ public class TypeSessionController {
         typeSession.setName(typeSessionDto.getName());
         typeSession.setOrganization(memberUser.getOrganization());
 
-        return ResponseEntity.ok(new TypeSessionReadResponseDTO(typeSessionService.createTypeSession(typeSession)));
+        return ResponseEntity.ok(new TypeSessionReadResponseDTO(typeSessionService.create(typeSession)));
 	}
 	
 	@RequestMapping(value = "/type-session/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateTypeSession(@RequestBody TypeSessionNameUpdateRequestDTO typeSessionDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        TypeSession typeSession = typeSessionService.getTypeSessionById(id);
+        TypeSession typeSession = typeSessionService.get(id);
         if (typeSession == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -72,14 +72,14 @@ public class TypeSessionController {
         }
         typeSession.setName(typeSessionDto.getName());
 
-        return ResponseEntity.ok(new TypeSessionReadResponseDTO(typeSessionService.editTypeSession(typeSession)));
+        return ResponseEntity.ok(new TypeSessionReadResponseDTO(typeSessionService.update(typeSession)));
 	}
 	
 	@RequestMapping(value = "/type-session/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteTypeSession(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        TypeSession typeSession = typeSessionService.getTypeSessionById(id);
+        TypeSession typeSession = typeSessionService.get(id);
         if (typeSession == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -90,7 +90,7 @@ public class TypeSessionController {
         if (!memberUser.canEditOrganization()) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        typeSessionService.deleteTypeSession(typeSession);
+        typeSessionService.delete(typeSession);
         return new ResponseEntity(HttpStatus.OK);
 	}
 }

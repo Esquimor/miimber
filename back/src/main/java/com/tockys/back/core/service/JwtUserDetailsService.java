@@ -37,7 +37,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		User newUser = new User();
 		newUser.setEmail(user.getEmail());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		return userService.createUser(newUser);
+		return userService.create(newUser);
 	}
 
 }
