@@ -2,21 +2,21 @@ export default {
   dashboard: {
     menu: {
       menu: "Menu",
-      account: "My account"
+      account: "My account",
     },
     panel: {
       sessions: "Sessions",
-      organizations: "Organizations"
+      organizations: "Organizations",
     },
     organization: {
       table: {
-        name: "Name"
+        name: "Name",
       },
       label: {
-        list: "Your organizations",
+        list: "My organizations",
         sessions: "Sessions",
-        members: "Members"
-      }
+        members: "Members",
+      },
     },
     session: {
       label: {
@@ -28,21 +28,30 @@ export default {
         attendee: "Participants",
         emerge: "Emerge",
         registered: "Registered",
+        registeredWaiting: "On waiting list",
         imRegistered: "I'm registering",
-        iUnsubscribe: "I unsubscribe"
+        iUnsubscribe: "I cancel",
+        placesLeft: "{nb} places left",
+        waiting: "Full: {nb} people on waiting list",
+        descriptionTitle: "Details",
+        registeredEmpty: "No registrant",
       },
       emerge: {
         table: {
           name: "Name",
-          present: "Present"
-        }
+          present: "Present",
+        },
       },
       registered: {
         empty: "Nobody is registered for this session.",
         table: {
-          name: "Name"
-        }
-      }
-    }
-  }
+          name: "Name",
+        },
+      },
+      unsubscribe: {
+        title: "Cancelled",
+        message: "Are you sure to unsubscribe ?",
+      },
+    },
+  },
 };

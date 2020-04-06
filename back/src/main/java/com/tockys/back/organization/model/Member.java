@@ -35,6 +35,13 @@ public class Member {
 		return true;
 	}
 	
+	public boolean canEmergeOrganization() {
+		if (this.role == RoleEnum.MEMBER || this.role == RoleEnum.OFFICE) {
+			return false;
+		}
+		return true;
+	}
+	
 	public long getId() {
 		return this.id;
 	}

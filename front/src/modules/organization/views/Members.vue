@@ -1,33 +1,23 @@
 <template>
-  <OrganizationTemplateList
-    :title="$t('organization.members.title')"
-    @add="add"
-    :loading="false"
-  >
+  <OrganizationTemplateList :title="$t('organization.members.title')" @add="add" :loading="false">
     <BTable :data="members" striped paginated :per-page="25">
       <template v-slot="{ row }">
         <BTableColumn
           field="firstName"
           :label="$t('organization.members.table.firstName')"
           sortable
-          >{{ row.firstName }}</BTableColumn
-        >
+        >{{ row.firstName }}</BTableColumn>
         <BTableColumn
           field="lastName"
           :label="$t('organization.members.table.lastName')"
           sortable
-          >{{ row.lastName }}</BTableColumn
-        >
+        >{{ row.lastName }}</BTableColumn>
         <BTableColumn
           field="role"
           :label="$t('organization.members.table.role')"
-          >{{ $t(`core.role.${row.role}`) }}</BTableColumn
-        >
+        >{{ $t(`core.role.${row.role}`) }}</BTableColumn>
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
-          <OrganizationMembersDropdown
-            @changeRight="changeRight(row)"
-            @remove="remove(row.id)"
-          />
+          <OrganizationMembersDropdown @changeRight="changeRight(row)" @remove="remove(row.id)" />
         </BTableColumn>
       </template>
     </BTable>
@@ -78,10 +68,8 @@ export default {
       });
     },
     add() {
-      this.$buefy.modal.open({
-        parent: this,
-        component: OrganizationMembersAdd,
-        canCancel: false
+      this.$store.dispatch("core/openSideBar", {
+        component: OrganizationMembersAdd
       });
     }
   }

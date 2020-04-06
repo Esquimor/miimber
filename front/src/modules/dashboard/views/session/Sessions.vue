@@ -9,58 +9,14 @@
         </div>
         <div class="column">
           <BField :label="$t('organization.sessions.label.between')">
-            <BDatepicker
-              v-model="dates"
-              range
-              @input="setSessions"
-              :nearbyMonthDays="false"
-            ></BDatepicker>
+            <BDatepicker v-model="dates" range @input="setSessions" :nearbyMonthDays="false"></BDatepicker>
           </BField>
         </div>
       </div>
     </div>
-    <BTable :data="filteredSession" striped paginated :per-page="25">
-      <template v-slot="{ row }">
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.title')"
-          >{{ row.title }}</BTableColumn
-        >
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.date')"
-          >{{ row.start | formatDate }}</BTableColumn
-        >
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.start')"
-          >{{ row.start | formatHour }}</BTableColumn
-        >
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.end')"
-          >{{ row.end | formatHour }}</BTableColumn
-        >
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.typeSession')"
-          sortable
-          >{{ row.typeSessionName }}</BTableColumn
-        >
-        <BTableColumn class="OrganizationMembers-column-manage" :width="200">
-          <router-link
-            :to="{
-              name: 'dashboard-session-information',
-              params: { id: row.id }
-            }"
-            class="button is-primary"
-          >
-            <BIcon icon="eye" />
-            <span class="is-size-6">{{ $t("core.utils.see") }}</span>
-          </router-link>
-        </BTableColumn>
-      </template>
-    </BTable>
+    <div class="DashboardSession-sessions">
+      <SessionList v-for="date in sessionByDate" :key="date.item" :date="date" />
+    </div>
   </TemplateDashboard>
 </template>
 
@@ -73,25 +29,32 @@ import dayjs from "dayjs";
 
 import TemplateDashboard from "@dashboard/template/TemplateDashboard";
 
+import SessionList from "@dashboard/components/session/SessionList";
+
 export default {
   name: "DashboardSession",
   components: {
-    TemplateDashboard
+    TemplateDashboard,
+    SessionList
   },
   data() {
-    const startDate = dayjs()
+    let startDate = dayjs()
       .set("day", 1)
       .set("hour", 0)
       .set("minute", 0)
       .set("second", 0)
       .set("millisecond", 0);
-    const endDate = dayjs()
+    let endDate = dayjs()
       .set("day", 0)
       .set("hour", 23)
       .set("minute", 59)
       .set("second", 59)
       .set("millisecond", 0)
       .add(1, "week");
+    if (dayjs().get("day") === 0) {
+      startDate = startDate.subtract(1, "week");
+      endDate = endDate.subtract(1, "week");
+    }
     return {
       loading: true,
       search: "",
@@ -127,6 +90,32 @@ export default {
       return this.reorderByDate.filter(p => {
         return p.title.toLowerCase().search(lowerCaseSearch) !== -1;
       });
+    },
+    sessionByDate() {
+      return this.filteredSession.reduce((list, session) => {
+        const start = dayjs(session.start);
+        const sameDay = list.find(
+          e =>
+            e.date === start.get("date") &&
+            e.month === start.get("month") &&
+            e.year === start.get("year")
+        );
+        if (sameDay) {
+          sameDay.sessions = [...sameDay.sessions, session];
+        } else {
+          list = [
+            ...list,
+            {
+              date: start.get("date"),
+              day: start.get("day"),
+              month: start.get("month"),
+              year: start.get("year"),
+              sessions: [session]
+            }
+          ];
+        }
+        return list;
+      }, []);
     }
   },
   methods: {
@@ -155,4 +144,10 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.DashboardSession {
+  &-sessions {
+    margin-top: 2rem;
+  }
+}
+</style>

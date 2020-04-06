@@ -1,25 +1,5 @@
 <template>
-  <div>
-    <BTable :data="users" striped>
-      <template v-slot="{ row }">
-        <BTableColumn
-          field="title"
-          :label="$t('dashboard.session.emerge.table.name')"
-          >{{ row.firstName }} {{ row.lastName }}</BTableColumn
-        >
-        <BTableColumn
-          class="DashboardSessionEmerge-column-checkbox"
-          :width="100"
-          :label="$t('dashboard.session.emerge.table.present')"
-        >
-          <BCheckbox
-            :value="!!row.attendeeId"
-            @click.native="setUser(row)"
-          ></BCheckbox>
-        </BTableColumn>
-      </template>
-    </BTable>
-  </div>
+  <TemplateDefault></TemplateDefault>
 </template>
 
 <script>
@@ -27,8 +7,19 @@
 
 import { mapGetters } from "vuex";
 
+import TemplateDefault from "@core/template/TemplateDefault";
+
 export default {
   name: "DashboardSessionEmerge",
+  components: {
+    TemplateDefault
+  },
+  data() {
+    return {
+      loadingComponent: null,
+      loading: true
+    };
+  },
   computed: {
     ...mapGetters({
       users: "dashboard/sessionUsers"
@@ -43,7 +34,30 @@ export default {
           "dashboard/removeUserPresentSession",
           user.attendeeId
         );
+    },
+
+    startLoading() {
+      this.loading = true;
+      this.loadingComponent = this.$buefy.loading.open({});
+    },
+    endLoading() {
+      if (this.loadingComponent) {
+        this.loadingComponent.close();
+        this.loadingComponent = null;
+        this.loading = false;
+      }
     }
+  },
+  mounted() {
+    this.loading = true;
+    this.$nextTick(() => {
+      this.startLoading();
+      this.$store
+        .dispatch("dashboard/setSessionUser", this.$route.params.id)
+        .then(() => {
+          this.endLoading();
+        });
+    });
   }
 };
 </script>

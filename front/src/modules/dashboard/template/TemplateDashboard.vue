@@ -1,17 +1,12 @@
 <template>
-  <TemplateDefault class="TemplateDashboard">
-    <header class="TemplateDashboard-header" :class="{ 'has-not-Nav': !hasNav }">
-      <h1 class="title is-5">{{ title }}</h1>
-      <slot name="header" />
-    </header>
-    <nav v-if="hasNav" class="TemplateDashboard-nav">
-      <slot name="nav" />
-    </nav>
-    <main class="TemplateDashboard-main" ref="template">
-      <template v-if="!loading">
-        <slot />
-      </template>
-    </main>
+  <TemplateDefault>
+    <div class="TemplateDashboard">
+      <main class="TemplateDashboard-main" ref="template">
+        <template v-if="!loading">
+          <slot />
+        </template>
+      </main>
+    </div>
   </TemplateDefault>
 </template>
 
@@ -26,17 +21,9 @@ export default {
     TemplateDefault
   },
   props: {
-    title: {
-      type: String,
-      default: ""
-    },
     loading: {
       type: Boolean,
       default: true
-    },
-    hasNav: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -78,36 +65,18 @@ export default {
 .TemplateDashboard {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem;
-    background-color: $background-dashboard-template;
-    &.has-not-Nav {
-      padding-bottom: 4rem;
-      border-bottom: 1px solid $grey-lighter;
-    }
-  }
-  &-nav {
-    height: 2rem;
-    padding: 0 2rem;
-    background-color: $background-dashboard-template;
-    &-link {
-      border-top: 3px solid $background-dashboard-template;
-      padding: 0.7rem;
-      background-color: $white;
-      height: 100%;
-      color: $black;
-      font-weight: bold;
-      margin: 0 0.3rem;
-      &.router-link-active {
-        border-top-color: $primary;
-      }
-    }
-  }
+  background-color: $white-bis;
+  min-height: 100vh;
+  padding: 1.5rem 0.5rem;
   &-main {
     padding: 1rem;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: $white;
+    border: 1px solid $grey-lightest;
+    min-height: 80vh;
+    border-radius: 5px;
   }
 }
 </style>

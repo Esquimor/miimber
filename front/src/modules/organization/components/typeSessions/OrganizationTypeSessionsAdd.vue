@@ -1,10 +1,10 @@
 <template>
-  <TemplateModal
+  <TemplateSidePanelRight
     :title="$t('organization.typeSessions.add.title')"
     :loading="loading"
     hasPadding
-    @cancel="$emit('close')"
     @confirm="confirm"
+    :disabled="!canConfirm"
   >
     <div class="columns">
       <div class="column is-half">
@@ -13,18 +13,18 @@
         </BField>
       </div>
     </div>
-  </TemplateModal>
+  </TemplateSidePanelRight>
 </template>
 
 <script>
 "use strict";
 
-import TemplateModal from "@core/template/TemplateModal";
+import TemplateSidePanelRight from "@core/template/TemplateSidePanelRight";
 
 export default {
   name: "OrganizationTypeSessionsAdd",
   components: {
-    TemplateModal
+    TemplateSidePanelRight
   },
   data() {
     return {
@@ -34,9 +34,14 @@ export default {
       }
     };
   },
+  computed: {
+    canConfirm() {
+      return this.typeSession.name;
+    }
+  },
   methods: {
     confirm() {
-      if (!this.typeSession.name) return;
+      if (!this.canConfirm) return;
       this.loading = true;
       this.$store
         .dispatch("organization/addTypeSession", this.typeSession)

@@ -25,7 +25,6 @@ public class SessionReadResponseDTO {
 	private OrganizationDTO organization;
 	private TypeSessionDTO typeSession;
 	private MeDTO me;
-	private List<UserDTO> users;
 	private List<RegisteredDTO> registereds;
 	private int limit;
 	
@@ -42,7 +41,6 @@ public class SessionReadResponseDTO {
 		if ( member != null && (member.getType() == RoleEnum.INSTRUCTOR ||
 			member.getType() == RoleEnum.OFFICE_INSTRUCTOR ||
 			member.getType() == RoleEnum.OWNER)) {
-			setUsers(session);
 		}
 		setRegistereds(session);
 	}
@@ -77,42 +75,6 @@ public class SessionReadResponseDTO {
 				status = limitSession > i ? RegisteredEnum.TAKEN : RegisteredEnum.WAITING;
 			}
 			this.registereds.add(new RegisteredDTO(registereds.get(i), isMember, status));
-		}
-	}
-	
-	private void setUsers(Session session) {
-		this.users = new ArrayList<UserDTO>();
-		List<Member> members = session.getOrganization().getMembers();
-		List<Attendee> attendees = session.getAttendees();
-		// List all organization members
-		for(Member member: members) {
-			Long attendeId = 0L;
-			// Look if memberOrganization is present
-			for(Attendee attendee: attendees) {
-				if (attendee.getUser().getId() == member.getUser().getId()) {
-					attendeId = attendee.getId();
-					break;
-				}
-			}
-			// add it
-			this.users.add(new UserDTO(member, attendeId));
-		}
-		
-		// List all users outside organization
-		for(Attendee attendee: attendees) {
-			User user = attendee.getUser();
-			boolean isMember = false;
-			// Look if attendee is already a member
-			for(Member memberToTest: members) {
-				if (memberToTest.getUser().getId() == user.getId()) {
-					isMember = true;
-					break;
-				}
-			}
-			// If attendee is not a member add it
-			if (isMember == false) {
-				this.users.add(new UserDTO(user, attendee.getId()));
-			}
 		}
 	}
 	
@@ -170,14 +132,6 @@ public class SessionReadResponseDTO {
 
 	public void setTypeSession(TypeSessionDTO typeSession) {
 		this.typeSession = typeSession;
-	}
-
-	public List<UserDTO> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<UserDTO> users) {
-		this.users = users;
 	}
 
 	public List<RegisteredDTO> getRegistereds() {
@@ -319,109 +273,6 @@ public class SessionReadResponseDTO {
 			private RoleEnum role;
 			
 			public MemberUserDTO(Member member) {
-				this.setId(member.getId());
-				this.setRole(member.getType());
-			}
-
-			public long getId() {
-				return id;
-			}
-
-			public void setId(long id) {
-				this.id = id;
-			}
-
-			public RoleEnum getRole() {
-				return role;
-			}
-
-			public void setRole(RoleEnum role) {
-				this.role = role;
-			}
-		}
-	}
-
-	private class UserDTO {
-		
-		private long id;
-		private String firstName;
-		private String lastName;
-		private String email;
-		private MemberDTO member;
-		private long attendeeId;
-		
-		public UserDTO(Member member, long attendeeId) {
-			User user = member.getUser();
-			this.setId(user.getId());
-			this.setFirstName(user.getFirstName());
-			this.setLastName(user.getLastName());
-			this.setEmail(user.getEmail());
-			this.setMember(new MemberDTO(member));
-			this.setAttendeeId(attendeeId);
-		}
-		
-		public UserDTO(User user, long attendeeId) {
-			this.setId(user.getId());
-			this.setFirstName(user.getFirstName());
-			this.setLastName(user.getLastName());
-			this.setEmail(user.getEmail());
-			this.setAttendeeId(attendeeId);
-		}
-		
-		public long getId() {
-			return id;
-		}
-
-		public void setId(long id) {
-			this.id = id;
-		}
-
-		public String getFirstName() {
-			return firstName;
-		}
-
-		public void setFirstName(String firstName) {
-			this.firstName = firstName;
-		}
-
-		public String getLastName() {
-			return lastName;
-		}
-
-		public void setLastName(String lastName) {
-			this.lastName = lastName;
-		}
-
-		public String getEmail() {
-			return email;
-		}
-
-		public void setEmail(String email) {
-			this.email = email;
-		}
-
-		public MemberDTO getMember() {
-			return member;
-		}
-
-		public void setMember(MemberDTO member) {
-			this.member = member;
-		}
-
-		public long getAttendeeId() {
-			return attendeeId;
-		}
-
-		public void setAttendeeId(long attendeeId) {
-			this.attendeeId = attendeeId;
-		}
-
-		private class MemberDTO {
-			
-			private long id;
-			private RoleEnum role;
-			
-			public MemberDTO(Member member) {
 				this.setId(member.getId());
 				this.setRole(member.getType());
 			}

@@ -17,6 +17,7 @@ public class SessionShortReadResponseDTO {
 	private long templateSessionId;
 	private TypeSessionDTO typeSession;
 	private int limit;
+	private int nbRegistereds;
 	
 	public SessionShortReadResponseDTO(Session session) {
 		this.id = session.getId();
@@ -27,6 +28,7 @@ public class SessionShortReadResponseDTO {
 		this.organizationId = session.getOrganization().getId();
 		this.typeSession = new TypeSessionDTO(session.getTypeSession());
 		this.setLimit(session.getLimit());
+		this.setNbRegistereds(session.getRegistereds().size());
 	}
 	
 	public long getId() {
@@ -99,6 +101,14 @@ public class SessionShortReadResponseDTO {
 
 	public void setLimit(int limit) {
 		this.limit = limit;
+	}
+
+	public int getNbRegistereds() {
+		return nbRegistereds;
+	}
+
+	public void setNbRegistereds(int nbRegistereds) {
+		this.nbRegistereds = nbRegistereds;
 	}
 
 	private class TypeSessionDTO {

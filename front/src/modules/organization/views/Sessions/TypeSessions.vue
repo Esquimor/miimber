@@ -10,13 +10,9 @@
           field="name"
           :label="$t('organization.typeSessions.table.name')"
           sortable
-          >{{ row.name }}</BTableColumn
-        >
+        >{{ row.name }}</BTableColumn>
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
-          <OrganizationTypeSessionsDropdown
-            @edit="edit(row)"
-            @delete="deleteItem(row.id)"
-          />
+          <OrganizationTypeSessionsDropdown @edit="edit(row)" @delete="deleteItem(row.id)" />
         </BTableColumn>
       </template>
     </BTable>
@@ -53,17 +49,13 @@ export default {
   },
   methods: {
     add() {
-      this.$buefy.modal.open({
-        parent: this,
-        component: OrganizationTypeSessionsAdd,
-        canCancel: false
+      this.$store.dispatch("core/openSideBar", {
+        component: OrganizationTypeSessionsAdd
       });
     },
     edit(element) {
-      this.$buefy.modal.open({
-        parent: this,
+      this.$store.dispatch("core/openSideBar", {
         component: OrganizationTypeSessionsEdit,
-        canCancel: false,
         props: { element }
       });
     },

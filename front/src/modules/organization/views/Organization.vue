@@ -9,8 +9,7 @@
             type="is-primary"
             @click="edit"
             outlined
-            >{{ $t("core.utils.edit") }}</BButton
-          >
+          >{{ $t("core.utils.edit") }}</BButton>
         </div>
       </header>
       <div class="Organization-content">
@@ -52,13 +51,9 @@ export default {
   },
   methods: {
     edit() {
-      this.$buefy.modal.open({
-        parent: this,
+      this.$store.dispatch("core/openSideBar", {
         component: OrganizationOrganizationEdit,
-        canCancel: false,
-        props: {
-          name: this.organization.name
-        }
+        props: { name: this.organization.name }
       });
     }
   },
@@ -82,7 +77,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $primary-light;
+    background-color: $white-bis;
     border-bottom: 1px solid $grey;
     &-wrapper {
       display: flex;

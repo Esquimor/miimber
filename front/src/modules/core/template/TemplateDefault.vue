@@ -18,7 +18,9 @@
         </router-link>
       </nav>
     </header>
-    <slot />
+    <div class="TemplateDefault-content">
+      <slot />
+    </div>
     <component v-if="sideBar.open" :is="sideBar.component" />
   </div>
 </template>
@@ -45,9 +47,9 @@ export default {
     &-nav {
       display: flex;
       align-items: center;
-      background-color: $black-ter;
-      color: $white;
+      color: $black-ter;
       width: 100%;
+      border-bottom: 1px solid $grey-lightest;
       &-separator {
         flex-grow: 1;
       }
@@ -55,14 +57,9 @@ export default {
         display: flex;
         align-items: center;
         padding: 0.5rem;
+        color: $black-ter;
         &:hover {
-          background-color: $grey-darker;
-        }
-        > * {
-          color: $white;
-          &:hover {
-            color: $white-ter;
-          }
+          background-color: $white-ter;
         }
       }
     }

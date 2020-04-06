@@ -53,6 +53,11 @@ public class OrganizationController {
 	@Autowired
 	private Helper helper;
 
+	/**
+	 * Get all organization where the user is the owner
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/organization/ownered", method = RequestMethod.GET)
 	public ResponseEntity<?> readOrganization() throws Exception {
         UserDetails currentUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -65,6 +70,12 @@ public class OrganizationController {
 		return ResponseEntity.ok(responseOrganization);
 	}
 	
+	/**
+	 * Get All organization to manage
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/organization/{id}/manage", method = RequestMethod.GET)
 	public ResponseEntity<?> readOrganizationByIdAndManage(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -85,6 +96,12 @@ public class OrganizationController {
 			));
 	}
 	
+	/**
+	 * Get organization by id
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/organization/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> readOrganization(@PathVariable long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -100,6 +117,12 @@ public class OrganizationController {
 		return ResponseEntity.ok(new OrganizationAndMemberReadResponseDTO(organization, member));
 	}
 	
+	/**
+	 * Create a organization and put the user has owner
+	 * @param organizationDto
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/organization/", method = RequestMethod.POST)
 	public ResponseEntity<?> readOrganizationAll(@RequestBody OrganizationCreateRequestDTO organizationDto) throws Exception {
         UserDetails currentUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -130,6 +153,12 @@ public class OrganizationController {
         return ResponseEntity.ok(new OrganizationCreateReadUpdateResponseDTO(newOrganization));
 	}
 
+	/**
+	 * Find if an organization name is taken
+	 * @param name
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/organization/name/{name}", method = RequestMethod.GET)
 	public ResponseEntity<?> readNameExit(@PathVariable String name) throws Exception {
 		Organization organization = organizationService.getOrganizationByName(name);
@@ -139,6 +168,13 @@ public class OrganizationController {
 		return new ResponseEntity(HttpStatus.CONFLICT);
 	}
 	
+	/**
+	 * Change the organization stripe card
+	 * @param organizationDto
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/organization/{id}/card", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateOrganizationCard(@RequestBody OrganizationTokenRequestDTO organizationDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -154,6 +190,13 @@ public class OrganizationController {
         return new ResponseEntity(HttpStatus.OK);
 	}
 	
+	/**
+	 * Update an organization
+	 * @param organizationDto
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/organization/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateOrganization(@RequestBody OrganizationRequestDTO organizationDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -170,6 +213,12 @@ public class OrganizationController {
         return ResponseEntity.ok(new OrganizationCreateReadUpdateResponseDTO(organizationService.update(organization)));
 	}
 	
+	/**
+	 * Delete a organization
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/organization/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteOrganization(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());

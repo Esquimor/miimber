@@ -12,6 +12,8 @@ public class UserSessionReadResponseDTO {
 	private OffsetDateTime end;
 	private String typeSessionName;
 	private String organizationName;
+	private int limit;
+	private int nbRegistereds;
 	
 	public UserSessionReadResponseDTO(Session session) {
 		this.setId(session.getId());
@@ -20,6 +22,8 @@ public class UserSessionReadResponseDTO {
 		this.setEnd(session.getEnd());
 		this.setTypeSessionName(session.getTypeSession().getName());
 		this.setOrganizationName(session.getOrganization().getName());
+		this.setLimit(session.getLimit());
+		this.setNbRegistereds(session.getRegistereds().size());
 	}
 
 	public long getId() {
@@ -68,5 +72,21 @@ public class UserSessionReadResponseDTO {
 
 	public void setOrganizationName(String organizationName) {
 		this.organizationName = organizationName;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
+	public int getNbRegistereds() {
+		return nbRegistereds;
+	}
+
+	public void setNbRegistereds(int nbRegistereds) {
+		this.nbRegistereds = nbRegistereds;
 	}
 }

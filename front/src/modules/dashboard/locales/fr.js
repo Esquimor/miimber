@@ -2,21 +2,21 @@ export default {
   dashboard: {
     menu: {
       menu: "Menu",
-      account: "Mon compte"
+      account: "Mon compte",
     },
     panel: {
       sessions: "Séances",
-      organizations: "Organisations"
+      organizations: "Organisations",
     },
     organization: {
       table: {
-        name: "Nom"
+        name: "Nom",
       },
       label: {
-        list: "Vos organisations",
+        list: "Mes organisations",
         sessions: "Sessions",
-        members: "Membres"
-      }
+        members: "Membres",
+      },
     },
     session: {
       label: {
@@ -28,21 +28,30 @@ export default {
         attendee: "Participants",
         emerge: "Émerger",
         registered: "Inscrits",
+        registeredWaiting: "Sur liste d'attente",
         imRegistered: "Je m'inscris",
-        iUnsubscribe: "Je me désinscris"
+        iUnsubscribe: "Je me désinscris",
+        placesLeft: "Il reste {nb} places",
+        waiting: "Complet: {nb} personnes en liste d'attentes",
+        descriptionTitle: "Détails",
+        registeredEmpty: "Aucun inscrit",
       },
       emerge: {
         table: {
           name: "Nom",
-          present: "Présent"
-        }
+          present: "Présent",
+        },
       },
       registered: {
         empty: "Aucune personne n'est isncrite pour cette session.",
         table: {
-          name: "Nom"
-        }
-      }
-    }
-  }
+          name: "Nom",
+        },
+      },
+      unsubscribe: {
+        title: "Se désinscrire",
+        message: "Êtes vous sur de vous désinscrire ?",
+      },
+    },
+  },
 };

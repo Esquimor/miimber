@@ -1,9 +1,8 @@
 <template>
-  <TemplateModal
+  <TemplateSidePanelRight
     :title="$t('organization.settings.stripe.title')"
     :loading="loading"
     hasPadding
-    @cancel="$emit('close')"
     @confirm="confirm"
   >
     <div class="columns">
@@ -13,10 +12,7 @@
           :message="cardNumberElement.message"
           :type="cardNumberElement.type"
         >
-          <div
-            id="card-number-element"
-            class="OrganizationCreate-stripe-input"
-          ></div>
+          <div id="card-number-element" class="OrganizationCreate-stripe-input"></div>
         </b-field>
       </div>
     </div>
@@ -27,10 +23,7 @@
           :message="cardExpiryElement.message"
           :type="cardExpiryElement.type"
         >
-          <div
-            id="card-expiry-element"
-            class="OrganizationCreate-stripe-input"
-          ></div>
+          <div id="card-expiry-element" class="OrganizationCreate-stripe-input"></div>
         </b-field>
       </div>
       <div class="column OrganizationCreate-column">
@@ -39,14 +32,11 @@
           :message="cardCvcElement.message"
           :type="cardCvcElement.type"
         >
-          <div
-            id="card-cvc-element"
-            class="OrganizationCreate-stripe-input"
-          ></div>
+          <div id="card-cvc-element" class="OrganizationCreate-stripe-input"></div>
         </b-field>
       </div>
     </div>
-  </TemplateModal>
+  </TemplateSidePanelRight>
 </template>
 
 <script>
@@ -54,12 +44,12 @@
 
 import { loadStripe } from "@stripe/stripe-js";
 
-import TemplateModal from "@core/template/TemplateModal";
+import TemplateSidePanelRight from "@core/template/TemplateSidePanelRight";
 
 export default {
   name: "OrganizationSettingsEditStripe",
   components: {
-    TemplateModal
+    TemplateSidePanelRight
   },
   data() {
     return {
@@ -101,7 +91,7 @@ export default {
                 token: result.token.id
               })
               .then(() => {
-                that.$emit("close");
+                this.$store.dispatch("core/closeSideBar");
                 that.$buefy.toast.open({
                   message: that.$t("organization.settings.stripe.success"),
                   type: "is-primary"
@@ -111,6 +101,9 @@ export default {
                 that.loading = false;
               });
           }
+        })
+        .catch(() => {
+          that.loading = false;
         });
     },
     setCardNumberElement(event) {
