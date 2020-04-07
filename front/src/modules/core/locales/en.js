@@ -125,5 +125,10 @@ export default {
       NOVEMBER: "Nov",
       DECEMBER: "Déc",
     },
+    sessionType: {
+      TO_COME_UP: "To come up",
+      IN_PROGRESS: "In progress",
+      COMPLETED: "Completed",
+    },
   },
 };

@@ -5,6 +5,7 @@
     class="DashboardSessionItem"
   >
     <div class="DashboardSessionItem-time">
+      <BTag :type="statusSession.type">{{ $t(`core.sessionType.${statusSession.label}`) }}</BTag>
       <div class="DashboardSessionItem-time-start">{{ session.start | formatHour }}</div>
       <div class="DashboardSessionItem-time-end">{{ session.end | formatHour }}</div>
     </div>
@@ -18,7 +19,7 @@
         <span
           class="DashboardSessionItem-info-person-registered"
         >{{session.nbRegistereds }} {{ $t("dashboard.session.label.registered") }}</span>
-        <template v-if="isRegisteredLimited">
+        <template v-if="isRegisteredLimited && statusSession === STATUS_SESSION.TO_COME_UP">
           <span
             v-if="session.nbRegistereds < session.limit"
             class="DashboardSessionItem-info-person-places"
@@ -36,6 +37,10 @@
 <script>
 "use strict";
 
+import dayjs from "dayjs";
+
+import { STATUS_SESSION } from "@/utils/consts";
+
 export default {
   name: "DashboardSessionItem",
   props: {
@@ -48,9 +53,26 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      STATUS_SESSION: STATUS_SESSION
+    };
+  },
   computed: {
     isRegisteredLimited() {
       return this.session.limit !== 0;
+    },
+    statusSession() {
+      const now = dayjs();
+      const start = dayjs(this.session.start);
+      const end = dayjs(this.session.end);
+      if (now.isBefore(start)) {
+        return STATUS_SESSION.TO_COME_UP;
+      }
+      if (now.isAfter(start) && now.isBefore(end)) {
+        return STATUS_SESSION.IN_PROGRESS;
+      }
+      return STATUS_SESSION.COMPLETED;
     }
   }
 };
@@ -65,6 +87,9 @@ export default {
   border-right: 1px solid $grey-lightest;
   background-color: $white;
   &-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 0.5rem 1rem;
   }
   &-info {

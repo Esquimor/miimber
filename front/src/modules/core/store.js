@@ -3,20 +3,31 @@ import * as types from "@/utils/types";
 
 import { ROLE } from "@/utils/consts";
 
+const message = () => {
+  return {
+    show: false,
+    title: "",
+    message: "",
+    type: "",
+  };
+};
+
 export default {
   namespaced: true,
   state: {
     me: null,
     member: null,
     sideBar: {
-      open: false
-    }
+      open: false,
+    },
+    message: message(),
   },
   getters: {
-    me: state => state.me,
-    member: state => state.member,
-    memberIsOwner: state => !!state.member && state.member.role === ROLE.OWNER,
-    canChangeOrganization: state => {
+    me: (state) => state.me,
+    member: (state) => state.member,
+    memberIsOwner: (state) =>
+      !!state.member && state.member.role === ROLE.OWNER,
+    canChangeOrganization: (state) => {
       return (
         !!state.member &&
         [ROLE.OWNER, ROLE.OFFICE, ROLE.OFFICE_INSTRUCTOR].includes(
@@ -24,8 +35,8 @@ export default {
         )
       );
     },
-    sideBar: state => state.sideBar,
-    sideBarProps: state => state.sideBar.open && state.sideBar.props
+    sideBar: (state) => state.sideBar,
+    sideBarProps: (state) => state.sideBar.open && state.sideBar.props,
   },
   actions: {
     getMe({ commit }) {
@@ -44,7 +55,7 @@ export default {
           commit(types.COR_SET_MEMBER_ME, data);
           return Promise.resolve();
         })
-        .catch(e => {
+        .catch((e) => {
           return Promise.reject(e);
         });
     },
@@ -53,7 +64,7 @@ export default {
     },
     closeSideBar({ commit }) {
       commit(types.COR_CLOSE_SIDE_BAR);
-    }
+    },
   },
   mutations: {
     [types.COR_SET_ME](state, user) {
@@ -70,11 +81,11 @@ export default {
       state.sideBar = {
         component,
         open: true,
-        props
+        props,
       };
     },
     [types.COR_CLOSE_SIDE_BAR](state) {
       state.sideBar.open = false;
-    }
-  }
+    },
+  },
 };
