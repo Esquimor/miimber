@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="DashboardOrganizationSessions-sessions">
-      <SessionList v-for="date in sessionByDate" :key="date.item" :date="date" />
+      <SessionList v-for="date in sessionByDate" :key="date.item" :date="date" hideOrganization />
     </div>
   </div>
 </template>

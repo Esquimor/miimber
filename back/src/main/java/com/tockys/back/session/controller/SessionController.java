@@ -32,6 +32,7 @@ import com.tockys.back.session.model.Session;
 import com.tockys.back.session.model.TypeSession;
 import com.tockys.back.session.service.SessionService;
 import com.tockys.back.session.service.TypeSessionService;
+import com.tockys.back.user.dto.TemplateAttendeeDTO;
 import com.tockys.back.user.model.User;
 
 @RestController
@@ -85,13 +86,17 @@ public class SessionController {
 		List<Attendee> attendees = session.getAttendees();
 		List<Registered> registereds = session.getRegistereds();
         
-		List<SessionUsersReadResponseDTO> users = new ArrayList<SessionUsersReadResponseDTO>();
+		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
 		
-    	users.addAll(getAllMembers(members, attendees, registereds));
-    	users.addAll(getAllAttendeesWithoutAlreadyUsers(attendees, registereds, users));
-    	users.addAll(getAllRegisteredsWithourAlreadyUsers(registereds, users));
+		if (session.getLimit() == 0) {
+	    	users.addAll(getAllMembers(members, attendees, registereds));
+	    	users.addAll(getAllAttendeesWithoutAlreadyUsers(attendees, registereds, users));
+	    	users.addAll(getAllRegisteredsWithourAlreadyUsers(registereds, users));
+		} else {
+			users.addAll(getAllRegistered(registereds));
+		}
 		
-		return ResponseEntity.ok(users);
+		return ResponseEntity.ok(new SessionUsersReadResponseDTO(session, users));
 	}
 
 	
@@ -242,8 +247,8 @@ public class SessionController {
 	}
 
 	// List all organization members
-	private List<SessionUsersReadResponseDTO> getAllMembers(List<Member> members, List<Attendee> attendees, List<Registered> registereds) {
-		List<SessionUsersReadResponseDTO> users = new ArrayList<SessionUsersReadResponseDTO>();
+	private List<TemplateAttendeeDTO> getAllMembers(List<Member> members, List<Attendee> attendees, List<Registered> registereds) {
+		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
 		for(Member member: members) {
 			Long attendeId = 0L;
 			boolean isRegistered = false;
@@ -261,19 +266,19 @@ public class SessionController {
 				}
 			}
 			// add it
-			users.add(new SessionUsersReadResponseDTO(member, attendeId, isRegistered));
+			users.add(new TemplateAttendeeDTO(member, attendeId, isRegistered));
 		}
 		return users;
 	}
 
 	// List all users outside organization
-	private List<SessionUsersReadResponseDTO> getAllAttendeesWithoutAlreadyUsers(List<Attendee> attendees, List<Registered> registereds, List<SessionUsersReadResponseDTO> alreadyUsers) {
-		List<SessionUsersReadResponseDTO> users = new ArrayList<SessionUsersReadResponseDTO>();
+	private List<TemplateAttendeeDTO> getAllAttendeesWithoutAlreadyUsers(List<Attendee> attendees, List<Registered> registereds, List<TemplateAttendeeDTO> alreadyUsers) {
+		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
 		for(Attendee attendee: attendees) {
 			User userAttendee = attendee.getUser();
 			boolean alreadyTaken = false;
 			// Look if attendee is already a member
-			for(SessionUsersReadResponseDTO user: alreadyUsers) {
+			for(TemplateAttendeeDTO user: alreadyUsers) {
 				if (user.getId() == userAttendee.getId()) {
 					alreadyTaken = true;
 					break;
@@ -288,27 +293,37 @@ public class SessionController {
 						break;
 					}
 				}
-				users.add(new SessionUsersReadResponseDTO(userAttendee, attendee.getId(), isRegistered));
+				users.add(new TemplateAttendeeDTO(userAttendee, attendee.getId(), isRegistered));
 			}
 		}
 		return users;
 	}
 	
-	private List<SessionUsersReadResponseDTO> getAllRegisteredsWithourAlreadyUsers(List<Registered> registereds, List<SessionUsersReadResponseDTO> alreadyUsers) {
-		List<SessionUsersReadResponseDTO> users = new ArrayList<SessionUsersReadResponseDTO>();
+	private List<TemplateAttendeeDTO> getAllRegisteredsWithourAlreadyUsers(List<Registered> registereds, List<TemplateAttendeeDTO> alreadyUsers) {
+		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
 		for(Registered registered: registereds) {
 			// Look if attendee is already a member
 			User userRegistered = registered.getUser();
 			boolean alreadyTaken = false;
-			for(SessionUsersReadResponseDTO user: alreadyUsers) {
+			for(TemplateAttendeeDTO user: alreadyUsers) {
 				if (user.getId() == userRegistered.getId()) {
 					alreadyTaken = true;
 					break;
 				}
 			}
 			if (alreadyTaken == false) {
-				users.add(new SessionUsersReadResponseDTO(userRegistered, 0L, false));
+				users.add(new TemplateAttendeeDTO(userRegistered, 0L, false));
 			}
+		}
+		return users;
+	}
+	
+	private List<TemplateAttendeeDTO> getAllRegistered(List<Registered> registereds) {
+		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
+		for(Registered registered: registereds) {
+			// Look if attendee is already a member
+			User userRegistered = registered.getUser();
+			users.add(new TemplateAttendeeDTO(userRegistered, 0L, false));
 		}
 		return users;
 	}

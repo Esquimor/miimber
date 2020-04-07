@@ -10,6 +10,7 @@
     </div>
     <div class="DashboardSessionItem-info">
       <div
+        v-if="!hideOrganization"
         class="DashboardSessionItem-info-organization text is-size-6"
       >{{ session.organizationName }}</div>
       <div class="text is-size-5">{{ session.title }}</div>
@@ -41,6 +42,10 @@ export default {
     session: {
       type: Object,
       required: true
+    },
+    hideOrganization: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

@@ -28,7 +28,11 @@ public class SessionShortReadResponseDTO {
 		this.organizationId = session.getOrganization().getId();
 		this.typeSession = new TypeSessionDTO(session.getTypeSession());
 		this.setLimit(session.getLimit());
-		this.setNbRegistereds(session.getRegistereds().size());
+		if (session.getRegistereds() == null) {
+			this.setNbRegistereds(0);
+		} else {
+			this.setNbRegistereds(session.getRegistereds().size());
+		}
 	}
 	
 	public long getId() {

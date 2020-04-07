@@ -1,5 +1,34 @@
 <template>
-  <TemplateDefault></TemplateDefault>
+  <TemplateEmerge :loading="loading">
+    <div class="DashboardSessionEmerge">
+      <router-link
+        :to="{name: 'dashboard-session', params: {id: session.id}}"
+        class="DashboardSessionEmerge-title title is-4"
+      >
+        <BIcon icon="arrow-left" />
+        {{ session.title }}
+      </router-link>
+      <BField :label="$t('dashboard.session.label.search')" class="DashboardSessionEmerge-search">
+        <BInput
+          :placeholder="$t('dashboard.session.label.search')"
+          type="search"
+          icon="magnify"
+          v-model="search"
+        ></BInput>
+      </BField>
+      <div v-if="filteredUser.length > 0" class="DashboardSessionEmerge-users">
+        <SessionEmergeItem
+          v-for="user in filteredUser"
+          :key="user.id"
+          :user="user"
+          @check="setUser"
+        />
+      </div>
+      <div v-else class="DashboardSessionEmerge-empty">
+        <span>{{ $t('dashboard.session.label.emptyUsers') }}</span>
+      </div>
+    </div>
+  </TemplateEmerge>
 </template>
 
 <script>
@@ -7,23 +36,41 @@
 
 import { mapGetters } from "vuex";
 
-import TemplateDefault from "@core/template/TemplateDefault";
+import TemplateEmerge from "@dashboard/template/TemplateEmerge";
+
+import SessionEmergeItem from "@dashboard/components/session/SessionEmergeItem";
 
 export default {
   name: "DashboardSessionEmerge",
   components: {
-    TemplateDefault
+    TemplateEmerge,
+    SessionEmergeItem
   },
   data() {
     return {
-      loadingComponent: null,
-      loading: true
+      loading: true,
+      search: ""
     };
   },
   computed: {
     ...mapGetters({
-      users: "dashboard/sessionUsers"
-    })
+      users: "dashboard/sessionUsers",
+      session: "dashboard/session"
+    }),
+    reorderUser() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      const reorderUser = this.users.sort((a, b) => a.firstName - b.firstName);
+      return reorderUser;
+    },
+    filteredUser() {
+      if (this.search === "") return this.reorderUser;
+
+      const lowerCaseSearch = this.search.toLowerCase();
+      return this.reorderUser.filter(p => {
+        const nameConcat = `${p.firstName} ${p.lastName}`;
+        return nameConcat.toLowerCase().search(lowerCaseSearch) !== -1;
+      });
+    }
   },
   methods: {
     setUser(user) {
@@ -34,41 +81,25 @@ export default {
           "dashboard/removeUserPresentSession",
           user.attendeeId
         );
-    },
-
-    startLoading() {
-      this.loading = true;
-      this.loadingComponent = this.$buefy.loading.open({});
-    },
-    endLoading() {
-      if (this.loadingComponent) {
-        this.loadingComponent.close();
-        this.loadingComponent = null;
-        this.loading = false;
-      }
     }
   },
   mounted() {
-    this.loading = true;
-    this.$nextTick(() => {
-      this.startLoading();
-      this.$store
-        .dispatch("dashboard/setSessionUser", this.$route.params.id)
-        .then(() => {
-          this.endLoading();
-        });
-    });
+    this.$store
+      .dispatch("dashboard/setSessionUser", this.$route.params.id)
+      .then(() => {
+        this.loading = false;
+      });
   }
 };
 </script>
 
 <style lang="scss">
 .DashboardSessionEmerge {
-  &-column {
-    &-checkbox {
-      display: flex;
-      justify-content: center;
-    }
+  display: flex;
+  flex-direction: column;
+  &-empty {
+    margin-top: 1rem;
+    text-align: center;
   }
 }
 </style>

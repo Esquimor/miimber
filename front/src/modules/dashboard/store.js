@@ -161,17 +161,18 @@ export default {
     [types.DASH_SET_SESSION](state, session) {
       state.session = session;
     },
-    [types.DASH_SET_SESSION_USERS](state, users) {
+    [types.DASH_SET_SESSION_USERS](state, { id, title, users }) {
+      state.session = { id, title };
       state.sessionUsers = users;
     },
     [types.DASH_SET_USER_PRESENT_SESSION](state, attendee) {
-      const userEdited = state.session.users.find(
+      const userEdited = state.sessionUsers.find(
         (u) => u.id === attendee.userId
       );
       userEdited.attendeeId = attendee.id;
     },
     [types.DASH_REMOVE_USER_PRESENT_SESSION](state, id) {
-      const userEdited = state.session.users.find((u) => u.attendeeId === id);
+      const userEdited = state.sessionUsers.find((u) => u.attendeeId === id);
       userEdited.attendeeId = null;
     },
     [types.DASH_ADD_REGISTERED](state, registered) {

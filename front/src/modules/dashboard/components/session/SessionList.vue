@@ -2,7 +2,12 @@
   <div class="DashboardSessionList">
     <header class="DashboardSessionList-header">{{ dateLabel }}</header>
     <div class="DashboardSessionList-sessions">
-      <SessionItem v-for="session in date.sessions" :key="session.id" :session="session" />
+      <SessionItem
+        v-for="session in date.sessions"
+        :key="session.id"
+        :session="session"
+        :hideOrganization="hideOrganization"
+      />
     </div>
   </div>
 </template>
@@ -21,6 +26,10 @@ export default {
     date: {
       type: Object,
       required: true
+    },
+    hideOrganization: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

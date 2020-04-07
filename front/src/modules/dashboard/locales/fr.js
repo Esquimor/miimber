@@ -26,7 +26,7 @@ export default {
         end: "Fin",
         information: "Information",
         attendee: "Participants",
-        emerge: "Émerger",
+        emerge: "Émarger",
         registered: "Inscrits",
         registeredWaiting: "Sur liste d'attente",
         imRegistered: "Je m'inscris",
@@ -35,6 +35,8 @@ export default {
         waiting: "Complet: {nb} personnes en liste d'attentes",
         descriptionTitle: "Détails",
         registeredEmpty: "Aucun inscrit",
+        search: "Rechercher",
+        emptyUsers: "Vide",
       },
       emerge: {
         table: {

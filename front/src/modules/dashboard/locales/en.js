@@ -35,6 +35,8 @@ export default {
         waiting: "Full: {nb} people on waiting list",
         descriptionTitle: "Details",
         registeredEmpty: "No registrant",
+        search: "Search",
+        emptyUsers: "Empty",
       },
       emerge: {
         table: {
