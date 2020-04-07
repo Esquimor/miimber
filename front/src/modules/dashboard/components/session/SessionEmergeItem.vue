@@ -38,7 +38,7 @@ export default {
   align-items: center;
   margin: 0.2rem;
   cursor: pointer;
-  &:nth-child(even) {
+  &:nth-child(odd) {
     background-color: $white-bis;
   }
   &-image {

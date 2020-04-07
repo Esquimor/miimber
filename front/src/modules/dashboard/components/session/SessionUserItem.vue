@@ -36,8 +36,9 @@ export default {
   background-color: $white;
   width: 100px;
   padding: 0.5rem;
-  box-shadow: 0 3px 4px 0 $grey-lightest;
+  box-shadow: 0 3px 4px 0 $grey;
   margin: 0.5rem 0.75rem;
+  border-radius: 5px;
   &-image {
     max-width: 75px;
     border-radius: 5px;

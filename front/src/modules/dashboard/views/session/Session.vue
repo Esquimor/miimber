@@ -38,27 +38,29 @@
           </div>
         </div>
       </main>
-      <div class="DashboardSession-bottom">
-        <div class="DashboardSession-bottom-info">
-          <span
-            class="DashboardSession-bottom-info-date text is-size-6"
-          >{{ dateLabel }} {{ session.start | formatHour }}-{{ session.end | formatHour}}</span>
-          <span class="DashboardSession-bottom-info-title text is-size-5">{{ session.title }}</span>
-        </div>
-        <div class="DashboardSession-bottom-button">
-          <BButton
-            v-if="userRegistered"
-            type="is-primary"
-            :loading="loadingRegisterd"
-            @click.native="unsubscribe"
-            outlined
-          >{{ $t("dashboard.session.label.iUnsubscribe") }}</BButton>
-          <BButton
-            v-else
-            type="is-primary"
-            :loading="loadingRegisterd"
-            @click.native="registerd"
-          >{{ $t("dashboard.session.label.imRegistered") }}</BButton>
+      <div v-if="showRegister" class="DashboardSession-bottom">
+        <div class="DashboardSession-bottom-wrapper">
+          <div class="DashboardSession-bottom-info">
+            <span
+              class="DashboardSession-bottom-info-date text is-size-6"
+            >{{ dateLabel }} {{ session.start | formatHour }}-{{ session.end | formatHour}}</span>
+            <span class="DashboardSession-bottom-info-title text is-size-5">{{ session.title }}</span>
+          </div>
+          <div class="DashboardSession-bottom-button">
+            <BButton
+              v-if="userRegistered"
+              type="is-primary"
+              :loading="loadingRegisterd"
+              @click.native="unsubscribe"
+              outlined
+            >{{ $t("dashboard.session.label.iUnsubscribe") }}</BButton>
+            <BButton
+              v-else
+              type="is-primary"
+              :loading="loadingRegisterd"
+              @click.native="registerd"
+            >{{ $t("dashboard.session.label.imRegistered") }}</BButton>
+          </div>
         </div>
       </div>
     </div>
@@ -120,6 +122,11 @@ export default {
       return this.session.registereds.filter(
         r => r.status === STATUS_REGISTERED.WAITING
       );
+    },
+    showRegister() {
+      const now = dayjs();
+      const start = dayjs(this.session.start);
+      return now.isBefore(start);
     }
   },
   methods: {
@@ -179,7 +186,7 @@ export default {
 .DashboardSession {
   &-header {
     padding: 1rem 0.5rem 1rem;
-    box-shadow: 0 1px 0 $grey-lightest;
+    box-shadow: 0 1px 4px 0 $grey;
     &-wrapper {
       width: 100%;
       max-width: 960px;
@@ -212,14 +219,19 @@ export default {
     }
   }
   &-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: $white;
-    box-shadow: 0 -1px 0 $grey-lightest;
+    box-shadow: 0 -2px 7px 0 $grey;
     position: sticky;
     bottom: 0;
     padding: 0.5rem;
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
     &-info {
       display: flex;
       flex-direction: column;

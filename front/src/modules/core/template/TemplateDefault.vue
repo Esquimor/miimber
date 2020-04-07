@@ -44,12 +44,12 @@ export default {
 .TemplateDefault {
   &-header {
     width: 100%;
+    box-shadow: 0 1px 4px 0 $grey;
     &-nav {
       display: flex;
       align-items: center;
       color: $black-ter;
       width: 100%;
-      border-bottom: 1px solid $grey-lightest;
       &-separator {
         flex-grow: 1;
       }
@@ -63,6 +63,9 @@ export default {
         }
       }
     }
+  }
+  &-content {
+    margin-top: 3px;
   }
 }
 </style>

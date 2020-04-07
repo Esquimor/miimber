@@ -75,6 +75,7 @@ export default {
     margin: 0 auto;
     background-color: $white;
     border: 1px solid $grey-lightest;
+    box-shadow: 0 4px 6px 0 $grey;
     min-height: 80vh;
     border-radius: 5px;
   }

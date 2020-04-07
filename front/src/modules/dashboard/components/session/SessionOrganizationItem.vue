@@ -42,6 +42,7 @@ export default {
   margin: 0.5rem 0.4rem;
   background-color: $white;
   border-radius: 5px;
+  box-shadow: 0 3px 4px 0 $grey;
   &-image {
     max-width: 50px;
     border-radius: 5px;
