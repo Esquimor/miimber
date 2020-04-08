@@ -42,9 +42,14 @@ export default {
     })
   },
   mounted() {
-    this.$store.dispatch("dashboard/setOrganizations").then(() => {
-      this.loading = false;
-    });
+    this.$store
+      .dispatch("dashboard/setOrganizations")
+      .then(() => {
+        this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
+      });
   }
 };
 </script>

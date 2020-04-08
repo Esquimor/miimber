@@ -56,10 +56,16 @@ export default {
   },
   mounted() {
     const loadingComponent = this.$buefy.loading.open();
-    this.$store.dispatch("settings/getOrganizationOwnered").then(() => {
-      loadingComponent.close();
-      this.loading = false;
-    });
+    this.$store
+      .dispatch("settings/getOrganizationOwnered")
+      .then(() => {
+        loadingComponent.close();
+        this.loading = false;
+      })
+      .catch(() => {
+        loadingComponent.close();
+        this.loading = false;
+      });
   }
 };
 </script>

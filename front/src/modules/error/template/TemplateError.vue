@@ -5,9 +5,9 @@
         <h1 class="TemplateError-title title is-1">
           {{ $t("error.title", { error }) }}
         </h1>
-        <span class="TemplateError-message is-size-4">{{
-          $t("error.message")
-        }}</span>
+        <span class="TemplateError-message is-size-4">
+          {{ $t("error.message") }}
+        </span>
       </div>
     </slot>
   </TemplateDefault>
@@ -25,8 +25,8 @@ export default {
   },
   props: {
     error: {
-      type: Number,
-      default: 404
+      type: [Number, String],
+      default: ""
     }
   }
 };

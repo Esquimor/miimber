@@ -91,6 +91,9 @@ export default {
       .dispatch("dashboard/setSessionUser", this.$route.params.id)
       .then(() => {
         this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
       });
   }
 };

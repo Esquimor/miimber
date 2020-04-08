@@ -1,9 +1,15 @@
-import Error404 from "@error/views/Error404";
+import Error from "@error/views/Error";
 import Error401 from "@error/views/Error401";
+import Error404 from "@error/views/Error404";
 import Error409 from "@error/views/Error409";
 import Error500 from "@error/views/Error500";
 
 export default [
+  {
+    path: "/error",
+    name: "error",
+    component: Error
+  },
   {
     path: "/error401",
     name: "error_401",

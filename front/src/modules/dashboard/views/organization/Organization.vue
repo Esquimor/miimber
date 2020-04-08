@@ -83,6 +83,10 @@ export default {
         .dispatch("dashboard/setOrganization", this.$route.params.id)
         .then(() => {
           this.endLoading();
+        })
+        .catch(() => {
+          this.endLoading();
+          this.loading = false;
         });
     });
   }

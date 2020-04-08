@@ -21,7 +21,7 @@ export default {
   actions: {
     setOrganization({ commit, dispatch }, id) {
       return api
-        .get(`organization/${id}/manage`)
+        .get(`organization/${id}/manage`, {}, { errorMessage: true })
         .then(organization => {
           dispatch("core/getMember", organization.data.id, { root: true }).then(
             () => {
@@ -35,7 +35,11 @@ export default {
     },
     editOrganization({ commit, state }, name) {
       return api
-        .put(`organization/${state.organization.id}`, { name })
+        .put(
+          `organization/${state.organization.id}`,
+          { name },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.ORG_EDIT_ORGANIZATION, data);
         })
@@ -45,7 +49,11 @@ export default {
     },
     deleteOrganization({ state }) {
       return api
-        .delete(`organization/${state.organization.id}`)
+        .delete(
+          `organization/${state.organization.id}`,
+          {},
+          { errorMessage: true }
+        )
         .then(() => {
           return Promise.resolve();
         })
@@ -55,9 +63,13 @@ export default {
     },
     updateCardOrganization({ state }, { token }) {
       return api
-        .put(`organization/${state.organization.id}/card`, {
-          token
-        })
+        .put(
+          `organization/${state.organization.id}/card`,
+          {
+            token
+          },
+          { errorMessage: true }
+        )
         .then(() => {
           return Promise.resolve();
         })
@@ -67,9 +79,13 @@ export default {
     },
     changeRight({ commit }, { id, role }) {
       return api
-        .put(`member/${id}`, {
-          role
-        })
+        .put(
+          `member/${id}`,
+          {
+            role
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.ORG_CHANGE_MEMBER_ROLE, data);
         })
@@ -82,13 +98,17 @@ export default {
       { organizationId, email, firstName, lastName, role }
     ) {
       return api
-        .post("member/user", {
-          idOrganization: organizationId,
-          email,
-          firstName,
-          lastName,
-          role
-        })
+        .post(
+          "member/user",
+          {
+            idOrganization: organizationId,
+            email,
+            firstName,
+            lastName,
+            role
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.ORG_ADD_MEMBER, data);
         })
@@ -98,10 +118,14 @@ export default {
     },
     addMember({ commit }, { organizationId, userId }) {
       return api
-        .post("member/", {
-          idOrganization: organizationId,
-          idUser: userId
-        })
+        .post(
+          "member/",
+          {
+            idOrganization: organizationId,
+            idUser: userId
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.ORG_ADD_MEMBER, data);
         })
@@ -111,7 +135,7 @@ export default {
     },
     removeMember({ commit }, id) {
       return api
-        .delete(`member/${id}`)
+        .delete(`member/${id}`, {}, { errorMessage: true })
         .then(() => {
           commit(types.ORG_REMOVE_MEMBER, id);
         })
@@ -121,7 +145,11 @@ export default {
     },
     setTypeSessions({ commit, state }) {
       return api
-        .get(`organization/${state.organization.id}/type-session/`)
+        .get(
+          `organization/${state.organization.id}/type-session/`,
+          {},
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.ORG_SET_TYPE_SESSIONS, data);
         })
@@ -131,10 +159,14 @@ export default {
     },
     addTypeSession({ commit, state }, { name }) {
       return api
-        .post("type-session/", {
-          name,
-          organizationId: state.organization.id
-        })
+        .post(
+          "type-session/",
+          {
+            name,
+            organizationId: state.organization.id
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.ORG_ADD_TYPE_SESSION, data);
         })
@@ -144,9 +176,13 @@ export default {
     },
     editTypeSession({ commit }, { name, id }) {
       return api
-        .put(`type-session/${id}`, {
-          name
-        })
+        .put(
+          `type-session/${id}`,
+          {
+            name
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.ORG_EDIT_TYPE_SESSION, data);
         })
@@ -156,9 +192,13 @@ export default {
     },
     deleteTypeSession({ commit }, id) {
       return api
-        .put(`type-session/${id}`, {
-          name
-        })
+        .put(
+          `type-session/${id}`,
+          {
+            name
+          },
+          { errorMessage: true }
+        )
         .then(() => {
           commit(types.ORG_DELETE_TYPE_SESSION, id);
         })
@@ -168,10 +208,14 @@ export default {
     },
     setSessions({ commit, state }, { minDate, maxDate }) {
       return api
-        .get(`organization/${state.organization.id}/session/`, {
-          minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
-          maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
-        })
+        .get(
+          `organization/${state.organization.id}/session/`,
+          {
+            minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
+            maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.ORG_SET_SESSIONS, data);
         })

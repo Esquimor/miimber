@@ -3,11 +3,11 @@
     <div v-if="loading === false">
       <header class="DashboardSession-header">
         <div class="DashboardSession-header-wrapper">
-          <span class="DashboardSession-header-date"
-            >{{ dateLabel }} {{ session.start | formatHour }}-{{
+          <span class="DashboardSession-header-date">
+            {{ dateLabel }} {{ session.start | formatHour }}-{{
               session.end | formatHour
-            }}</span
-          >
+            }}
+          </span>
           <h1 class="DashboardSession-header-title title is-3">
             {{ session.title }}
           </h1>
@@ -46,14 +46,14 @@
       <div v-if="showRegister" class="DashboardSession-bottom">
         <div class="DashboardSession-bottom-wrapper">
           <div class="DashboardSession-bottom-info">
-            <span class="DashboardSession-bottom-info-date text is-size-6"
-              >{{ dateLabel }} {{ session.start | formatHour }}-{{
+            <span class="DashboardSession-bottom-info-date text is-size-6">
+              {{ dateLabel }} {{ session.start | formatHour }}-{{
                 session.end | formatHour
-              }}</span
-            >
-            <span class="DashboardSession-bottom-info-title text is-size-5">{{
-              session.title
-            }}</span>
+              }}
+            </span>
+            <span class="DashboardSession-bottom-info-title text is-size-5">
+              {{ session.title }}
+            </span>
           </div>
           <div class="DashboardSession-bottom-button">
             <BButton
@@ -187,6 +187,10 @@ export default {
         .dispatch("dashboard/setSession", this.$route.params.id)
         .then(() => {
           this.endLoading();
+        })
+        .catch(() => {
+          this.endLoading();
+          this.loading = false;
         });
     });
   }

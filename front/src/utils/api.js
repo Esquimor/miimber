@@ -15,10 +15,10 @@ export default {
   ) {
     return axios.post(`${route}/${endpoint}`, params).catch(e => {
       if (errorRedirect) {
-        router.push({ name: "error" });
+        dealErrorRedirect(e);
       }
       if (errorMessage) {
-        store.dispatch("core/setMessageError");
+        dealErrorDialog(e);
       }
       return Promise.reject(e);
     });
@@ -41,10 +41,10 @@ export default {
       })
       .catch(e => {
         if (errorRedirect) {
-          router.push({ name: "error" });
+          dealErrorRedirect(e);
         }
         if (errorMessage) {
-          store.dispatch("core/setMessageError");
+          dealErrorDialog(e);
         }
         return Promise.reject(e);
       });
@@ -61,10 +61,10 @@ export default {
       .post(`${route}/${endpoint}`, params, { headers: setToken() })
       .catch(e => {
         if (errorRedirect) {
-          router.push({ name: "error" });
+          dealErrorRedirect(e);
         }
         if (errorMessage) {
-          store.dispatch("core/setMessageError");
+          dealErrorDialog(e);
         }
         return Promise.reject(e);
       });
@@ -81,10 +81,10 @@ export default {
       .put(`${route}/${endpoint}`, params, { headers: setToken() })
       .catch(e => {
         if (errorRedirect) {
-          router.push({ name: "error" });
+          dealErrorRedirect(e);
         }
         if (errorMessage) {
-          store.dispatch("core/setMessageError");
+          dealErrorDialog(e);
         }
         return Promise.reject(e);
       });
@@ -101,10 +101,10 @@ export default {
       .put(`${route}/${endpoint}`, params, { headers: setToken() })
       .catch(e => {
         if (errorRedirect) {
-          router.push({ name: "error" });
+          dealErrorRedirect(e);
         }
         if (errorMessage) {
-          store.dispatch("core/setMessageError");
+          dealErrorDialog(e);
         }
         return Promise.reject(e);
       });
@@ -124,10 +124,10 @@ export default {
       )
       .catch(e => {
         if (errorRedirect) {
-          router.push({ name: "error" });
+          dealErrorRedirect(e);
         }
         if (errorMessage) {
-          store.dispatch("core/setMessageError");
+          dealErrorDialog(e);
         }
         return Promise.reject(e);
       });
@@ -138,4 +138,52 @@ function setToken() {
   return {
     Authorization: `Bearer ${localStorage.getItem("token")}`
   };
+}
+
+/**
+ * Deal with the redirection of error
+ * @param {AxiosError} error
+ */
+function dealErrorRedirect(error) {
+  if (error.response) {
+    /*
+     * The request was made and the server responded with a
+     * status code that falls out of the range of 2xx
+     */
+    router.push({ name: `error_${error.response.status}` });
+  } else if (error.request) {
+    /*
+     * The request was made but no response was received, `error.request`
+     * is an instance of XMLHttpRequest in the browser and an instance
+     * of http.ClientRequest in Node.js
+     */
+    router.push({ name: "error" });
+  } else {
+    // Something happened in setting up the request and triggered an Error
+    router.push({ name: "error" });
+  }
+}
+
+/**
+ * Deal with the redirection of dialog
+ * @param {AxiosError} error
+ */
+function dealErrorDialog(error) {
+  if (error.response) {
+    /*
+     * The request was made and the server responded with a
+     * status code that falls out of the range of 2xx
+     */
+    store.dispatch("core/setMessageError", error.response.status);
+  } else if (error.request) {
+    /*
+     * The request was made but no response was received, `error.request`
+     * is an instance of XMLHttpRequest in the browser and an instance
+     * of http.ClientRequest in Node.js
+     */
+    store.dispatch("core/setMessageError", "");
+  } else {
+    // Something happened in setting up the request and triggered an Error
+    store.dispatch("core/setMessageError", "");
+  }
 }

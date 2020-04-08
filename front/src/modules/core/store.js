@@ -44,11 +44,12 @@ export default {
     },
     sideBar: state => state.sideBar,
     sideBarProps: state => state.sideBar.open && state.sideBar.props,
-    message: state => state.message
+    message: state => state.message,
+    error: state => state.error
   },
   actions: {
     getMe({ commit }) {
-      return api.get("me").then(({ data }) => {
+      return api.get("me", {}, { errorRedirect: true }).then(({ data }) => {
         commit(types.COR_SET_ME, data);
         return Promise.resolve();
       });
@@ -58,7 +59,7 @@ export default {
     },
     getMember({ commit }, idOrganization) {
       return api
-        .get(`member/me/${idOrganization}`)
+        .get(`member/me/${idOrganization}`, {}, { errorMessage: true })
         .then(({ data }) => {
           commit(types.COR_SET_MEMBER_ME, data);
           return Promise.resolve();

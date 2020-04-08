@@ -37,6 +37,9 @@ export default {
       .dispatch("dashboard/setOrganizationMembers", this.$route.params.id)
       .then(() => {
         this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
       });
   }
 };

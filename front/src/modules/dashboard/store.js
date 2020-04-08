@@ -50,57 +50,79 @@ export default {
   },
   actions: {
     setOrganizations({ commit }) {
-      return api.get(`user/organization`).then(({ data }) => {
-        commit(types.DASH_SET_ORGANIZATIONS, data);
-      });
+      return api
+        .get(`user/organization`, {}, { errorRedirect: true })
+        .then(({ data }) => {
+          commit(types.DASH_SET_ORGANIZATIONS, data);
+        });
     },
     setOrganization({ commit }, id) {
-      return api.get(`organization/${id}`).then(({ data }) => {
-        commit(types.DASH_SET_ORGANIZATION, data);
-      });
+      return api
+        .get(`organization/${id}`, {}, { errorRedirect: true })
+        .then(({ data }) => {
+          commit(types.DASH_SET_ORGANIZATION, data);
+        });
     },
     setOrganizationSessions({ commit }, { id, minDate, maxDate }) {
       return api
-        .get(`organization/${id}/session/`, {
-          minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
-          maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
-        })
+        .get(
+          `organization/${id}/session/`,
+          {
+            minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
+            maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.DASH_SET_ORGANIZATION_SESSIONS, data);
         });
     },
     setOrganizationMembers({ commit }, id) {
-      return api.get(`organization/${id}/member/`).then(({ data }) => {
-        commit(types.DASH_SET_ORGANIZATION_MEMBERS, data);
-      });
+      return api
+        .get(`organization/${id}/member/`, {}, { errorRedirect: true })
+        .then(({ data }) => {
+          commit(types.DASH_SET_ORGANIZATION_MEMBERS, data);
+        });
     },
     setSessions({ commit }, { minDate, maxDate }) {
       return api
-        .get("user/session/", {
-          minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
-          maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
-        })
+        .get(
+          "user/session/",
+          {
+            minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
+            maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.DASH_SET_SESSIONS, data);
         });
     },
     setSession({ commit }, id) {
-      return api.get(`session/${id}`).then(({ data }) => {
-        commit(types.DASH_SET_SESSION, data);
-      });
+      return api
+        .get(`session/${id}`, {}, { errorRedirect: true })
+        .then(({ data }) => {
+          commit(types.DASH_SET_SESSION, data);
+        });
     },
     setSessionUser({ commit }, id) {
-      return api.get(`session/${id}/user/`).then(({ data }) => {
-        commit(types.DASH_SET_SESSION_USERS, data);
-      });
+      return api
+        .get(`session/${id}/user/`, {}, { errorRedirect: true })
+        .then(({ data }) => {
+          commit(types.DASH_SET_SESSION_USERS, data);
+        });
     },
     setUserPresentSession({ commit, state }, id) {
       return api
-        .post(`attendee/`, {
-          userId: id,
-          sessionId: state.session.id,
-          dateCheck: Date.now()
-        })
+        .post(
+          `attendee/`,
+          {
+            userId: id,
+            sessionId: state.session.id,
+            dateCheck: Date.now()
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.DASH_SET_USER_PRESENT_SESSION, data);
         })
@@ -110,7 +132,7 @@ export default {
     },
     removeUserPresentSession({ commit }, id) {
       return api
-        .delete(`attendee/${id}`)
+        .delete(`attendee/${id}`, { errorMessage: true })
         .then(() => {
           commit(types.DASH_REMOVE_USER_PRESENT_SESSION, id);
         })
@@ -120,10 +142,14 @@ export default {
     },
     registered({ commit }, id) {
       return api
-        .post("registered/", {
-          sessionId: id,
-          dateRegistered: dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ")
-        })
+        .post(
+          "registered/",
+          {
+            sessionId: id,
+            dateRegistered: dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ")
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           commit(types.DASH_ADD_REGISTERED, data);
         })
@@ -134,9 +160,12 @@ export default {
     unsubscribe({ commit }, id) {
       return api
         .delete(`registered/${id}`)
-        .then(() => {
-          commit(types.DASH_REMOVE_REGISTERED, id);
-        })
+        .then(
+          () => {
+            commit(types.DASH_REMOVE_REGISTERED, id);
+          },
+          { errorMessage: true }
+        )
         .catch(e => {
           return Promise.reject(e);
         });

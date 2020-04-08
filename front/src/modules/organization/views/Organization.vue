@@ -65,6 +65,10 @@ export default {
       .then(() => {
         loadingComponent.close();
         this.loading = false;
+      })
+      .catch(() => {
+        loadingComponent.close();
+        this.loading = false;
       });
   }
 };
