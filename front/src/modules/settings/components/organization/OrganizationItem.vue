@@ -2,7 +2,7 @@
   <router-link
     class="SettingsOrganizationItem"
     :to="{
-      name: 'organization-members',
+      name: 'organization-manage-members',
       params: { id: organization.id }
     }"
   >

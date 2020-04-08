@@ -1,9 +1,9 @@
 <template>
   <div class="OrganizationOrganizationMenu">
     <router-link
-      :to="{ name: 'organization-members' }"
+      :to="{ name: NAV.MEMBERS }"
       class="OrganizationOrganizationMenu-link"
-      @click.native="router = ROUTER.MEMBERS"
+      @click.native="setRouterAndNav(ROUTER.MEMBERS, NAV.MEMBERS)"
     >
       <BIcon
         size="is-small"
@@ -13,9 +13,9 @@
       <span>{{ $t("organization.members.title") }}</span>
     </router-link>
     <router-link
-      :to="{ name: 'organization-sessions' }"
+      :to="{ name: NAV.SESSIONS }"
       class="OrganizationOrganizationMenu-link"
-      @click.native="router = ROUTER.SESSIONS"
+      @click.native="setRouterAndNav(ROUTER.SESSIONS, NAV.SESSIONS)"
     >
       <BIcon
         size="is-small"
@@ -29,17 +29,17 @@
       class="OrganizationOrganizationMenu-sublink"
     >
       <router-link
-        :to="{ name: 'organization-sessions-types' }"
+        :to="{ name: NAV.SESSIONS_TYPES }"
         class="OrganizationOrganizationMenu-sublink-item"
-        @click.native="router = ROUTER.SESSIONS"
+        @click.native="setRouterAndNav(ROUTER.SESSIONS, NAV.SESSIONS_TYPES)"
       >
         <span>{{ $t("organization.typeSessions.title") }}</span>
       </router-link>
     </div>
     <router-link
-      :to="{ name: 'organization-settings' }"
+      :to="{ name: NAV.SETTINGS }"
       class="OrganizationOrganizationMenu-link"
-      @click.native="router = ROUTER.SETTINGS"
+      @click.native="setRouterAndNav(ROUTER.SETTINGS, NAV.SETTINGS)"
     >
       <BIcon
         size="is-small"
@@ -48,6 +48,27 @@
       />
       <span>{{ $t("organization.settings.title") }}</span>
     </router-link>
+    <BSelect
+      class="OrganizationOrganizationMenu-tablet"
+      placeholder="Medium"
+      size="is-medium"
+      expanded
+      v-model="nav"
+    >
+      <option :value="NAV.MEMBERS">{{
+        $t("organization.members.title")
+      }}</option>
+      <option :value="NAV.SESSIONS">{{
+        $t("organization.sessions.title")
+      }}</option>
+      <option :value="NAV.SESSIONS_TYPES"
+        >{{ $t("organization.sessions.title") }} -
+        {{ $t("organization.typeSessions.title") }}</option
+      >
+      <option :value="NAV.SETTINGS">{{
+        $t("organization.settings.title")
+      }}</option>
+    </BSelect>
   </div>
 </template>
 
@@ -61,31 +82,52 @@ const ROUTER = {
   NOT_FOUND: "NOT_FOUND"
 };
 
+const NAV = {
+  MEMBERS: "organization-manage-members",
+  SESSIONS: "organization-manage-sessions",
+  SESSIONS_TYPES: "organization-manage-sessions-types",
+  SETTINGS: "organization-manage-settings"
+};
+
 export default {
   name: "OrganizationOrganizationMenu",
   data() {
     return {
       ROUTER: ROUTER,
-      router: ROUTER.MEMBERS
+      router: ROUTER.MEMBERS,
+      nav: "",
+      NAV: NAV
     };
   },
+  methods: {
+    setRouterAndNav(router, nav) {
+      this.router = router;
+      this.nav = nav;
+    }
+  },
   mounted() {
-    switch (this.$router.history.current.name) {
-      case "organization-members":
+    this.nav = this.$route.name;
+    switch (this.$route.name) {
+      case "organization-manage-members":
         this.router = ROUTER.MEMBERS;
         break;
-      case "organization-sessions":
-      case "organization-sessions-types":
+      case "organization-manage-sessions":
+      case "organization-manage-sessions-types":
         this.router = ROUTER.SESSIONS;
         break;
 
-      case "organization-settings":
+      case "organization-manage-settings":
         this.router = ROUTER.SETTINGS;
         break;
 
       default:
         this.router = ROUTER.MEMBERS;
         break;
+    }
+  },
+  watch: {
+    nav(newVal) {
+      this.$router.push({ name: newVal });
     }
   }
 };
@@ -97,6 +139,10 @@ export default {
   flex-direction: column;
   max-width: 170px;
   width: 20%;
+  @media (max-width: $tablet) {
+    width: 100%;
+    max-width: 100%;
+  }
   &-link {
     display: flex;
     justify-content: flex-start;
@@ -108,6 +154,9 @@ export default {
       background-color: $primary;
       color: $white;
     }
+    @media (max-width: $tablet) {
+      display: none;
+    }
     &-icon {
       margin: 0 0.5rem;
     }
@@ -116,12 +165,22 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 0.5rem 0rem 0.5rem 1rem;
+    @media (max-width: $tablet) {
+      display: none;
+    }
     &-item {
       border-left: 2px solid $grey;
       padding: 0.2rem 0rem 0.2rem 0.5rem;
       &.router-link-active {
         border-color: $primary;
       }
+    }
+  }
+  &-tablet {
+    display: none;
+    padding: 0 1rem;
+    @media (max-width: $tablet) {
+      display: initial;
     }
   }
 }

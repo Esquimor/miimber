@@ -55,6 +55,7 @@ export default {
   border-radius: 5px;
   &-members {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
   }
 }

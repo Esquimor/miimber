@@ -3,13 +3,13 @@
     <h2 class="DashboardSessionDescription-title title is-5">
       {{ label }} ({{ nbRegistered }})
     </h2>
-    <template v-if="nbRegistered > 0">
+    <div v-if="nbRegistered > 0" class="DashboardSessionDescription-users">
       <SessionUserItem
         v-for="registered in registereds"
         :key="registered.id"
         :user="registered.user"
       />
-    </template>
+    </div>
     <div v-else class="DashboardSessionDescription-empty">
       <span>{{ $t("dashboard.session.label.registeredEmpty") }}</span>
     </div>
@@ -49,6 +49,14 @@ export default {
   &-empty {
     display: flex;
     justify-content: center;
+  }
+  &-users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    @media (max-width: $tablet) {
+      justify-content: center;
+    }
   }
 }
 </style>

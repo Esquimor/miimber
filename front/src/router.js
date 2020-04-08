@@ -32,7 +32,9 @@ router.beforeEach((to, from, next) => {
   if (
     to.path.search("/settings") !== -1 ||
     to.path.search("/dashboard") !== -1 ||
-    to.path.search("/organization") !== -1
+    to.path.search("/organization") !== -1 ||
+    to.path.search("/session") !== -1 ||
+    to.path.search("/organization-manage") !== -1
   ) {
     if (store.state.core.me) {
       next();

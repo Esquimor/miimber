@@ -78,6 +78,9 @@ export default {
     box-shadow: 0 4px 6px 0 $grey;
     min-height: 80vh;
     border-radius: 5px;
+    @media (max-width: $mobile) {
+      padding: 1rem;
+    }
   }
 }
 </style>
