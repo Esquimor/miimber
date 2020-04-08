@@ -6,27 +6,27 @@ import TypeSessions from "@organization/views/Sessions/TypeSessions";
 
 export default [
   {
-    path: "/organization/:id",
+    path: "/organization-manage/:id",
     component: Organization,
     children: [
       {
         path: "members",
-        name: "organization-members",
+        name: "organization-manage-members",
         component: Members
       },
       {
         path: "settings",
-        name: "organization-settings",
+        name: "organization-manage-settings",
         component: Settings
       },
       {
         path: "sessions",
-        name: "organization-sessions",
+        name: "organization-manage-sessions",
         component: Sessions
       },
       {
         path: "sessions/categories",
-        name: "organization-sessions-types",
+        name: "organization-manage-sessions-types",
         component: TypeSessions
       }
     ]

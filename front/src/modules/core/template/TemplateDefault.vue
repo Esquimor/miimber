@@ -50,6 +50,9 @@ export default {
       align-items: center;
       color: $black-ter;
       width: 100%;
+      @media (max-width: $mobile) {
+        display: none;
+      }
       &-separator {
         flex-grow: 1;
       }

@@ -51,9 +51,9 @@
                 session.end | formatHour
               }}
             </span>
-            <span class="DashboardSession-bottom-info-title text is-size-5">
-              {{ session.title }}
-            </span>
+            <span class="DashboardSession-bottom-info-title text is-size-5">{{
+              session.title
+            }}</span>
           </div>
           <div class="DashboardSession-bottom-button">
             <BButton
@@ -216,12 +216,17 @@ export default {
   &-main {
     min-height: 100vh;
     background-color: $white-bis;
+    padding: 0 1rem;
     &-wrapper {
       display: flex;
       width: 100%;
       max-width: 960px;
       padding: 2rem 0;
       margin: 0 auto;
+      @media (max-width: $tablet) {
+        flex-direction: column;
+        padding: 0.5rem 0;
+      }
     }
     &-left {
       flex-grow: 1;
@@ -231,6 +236,13 @@ export default {
     }
     &-right {
       width: 375px;
+      @media (max-width: $tablet) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 1rem;
+        order: -1;
+      }
     }
   }
   &-bottom {
@@ -246,10 +258,16 @@ export default {
       width: 100%;
       max-width: 960px;
       margin: 0 auto;
+      @media (max-width: $mobile) {
+        justify-content: center;
+      }
     }
     &-info {
       display: flex;
       flex-direction: column;
+      @media (max-width: $mobile) {
+        display: none;
+      }
     }
   }
 }

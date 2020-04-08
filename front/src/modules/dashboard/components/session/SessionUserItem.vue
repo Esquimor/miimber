@@ -1,8 +1,11 @@
 <template>
   <div class="DashboardSessionUserItem">
     <img :src="image" class="DashboardSessionUserItem-image" />
-    <span class="DashboardSessionUserItem-firstName">{{ user.firstName }}</span>
-    <span class="DashboardSessionUserItem-lastName">{{ user.lastName }}</span>
+    <span class="DashboardSessionUserItem-name">
+      {{ user.firstName }}
+      <br />
+      {{ user.lastName }}
+    </span>
   </div>
 </template>
 
@@ -31,17 +34,25 @@ export default {
 .DashboardSessionUserItem {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background-color: $white;
-  width: 100px;
-  padding: 0.5rem;
-  box-shadow: 0 3px 4px 0 $grey;
+  width: 125px;
+  height: 170px;
+  padding: 0.75rem 0.25rem;
+  box-shadow: 0 2px 3px 0 $grey;
   margin: 0.5rem 0.75rem;
   border-radius: 5px;
+  text-overflow: ellipsis;
   &-image {
-    max-width: 75px;
+    width: 80px;
     border-radius: 5px;
+  }
+  &-name {
+    text-align: center;
+    max-width: calc(125px - 0.5rem);
+    height: 48px;
+    overflow: hidden;
   }
 }
 </style>

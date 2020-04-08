@@ -94,6 +94,9 @@ export default {
   }
   &-content {
     display: flex;
+    @media (max-width: $tablet) {
+      flex-direction: column;
+    }
   }
   &-menu {
     max-width: 170px;

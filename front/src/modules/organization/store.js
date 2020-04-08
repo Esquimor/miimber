@@ -21,7 +21,7 @@ export default {
   actions: {
     setOrganization({ commit, dispatch }, id) {
       return api
-        .get(`organization/${id}/manage`, {}, { errorMessage: true })
+        .get(`organization/${id}/manage`, {}, { errorRedirect: true })
         .then(organization => {
           dispatch("core/getMember", organization.data.id, { root: true }).then(
             () => {

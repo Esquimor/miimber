@@ -1,6 +1,6 @@
 <template>
   <TemplateEmerge :loading="loading">
-    <div class="DashboardSessionEmerge">
+    <div v-if="!loading" class="DashboardSessionEmerge">
       <router-link
         :to="{ name: 'dashboard-session', params: { id: session.id } }"
         class="DashboardSessionEmerge-title title is-4"
