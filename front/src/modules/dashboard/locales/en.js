@@ -13,7 +13,7 @@ export default {
         name: "Name"
       },
       label: {
-        list: "Your organizations",
+        list: "My organizations",
         sessions: "Sessions",
         members: "Members"
       }
@@ -28,8 +28,15 @@ export default {
         attendee: "Participants",
         emerge: "Emerge",
         registered: "Registered",
+        registeredWaiting: "On waiting list",
         imRegistered: "I'm registering",
-        iUnsubscribe: "I unsubscribe"
+        iUnsubscribe: "I cancel",
+        placesLeft: "{nb} places left",
+        waiting: "Full: {nb} people on waiting list",
+        descriptionTitle: "Details",
+        registeredEmpty: "No registrant",
+        search: "Search",
+        emptyUsers: "Empty"
       },
       emerge: {
         table: {
@@ -42,6 +49,10 @@ export default {
         table: {
           name: "Name"
         }
+      },
+      unsubscribe: {
+        title: "Cancelled",
+        message: "Are you sure to unsubscribe ?"
       }
     }
   }

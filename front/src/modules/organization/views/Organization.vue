@@ -52,13 +52,9 @@ export default {
   },
   methods: {
     edit() {
-      this.$buefy.modal.open({
-        parent: this,
+      this.$store.dispatch("core/openSideBar", {
         component: OrganizationOrganizationEdit,
-        canCancel: false,
-        props: {
-          name: this.organization.name
-        }
+        props: { name: this.organization.name }
       });
     }
   },
@@ -67,6 +63,10 @@ export default {
     this.$store
       .dispatch("organization/setOrganization", this.$route.params.id)
       .then(() => {
+        loadingComponent.close();
+        this.loading = false;
+      })
+      .catch(() => {
         loadingComponent.close();
         this.loading = false;
       });
@@ -82,7 +82,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $primary-light;
+    background-color: $white-bis;
     border-bottom: 1px solid $grey;
     &-wrapper {
       display: flex;

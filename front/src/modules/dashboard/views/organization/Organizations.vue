@@ -1,30 +1,17 @@
 <template>
-  <TemplateDashboard
-    :title="$t('dashboard.organization.label.list')"
-    :loading="loading"
-  >
-    <BTable :data="organizations" striped paginated :per-page="25">
-      <template v-slot="{ row }">
-        <BTableColumn
-          field="name"
-          :label="$t('dashboard.organization.table.name')"
-          sortable
-          >{{ row.name }}</BTableColumn
-        >
-        <BTableColumn class="DashboardOrganizations-column-manage" :width="200">
-          <router-link
-            :to="{
-              name: 'dashboard-organization-sessions',
-              params: { id: row.id }
-            }"
-            class="button is-primary"
-          >
-            <BIcon icon="eye" />
-            <span class="is-size-6">{{ $t("core.utils.see") }}</span>
-          </router-link>
-        </BTableColumn>
-      </template>
-    </BTable>
+  <TemplateDashboard :loading="loading">
+    <div class="DashboardOrganizations">
+      <h1 class="DashboardOrganizations-title title is-4">
+        {{ $t("dashboard.organization.label.list") }}
+      </h1>
+      <div class="DashboardOrganizations-organizations">
+        <OrganizationItem
+          v-for="organization in organizations"
+          :key="organization.id"
+          :organization="organization"
+        />
+      </div>
+    </div>
   </TemplateDashboard>
 </template>
 
@@ -35,10 +22,13 @@ import { mapGetters } from "vuex";
 
 import TemplateDashboard from "@dashboard/template/TemplateDashboard";
 
+import OrganizationItem from "@dashboard/components/organization/OrganizationItem";
+
 export default {
   name: "DashboardOrganizations",
   components: {
-    TemplateDashboard
+    TemplateDashboard,
+    OrganizationItem
   },
   data() {
     return {
@@ -52,20 +42,26 @@ export default {
     })
   },
   mounted() {
-    this.$store.dispatch("dashboard/setOrganizations").then(() => {
-      this.loading = false;
-    });
+    this.$store
+      .dispatch("dashboard/setOrganizations")
+      .then(() => {
+        this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
+      });
   }
 };
 </script>
 
 <style lang="scss">
 .DashboardOrganizations {
-  &-column {
-    &-manage {
-      display: flex;
-      justify-content: center;
-    }
+  &-title {
+  }
+  &-organizations {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
   }
 }
 </style>

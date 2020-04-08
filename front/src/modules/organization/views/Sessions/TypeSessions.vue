@@ -53,17 +53,13 @@ export default {
   },
   methods: {
     add() {
-      this.$buefy.modal.open({
-        parent: this,
-        component: OrganizationTypeSessionsAdd,
-        canCancel: false
+      this.$store.dispatch("core/openSideBar", {
+        component: OrganizationTypeSessionsAdd
       });
     },
     edit(element) {
-      this.$buefy.modal.open({
-        parent: this,
+      this.$store.dispatch("core/openSideBar", {
         component: OrganizationTypeSessionsEdit,
-        canCancel: false,
         props: { element }
       });
     },
@@ -88,9 +84,14 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("organization/setTypeSessions").then(() => {
-      this.loading = false;
-    });
+    this.$store
+      .dispatch("organization/setTypeSessions")
+      .then(() => {
+        this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
+      });
   }
 };
 </script>

@@ -12,10 +12,14 @@ export default {
   actions: {
     updateProfile({ dispatch }, { lastName, firstName, id }) {
       return api
-        .put(`user/${id}`, {
-          lastName,
-          firstName
-        })
+        .put(
+          `user/${id}`,
+          {
+            lastName,
+            firstName
+          },
+          { errorMessage: true }
+        )
         .then(({ data }) => {
           dispatch("core/updateMeByProfile", data, { root: true });
         })
@@ -25,10 +29,14 @@ export default {
     },
     updatePassword(_, { oldPassword, newPassword, id }) {
       return api
-        .put(`user/${id}`, {
-          oldPassword,
-          newPassword
-        })
+        .put(
+          `user/${id}`,
+          {
+            oldPassword,
+            newPassword
+          },
+          { errorMessage: true }
+        )
         .then(() => {
           return Promise.resolve();
         })
@@ -38,7 +46,7 @@ export default {
     },
     getOrganizationOwnered({ commit }) {
       return api
-        .get("organization/ownered")
+        .get("organization/ownered", {}, { errorMessage: true })
         .then(({ data }) => {
           commit(types.STG_SET_ORGANIZATION_OWNERED, data);
           return Promise.resolve();
@@ -49,11 +57,15 @@ export default {
     },
     createOrganization(_, { token, name, subscription }) {
       return api
-        .post("organization/", {
-          tokenId: token,
-          name,
-          subscription
-        })
+        .post(
+          "organization/",
+          {
+            tokenId: token,
+            name,
+            subscription
+          },
+          { errorMessage: true }
+        )
         .then(data => {
           console.log(data);
         })

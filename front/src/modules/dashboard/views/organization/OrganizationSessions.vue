@@ -1,6 +1,6 @@
 <template>
-  <div v-if="!loading">
-    <div class="OrganizationSession-search">
+  <div class="DashboardOrganizationSessions" v-if="!loading">
+    <div class="DashboardOrganizationSessions-search">
       <div class="columns">
         <div class="column">
           <BField :label="$t('organization.sessions.label.search')">
@@ -19,40 +19,14 @@
         </div>
       </div>
     </div>
-    <BTable :data="filteredSession" striped paginated :per-page="25">
-      <template v-slot="{ row }">
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.title')"
-          >{{ row.title }}</BTableColumn
-        >
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.date')"
-          >{{ row.start | formatDate }}</BTableColumn
-        >
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.start')"
-          >{{ row.start | formatHour }}</BTableColumn
-        >
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.end')"
-          >{{ row.end | formatHour }}</BTableColumn
-        >
-        <BTableColumn
-          field="title"
-          :label="$t('organization.sessions.table.typeSession')"
-          sortable
-          >{{ row.typeSession.name }}</BTableColumn
-        >
-        <BTableColumn
-          class="OrganizationMembers-column-manage"
-          :width="200"
-        ></BTableColumn>
-      </template>
-    </BTable>
+    <div class="DashboardOrganizationSessions-sessions">
+      <SessionList
+        v-for="date in sessionByDate"
+        :key="date.item"
+        :date="date"
+        hideOrganization
+      />
+    </div>
   </div>
 </template>
 
@@ -63,12 +37,29 @@ import { mapGetters } from "vuex";
 
 import dayjs from "dayjs";
 
+import SessionList from "@dashboard/components/session/SessionList";
+
 export default {
   name: "DashboardOrganizationSessions",
+  components: {
+    SessionList
+  },
   data() {
+    let startDate = dayjs()
+      .set("hour", 0)
+      .set("minute", 0)
+      .set("second", 0)
+      .set("millisecond", 0);
+    let endDate = dayjs()
+      .set("hour", 23)
+      .set("minute", 59)
+      .set("second", 59)
+      .set("millisecond", 0)
+      .subtract(1, "day")
+      .add(1, "week");
     return {
       loading: true,
-      dates: [],
+      dates: [startDate.clone().toDate(), endDate.clone().toDate()],
       search: ""
     };
   },
@@ -90,6 +81,32 @@ export default {
       return this.reorderByDate.filter(p => {
         return p.title.toLowerCase().search(lowerCaseSearch) !== -1;
       });
+    },
+    sessionByDate() {
+      return this.filteredSession.reduce((list, session) => {
+        const start = dayjs(session.start);
+        const sameDay = list.find(
+          e =>
+            e.date === start.get("date") &&
+            e.month === start.get("month") &&
+            e.year === start.get("year")
+        );
+        if (sameDay) {
+          sameDay.sessions = [...sameDay.sessions, session];
+        } else {
+          list = [
+            ...list,
+            {
+              date: start.get("date"),
+              day: start.get("day"),
+              month: start.get("month"),
+              year: start.get("year"),
+              sessions: [session]
+            }
+          ];
+        }
+        return list;
+      }, []);
     }
   },
   methods: {
@@ -107,12 +124,6 @@ export default {
     }
   },
   mounted() {
-    this.dates = [
-      dayjs().toDate(),
-      dayjs()
-        .add(1, "month")
-        .toDate()
-    ];
     this.$store
       .dispatch("dashboard/setOrganizationSessions", {
         id: this.$route.params.id,
@@ -121,9 +132,21 @@ export default {
       })
       .then(() => {
         this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
       });
   }
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.DashboardOrganizationSessions {
+  width: 100%;
+  padding: 1rem;
+  background-color: $white;
+  border: 1px solid $grey-lightest;
+  min-height: 80vh;
+  border-radius: 5px;
+}
+</style>

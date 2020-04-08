@@ -23,7 +23,7 @@ export default {
     },
     organization: {
       title: "Organization",
-      listTitle: "List of yours organizations",
+      listTitle: "The organizations that I manage",
       listEmpty: "You don't own any organizarion.",
       create: "Create an organization",
       button: "Create",

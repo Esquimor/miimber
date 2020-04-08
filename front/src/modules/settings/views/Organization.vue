@@ -3,24 +3,11 @@
     <div v-if="!loading" class="SettingsOrganization-list">
       <h2 class="subtitle is-5">{{ $t("settings.organization.listTitle") }}</h2>
       <template v-if="organizations.length > 0">
-        <div
+        <OrganizationItem
           v-for="organization in organizations"
           :key="organization.key"
-          class="SettingsOrganization-list-item"
-        >
-          <span class="SettingsOrganization-list-item-name">
-            {{ organization.name }}
-          </span>
-
-          <router-link
-            class="button is-primary"
-            :to="{
-              name: 'organization-members',
-              params: { id: organization.id }
-            }"
-            >{{ $t("settings.organization.manage") }}</router-link
-          >
-        </div>
+          :organization="organization"
+        />
       </template>
       <div v-else class="SettingsOrganization-list-empty">
         <span>{{ $t("settings.organization.listEmpty") }}</span>
@@ -46,10 +33,13 @@ import { mapGetters } from "vuex";
 
 import TemplateSettings from "@settings/template/TemplateSettings";
 
+import OrganizationItem from "@settings/components/organization/OrganizationItem";
+
 export default {
   name: "Organization",
   components: {
-    TemplateSettings
+    TemplateSettings,
+    OrganizationItem
   },
   data() {
     return {
@@ -66,10 +56,16 @@ export default {
   },
   mounted() {
     const loadingComponent = this.$buefy.loading.open();
-    this.$store.dispatch("settings/getOrganizationOwnered").then(() => {
-      loadingComponent.close();
-      this.loading = false;
-    });
+    this.$store
+      .dispatch("settings/getOrganizationOwnered")
+      .then(() => {
+        loadingComponent.close();
+        this.loading = false;
+      })
+      .catch(() => {
+        loadingComponent.close();
+        this.loading = false;
+      });
   }
 };
 </script>

@@ -40,10 +40,8 @@ export default {
   name: "OrganizationSettings",
   methods: {
     stripeOrganization() {
-      this.$buefy.modal.open({
-        parent: this,
-        component: OrganizationSettingsEditStripe,
-        canCancel: false
+      this.$store.dispatch("core/openSideBar", {
+        component: OrganizationSettingsEditStripe
       });
     },
     deleteOrganization() {

@@ -1,9 +1,9 @@
 <template>
-  <TemplateModal
+  <TemplateSidePanelRight
     :title="$t('organization.organization.edit.title')"
     :loading="loading"
     hasPadding
-    @cancel="$emit('close')"
+    :disabled="!canConfirm"
     @confirm="confirm"
   >
     <div class="columns">
@@ -13,30 +13,34 @@
         </BField>
       </div>
     </div>
-  </TemplateModal>
+  </TemplateSidePanelRight>
 </template>
 
 <script>
 "use strict";
 
-import TemplateModal from "@core/template/TemplateModal";
+import { mapGetters } from "vuex";
+
+import TemplateSidePanelRight from "@core/template/TemplateSidePanelRight";
 
 export default {
   name: "OrganizationOrganizationEdit",
   components: {
-    TemplateModal
-  },
-  props: {
-    name: {
-      type: String,
-      default: ""
-    }
+    TemplateSidePanelRight
   },
   data() {
     return {
       loading: false,
       editName: this.name
     };
+  },
+  computed: {
+    ...mapGetters({
+      props: "core/sideBarProps"
+    }),
+    canConfirm() {
+      return this.editName;
+    }
   },
   methods: {
     confirm() {
@@ -48,16 +52,19 @@ export default {
             message: this.$t("organization.organization.edit.success"),
             type: "is-success"
           });
-          this.$emit("close");
+          this.$store.dispatch("core/closeSideBar");
         })
         .catch(() => {
-          this.$emit("close");
+          this.$store.dispatch("core/closeSideBar");
         });
     }
   },
   watch: {
-    name(newVal) {
-      this.editName = newVal;
+    "props.name": {
+      immediate: true,
+      handler(newVal) {
+        this.editName = newVal;
+      }
     }
   }
 };

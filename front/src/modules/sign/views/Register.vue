@@ -53,9 +53,9 @@
       <div class="Register-bottom">
         <span>
           {{ $t("register.login.label") }}
-          <router-link :to="{ name: 'login' }">{{
-            $t("register.login.link")
-          }}</router-link>
+          <router-link :to="{ name: 'login' }">
+            {{ $t("register.login.link") }}
+          </router-link>
         </span>
       </div>
     </template>
@@ -79,7 +79,7 @@ export default {
       confirm: "",
       loading: false,
       errorSamePassword: false,
-      error: true
+      error: false
     };
   },
   computed: {

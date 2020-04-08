@@ -163,9 +163,17 @@ export default {
         maxDate: this.dates[1]
       })
       .then(() => {
-        this.$store.dispatch("organization/setTypeSessions").then(() => {
-          this.loading = false;
-        });
+        this.$store
+          .dispatch("organization/setTypeSessions")
+          .then(() => {
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+          });
+      })
+      .catch(() => {
+        this.loading = false;
       });
   }
 };

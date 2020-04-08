@@ -1,26 +1,12 @@
 <template>
-  <div v-if="!loading">
-    <BTable :data="members" striped paginated :per-page="25">
-      <template v-slot="{ row }">
-        <BTableColumn
-          field="firstName"
-          :label="$t('organization.members.table.firstName')"
-          sortable
-          >{{ row.firstName }}</BTableColumn
-        >
-        <BTableColumn
-          field="lastName"
-          :label="$t('organization.members.table.lastName')"
-          sortable
-          >{{ row.lastName }}</BTableColumn
-        >
-        <BTableColumn
-          field="role"
-          :label="$t('organization.members.table.role')"
-          >{{ $t(`core.role.${row.role}`) }}</BTableColumn
-        >
-      </template>
-    </BTable>
+  <div v-if="!loading" class="DashboardOrganizationMembers">
+    <div class="DashboardOrganizationMembers-members">
+      <SessionUserItem
+        v-for="member in members"
+        :key="member.id"
+        :user="member"
+      />
+    </div>
   </div>
 </template>
 
@@ -29,8 +15,13 @@
 
 import { mapGetters } from "vuex";
 
+import SessionUserItem from "@dashboard/components/session/SessionUserItem";
+
 export default {
   name: "DashboardOrganizationMembers",
+  components: {
+    SessionUserItem
+  },
   data() {
     return {
       loading: true
@@ -46,6 +37,9 @@ export default {
       .dispatch("dashboard/setOrganizationMembers", this.$route.params.id)
       .then(() => {
         this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
       });
   }
 };
@@ -53,10 +47,15 @@ export default {
 
 <style lang="scss">
 .DashboardOrganizationMembers {
-  &-column {
-    &-manage {
-      justify-content: center !important;
-    }
+  width: 100%;
+  padding: 1rem;
+  background-color: $white;
+  border: 1px solid $grey-lightest;
+  min-height: 80vh;
+  border-radius: 5px;
+  &-members {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 </style>

@@ -78,10 +78,8 @@ export default {
       });
     },
     add() {
-      this.$buefy.modal.open({
-        parent: this,
-        component: OrganizationMembersAdd,
-        canCancel: false
+      this.$store.dispatch("core/openSideBar", {
+        component: OrganizationMembersAdd
       });
     }
   }

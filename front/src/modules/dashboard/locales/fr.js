@@ -13,7 +13,7 @@ export default {
         name: "Nom"
       },
       label: {
-        list: "Vos organisations",
+        list: "Mes organisations",
         sessions: "Sessions",
         members: "Membres"
       }
@@ -26,10 +26,17 @@ export default {
         end: "Fin",
         information: "Information",
         attendee: "Participants",
-        emerge: "Émerger",
+        emerge: "Émarger",
         registered: "Inscrits",
+        registeredWaiting: "Sur liste d'attente",
         imRegistered: "Je m'inscris",
-        iUnsubscribe: "Je me désinscris"
+        iUnsubscribe: "Je me désinscris",
+        placesLeft: "Il reste {nb} places",
+        waiting: "Complet: {nb} personnes en liste d'attentes",
+        descriptionTitle: "Détails",
+        registeredEmpty: "Aucun inscrit",
+        search: "Rechercher",
+        emptyUsers: "Vide"
       },
       emerge: {
         table: {
@@ -42,6 +49,10 @@ export default {
         table: {
           name: "Nom"
         }
+      },
+      unsubscribe: {
+        title: "Se désinscrire",
+        message: "Êtes vous sur de vous désinscrire ?"
       }
     }
   }

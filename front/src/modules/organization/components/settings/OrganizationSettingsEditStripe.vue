@@ -1,9 +1,8 @@
 <template>
-  <TemplateModal
+  <TemplateSidePanelRight
     :title="$t('organization.settings.stripe.title')"
     :loading="loading"
     hasPadding
-    @cancel="$emit('close')"
     @confirm="confirm"
   >
     <div class="columns">
@@ -46,7 +45,7 @@
         </b-field>
       </div>
     </div>
-  </TemplateModal>
+  </TemplateSidePanelRight>
 </template>
 
 <script>
@@ -54,12 +53,12 @@
 
 import { loadStripe } from "@stripe/stripe-js";
 
-import TemplateModal from "@core/template/TemplateModal";
+import TemplateSidePanelRight from "@core/template/TemplateSidePanelRight";
 
 export default {
   name: "OrganizationSettingsEditStripe",
   components: {
-    TemplateModal
+    TemplateSidePanelRight
   },
   data() {
     return {
@@ -101,7 +100,7 @@ export default {
                 token: result.token.id
               })
               .then(() => {
-                that.$emit("close");
+                this.$store.dispatch("core/closeSideBar");
                 that.$buefy.toast.open({
                   message: that.$t("organization.settings.stripe.success"),
                   type: "is-primary"
@@ -111,6 +110,9 @@ export default {
                 that.loading = false;
               });
           }
+        })
+        .catch(() => {
+          that.loading = false;
         });
     },
     setCardNumberElement(event) {

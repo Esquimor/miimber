@@ -3,6 +3,22 @@ import * as types from "@/utils/types";
 
 import { ROLE } from "@/utils/consts";
 
+const message = () => {
+  return {
+    show: false,
+    title: "",
+    message: "",
+    type: ""
+  };
+};
+
+const error = () => {
+  return {
+    show: false,
+    status: ""
+  };
+};
+
 export default {
   namespaced: true,
   state: {
@@ -10,7 +26,9 @@ export default {
     member: null,
     sideBar: {
       open: false
-    }
+    },
+    message: message(),
+    error: error()
   },
   getters: {
     me: state => state.me,
@@ -25,11 +43,13 @@ export default {
       );
     },
     sideBar: state => state.sideBar,
-    sideBarProps: state => state.sideBar.open && state.sideBar.props
+    sideBarProps: state => state.sideBar.open && state.sideBar.props,
+    message: state => state.message,
+    error: state => state.error
   },
   actions: {
     getMe({ commit }) {
-      return api.get("me").then(({ data }) => {
+      return api.get("me", {}, { errorRedirect: true }).then(({ data }) => {
         commit(types.COR_SET_ME, data);
         return Promise.resolve();
       });
@@ -39,7 +59,7 @@ export default {
     },
     getMember({ commit }, idOrganization) {
       return api
-        .get(`member/me/${idOrganization}`)
+        .get(`member/me/${idOrganization}`, {}, { errorMessage: true })
         .then(({ data }) => {
           commit(types.COR_SET_MEMBER_ME, data);
           return Promise.resolve();
@@ -53,6 +73,18 @@ export default {
     },
     closeSideBar({ commit }) {
       commit(types.COR_CLOSE_SIDE_BAR);
+    },
+    setMessage({ commit }, message) {
+      commit(types.COR_SET_MESSAGE, message);
+    },
+    setMessageError({ commit }, status = 404) {
+      commit(types.CORE_SET_MESSAGE_ERROR, status);
+    },
+    emptyMessage({ commit }) {
+      commit(types.COR_EMPTY_MESSAGE);
+    },
+    emptyError({ commit }) {
+      commit(types.COR_EMPTY_ERROR);
     }
   },
   mutations: {
@@ -75,6 +107,26 @@ export default {
     },
     [types.COR_CLOSE_SIDE_BAR](state) {
       state.sideBar.open = false;
+    },
+    [types.COR_SET_MESSAGE](state, { type, message, title }) {
+      state.message = {
+        type,
+        message,
+        title,
+        show: true
+      };
+    },
+    [types.CORE_SET_MESSAGE_ERROR](state, status) {
+      state.error = {
+        show: true,
+        status
+      };
+    },
+    [types.COR_EMPTY_MESSAGE](state) {
+      state.message = message();
+    },
+    [types.COR_EMPTY_ERROR](state) {
+      state.error = error();
     }
   }
 };

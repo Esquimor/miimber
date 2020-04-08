@@ -1,15 +1,18 @@
 <template>
-  <div class="Error404">
-    Error 404
-  </div>
+  <TemplateError :error="404" />
 </template>
 
 <script>
 "use strict";
 
+import TemplateError from "@error/template/TemplateError";
+
 export default {
-  name: "Error404"
+  name: "Error404",
+  components: {
+    TemplateError
+  }
 };
 </script>
 
-<style lang="scss"></style>
+<style></style>
