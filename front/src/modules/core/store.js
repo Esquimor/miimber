@@ -8,7 +8,14 @@ const message = () => {
     show: false,
     title: "",
     message: "",
-    type: "",
+    type: ""
+  };
+};
+
+const error = () => {
+  return {
+    show: false,
+    status: ""
   };
 };
 
@@ -18,16 +25,16 @@ export default {
     me: null,
     member: null,
     sideBar: {
-      open: false,
+      open: false
     },
     message: message(),
+    error: error()
   },
   getters: {
-    me: (state) => state.me,
-    member: (state) => state.member,
-    memberIsOwner: (state) =>
-      !!state.member && state.member.role === ROLE.OWNER,
-    canChangeOrganization: (state) => {
+    me: state => state.me,
+    member: state => state.member,
+    memberIsOwner: state => !!state.member && state.member.role === ROLE.OWNER,
+    canChangeOrganization: state => {
       return (
         !!state.member &&
         [ROLE.OWNER, ROLE.OFFICE, ROLE.OFFICE_INSTRUCTOR].includes(
@@ -35,8 +42,9 @@ export default {
         )
       );
     },
-    sideBar: (state) => state.sideBar,
-    sideBarProps: (state) => state.sideBar.open && state.sideBar.props,
+    sideBar: state => state.sideBar,
+    sideBarProps: state => state.sideBar.open && state.sideBar.props,
+    message: state => state.message
   },
   actions: {
     getMe({ commit }) {
@@ -55,7 +63,7 @@ export default {
           commit(types.COR_SET_MEMBER_ME, data);
           return Promise.resolve();
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -65,6 +73,18 @@ export default {
     closeSideBar({ commit }) {
       commit(types.COR_CLOSE_SIDE_BAR);
     },
+    setMessage({ commit }, message) {
+      commit(types.COR_SET_MESSAGE, message);
+    },
+    setMessageError({ commit }, status = 404) {
+      commit(types.CORE_SET_MESSAGE_ERROR, status);
+    },
+    emptyMessage({ commit }) {
+      commit(types.COR_EMPTY_MESSAGE);
+    },
+    emptyError({ commit }) {
+      commit(types.COR_EMPTY_ERROR);
+    }
   },
   mutations: {
     [types.COR_SET_ME](state, user) {
@@ -81,11 +101,31 @@ export default {
       state.sideBar = {
         component,
         open: true,
-        props,
+        props
       };
     },
     [types.COR_CLOSE_SIDE_BAR](state) {
       state.sideBar.open = false;
     },
-  },
+    [types.COR_SET_MESSAGE](state, { type, message, title }) {
+      state.message = {
+        type,
+        message,
+        title,
+        show: true
+      };
+    },
+    [types.CORE_SET_MESSAGE_ERROR](state, status) {
+      state.error = {
+        show: true,
+        status
+      };
+    },
+    [types.COR_EMPTY_MESSAGE](state) {
+      state.message = message();
+    },
+    [types.COR_EMPTY_ERROR](state) {
+      state.error = error();
+    }
+  }
 };

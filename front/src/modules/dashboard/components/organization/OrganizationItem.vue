@@ -2,15 +2,16 @@
   <router-link
     class="DashboardOrganizationItem"
     :to="{
-        name: 'dashboard-organization-sessions',
-        params: { id: organization.id }
-      }"
+      name: 'dashboard-organization-sessions',
+      params: { id: organization.id }
+    }"
   >
     <img :src="image" class="DashboardOrganizationItem-image" />
     <div class="DashboardOrganizationItem-info">
       <span
         class="DashboardOrganizationItem-info-name is-size-6 has-text-weight-semibold"
-      >{{ organization.name }}</span>
+        >{{ organization.name }}</span
+      >
       <span>{{ $t(`core.role.${organization.user.role}`) }}</span>
     </div>
   </router-link>

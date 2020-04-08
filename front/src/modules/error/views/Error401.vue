@@ -1,5 +1,5 @@
 <template>
-  <TemplateError :error="404" />
+  <TemplateError :error="401" />
 </template>
 
 <script>
@@ -8,7 +8,7 @@
 import TemplateError from "@error/template/TemplateError";
 
 export default {
-  name: "Error404",
+  name: "Error401",
   components: {
     TemplateError
   }

@@ -9,6 +9,7 @@ import home from "@home/locales/index.js";
 import sign from "@sign/locales/index.js";
 import settings from "@settings/locales/index.js";
 import organization from "@organization/locales/index.js";
+import error from "@error/locales/index.js";
 
 const fr = Object.assign(
   {},
@@ -17,7 +18,8 @@ const fr = Object.assign(
   home.fr,
   sign.fr,
   settings.fr,
-  organization.fr
+  organization.fr,
+  error.fr
 );
 const en = Object.assign(
   {},
@@ -26,7 +28,8 @@ const en = Object.assign(
   home.en,
   sign.en,
   settings.en,
-  organization.rn
+  organization.en,
+  error.en
 );
 
 const messages = {

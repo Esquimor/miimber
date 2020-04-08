@@ -1,8 +1,13 @@
 <template>
   <div class="DashboardSessionEmergeItem" @click="setUser">
     <img :src="image" class="DashboardSessionEmergeItem-image" />
-    <div class="DashboardSessionEmergeItem-name">{{ user.firstName }} {{ user.lastName }}</div>
-    <BCheckbox :value="!!user.attendeeId" class="DashboardSessionEmergeItem-check" />
+    <div class="DashboardSessionEmergeItem-name">
+      {{ user.firstName }} {{ user.lastName }}
+    </div>
+    <BCheckbox
+      :value="!!user.attendeeId"
+      class="DashboardSessionEmergeItem-check"
+    />
   </div>
 </template>
 

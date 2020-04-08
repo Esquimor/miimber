@@ -61,6 +61,10 @@ export default {
         &:hover {
           background-color: $white-ter;
         }
+        &.router-link-active {
+          background-color: $primary;
+          color: $white;
+        }
       }
     }
   }

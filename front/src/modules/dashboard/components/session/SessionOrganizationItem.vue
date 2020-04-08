@@ -2,14 +2,15 @@
   <router-link
     class="DashboardSessionOrganizationItem"
     :to="{
-        name: 'dashboard-organization-sessions',
-        params: { id: organization.id }
-      }"
+      name: 'dashboard-organization-sessions',
+      params: { id: organization.id }
+    }"
   >
     <img :src="image" class="DashboardSessionOrganizationItem-image" />
     <span
       class="DashboardSessionOrganizationItem-info is-size-6 has-text-weight-semibold"
-    >{{ organization.name }}</span>
+      >{{ organization.name }}</span
+    >
   </router-link>
 </template>
 

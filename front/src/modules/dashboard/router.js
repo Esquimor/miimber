@@ -13,27 +13,27 @@ export default [
   {
     path: "/dashboard",
     name: "dashboard-home",
-    component: Home,
+    component: Home
   },
   {
     path: "/session",
     name: "dashboard-sessions",
-    component: Sessions,
+    component: Sessions
   },
   {
     path: "/session/:id",
     name: "dashboard-session",
-    component: Session,
+    component: Session
   },
   {
     path: "/session/:id/emerge",
     name: "dashboard-session-emerge",
-    component: SessionEmerge,
+    component: SessionEmerge
   },
   {
     path: "/organization",
     name: "dashboard-organizations",
-    component: Organizations,
+    component: Organizations
   },
   {
     path: "/organization/:id",
@@ -42,13 +42,13 @@ export default [
       {
         path: "sessions",
         name: "dashboard-organization-sessions",
-        component: OrganizationSessions,
+        component: OrganizationSessions
       },
       {
         path: "members",
         name: "dashboard-organization-members",
-        component: OrganizationMembers,
-      },
-    ],
-  },
+        component: OrganizationMembers
+      }
+    ]
+  }
 ];

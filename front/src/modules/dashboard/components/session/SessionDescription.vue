@@ -1,8 +1,8 @@
 <template>
   <section class="DashboardSessionDescription">
-    <h2
-      class="DashboardSessionDescription-title title is-5"
-    >{{ $t("dashboard.session.label.descriptionTitle") }}</h2>
+    <h2 class="DashboardSessionDescription-title title is-5">
+      {{ $t("dashboard.session.label.descriptionTitle") }}
+    </h2>
     <p class="DashboardSessionDescription-text">{{ description }}</p>
   </section>
 </template>
@@ -21,5 +21,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

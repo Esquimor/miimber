@@ -1,9 +1,9 @@
 <template>
   <TemplateDashboard :loading="loading">
     <div class="DashboardOrganizations">
-      <h1
-        class="DashboardOrganizations-title title is-4"
-      >{{$t('dashboard.organization.label.list') }}</h1>
+      <h1 class="DashboardOrganizations-title title is-4">
+        {{ $t("dashboard.organization.label.list") }}
+      </h1>
       <div class="DashboardOrganizations-organizations">
         <OrganizationItem
           v-for="organization in organizations"

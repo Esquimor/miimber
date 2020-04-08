@@ -3,17 +3,22 @@
     <div v-if="loading === false">
       <header class="DashboardSession-header">
         <div class="DashboardSession-header-wrapper">
-          <span
-            class="DashboardSession-header-date"
-          >{{ dateLabel }} {{ session.start | formatHour }}-{{ session.end | formatHour}}</span>
-          <h1 class="DashboardSession-header-title title is-3">{{ session.title }}</h1>
+          <span class="DashboardSession-header-date"
+            >{{ dateLabel }} {{ session.start | formatHour }}-{{
+              session.end | formatHour
+            }}</span
+          >
+          <h1 class="DashboardSession-header-title title is-3">
+            {{ session.title }}
+          </h1>
         </div>
       </header>
       <div v-if="isInsctructorOrganization" class="DashboardSession-emerge">
         <router-link
-          :to="{name: 'dashboard-session-emerge', params: {id: session.id}}"
+          :to="{ name: 'dashboard-session-emerge', params: { id: session.id } }"
           class="button is-primary"
-        >{{ $t("dashboard.session.label.emerge") }}</router-link>
+          >{{ $t("dashboard.session.label.emerge") }}</router-link
+        >
       </div>
       <main class="DashboardSession-main">
         <div class="DashboardSession-main-wrapper">
@@ -41,10 +46,14 @@
       <div v-if="showRegister" class="DashboardSession-bottom">
         <div class="DashboardSession-bottom-wrapper">
           <div class="DashboardSession-bottom-info">
-            <span
-              class="DashboardSession-bottom-info-date text is-size-6"
-            >{{ dateLabel }} {{ session.start | formatHour }}-{{ session.end | formatHour}}</span>
-            <span class="DashboardSession-bottom-info-title text is-size-5">{{ session.title }}</span>
+            <span class="DashboardSession-bottom-info-date text is-size-6"
+              >{{ dateLabel }} {{ session.start | formatHour }}-{{
+                session.end | formatHour
+              }}</span
+            >
+            <span class="DashboardSession-bottom-info-title text is-size-5">{{
+              session.title
+            }}</span>
           </div>
           <div class="DashboardSession-bottom-button">
             <BButton
@@ -53,13 +62,15 @@
               :loading="loadingRegisterd"
               @click.native="unsubscribe"
               outlined
-            >{{ $t("dashboard.session.label.iUnsubscribe") }}</BButton>
+              >{{ $t("dashboard.session.label.iUnsubscribe") }}</BButton
+            >
             <BButton
               v-else
               type="is-primary"
               :loading="loadingRegisterd"
               @click.native="registerd"
-            >{{ $t("dashboard.session.label.imRegistered") }}</BButton>
+              >{{ $t("dashboard.session.label.imRegistered") }}</BButton
+            >
           </div>
         </div>
       </div>

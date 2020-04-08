@@ -19,7 +19,8 @@
         <router-link
           class="button is-primary"
           :to="{ name: 'settings-organization-create' }"
-        >{{ $t("settings.organization.button") }}</router-link>
+          >{{ $t("settings.organization.button") }}</router-link
+        >
       </div>
     </div>
   </TemplateSettings>

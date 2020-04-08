@@ -1,6 +1,8 @@
 <template>
   <section class="DashboardSessionRegistereds">
-    <h2 class="DashboardSessionDescription-title title is-5">{{ label }} ({{ nbRegistered }})</h2>
+    <h2 class="DashboardSessionDescription-title title is-5">
+      {{ label }} ({{ nbRegistered }})
+    </h2>
     <template v-if="nbRegistered > 0">
       <SessionUserItem
         v-for="registered in registereds"

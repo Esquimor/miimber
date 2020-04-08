@@ -3,18 +3,28 @@
     <div v-if="loading === false">
       <header class="DashboardOrganization-header">
         <div class="DashboardOrganization-header-wrapper">
-          <h1 class="DashboardOrganization-header-title title is-3">{{ organization.name }}</h1>
+          <h1 class="DashboardOrganization-header-title title is-3">
+            {{ organization.name }}
+          </h1>
         </div>
       </header>
       <nav class="DashboardOrganization-nav">
         <router-link
           class="DashboardOrganization-nav-item"
-          :to="{name: 'dashboard-organization-sessions', params: {id: organization.id}}"
-        >{{ $t('dashboard.organization.label.sessions')}}</router-link>
+          :to="{
+            name: 'dashboard-organization-sessions',
+            params: { id: organization.id }
+          }"
+          >{{ $t("dashboard.organization.label.sessions") }}</router-link
+        >
         <router-link
           class="DashboardOrganization-nav-item"
-          :to="{name: 'dashboard-organization-members', params: {id: organization.id}}"
-        >{{ $t('dashboard.organization.label.members')}}</router-link>
+          :to="{
+            name: 'dashboard-organization-members',
+            params: { id: organization.id }
+          }"
+          >{{ $t("dashboard.organization.label.members") }}</router-link
+        >
       </nav>
       <main class="DashboardOrganization-main">
         <div class="DashboardOrganization-main-wrapper">

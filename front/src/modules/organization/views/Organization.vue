@@ -9,7 +9,8 @@
             type="is-primary"
             @click="edit"
             outlined
-          >{{ $t("core.utils.edit") }}</BButton>
+            >{{ $t("core.utils.edit") }}</BButton
+          >
         </div>
       </header>
       <div class="Organization-content">

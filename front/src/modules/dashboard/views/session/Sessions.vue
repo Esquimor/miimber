@@ -9,13 +9,22 @@
         </div>
         <div class="column">
           <BField :label="$t('organization.sessions.label.between')">
-            <BDatepicker v-model="dates" range @input="setSessions" :nearbyMonthDays="false"></BDatepicker>
+            <BDatepicker
+              v-model="dates"
+              range
+              @input="setSessions"
+              :nearbyMonthDays="false"
+            ></BDatepicker>
           </BField>
         </div>
       </div>
     </div>
     <div class="DashboardSession-sessions">
-      <SessionList v-for="date in sessionByDate" :key="date.item" :date="date" />
+      <SessionList
+        v-for="date in sessionByDate"
+        :key="date.item"
+        :date="date"
+      />
     </div>
   </TemplateDashboard>
 </template>
@@ -39,22 +48,17 @@ export default {
   },
   data() {
     let startDate = dayjs()
-      .set("day", 1)
       .set("hour", 0)
       .set("minute", 0)
       .set("second", 0)
       .set("millisecond", 0);
     let endDate = dayjs()
-      .set("day", 0)
       .set("hour", 23)
       .set("minute", 59)
       .set("second", 59)
       .set("millisecond", 0)
+      .subtract(1, "day")
       .add(1, "week");
-    if (dayjs().get("day") === 0) {
-      startDate = startDate.subtract(1, "week");
-      endDate = endDate.subtract(1, "week");
-    }
     return {
       loading: true,
       search: "",

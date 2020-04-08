@@ -2,14 +2,15 @@
   <router-link
     class="SettingsOrganizationItem"
     :to="{
-        name: 'organization-members',
-        params: { id: organization.id }
-      }"
+      name: 'organization-members',
+      params: { id: organization.id }
+    }"
   >
     <img :src="image" class="SettingsOrganizationItem-image" />
     <span
       class="SettingsOrganizationItem-info is-size-6 has-text-weight-semibold"
-    >{{ organization.name }}</span>
+      >{{ organization.name }}</span
+    >
   </router-link>
 </template>
 

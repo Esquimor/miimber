@@ -9,13 +9,23 @@
         </div>
         <div class="column">
           <BField :label="$t('organization.sessions.label.between')">
-            <BDatepicker v-model="dates" range @input="setSessions" :nearbyMonthDays="false"></BDatepicker>
+            <BDatepicker
+              v-model="dates"
+              range
+              @input="setSessions"
+              :nearbyMonthDays="false"
+            ></BDatepicker>
           </BField>
         </div>
       </div>
     </div>
     <div class="DashboardOrganizationSessions-sessions">
-      <SessionList v-for="date in sessionByDate" :key="date.item" :date="date" hideOrganization />
+      <SessionList
+        v-for="date in sessionByDate"
+        :key="date.item"
+        :date="date"
+        hideOrganization
+      />
     </div>
   </div>
 </template>
@@ -35,9 +45,21 @@ export default {
     SessionList
   },
   data() {
+    let startDate = dayjs()
+      .set("hour", 0)
+      .set("minute", 0)
+      .set("second", 0)
+      .set("millisecond", 0);
+    let endDate = dayjs()
+      .set("hour", 23)
+      .set("minute", 59)
+      .set("second", 59)
+      .set("millisecond", 0)
+      .subtract(1, "day")
+      .add(1, "week");
     return {
       loading: true,
-      dates: [],
+      dates: [startDate.clone().toDate(), endDate.clone().toDate()],
       search: ""
     };
   },
@@ -102,12 +124,6 @@ export default {
     }
   },
   mounted() {
-    this.dates = [
-      dayjs().toDate(),
-      dayjs()
-        .add(1, "month")
-        .toDate()
-    ];
     this.$store
       .dispatch("dashboard/setOrganizationSessions", {
         id: this.$route.params.id,

@@ -2,13 +2,16 @@
   <TemplateEmerge :loading="loading">
     <div class="DashboardSessionEmerge">
       <router-link
-        :to="{name: 'dashboard-session', params: {id: session.id}}"
+        :to="{ name: 'dashboard-session', params: { id: session.id } }"
         class="DashboardSessionEmerge-title title is-4"
       >
         <BIcon icon="arrow-left" />
         {{ session.title }}
       </router-link>
-      <BField :label="$t('dashboard.session.label.search')" class="DashboardSessionEmerge-search">
+      <BField
+        :label="$t('dashboard.session.label.search')"
+        class="DashboardSessionEmerge-search"
+      >
         <BInput
           :placeholder="$t('dashboard.session.label.search')"
           type="search"
@@ -25,7 +28,7 @@
         />
       </div>
       <div v-else class="DashboardSessionEmerge-empty">
-        <span>{{ $t('dashboard.session.label.emptyUsers') }}</span>
+        <span>{{ $t("dashboard.session.label.emptyUsers") }}</span>
       </div>
     </div>
   </TemplateEmerge>

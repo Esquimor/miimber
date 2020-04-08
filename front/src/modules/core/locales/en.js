@@ -5,7 +5,7 @@ export default {
       INSTRUCTOR: "Instructor",
       MEMBER: "Member",
       OFFICE: "Member of the Office",
-      OFFICE_INSTRUCTOR: "Member of the Office and Instructor",
+      OFFICE_INSTRUCTOR: "Member of the Office and Instructor"
     },
     utils: {
       delete: "Delete",
@@ -13,26 +13,31 @@ export default {
       confirm: "Confirm",
       change: "Change",
       add: "Add",
+      close: "Close",
       remove: "Remove",
       edit: "Edit",
       manage: "Manage",
       see: "See",
       administer: "Administer",
       yes: "Yes",
-      no: "No",
+      no: "No"
     },
     menu: {
       home: "Home",
       sessions: "Sessions",
       organizations: "Organizations",
-      account: "My account",
+      account: "My account"
+    },
+    error: {
+      title: "Error: {status}",
+      message: "Oops, an error has occurred."
     },
     recurrence: {
       ONCE: "Once",
       EVERYDAY: "Everyday",
       BY_WEEK: "By week",
       //ON_DATE_EACH_MONTH: "Once a month",
-      CUSTOM: "Custom",
+      CUSTOM: "Custom"
     },
     days: {
       MONDAY: "Monday",
@@ -41,7 +46,7 @@ export default {
       THURSDAY: "Thursday",
       FRIDAY: "Friday",
       SATURDAY: "Saturday",
-      SUNDAY: "Sunday",
+      SUNDAY: "Sunday"
     },
     daysNumber: {
       1: "Monday",
@@ -50,7 +55,7 @@ export default {
       4: "Thursday",
       5: "Friday",
       6: "Saturday",
-      0: "Sunday",
+      0: "Sunday"
     },
     daysShort: {
       MONDAY: "Mon",
@@ -59,7 +64,7 @@ export default {
       THURSDAY: "Thu",
       FRIDAY: "Fri",
       SATURDAY: "Sat",
-      SUNDAY: "Sun",
+      SUNDAY: "Sun"
     },
     daysFirstLetter: {
       MONDAY: "M",
@@ -68,20 +73,20 @@ export default {
       THURSDAY: "Th",
       FRIDAY: "F",
       SATURDAY: "S",
-      SUNDAY: "Su",
+      SUNDAY: "Su"
     },
     repeatWeek: {
       ONE: "1 Week",
       TWO: "2 Weeks",
       THREE: "3 Weeks",
-      FOUR: "4 Weeks",
+      FOUR: "4 Weeks"
     },
     time: {
       hours: "hours",
-      minutes: "minutes",
+      minutes: "minutes"
     },
     timeShort: {
-      minutes: "min.",
+      minutes: "min."
     },
     months: {
       JANUARY: "January",
@@ -95,7 +100,7 @@ export default {
       SEPTEMBER: "September",
       OCTOBER: "October",
       NOVEMBER: "November",
-      DECEMBER: "December",
+      DECEMBER: "December"
     },
     monthsNumber: {
       0: "January",
@@ -109,7 +114,7 @@ export default {
       8: "September",
       9: "October",
       10: "November",
-      11: "December",
+      11: "December"
     },
     monthsShort: {
       JANUARY: "Jan",
@@ -123,12 +128,12 @@ export default {
       SEPTEMBER: "Sep",
       OCTOBER: "Oct",
       NOVEMBER: "Nov",
-      DECEMBER: "Déc",
+      DECEMBER: "Déc"
     },
     sessionType: {
       TO_COME_UP: "To come up",
       IN_PROGRESS: "In progress",
-      COMPLETED: "Completed",
-    },
-  },
+      COMPLETED: "Completed"
+    }
+  }
 };
