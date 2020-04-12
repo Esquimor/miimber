@@ -1,0 +1,48 @@
+<template>
+  <section class="PresentationHomeLanding">
+    <div class="PresentationHomeLanding-wrapper">
+      <h1 class="PresentationHomeLanding-title title is-2">Me'ember</h1>
+      <span class="PresentationHomeLanding-subtitle is-size-5">Pour les adhérents et les clubs.</span>
+      <div class="PresentationHomeLanding-cta">
+        <router-link
+          :to="{name: 'register'}"
+          class="button is-primary is-outlined is-medium"
+        >Démarrer</router-link>
+        <router-link :to="{name: 'login'}" class="button is-primary is-medium">Se connecter</router-link>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+"use strict";
+
+export default {
+  name: "PresentationHomeLanding"
+};
+</script>
+
+<style lang="scss">
+.PresentationHomeLanding {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url("~@/assets/HomeLanding.png");
+  background-position: 85% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 70vh;
+  &-wrapper {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  &-cta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    width: 300px;
+  }
+}
+</style>

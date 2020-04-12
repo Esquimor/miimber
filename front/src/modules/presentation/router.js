@@ -1,4 +1,4 @@
-import Home from "@home/views/Home";
+import Home from "@presentation/views/Home";
 
 export default [
   {

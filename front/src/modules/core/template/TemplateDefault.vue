@@ -2,7 +2,7 @@
   <div class="TemplateDefault">
     <header class="TemplateDefault-header">
       <nav class="TemplateDefault-header-nav">
-        <router-link :to="{ name: 'dashboard-home' }" exact>
+        <router-link :to="{ name: 'home' }" exact>
           <span>{{ $t("core.menu.home") }}</span>
         </router-link>
         <router-link :to="{ name: 'dashboard-sessions' }">
@@ -18,10 +18,11 @@
         </router-link>
       </nav>
     </header>
-    <div class="TemplateDefault-content">
+    <main class="TemplateDefault-content">
       <slot />
-    </div>
+    </main>
     <component v-if="sideBar.open" :is="sideBar.component" />
+    <footer class="TemplateDefault-footer"></footer>
   </div>
 </template>
 

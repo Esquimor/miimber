@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 import routerCore from "@core/router.js";
 import routerDashboard from "@dashboard/router.js";
 import routerError from "@error/router.js";
-import routerHome from "@home/router.js";
+import routerPresentation from "@presentation/router.js";
 import routerSign from "@sign/router.js";
 import routerSettings from "@settings/router.js";
 import routerOrganization from "@organization/router.js";
@@ -20,7 +20,7 @@ const router = new VueRouter({
   routes: routes.concat(
     routerCore,
     routerDashboard,
-    routerHome,
+    routerPresentation,
     routerSign,
     routerSettings,
     routerOrganization,

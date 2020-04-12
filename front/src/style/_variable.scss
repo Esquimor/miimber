@@ -5,7 +5,7 @@ $light: hsl(0, 0%, 96%);
 $light-invert: findColorInvert($light);
 $dark: hsl(0, 0%, 21%);
 $dark-invert: findColorInvert($dark);
-$primary: rgb(30, 136, 229);
+$primary: #0288d1;
 $primary-invert: findColorInvert($primary);
 $info: hsl(204, 71%, 53%);
 $info-invert: findColorInvert($info);
