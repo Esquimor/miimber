@@ -33,10 +33,21 @@ export default {
   background-size: contain;
   width: 100%;
   height: 70vh;
+  @media (max-width: $tablet) {
+    background: none;
+    height: 50vh;
+  }
   &-wrapper {
     width: 100%;
     max-width: 960px;
     margin: 0 auto;
+    padding: 0.75rem;
+    @media (max-width: $tablet) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
   }
   &-cta {
     display: flex;

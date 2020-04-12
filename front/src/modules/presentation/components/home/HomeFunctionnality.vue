@@ -51,7 +51,7 @@ export default {
     width: 100%;
     max-width: 960px;
     margin: 0 auto !important;
-    padding: 4rem 0;
+    padding: 4rem 0.75rem;
   }
   &-next {
     margin-top: 2rem;
