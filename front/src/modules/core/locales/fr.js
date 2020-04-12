@@ -26,7 +26,9 @@ export default {
       home: "Accueil",
       sessions: "Sessions",
       organizations: "Organisations",
-      account: "Mon compte"
+      account: "Mon compte",
+      register: "Créer un compte",
+      login: "Se connecter"
     },
     error: {
       title: "Erreur: {status}",

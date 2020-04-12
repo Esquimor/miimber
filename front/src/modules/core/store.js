@@ -31,6 +31,7 @@ export default {
     error: error()
   },
   getters: {
+    isConnected: state => !!state.me,
     me: state => state.me,
     member: state => state.member,
     memberIsOwner: state => !!state.member && state.member.role === ROLE.OWNER,
