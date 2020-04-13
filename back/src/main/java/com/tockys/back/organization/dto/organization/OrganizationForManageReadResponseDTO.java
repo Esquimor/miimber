@@ -23,19 +23,23 @@ public class OrganizationForManageReadResponseDTO extends OrganizationCreateRead
 	public OrganizationForManageReadResponseDTO(Organization organization, Subscription subscription) {
 		super(organization.getId(), organization.getName());
 		this.setMembers(convertMembersDTO(organization.getMembers()));
-		this.setCurrentPeriodEnd(subscription.getCurrentPeriodEnd());
-		this.setCancelAtPeriodEnd(subscription.getCancelAtPeriodEnd());
-		this.setStatus(subscription.getStatus());
-		this.setPlan(subscription.getPlan().getId());
+		if (subscription != null) {
+			this.setCurrentPeriodEnd(subscription.getCurrentPeriodEnd());
+			this.setCancelAtPeriodEnd(subscription.getCancelAtPeriodEnd());
+			this.setStatus(subscription.getStatus());
+			this.setPlan(subscription.getPlan().getId());
+		}
 	}
 	
 	public OrganizationForManageReadResponseDTO(long id, String name, List<Member> members, Subscription subscription) {
 		super(id, name);
 		this.setMembers(convertMembersDTO(members));
-		this.setCurrentPeriodEnd(subscription.getCurrentPeriodEnd());
-		this.setCancelAtPeriodEnd(subscription.getCancelAtPeriodEnd());
-		this.setStatus(subscription.getStatus());
-		this.setPlan(subscription.getPlan().getId());
+		if (subscription != null) {
+			this.setCurrentPeriodEnd(subscription.getCurrentPeriodEnd());
+			this.setCancelAtPeriodEnd(subscription.getCancelAtPeriodEnd());
+			this.setStatus(subscription.getStatus());
+			this.setPlan(subscription.getPlan().getId());
+		}
 	}
 	
 	public List<MemberDTO> getMembers() {

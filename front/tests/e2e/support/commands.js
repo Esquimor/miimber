@@ -62,6 +62,9 @@ Cypress.Commands.add("createOrganization", () => {
     method: "POST",
     body: {
       name: uuidv4()
+    },
+    auth: {
+      bearer: `${localStorage.getItem("token")}`
     }
   });
 });

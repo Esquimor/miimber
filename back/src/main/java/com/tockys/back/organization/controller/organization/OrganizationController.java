@@ -90,9 +90,14 @@ public class OrganizationController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
+        Subscription subscription = null;
+        if (member.getOrganization().getStripe() != null) {
+        	subscription = stripeService.getSubscription(member.getOrganization().getStripe());
+        }
+        
         return ResponseEntity.ok(new OrganizationForManageReadResponseDTO(
         		member.getOrganization(), 
-				stripeService.getSubscription(member.getOrganization().getStripe())
+        		subscription
 			));
 	}
 	

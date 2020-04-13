@@ -2,13 +2,13 @@
   <TemplateSettings :title="$t('settings.organization.title')">
     <div v-if="!loading" class="SettingsOrganization-list">
       <h2 class="subtitle is-5">{{ $t("settings.organization.listTitle") }}</h2>
-      <template v-if="organizations.length > 0">
+      <div id="SettingsOrganization-list" v-if="organizations.length > 0">
         <OrganizationItem
           v-for="organization in organizations"
           :key="organization.key"
           :organization="organization"
         />
-      </template>
+      </div>
       <div v-else class="SettingsOrganization-list-empty">
         <span>{{ $t("settings.organization.listEmpty") }}</span>
       </div>
