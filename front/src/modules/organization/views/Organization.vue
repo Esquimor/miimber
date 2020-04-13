@@ -5,6 +5,7 @@
         <div class="Organization-header-wrapper">
           <h1 class="is-size-3">{{ organization.name }}</h1>
           <BButton
+            id="OrganizationOrganization-edit"
             icon-left="pencil"
             type="is-primary"
             @click="edit"

@@ -9,7 +9,11 @@
     <div class="columns">
       <div class="column">
         <BField :label="$t('organization.organization.label.name')">
-          <BInput v-model="editName" required></BInput>
+          <BInput
+            id="OrganizationOrganizationEdit-name"
+            v-model="editName"
+            required
+          ></BInput>
         </BField>
       </div>
     </div>

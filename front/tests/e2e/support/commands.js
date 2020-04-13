@@ -66,5 +66,9 @@ Cypress.Commands.add("createOrganization", () => {
     auth: {
       bearer: `${localStorage.getItem("token")}`
     }
-  });
+  })
+    .its("body")
+    .then(body => {
+      cy.setLocalStorage("organizationId", body.id);
+    });
 });
