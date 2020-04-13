@@ -2,19 +2,34 @@
   <TemplateSettings :title="$t('settings.profile.title')">
     <form @submit.prevent>
       <BField :label="$t('settings.profile.email')">
-        <BInput v-model="editMe.email" type="email" required />
+        <BInput
+          id="SettingsProfile-email"
+          v-model="editMe.email"
+          type="email"
+          required
+        />
       </BField>
       <BField :label="$t('settings.profile.firstName')">
-        <BInput v-model="editMe.firstName" />
+        <BInput
+          id="SettingsProfile-firstName"
+          v-model="editMe.firstName"
+          required
+        />
       </BField>
       <BField :label="$t('settings.profile.lastName')">
-        <BInput v-model="editMe.lastName" />
+        <BInput
+          id="SettingsProfile-lastName"
+          v-model="editMe.lastName"
+          required
+        />
       </BField>
       <div class="SettingsProfile-form-button">
         <button
+          id="SettingsProfile-update"
           class="button is-primary"
           :class="{ 'is-loading': loading }"
           @click="update"
+          :disabled="!canUpdate"
         >
           {{ $t("settings.profile.update") }}
         </button>
@@ -27,6 +42,8 @@
 "use strict";
 
 import { mapGetters } from "vuex";
+
+import { validEmail } from "@/utils/function";
 
 import TemplateSettings from "@settings/template/TemplateSettings";
 
@@ -47,10 +64,16 @@ export default {
   computed: {
     ...mapGetters({
       me: "core/me"
-    })
+    }),
+    canUpdate() {
+      return (
+        !!this.editMe.firstName && !!this.editMe.lastName && !!this.editMe.email
+      );
+    }
   },
   methods: {
     update() {
+      if (!validEmail(this.editMe.email)) return;
       this.loading = true;
       this.$store
         .dispatch("settings/updateProfile", {

@@ -13,7 +13,7 @@ import com.tockys.back.user.dto.UserRegisterDTO;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class TestController {
+public class AuthTestController {
 	
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
