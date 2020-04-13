@@ -66,11 +66,11 @@ export default {
           },
           { errorMessage: true }
         )
-        .then(data => {
-          console.log(data);
+        .then(({ data }) => {
+          return Promise.resolve(data);
         })
         .catch(e => {
-          console.log(e);
+          return Promise.reject(e);
         });
     }
   },

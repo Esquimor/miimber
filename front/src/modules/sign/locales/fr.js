@@ -41,5 +41,13 @@ export default {
       label: "Déjà un compte. ",
       link: "Se connecter."
     }
+  },
+  sign: {
+    registerCompleted: {
+      title: "Compte crée",
+      message:
+        "Pour confirmer votre compte, cliquez sur le lien reçus par mail.",
+      login: "Se connecter"
+    }
   }
 };

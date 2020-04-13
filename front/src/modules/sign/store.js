@@ -28,8 +28,8 @@ export default {
           email: email,
           password: password
         })
-        .then(data => {
-          console.log(data);
+        .then(({ data }) => {
+          return Promise.resolve(data);
         })
         .catch(e => {
           return Promise.reject(e);

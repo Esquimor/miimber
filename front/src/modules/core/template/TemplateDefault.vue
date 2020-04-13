@@ -187,8 +187,5 @@ export default {
       }
     }
   }
-  &-content {
-    margin-top: 3px;
-  }
 }
 </style>
