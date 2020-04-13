@@ -2,46 +2,61 @@
   <TemplateSign>
     <template v-slot:rigth>
       <form class="Login-form" @submit.prevent>
-        <h1 class="Login-form-title is-size-3">{{ $t("login.utils.title") }}</h1>
+        <h1 class="Login-form-title is-size-3">
+          {{ $t("login.utils.title") }}
+        </h1>
         <BNotification
           v-if="error"
           class="Login-form-error"
           type="is-danger"
           aria-close-label="Close notification"
           role="alert"
-        >{{ $t("login.utils.error") }}</BNotification>
+          >{{ $t("login.utils.error") }}</BNotification
+        >
         <BField :label="$t('login.email.label')">
-          <BInput v-model="email" :placeholder="$t('login.email.placeholder')"></BInput>
+          <BInput
+            id="SignLogin-email"
+            type="email"
+            v-model="email"
+            :placeholder="$t('login.email.placeholder')"
+            required
+          ></BInput>
         </BField>
         <BField :label="$t('login.password.label')">
           <BInput
+            id="SignLogin-password"
             v-model="password"
             :placeholder="$t('login.password.placeholder')"
             type="password"
             password-reveal
+            required
           ></BInput>
         </BField>
-        <BCheckbox class="Login-form-remember" v-model="remember">
-          {{
-          $t("login.utils.remember")
-          }}
+        <BCheckbox
+          id="SignLogin-remember"
+          class="Login-form-remember"
+          v-model="remember"
+        >
+          {{ $t("login.utils.remember") }}
         </BCheckbox>
         <div class="Login-form-submit">
           <button
+            id="SignLogin-submit"
             type="submit"
             class="button is-primary"
             :class="{ 'is-loading': loading }"
             @click="submit"
-          >{{ $t("login.utils.submit") }}</button>
+            :disabled="!isLoggable"
+          >
+            {{ $t("login.utils.submit") }}
+          </button>
         </div>
       </form>
       <div class="Login-bottom">
         <span>
           {{ $t("login.register.label") }}
           <router-link :to="{ name: 'register' }">
-            {{
-            $t("login.register.link")
-            }}
+            {{ $t("login.register.link") }}
           </router-link>
         </span>
       </div>
@@ -67,6 +82,11 @@ export default {
       remember: false,
       error: false
     };
+  },
+  computed: {
+    isLoggable() {
+      return this.email !== "" && this.password !== "";
+    }
   },
   methods: {
     submit() {

@@ -3,7 +3,7 @@
  */
 import { v4 as uuidv4 } from "uuid";
 
-describe("Try to access to register", () => {
+describe("Register", () => {
   beforeEach(() => {
     cy.visit("/register");
     cy.get("input#SignRegister-email.input").as("email");
@@ -64,11 +64,14 @@ describe("Try to access to register", () => {
   });
 
   it("Can click to submit", () => {
+    // Email
     cy.get("@submit").should("be.disabled");
     cy.get("@email").type("good@email.com");
     cy.get("@submit").should("be.disabled");
     cy.get("@email").clear();
     cy.get("@submit").should("be.disabled");
+
+    // Password
     cy.get("@password").type("secret");
     cy.get("@submit").should("be.disabled");
     cy.get("@confirm").type("secret");
@@ -77,6 +80,7 @@ describe("Try to access to register", () => {
     cy.get("@confirm").clear();
     cy.get("@submit").should("be.disabled");
 
+    // All
     cy.get("@email").type("good@email.com");
     cy.get("@password").type("secret");
     cy.get("@confirm").type("secret");
