@@ -74,6 +74,7 @@ export default {
   methods: {
     update() {
       if (!validEmail(this.editMe.email)) return;
+      if (!this.canUpdate) return;
       this.loading = true;
       this.$store
         .dispatch("settings/updateProfile", {

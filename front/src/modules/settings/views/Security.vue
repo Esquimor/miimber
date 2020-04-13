@@ -3,6 +3,7 @@
     <form @submit.prevent>
       <BField :label="$t('settings.security.oldPassword')">
         <BInput
+          id="SettingsSecurity-oldPassword"
           type="password"
           v-model="oldPassword"
           password-reveal
@@ -14,6 +15,7 @@
         :type="errorSamePassword ? 'is-danger' : ''"
       >
         <BInput
+          id="SettingsSecurity-newPassword"
           type="password"
           v-model="newPassword"
           @input="errorSamePassword = false"
@@ -27,6 +29,7 @@
         :message="errorSamePassword ? $t('settings.security.notSame') : ''"
       >
         <BInput
+          id="SettingsSecurity-confirmPassword"
           type="password"
           v-model="confirmPassword"
           @blur="verifySamePassword"
@@ -37,9 +40,11 @@
       </BField>
       <div class="SettingsSecurity-form-button">
         <button
+          id="SettingsSecurity-submit"
           class="button is-primary"
           :class="{ 'is-loading': loading }"
           @click="changePassword"
+          :disabled="!canEdit"
         >
           {{ $t("settings.security.change") }}
         </button>
@@ -72,11 +77,14 @@ export default {
   computed: {
     ...mapGetters({
       me: "core/me"
-    })
+    }),
+    canEdit() {
+      return !!this.oldPassword && !!this.newPassword && !!this.confirmPassword;
+    }
   },
   methods: {
     changePassword() {
-      if (this.errorSamePassword) return;
+      if (this.canEdit) return;
       this.loading = true;
       this.$store
         .dispatch("settings/updatePassword", {

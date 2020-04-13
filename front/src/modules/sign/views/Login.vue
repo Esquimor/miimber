@@ -90,6 +90,7 @@ export default {
   },
   methods: {
     submit() {
+      if (!this.isLoggable) return;
       this.loading = true;
       this.$store
         .dispatch("sign/login", {
