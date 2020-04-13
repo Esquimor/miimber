@@ -1,5 +1,5 @@
 <template>
-  <div class="TemplateSidePanelRight">
+  <div id="TemplateSidePanelRight" class="TemplateSidePanelRight">
     <div class="TemplateSidePanelRight-background" @click="closeSideBar" />
     <main
       id="TemplateSidePanelRight-main"

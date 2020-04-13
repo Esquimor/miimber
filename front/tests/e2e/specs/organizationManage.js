@@ -8,16 +8,15 @@ describe("Organization Manage", () => {
   });
 
   beforeEach(() => {
-    cy.restoreLocalStorage();
-    const id = cy.getLocalStorage("organizationId");
-    console.log(id);
-    cy.visit(
-      `/organization-manage/${localStorage.getItem("organizationId")}/members`
-    );
-    cy.get("button#OrganizationOrganization-edit").click();
-    cy.get("input#OrganizationOrganizationEdit-name.input").as("name");
-    cy.get("button#TemplateSidePanelRight-cancel").as("cancel");
-    cy.get("button#TemplateSidePanelRight-confirm").as("confirm");
+    cy.restoreLocalStorage().then(() => {
+      cy.visit(
+        `/organization-manage/${localStorage.getItem("organizationId")}/members`
+      );
+      cy.get("button#OrganizationOrganization-edit").click();
+      cy.get("input#OrganizationOrganizationEdit-name.input").as("name");
+      cy.get("button#TemplateSidePanelRight-cancel").as("cancel");
+      cy.get("button#TemplateSidePanelRight-confirm").as("confirm");
+    });
   });
 
   afterEach(() => {
@@ -46,5 +45,13 @@ describe("Organization Manage", () => {
       .type(uuidv4())
       .blur();
     cy.get("@confirm").not("be.disabled");
+  });
+
+  it("Edit", () => {
+    cy.get("@name")
+      .clear()
+      .type(uuidv4());
+    cy.get("@confirm").click();
+    cy.get("#TemplateSidePanelRight").should("not.exist");
   });
 });
