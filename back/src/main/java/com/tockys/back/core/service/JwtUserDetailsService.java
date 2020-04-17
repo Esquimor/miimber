@@ -43,7 +43,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 		User newUser = new User();
 		newUser.setEmail(user.getEmail());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		mailJetService.sendEmail();
 		return userService.create(newUser);
 	}
 

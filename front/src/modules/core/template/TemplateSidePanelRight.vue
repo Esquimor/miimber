@@ -23,18 +23,14 @@
             class="button is-outlined is-danger"
             @click="closeSideBar"
             :disabled="loading"
-          >
-            {{ $t("core.utils.cancel") }}
-          </button>
+          >{{ $t("core.utils.cancel") }}</button>
           <button
             id="TemplateSidePanelRight-confirm"
             class="button is-primary"
             :class="{ 'is-loading': loading }"
             :disabled="disabled"
-            @click="$emit('confirm')"
-          >
-            {{ $t("core.utils.confirm") }}
-          </button>
+            @click="confirm"
+          >{{ $t("core.utils.confirm") }}</button>
         </footer>
       </slot>
     </main>
@@ -76,6 +72,11 @@ export default {
   methods: {
     closeSideBar() {
       this.$store.dispatch("core/closeSideBar");
+    },
+    confirm() {
+      if (this.loading) return;
+      if (this.disabled) return;
+      this.$emit("confirm");
     }
   }
 };

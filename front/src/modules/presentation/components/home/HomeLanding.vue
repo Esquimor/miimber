@@ -3,7 +3,7 @@
     <div class="PresentationHomeLanding-wrapper">
       <h1 class="PresentationHomeLanding-title title is-2">Me'ember</h1>
       <span class="PresentationHomeLanding-subtitle is-size-5">Connecte les clubs et les adhérents.</span>
-      <div class="PresentationHomeLanding-cta">
+      <div v-if="!isConnected" class="PresentationHomeLanding-cta">
         <router-link
           :to="{name: 'register'}"
           class="button is-primary is-outlined is-medium"
@@ -17,8 +17,16 @@
 <script>
 "use strict";
 
+import { mapGetters } from "vuex";
+
 export default {
-  name: "PresentationHomeLanding"
+  name: "PresentationHomeLanding",
+
+  computed: {
+    ...mapGetters({
+      isConnected: "core/isConnected"
+    })
+  }
 };
 </script>
 

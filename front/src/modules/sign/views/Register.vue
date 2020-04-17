@@ -2,17 +2,14 @@
   <TemplateSign>
     <template v-slot:rigth>
       <form class="Register-form" @submit.prevent>
-        <h1 class="Register-form-title is-size-3">
-          {{ $t("register.utils.title") }}
-        </h1>
+        <h1 class="Register-form-title is-size-3">{{ $t("register.utils.title") }}</h1>
         <BNotification
           v-if="error"
           class="Register-form-error"
           type="is-danger"
           aria-close-label="Close notification"
           role="alert"
-          >{{ $t("register.utils.error") }}</BNotification
-        >
+        >{{ $t("register.utils.error") }}</BNotification>
         <BField :label="$t('register.email.label')">
           <BInput
             id="SignRegister-email"
@@ -22,10 +19,7 @@
             required
           ></BInput>
         </BField>
-        <BField
-          :label="$t('register.password.label')"
-          :type="errorSamePassword ? 'is-danger' : ''"
-        >
+        <BField :label="$t('register.password.label')" :type="errorSamePassword ? 'is-danger' : ''">
           <BInput
             id="SignRegister-password"
             v-model="password"
@@ -56,17 +50,17 @@
             :class="{ 'is-loading': loading }"
             @click="register"
             :disabled="!isRegistable"
-          >
-            {{ $t("register.utils.submit") }}
-          </button>
+          >{{ $t("register.utils.submit") }}</button>
         </div>
       </form>
       <div class="Register-bottom">
         <span>
           {{ $t("register.login.label") }}
-          <router-link :to="{ name: 'login' }">{{
+          <router-link :to="{ name: 'login' }">
+            {{
             $t("register.login.link")
-          }}</router-link>
+            }}
+          </router-link>
         </span>
       </div>
     </template>
@@ -107,6 +101,7 @@ export default {
         return;
       }
       if (!this.isRegistable) return;
+      if (this.loading) return;
       this.loading = true;
       this.$store
         .dispatch("sign/register", {
@@ -115,12 +110,13 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: "register-completed" });
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false;
           this.password = "";
           this.confirm = "";
           this.error = true;
+          this.loading = false;
         });
     },
     verifySamePassword() {

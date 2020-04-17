@@ -83,6 +83,7 @@ export default {
   methods: {
     changePassword() {
       if (!this.canEdit) return;
+      if (this.loading) return;
       this.loading = true;
       this.$store
         .dispatch("settings/updatePassword", {
@@ -91,11 +92,11 @@ export default {
           id: this.me.id
         })
         .then(() => {
-          this.loading = false;
           this.$buefy.toast.open({
             message: this.$t("settings.security.success"),
             type: "is-success"
           });
+          this.loading = false;
         })
         .catch(() => {
           this.loading = false;

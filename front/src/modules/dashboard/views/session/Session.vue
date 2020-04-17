@@ -5,20 +5,17 @@
         <div class="DashboardSession-header-wrapper">
           <span class="DashboardSession-header-date">
             {{ dateLabel }} {{ session.start | formatHour }}-{{
-              session.end | formatHour
+            session.end | formatHour
             }}
           </span>
-          <h1 class="DashboardSession-header-title title is-3">
-            {{ session.title }}
-          </h1>
+          <h1 class="DashboardSession-header-title title is-3">{{ session.title }}</h1>
         </div>
       </header>
       <div v-if="isInsctructorOrganization" class="DashboardSession-emerge">
         <router-link
           :to="{ name: 'dashboard-session-emerge', params: { id: session.id } }"
-          class="button is-primary"
-          >{{ $t("dashboard.session.label.emerge") }}</router-link
-        >
+          class="button is-primary is-medium"
+        >{{ $t("dashboard.session.label.emerge") }}</router-link>
       </div>
       <main class="DashboardSession-main">
         <div class="DashboardSession-main-wrapper">
@@ -48,12 +45,14 @@
           <div class="DashboardSession-bottom-info">
             <span class="DashboardSession-bottom-info-date text is-size-6">
               {{ dateLabel }} {{ session.start | formatHour }}-{{
-                session.end | formatHour
+              session.end | formatHour
               }}
             </span>
-            <span class="DashboardSession-bottom-info-title text is-size-5">{{
+            <span class="DashboardSession-bottom-info-title text is-size-5">
+              {{
               session.title
-            }}</span>
+              }}
+            </span>
           </div>
           <div class="DashboardSession-bottom-button">
             <BButton
@@ -62,15 +61,13 @@
               :loading="loadingRegisterd"
               @click.native="unsubscribe"
               outlined
-              >{{ $t("dashboard.session.label.iUnsubscribe") }}</BButton
-            >
+            >{{ $t("dashboard.session.label.iUnsubscribe") }}</BButton>
             <BButton
               v-else
               type="is-primary"
               :loading="loadingRegisterd"
               @click.native="registerd"
-              >{{ $t("dashboard.session.label.imRegistered") }}</BButton
-            >
+            >{{ $t("dashboard.session.label.imRegistered") }}</BButton>
           </div>
         </div>
       </div>
@@ -142,6 +139,7 @@ export default {
   },
   methods: {
     registerd() {
+      if (this.loadingRegisterd) return;
       this.loadingRegisterd = true;
       this.$store.dispatch("dashboard/registered", this.session.id).then(() => {
         this.loadingRegisterd = false;

@@ -2,17 +2,14 @@
   <TemplateSign>
     <template v-slot:rigth>
       <form class="Login-form" @submit.prevent>
-        <h1 class="Login-form-title is-size-3">
-          {{ $t("login.utils.title") }}
-        </h1>
+        <h1 class="Login-form-title is-size-3">{{ $t("login.utils.title") }}</h1>
         <BNotification
           v-if="error"
           class="Login-form-error"
           type="is-danger"
           aria-close-label="Close notification"
           role="alert"
-          >{{ $t("login.utils.error") }}</BNotification
-        >
+        >{{ $t("login.utils.error") }}</BNotification>
         <BField :label="$t('login.email.label')">
           <BInput
             id="SignLogin-email"
@@ -36,9 +33,7 @@
           id="SignLogin-remember"
           class="Login-form-remember"
           v-model="remember"
-        >
-          {{ $t("login.utils.remember") }}
-        </BCheckbox>
+        >{{ $t("login.utils.remember") }}</BCheckbox>
         <div class="Login-form-submit">
           <button
             id="SignLogin-submit"
@@ -47,17 +42,13 @@
             :class="{ 'is-loading': loading }"
             @click="submit"
             :disabled="!isLoggable"
-          >
-            {{ $t("login.utils.submit") }}
-          </button>
+          >{{ $t("login.utils.submit") }}</button>
         </div>
       </form>
       <div class="Login-bottom">
         <span>
           {{ $t("login.register.label") }}
-          <router-link :to="{ name: 'register' }">
-            {{ $t("login.register.link") }}
-          </router-link>
+          <router-link :to="{ name: 'register' }">{{ $t("login.register.link") }}</router-link>
         </span>
       </div>
     </template>
@@ -91,6 +82,7 @@ export default {
   methods: {
     submit() {
       if (!this.isLoggable) return;
+      if (this.loading) return;
       this.loading = true;
       this.$store
         .dispatch("sign/login", {
@@ -99,11 +91,12 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: "dashboard-sessions" });
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false;
           this.password = "";
           this.error = true;
+          this.loading = false;
         });
     }
   }

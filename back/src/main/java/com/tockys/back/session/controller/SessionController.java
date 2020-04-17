@@ -93,7 +93,7 @@ public class SessionController {
 	    	users.addAll(getAllAttendeesWithoutAlreadyUsers(attendees, registereds, users));
 	    	users.addAll(getAllRegisteredsWithourAlreadyUsers(registereds, users));
 		} else {
-			users.addAll(getAllRegistered(registereds));
+			users.addAll(getAllRegistered(registereds, attendees));
 		}
 		
 		return ResponseEntity.ok(new SessionUsersReadResponseDTO(session, users));
@@ -318,12 +318,20 @@ public class SessionController {
 		return users;
 	}
 	
-	private List<TemplateAttendeeDTO> getAllRegistered(List<Registered> registereds) {
+	private List<TemplateAttendeeDTO> getAllRegistered(List<Registered> registereds, List<Attendee> attendees) {
 		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
 		for(Registered registered: registereds) {
 			// Look if attendee is already a member
+			Long userId = registered.getUser().getId();
+			Long attendeeId = 0L;
+			for(Attendee attendee: attendees) {
+				if (attendee.getUser().getId() == userId) {
+					attendeeId = attendee.getId();
+					break;
+				}
+			}
 			User userRegistered = registered.getUser();
-			users.add(new TemplateAttendeeDTO(userRegistered, 0L, false));
+			users.add(new TemplateAttendeeDTO(userRegistered, attendeeId, true));
 		}
 		return users;
 	}
