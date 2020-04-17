@@ -45,9 +45,7 @@
           :class="{ 'is-loading': loading }"
           @click="changePassword"
           :disabled="!canEdit"
-        >
-          {{ $t("settings.security.change") }}
-        </button>
+        >{{ $t("settings.security.change") }}</button>
       </div>
     </form>
   </TemplateSettings>
@@ -84,7 +82,7 @@ export default {
   },
   methods: {
     changePassword() {
-      if (this.canEdit) return;
+      if (!this.canEdit) return;
       this.loading = true;
       this.$store
         .dispatch("settings/updatePassword", {

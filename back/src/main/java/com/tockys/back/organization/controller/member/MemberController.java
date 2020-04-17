@@ -58,7 +58,7 @@ public class MemberController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         Member memberUser = memberService.getMemberByOrganizationAndByUser(member.getOrganization(), user);
-        if (memberUser.getType() == RoleEnum.MEMBER) {
+        if (memberUser.getType() == RoleEnum.MEMBER || memberUser.getType() == RoleEnum.INSTRUCTOR) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         if (memberUser.getType() != RoleEnum.OWNER && memberDto.getRole() == RoleEnum.OWNER) {
@@ -67,7 +67,7 @@ public class MemberController {
         if (member.getType() == RoleEnum.OWNER && memberUser.getType() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        if (member.getType() == RoleEnum.OWNER) {
+        if (memberDto.getRole() == RoleEnum.OWNER && member.getId() == memberUser.getId()) {
             Predicate<Member> byType = m -> m.getType() == RoleEnum.OWNER;
             int numberOwners = member.getOrganization().getMembers().stream().filter(byType)
                     .collect(Collectors.toList()).size();
@@ -109,7 +109,9 @@ public class MemberController {
         newMember.setType(memberDto.getRole());
         newMember.setOrganization(organization);
         
-        stripeService.addOneMemberSubscription(organization.getStripe());
+        if (organization.getStripe() != null) {
+            stripeService.addOneMemberSubscription(organization.getStripe());
+        }
         
         return ResponseEntity.ok(new MemberCreateResponseDTO(memberService.create(newMember)));
 	}
@@ -139,8 +141,10 @@ public class MemberController {
         if (member.getType() == RoleEnum.OWNER && memberUser.getType() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        
-        stripeService.removeOneMemberSubscription(member.getOrganization().getStripe());
+
+        if (member.getOrganization().getStripe() != null) {
+            stripeService.removeOneMemberSubscription(member.getOrganization().getStripe());
+        }
         
         memberService.delete(member);
         return new ResponseEntity(HttpStatus.OK);

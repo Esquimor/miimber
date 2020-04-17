@@ -1,5 +1,5 @@
 <template>
-  <div class="TemplateModal" :style="modalStyle">
+  <div id="TemplateModal" class="TemplateModal" :style="modalStyle">
     <slot name="header">
       <header class="TemplateModal-header">
         <h2 class="title is-6">{{ title }}</h2>
@@ -13,19 +13,17 @@
     <slot name="footer">
       <footer class="TemplateModal-footer">
         <button
+          id="TemplateModal-cancel"
           class="button is-outlined is-danger"
           @click="$emit('cancel')"
           :disabled="loading"
-        >
-          {{ $t("core.utils.cancel") }}
-        </button>
+        >{{ $t("core.utils.cancel") }}</button>
         <button
+          id="TemplateModal-confirm"
           class="button is-primary"
           :class="{ 'is-loading': loading }"
           @click="$emit('confirm')"
-        >
-          {{ $t("core.utils.confirm") }}
-        </button>
+        >{{ $t("core.utils.confirm") }}</button>
       </footer>
     </slot>
   </div>

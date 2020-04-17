@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.mailjet.client.errors.MailjetException;
+import com.mailjet.client.errors.MailjetSocketTimeoutException;
+import com.tockys.back.core.helper.MailJetService;
 import com.tockys.back.user.dto.UserRegisterDTO;
 import com.tockys.back.user.model.User;
 import com.tockys.back.user.service.UserService;
@@ -22,6 +25,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 	
+	@Autowired
+	private MailJetService mailJetService;
+	
     @Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     	User user = userService.getUserByEmail(email);
@@ -33,10 +39,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),new ArrayList<>());
 	}
 
-	public User save(UserRegisterDTO user) {
+	public User save(UserRegisterDTO user) throws MailjetException, MailjetSocketTimeoutException {
 		User newUser = new User();
 		newUser.setEmail(user.getEmail());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		mailJetService.sendEmail();
 		return userService.create(newUser);
 	}
 

@@ -5,6 +5,7 @@
       <BIcon icon="settings" size="is-small" />
     </button>
     <BDropdownItem
+      id="OrganizationMembersDropdown-right"
       class="CoreDropdownItem is-warning"
       aria-role="listitem"
       @click="$emit('changeRight')"
@@ -13,6 +14,7 @@
       <span class="is-size-6">{{ $t("organization.members.right") }}</span>
     </BDropdownItem>
     <BDropdownItem
+      id="OrganizationMembersDropdown-delete"
       class="CoreDropdownItem is-danger"
       aria-role="listitem"
       @click="$emit('remove')"

@@ -236,7 +236,9 @@ public class OrganizationController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         Organization organization = memberUser.getOrganization();
-        stripeService.deleteSubscription(organization.getStripe());
+        if (organization.getStripe() != null) {
+            stripeService.deleteSubscription(organization.getStripe());
+        }
         organizationService.delete(organization);
         return new ResponseEntity(HttpStatus.OK);
 	}

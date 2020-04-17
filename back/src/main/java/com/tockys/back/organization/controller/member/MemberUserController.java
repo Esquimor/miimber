@@ -74,7 +74,9 @@ public class MemberUserController {
         newMember.setType(memberByOrganizationRequestDto.getRole());
         newMember.setOrganization(organization);
         
-        stripeService.addOneMemberSubscription(organization.getStripe());
+        if (organization.getStripe() != null) {
+            stripeService.addOneMemberSubscription(organization.getStripe());
+        }
         
         return ResponseEntity.ok(new MemberCreateResponseDTO(memberService.create(newMember)));
 	}
