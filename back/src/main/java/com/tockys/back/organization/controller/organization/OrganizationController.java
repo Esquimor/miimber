@@ -58,12 +58,12 @@ public class OrganizationController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/organization/ownered", method = RequestMethod.GET)
+	@RequestMapping(value = "/organization/editable", method = RequestMethod.GET)
 	public ResponseEntity<?> readOrganization() throws Exception {
         UserDetails currentUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = helper.getUserToken(currentUser);
         List<OrganizationCreateReadUpdateResponseDTO> responseOrganization = new ArrayList<OrganizationCreateReadUpdateResponseDTO>();
-        for (Organization organization : organizationService.getOrganizationOwnered(user)) 
+        for (Organization organization : organizationService.getOrganizationEditable(user)) 
         { 
         	responseOrganization.add(new OrganizationCreateReadUpdateResponseDTO(organization));
         }

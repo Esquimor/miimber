@@ -110,7 +110,7 @@ public class UserController {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         List<OrganizationAndMemberReadResponseDTO> responseOrganization = new ArrayList<OrganizationAndMemberReadResponseDTO>();
-        for (Organization organization : organizationService.getOrganizationOwnered(user)) 
+        for (Organization organization : organizationService.getOrganizationByUser(user)) 
         { 
         	Member member = memberService.getMemberByOrganizationAndByUser(organization, user);
         	responseOrganization.add(new OrganizationAndMemberReadResponseDTO(organization, member));

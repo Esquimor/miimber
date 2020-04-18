@@ -121,6 +121,7 @@ export default {
             this.$store.dispatch("core/closeSideBar");
           });
       } else {
+        if (!this.member) return;
         this.$store
           .dispatch("organization/addMember", {
             organizationId: this.organization.id,

@@ -7,7 +7,7 @@ import com.tockys.back.organization.model.Organization;
 import com.tockys.back.user.model.User;
 
 public interface IOrganizationService extends TemplateService<Organization> {
-	List<Organization> getOrganizationOwnered(User user);
+	List<Organization> getOrganizationEditable(User user);
 	
 	List<Organization> getOrganizationByUser(User user);
 	

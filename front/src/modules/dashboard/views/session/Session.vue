@@ -142,10 +142,15 @@ export default {
       if (this.loadingRegisterd) return;
       this.loadingRegisterd = true;
       this.$store.dispatch("dashboard/registered", this.session.id).then(() => {
+        this.$buefy.toast.open({
+          message: this.$t("dashboard.session.registered.success"),
+          type: "is-success"
+        });
         this.loadingRegisterd = false;
       });
     },
     unsubscribe() {
+      if (this.loadingRegisterd) return;
       this.$buefy.dialog.confirm({
         title: this.$t("dashboard.session.unsubscribe.title"),
         message: this.$t("dashboard.session.unsubscribe.message"),
@@ -160,6 +165,10 @@ export default {
               this.getUserForSession.registered.id
             )
             .then(() => {
+              this.$buefy.toast.open({
+                message: this.$t("dashboard.session.unsubscribe.success"),
+                type: "is-success"
+              });
               this.loadingRegisterd = false;
             });
         }

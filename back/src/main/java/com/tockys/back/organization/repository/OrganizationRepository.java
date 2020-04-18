@@ -10,7 +10,7 @@ import com.tockys.back.user.model.User;
 
 public interface OrganizationRepository extends CrudRepository<Organization, Long> {
 	
-	List<Organization> findByMembersUserAndMembersRole(User user, RoleEnum owner);
+	List<Organization> findByMembersUserAndMembersRoleIn(User user, List<RoleEnum> roles);
 	
 	List<Organization> findByMembersUser(User user);
 	

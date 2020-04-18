@@ -1,5 +1,6 @@
 package com.tockys.back.organization.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +19,12 @@ public class OrganizationService implements IOrganizationService {
 	private OrganizationRepository organizationRepository;
 	
 	@Override
-	public List<Organization> getOrganizationOwnered(User user) {
-		return organizationRepository.findByMembersUserAndMembersRole(user, RoleEnum.OWNER);
+	public List<Organization> getOrganizationEditable(User user) {
+		List<RoleEnum> editableRoles = new ArrayList<RoleEnum>();
+		editableRoles.add(RoleEnum.OWNER);
+		editableRoles.add(RoleEnum.OFFICE);
+		editableRoles.add(RoleEnum.OFFICE_INSTRUCTOR);
+		return organizationRepository.findByMembersUserAndMembersRoleIn(user, editableRoles);
 	}
 
 	@Override
