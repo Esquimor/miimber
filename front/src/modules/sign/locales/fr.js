@@ -1,7 +1,7 @@
 export default {
   login: {
     utils: {
-      title: "Login",
+      title: "Se connecter",
       submit: "Se connecter",
       remember: "Se souvenir",
       error: "Une erreur est survenue. Merci de réessayer.",

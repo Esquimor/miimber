@@ -13,9 +13,20 @@
           <span>{{ $t("core.menu.organizations") }}</span>
         </router-link>
         <div class="TemplateDefault-header-nav-separator" />
-        <router-link v-if="isConnected" :to="{ name: 'settings-profile' }">
-          <span>{{ $t("core.menu.account") }}</span>
-        </router-link>
+        <b-dropdown v-if="isConnected" aria-role="list" position="is-bottom-left">
+          <div class="TemplateDefault-header-nav-dropdown" slot="trigger" slot-scope="{ active }">
+            <span>{{ $t("core.menu.account") }}</span>
+            <b-icon :icon="active ? 'menu-up' : 'menu-down'"></b-icon>
+          </div>
+
+          <b-dropdown-item aria-role="listitem">
+            <router-link :to="{name: 'settings-profile'}">{{ $t('core.menu.profile') }}</router-link>
+          </b-dropdown-item>
+          <b-dropdown-item aria-role="listitem" separator />
+          <b-dropdown-item aria-role="listitem" @click.native="logout">
+            <span>{{ $t('core.menu.logout') }}</span>
+          </b-dropdown-item>
+        </b-dropdown>
         <router-link
           v-if="!isConnected"
           :to="{ name: 'register' }"
@@ -57,6 +68,7 @@
           <router-link v-if="isConnected" :to="{ name: 'settings-profile' }">
             <span>{{ $t("core.menu.account") }}</span>
           </router-link>
+          <span v-if="isConnected"></span>
           <router-link v-if="!isConnected" :to="{ name: 'register' }">
             <span>{{ $t("core.menu.register") }}</span>
           </router-link>
@@ -70,7 +82,33 @@
       <slot />
     </main>
     <component v-if="sideBar.open" :is="sideBar.component" />
-    <footer class="TemplateDefault-footer"></footer>
+    <footer class="TemplateDefault-footer columns">
+      <div class="TemplateDefault-footer-list column">
+        <b-dropdown
+          class="TemplateDefault-footer-list-lang"
+          aria-role="list"
+          position="is-top-right"
+        >
+          <div slot="trigger" class="TemplateDefault-footer-list-element">
+            <BIcon icon="translate" class="TemplateDefault-footer-list-element-icon" />
+            <span>{{$t('core.footer.lang')}}</span>
+          </div>
+          <b-dropdown-item
+            v-for="lang in LANG"
+            :key="lang.item"
+            aria-role="listitem"
+            @click.native="changeLang(lang.code)"
+          >{{ $t(`core.lang.${lang.label}`) }}</b-dropdown-item>
+        </b-dropdown>
+      </div>
+      <div class="TemplateDefault-footer-list column"></div>
+      <div class="TemplateDefault-footer-list column">
+        <router-link :to="{name: 'terms'}" class="TemplateDefault-footer-list-element">
+          <BIcon icon="file-certificate" class="TemplateDefault-footer-list-element-icon" />
+          <span>{{ $t("core.footer.terms") }}</span>
+        </router-link>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -78,6 +116,8 @@
 "use strict";
 
 import { mapGetters } from "vuex";
+
+import { LANG } from "@/utils/consts";
 
 export default {
   name: "TemplateDefault",
@@ -89,8 +129,24 @@ export default {
   },
   data() {
     return {
-      openMobileMenu: false
+      openMobileMenu: false,
+      LANG: LANG
     };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("core/logout").then(() => {
+        this.$buefy.toast.open({
+          message: this.$t("core.logout.success"),
+          type: "is-success"
+        });
+        this.$router.push({ name: "home" });
+      });
+    },
+    changeLang(lang) {
+      localStorage.setItem("lang", lang);
+      document.location.reload();
+    }
   }
 };
 </script>
@@ -172,6 +228,13 @@ export default {
       &-button {
         margin: 0 0.5rem 0 0;
       }
+      &-dropdown {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        color: $black-ter;
+      }
       > a {
         display: flex;
         align-items: center;
@@ -183,6 +246,37 @@ export default {
         &.router-link-active:not(.TemplateDefault-header-nav-home) {
           background-color: $primary;
           color: $white;
+        }
+      }
+    }
+  }
+  &-content {
+    min-height: 100vh;
+  }
+  &-footer {
+    background-color: $black-ter;
+    color: $white-ter;
+    padding: 3rem 4rem;
+    a {
+      color: $white-ter;
+      &:hover {
+        color: $white-ter;
+      }
+    }
+    &-list {
+      display: flex;
+      flex-direction: column;
+      &-lang {
+        a {
+          color: $black-ter;
+        }
+      }
+      &-element {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        &-icon {
+          margin-right: 0.5rem;
         }
       }
     }
