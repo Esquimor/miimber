@@ -1,4 +1,4 @@
-package com.tockys.back.organization.controller.member;
+package com.miimber.back.organization.controller.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.core.helper.Helper;
-import com.tockys.back.organization.dto.member.MemberReadUpdateResponseDTO;
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.user.model.User;
+import com.miimber.back.core.helper.Helper;
+import com.miimber.back.organization.dto.member.MemberReadUpdateResponseDTO;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.service.MemberService;
+import com.miimber.back.user.model.User;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

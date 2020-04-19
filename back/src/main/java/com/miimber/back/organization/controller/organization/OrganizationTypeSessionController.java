@@ -1,4 +1,4 @@
-package com.tockys.back.organization.controller.organization;
+package com.miimber.back.organization.controller.organization;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.core.helper.Helper;
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.session.dto.typeSession.TypeSessionReadResponseDTO;
-import com.tockys.back.session.model.TypeSession;
-import com.tockys.back.session.service.TypeSessionService;
-import com.tockys.back.user.model.User;
+import com.miimber.back.core.helper.Helper;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.service.MemberService;
+import com.miimber.back.session.dto.typeSession.TypeSessionReadResponseDTO;
+import com.miimber.back.session.model.TypeSession;
+import com.miimber.back.session.service.TypeSessionService;
+import com.miimber.back.user.model.User;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

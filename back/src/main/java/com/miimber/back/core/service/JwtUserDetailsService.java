@@ -1,4 +1,4 @@
-package com.tockys.back.core.service;
+package com.miimber.back.core.service;
 
 import java.util.ArrayList;
 
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
-import com.tockys.back.core.helper.MailJetService;
-import com.tockys.back.user.dto.UserRegisterDTO;
-import com.tockys.back.user.model.User;
-import com.tockys.back.user.service.UserService;
+import com.miimber.back.core.helper.MailJetService;
+import com.miimber.back.user.dto.UserRegisterDTO;
+import com.miimber.back.user.model.User;
+import com.miimber.back.user.service.UserService;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

@@ -1,19 +1,19 @@
-package com.tockys.back.session.dto.session;
+package com.miimber.back.session.dto.session;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.Organization;
-import com.tockys.back.organization.model.enums.RoleEnum;
-import com.tockys.back.session.model.Attendee;
-import com.tockys.back.session.model.Registered;
-import com.tockys.back.session.model.Session;
-import com.tockys.back.session.model.TypeSession;
-import com.tockys.back.session.model.enums.RegisteredEnum;
-import com.tockys.back.user.model.User;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.Organization;
+import com.miimber.back.organization.model.enums.RoleEnum;
+import com.miimber.back.session.model.Attendee;
+import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.model.Session;
+import com.miimber.back.session.model.TypeSession;
+import com.miimber.back.session.model.enums.RegisteredEnum;
+import com.miimber.back.user.model.User;
 
 public class SessionReadResponseDTO {
 

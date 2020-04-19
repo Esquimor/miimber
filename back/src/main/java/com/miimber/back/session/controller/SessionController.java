@@ -1,4 +1,4 @@
-package com.tockys.back.session.controller;
+package com.miimber.back.session.controller;
 
 import java.time.DayOfWeek;
 import java.time.OffsetDateTime;
@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.core.helper.Helper;
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.Organization;
-import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.session.dto.session.SessionCreateRequestDTO;
-import com.tockys.back.session.dto.session.SessionEditRequestDTO;
-import com.tockys.back.session.dto.session.SessionReadResponseDTO;
-import com.tockys.back.session.dto.session.SessionShortReadResponseDTO;
-import com.tockys.back.session.dto.session.SessionUsersReadResponseDTO;
-import com.tockys.back.session.model.Attendee;
-import com.tockys.back.session.model.Registered;
-import com.tockys.back.session.model.Session;
-import com.tockys.back.session.model.TypeSession;
-import com.tockys.back.session.service.SessionService;
-import com.tockys.back.session.service.TypeSessionService;
-import com.tockys.back.user.dto.TemplateAttendeeDTO;
-import com.tockys.back.user.model.User;
+import com.miimber.back.core.helper.Helper;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.Organization;
+import com.miimber.back.organization.service.MemberService;
+import com.miimber.back.session.dto.session.SessionCreateRequestDTO;
+import com.miimber.back.session.dto.session.SessionEditRequestDTO;
+import com.miimber.back.session.dto.session.SessionReadResponseDTO;
+import com.miimber.back.session.dto.session.SessionShortReadResponseDTO;
+import com.miimber.back.session.dto.session.SessionUsersReadResponseDTO;
+import com.miimber.back.session.model.Attendee;
+import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.model.Session;
+import com.miimber.back.session.model.TypeSession;
+import com.miimber.back.session.service.SessionService;
+import com.miimber.back.session.service.TypeSessionService;
+import com.miimber.back.user.dto.TemplateAttendeeDTO;
+import com.miimber.back.user.model.User;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

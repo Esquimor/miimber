@@ -1,4 +1,4 @@
-package com.tockys.back.organization.model;
+package com.miimber.back.organization.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.tockys.back.organization.model.enums.RoleEnum;
-import com.tockys.back.user.model.User;
+import com.miimber.back.organization.model.enums.RoleEnum;
+import com.miimber.back.user.model.User;
 
 @Entity
 @Table(name="members")

@@ -1,10 +1,10 @@
-package com.tockys.back.session.dto.registered;
+package com.miimber.back.session.dto.registered;
 
 import java.time.OffsetDateTime;
 
-import com.tockys.back.session.model.Registered;
-import com.tockys.back.session.model.enums.RegisteredEnum;
-import com.tockys.back.user.model.User;
+import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.model.enums.RegisteredEnum;
+import com.miimber.back.user.model.User;
 
 public class RegisteredCreateResponseDTO {
 

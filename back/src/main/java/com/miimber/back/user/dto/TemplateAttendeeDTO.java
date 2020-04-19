@@ -1,8 +1,8 @@
-package com.tockys.back.user.dto;
+package com.miimber.back.user.dto;
 
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.enums.RoleEnum;
-import com.tockys.back.user.model.User;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.enums.RoleEnum;
+import com.miimber.back.user.model.User;
 
 public class TemplateAttendeeDTO {
 	

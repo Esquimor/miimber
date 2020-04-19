@@ -1,4 +1,4 @@
-package com.tockys.back.organization.dto.organization;
+package com.miimber.back.organization.dto.organization;
 
 public class OrganizationCreateRequestDTO {
 

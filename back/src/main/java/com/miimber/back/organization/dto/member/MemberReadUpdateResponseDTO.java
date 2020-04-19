@@ -1,7 +1,7 @@
-package com.tockys.back.organization.dto.member;
+package com.miimber.back.organization.dto.member;
 
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.enums.RoleEnum;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.enums.RoleEnum;
 
 public class MemberReadUpdateResponseDTO extends MemberUpdateRequestDTO {
 	private Long id;

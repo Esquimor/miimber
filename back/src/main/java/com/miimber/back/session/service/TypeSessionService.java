@@ -1,4 +1,4 @@
-package com.tockys.back.session.service;
+package com.miimber.back.session.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tockys.back.session.model.TypeSession;
-import com.tockys.back.session.repository.TypeSessionRepository;
+import com.miimber.back.session.model.TypeSession;
+import com.miimber.back.session.repository.TypeSessionRepository;
 
 @Service
 public class TypeSessionService implements ITypeSessionService {

@@ -1,4 +1,4 @@
-package com.tockys.back.session.model;
+package com.miimber.back.session.model;
 
 import java.time.OffsetDateTime;
 
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.tockys.back.user.model.User;
+import com.miimber.back.user.model.User;
 
 @Entity
 @Table(name="attendees")

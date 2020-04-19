@@ -1,4 +1,4 @@
-package com.tockys.back.session.model;
+package com.miimber.back.session.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.tockys.back.organization.model.Organization;
+import com.miimber.back.organization.model.Organization;
 
 @Entity
 @Table(name="type_sessions")

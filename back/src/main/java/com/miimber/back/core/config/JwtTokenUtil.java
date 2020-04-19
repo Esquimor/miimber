@@ -1,4 +1,4 @@
-package com.tockys.back.core.config;
+package com.miimber.back.core.config;
 
 import java.io.Serializable;
 import java.security.Key;

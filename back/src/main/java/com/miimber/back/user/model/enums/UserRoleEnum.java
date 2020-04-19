@@ -1,4 +1,4 @@
-package com.tockys.back.user.model.enums;
+package com.miimber.back.user.model.enums;
 
 public enum UserRoleEnum {
 	Admin("A"), User("U");

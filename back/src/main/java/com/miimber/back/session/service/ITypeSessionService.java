@@ -1,9 +1,9 @@
-package com.tockys.back.session.service;
+package com.miimber.back.session.service;
 
 import java.util.List;
 
-import com.tockys.back.core.service.TemplateService;
-import com.tockys.back.session.model.TypeSession;
+import com.miimber.back.core.service.TemplateService;
+import com.miimber.back.session.model.TypeSession;
 
 public interface ITypeSessionService extends TemplateService<TypeSession> {
 	

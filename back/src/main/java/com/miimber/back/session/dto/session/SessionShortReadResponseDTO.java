@@ -1,10 +1,10 @@
-package com.tockys.back.session.dto.session;
+package com.miimber.back.session.dto.session;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.tockys.back.session.model.Session;
-import com.tockys.back.session.model.TypeSession;
+import com.miimber.back.session.model.Session;
+import com.miimber.back.session.model.TypeSession;
 
 public class SessionShortReadResponseDTO {
 

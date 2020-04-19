@@ -1,4 +1,4 @@
-package com.tockys.back.core.service;
+package com.miimber.back.core.service;
 
 public interface TemplateService<T> {
 

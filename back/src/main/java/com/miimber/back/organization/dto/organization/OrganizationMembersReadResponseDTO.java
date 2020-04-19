@@ -1,7 +1,7 @@
-package com.tockys.back.organization.dto.organization;
+package com.miimber.back.organization.dto.organization;
 
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.enums.RoleEnum;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.enums.RoleEnum;
 
 public class OrganizationMembersReadResponseDTO {
 

@@ -1,7 +1,7 @@
-package com.tockys.back.session.service;
+package com.miimber.back.session.service;
 
-import com.tockys.back.core.service.TemplateService;
-import com.tockys.back.session.model.Attendee;
+import com.miimber.back.core.service.TemplateService;
+import com.miimber.back.session.model.Attendee;
 
 public interface IAttendeeService extends TemplateService<Attendee> {
 }

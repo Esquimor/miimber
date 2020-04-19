@@ -1,12 +1,12 @@
-package com.tockys.back.organization.repository;
+package com.miimber.back.organization.repository;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.Organization;
-import com.tockys.back.user.model.User;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.Organization;
+import com.miimber.back.user.model.User;
 
 public interface MemberRepository extends CrudRepository<Member, Long> {
 	Member findOneByOrganizationIdAndUser(Long id, User user);

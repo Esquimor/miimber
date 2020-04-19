@@ -1,4 +1,4 @@
-package com.tockys.back.session.dto.typeSession;
+package com.miimber.back.session.dto.typeSession;
 
 public class TypeSessionCreateRequestDTO {
 

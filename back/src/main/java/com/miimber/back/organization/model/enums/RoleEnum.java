@@ -1,4 +1,4 @@
-package com.tockys.back.organization.model.enums;
+package com.miimber.back.organization.model.enums;
 
 public enum RoleEnum {
 	OWNER("O"), INSTRUCTOR("I"), MEMBER("M"), OFFICE("OF"), OFFICE_INSTRUCTOR("OI");

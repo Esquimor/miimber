@@ -1,4 +1,4 @@
-package com.tockys.back.session.controller;
+package com.miimber.back.session.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.core.helper.Helper;
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.enums.RoleEnum;
-import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.session.dto.attendee.AttendeeCreateRequestDTO;
-import com.tockys.back.session.dto.attendee.AttendeeCreateResponseDTO;
-import com.tockys.back.session.model.Attendee;
-import com.tockys.back.session.model.Session;
-import com.tockys.back.session.service.AttendeeService;
-import com.tockys.back.session.service.SessionService;
-import com.tockys.back.user.model.User;
-import com.tockys.back.user.service.UserService;
+import com.miimber.back.core.helper.Helper;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.enums.RoleEnum;
+import com.miimber.back.organization.service.MemberService;
+import com.miimber.back.session.dto.attendee.AttendeeCreateRequestDTO;
+import com.miimber.back.session.dto.attendee.AttendeeCreateResponseDTO;
+import com.miimber.back.session.model.Attendee;
+import com.miimber.back.session.model.Session;
+import com.miimber.back.session.service.AttendeeService;
+import com.miimber.back.session.service.SessionService;
+import com.miimber.back.user.model.User;
+import com.miimber.back.user.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

@@ -1,4 +1,4 @@
-package com.tockys.back.organization.controller.organization;
+package com.miimber.back.organization.controller.organization;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.core.helper.Helper;
-import com.tockys.back.session.dto.session.SessionShortReadResponseDTO;
-import com.tockys.back.session.model.Session;
-import com.tockys.back.session.service.SessionService;
+import com.miimber.back.core.helper.Helper;
+import com.miimber.back.session.dto.session.SessionShortReadResponseDTO;
+import com.miimber.back.session.model.Session;
+import com.miimber.back.session.service.SessionService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

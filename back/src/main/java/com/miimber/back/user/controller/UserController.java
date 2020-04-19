@@ -1,4 +1,4 @@
-package com.tockys.back.user.controller;
+package com.miimber.back.user.controller;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -20,20 +20,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.core.helper.Helper;
-import com.tockys.back.organization.dto.organization.OrganizationAndMemberReadResponseDTO;
-import com.tockys.back.organization.dto.organization.OrganizationCreateReadUpdateResponseDTO;
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.Organization;
-import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.organization.service.OrganizationService;
-import com.tockys.back.session.model.Session;
-import com.tockys.back.session.service.SessionService;
-import com.tockys.back.user.dto.UserUpdateRequestDTO;
-import com.tockys.back.user.dto.UserPasswordUpdateRequestDTO;
-import com.tockys.back.user.dto.UserSessionReadResponseDTO;
-import com.tockys.back.user.model.User;
-import com.tockys.back.user.service.UserService;
+import com.miimber.back.core.helper.Helper;
+import com.miimber.back.organization.dto.organization.OrganizationAndMemberReadResponseDTO;
+import com.miimber.back.organization.dto.organization.OrganizationCreateReadUpdateResponseDTO;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.Organization;
+import com.miimber.back.organization.service.MemberService;
+import com.miimber.back.organization.service.OrganizationService;
+import com.miimber.back.session.model.Session;
+import com.miimber.back.session.service.SessionService;
+import com.miimber.back.user.dto.UserPasswordUpdateRequestDTO;
+import com.miimber.back.user.dto.UserSessionReadResponseDTO;
+import com.miimber.back.user.dto.UserUpdateRequestDTO;
+import com.miimber.back.user.model.User;
+import com.miimber.back.user.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

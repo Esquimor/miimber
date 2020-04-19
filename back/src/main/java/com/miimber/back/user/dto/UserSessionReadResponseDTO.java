@@ -1,8 +1,8 @@
-package com.tockys.back.user.dto;
+package com.miimber.back.user.dto;
 
 import java.time.OffsetDateTime;
 
-import com.tockys.back.session.model.Session;
+import com.miimber.back.session.model.Session;
 
 public class UserSessionReadResponseDTO {
 

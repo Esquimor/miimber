@@ -1,11 +1,11 @@
-package com.tockys.back.session.service;
+package com.miimber.back.session.service;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.tockys.back.session.model.TemplateSession;
-import com.tockys.back.session.repository.TemplateSessionRepository;
+import com.miimber.back.session.model.TemplateSession;
+import com.miimber.back.session.repository.TemplateSessionRepository;
 
 public class TemplateSessionService implements ITemplateSessionService {
 

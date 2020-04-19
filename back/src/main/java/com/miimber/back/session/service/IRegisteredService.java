@@ -1,8 +1,8 @@
-package com.tockys.back.session.service;
+package com.miimber.back.session.service;
 
-import com.tockys.back.core.service.TemplateService;
-import com.tockys.back.session.model.Registered;
-import com.tockys.back.session.model.Session;
+import com.miimber.back.core.service.TemplateService;
+import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.model.Session;
 
 public interface IRegisteredService extends TemplateService<Registered> {
 	

@@ -1,4 +1,4 @@
-package com.tockys.back.session.enumItem;
+package com.miimber.back.session.enumItem;
 
 public enum RepeatEnum {
 	ONE("1"), TWO("2"), THREE("3"), FOUR("4");

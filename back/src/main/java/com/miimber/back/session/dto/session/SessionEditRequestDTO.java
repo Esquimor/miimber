@@ -1,4 +1,4 @@
-package com.tockys.back.session.dto.session;
+package com.miimber.back.session.dto.session;
 
 import java.time.OffsetDateTime;
 

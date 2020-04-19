@@ -1,4 +1,4 @@
-package com.tockys.back.core.helper;
+package com.miimber.back.core.helper;
 
 import java.io.Serializable;
 

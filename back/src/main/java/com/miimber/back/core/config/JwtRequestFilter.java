@@ -1,4 +1,4 @@
-package com.tockys.back.core.config;
+package com.miimber.back.core.config;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.tockys.back.core.service.JwtUserDetailsService;
+import com.miimber.back.core.service.JwtUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 

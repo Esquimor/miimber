@@ -1,4 +1,4 @@
-package com.tockys.back.organization.dto.member;
+package com.miimber.back.organization.dto.member;
 
 public class MemberCreateRequestDTO extends MemberUpdateRequestDTO {
 

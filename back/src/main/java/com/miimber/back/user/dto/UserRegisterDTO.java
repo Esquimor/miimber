@@ -1,4 +1,4 @@
-package com.tockys.back.user.dto;
+package com.miimber.back.user.dto;
 
 public class UserRegisterDTO {
 	

@@ -1,6 +1,6 @@
-package com.tockys.back.session.dto.typeSession;
+package com.miimber.back.session.dto.typeSession;
 
-import com.tockys.back.session.model.TypeSession;
+import com.miimber.back.session.model.TypeSession;
 
 public class TypeSessionReadResponseDTO {
 

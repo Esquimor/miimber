@@ -1,4 +1,4 @@
-package com.tockys.back.session.model.enums;
+package com.miimber.back.session.model.enums;
 
 import java.util.stream.Stream;
 

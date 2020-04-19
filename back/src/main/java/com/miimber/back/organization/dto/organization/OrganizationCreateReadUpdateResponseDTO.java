@@ -1,6 +1,6 @@
-package com.tockys.back.organization.dto.organization;
+package com.miimber.back.organization.dto.organization;
 
-import com.tockys.back.organization.model.Organization;
+import com.miimber.back.organization.model.Organization;
 
 public class OrganizationCreateReadUpdateResponseDTO {
 

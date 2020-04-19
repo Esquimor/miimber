@@ -1,11 +1,11 @@
-package com.tockys.back.organization.service;
+package com.miimber.back.organization.service;
 
 import java.util.List;
 
-import com.tockys.back.core.service.TemplateService;
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.Organization;
-import com.tockys.back.user.model.User;
+import com.miimber.back.core.service.TemplateService;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.Organization;
+import com.miimber.back.user.model.User;
 
 public interface IMemberService extends TemplateService<Member> {
 

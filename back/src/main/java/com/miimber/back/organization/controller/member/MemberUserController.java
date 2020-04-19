@@ -1,4 +1,4 @@
-package com.tockys.back.organization.controller.member;
+package com.miimber.back.organization.controller.member;
 
 import java.util.UUID;
 
@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tockys.back.core.helper.Helper;
-import com.tockys.back.core.helper.StripeService;
-import com.tockys.back.organization.dto.member.MemberAndUserCreateRequestDTO;
-import com.tockys.back.organization.dto.member.MemberCreateResponseDTO;
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.Organization;
-import com.tockys.back.organization.model.enums.RoleEnum;
-import com.tockys.back.organization.service.MemberService;
-import com.tockys.back.organization.service.OrganizationService;
-import com.tockys.back.user.model.User;
-import com.tockys.back.user.service.UserService;
+import com.miimber.back.core.helper.Helper;
+import com.miimber.back.core.helper.StripeService;
+import com.miimber.back.organization.dto.member.MemberAndUserCreateRequestDTO;
+import com.miimber.back.organization.dto.member.MemberCreateResponseDTO;
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.Organization;
+import com.miimber.back.organization.model.enums.RoleEnum;
+import com.miimber.back.organization.service.MemberService;
+import com.miimber.back.organization.service.OrganizationService;
+import com.miimber.back.user.model.User;
+import com.miimber.back.user.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

@@ -1,12 +1,12 @@
-package com.tockys.back.organization.dto.organization;
+package com.miimber.back.organization.dto.organization;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.miimber.back.organization.model.Member;
+import com.miimber.back.organization.model.Organization;
+import com.miimber.back.organization.model.enums.RoleEnum;
 import com.stripe.model.Subscription;
-import com.tockys.back.organization.model.Member;
-import com.tockys.back.organization.model.Organization;
-import com.tockys.back.organization.model.enums.RoleEnum;
 
 public class OrganizationForManageReadResponseDTO extends OrganizationCreateReadUpdateResponseDTO {
 
