@@ -14,7 +14,7 @@ import "cypress-localstorage-commands";
 const adminEmail = `${uuidv4()}-admin-test@meember.com`;
 const memberEmail = `${uuidv4()}-member-test@meember.com`;
 
-Cypress.Commands.add("login", (userType) => {
+Cypress.Commands.add("login", userType => {
   // this is an example of skipping your UI and logging in programmatically
 
   // setup some basic types
@@ -22,12 +22,12 @@ Cypress.Commands.add("login", (userType) => {
   const types = {
     admin: {
       email: adminEmail,
-      password: "secret",
+      password: "secret"
     },
     member: {
       name: memberEmail,
-      password: "secret",
-    },
+      password: "secret"
+    }
   };
 
   // grab the user
@@ -37,7 +37,7 @@ Cypress.Commands.add("login", (userType) => {
   cy.request({
     url: `http://localhost:8000/test/register`, // assuming you've exposed a seeds route
     method: "POST",
-    body: user,
+    body: user
   })
     .its("body")
     .then(() => {
@@ -46,11 +46,11 @@ Cypress.Commands.add("login", (userType) => {
         method: "POST",
         body: {
           email: user.email,
-          password: user.password,
-        },
+          password: user.password
+        }
       })
         .its("body")
-        .then((body) => {
+        .then(body => {
           cy.setLocalStorage("token", body.token);
         });
     });
@@ -61,14 +61,14 @@ Cypress.Commands.add("createOrganization", () => {
     url: "http://localhost:8000/test/organization/",
     method: "POST",
     body: {
-      name: uuidv4(),
+      name: uuidv4()
     },
     auth: {
-      bearer: `${localStorage.getItem("token")}`,
-    },
+      bearer: `${localStorage.getItem("token")}`
+    }
   })
     .its("body")
-    .then((body) => {
+    .then(body => {
       cy.setLocalStorage("organizationId", body.id);
     });
 });

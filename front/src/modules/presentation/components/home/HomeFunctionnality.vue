@@ -14,7 +14,9 @@
           class="column"
         />
       </div>
-      <h2 class="PresentationHomeFunctionnality-next title is-3">Prochainement :</h2>
+      <h2 class="PresentationHomeFunctionnality-next title is-3">
+        Prochainement :
+      </h2>
       <div class="columns">
         <HomeFunctionnalityItem
           title="Commentaires"

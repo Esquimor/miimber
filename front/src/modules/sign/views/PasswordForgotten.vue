@@ -2,9 +2,9 @@
   <TemplateSign>
     <template v-slot:rigth>
       <form class="SignPasswordForgotten-form" @submit.prevent>
-        <h1
-          class="SignPasswordForgotten-form-title is-size-3"
-        >{{ $t("sign.passwordForgotten.title") }}</h1>
+        <h1 class="SignPasswordForgotten-form-title is-size-3">
+          {{ $t("sign.passwordForgotten.title") }}
+        </h1>
         <BField :label="$t('sign.passwordForgotten.label.email')">
           <BInput
             id="SignPasswordForgotten-email"
@@ -22,7 +22,9 @@
             :class="{ 'is-loading': loading }"
             @click="send"
             :disabled="!isSendable"
-          >{{ $t("core.utils.send") }}</button>
+          >
+            {{ $t("core.utils.send") }}
+          </button>
         </div>
       </form>
     </template>
@@ -68,5 +70,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

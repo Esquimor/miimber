@@ -9,31 +9,31 @@ export default [
   {
     path: "/login",
     name: "login",
-    component: Login,
+    component: Login
   },
   {
     path: "/register",
     name: "register",
-    component: Register,
+    component: Register
   },
   {
     path: "/register-completed",
     name: "register-completed",
-    component: RegisterCompleted,
+    component: RegisterCompleted
   },
   {
     path: "/register-validated",
     name: "register-validated",
-    component: RegisterValidated,
+    component: RegisterValidated
   },
   {
     path: "/password-forgotten",
     name: "password-forgotten",
-    component: PasswordForgotten,
+    component: PasswordForgotten
   },
   {
     path: "/reset-password",
     name: "reset-password",
-    component: ResetPassword,
-  },
+    component: ResetPassword
+  }
 ];

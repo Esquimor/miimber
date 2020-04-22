@@ -3,9 +3,10 @@
     <div class="PresentationHomeDescription-wrapper columns">
       <div class="column">
         <h2 class="title is-3">Gestion simplifié</h2>
-        <p
-          class="is-size-5"
-        >Connaissez directement les différentes séssions de votre club avec le nombre de places disponibles.</p>
+        <p class="is-size-5">
+          Connaissez directement les différentes séssions de votre club avec le
+          nombre de places disponibles.
+        </p>
       </div>
       <div class="column">
         <h2 class="title is-3">Communauté</h2>

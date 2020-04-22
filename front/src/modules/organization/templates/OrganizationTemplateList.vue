@@ -8,9 +8,7 @@
         icon-left="plus"
         @click="$emit('add')"
       >
-        {{
-        $t("core.utils.add")
-        }}
+        {{ $t("core.utils.add") }}
       </BButton>
     </header>
     <main class="OrganizationTemplateList-main" ref="template">

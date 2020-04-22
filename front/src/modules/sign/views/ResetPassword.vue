@@ -1,7 +1,10 @@
 <template>
   <TemplateInfo>
     <form @submit.prevent class="SignResetPassword-form">
-      <BField :label="$t('register.password.label')" :type="errorSamePassword ? 'is-danger' : ''">
+      <BField
+        :label="$t('register.password.label')"
+        :type="errorSamePassword ? 'is-danger' : ''"
+      >
         <BInput
           id="SignResetPassword-password"
           v-model="password"
@@ -32,7 +35,9 @@
           :class="{ 'is-loading': loading }"
           @click="submit"
           :disabled="!isSubmitable"
-        >{{ $t("register.utils.submit") }}</button>
+        >
+          {{ $t("register.utils.submit") }}
+        </button>
       </div>
     </form>
   </TemplateInfo>
@@ -91,5 +96,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

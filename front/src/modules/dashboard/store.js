@@ -16,15 +16,15 @@ export default {
     organizations: [],
     sessions: [],
     session: null,
-    sessionUsers: [],
+    sessionUsers: []
   },
   getters: {
-    organizations: (state) => state.organizations,
-    organization: (state) => state.organization,
-    organizationSessions: (state) => state.organizationSessions,
-    organizationMembers: (state) => state.organizationMembers,
-    sessions: (state) => state.sessions,
-    canChangeOrganization: (state) => {
+    organizations: state => state.organizations,
+    organization: state => state.organization,
+    organizationSessions: state => state.organizationSessions,
+    organizationMembers: state => state.organizationMembers,
+    sessions: state => state.sessions,
+    canChangeOrganization: state => {
       return (
         !!state.organization &&
         [ROLE.OWNER, ROLE.OFFICE_INSTRUCTOR, ROLE.OFFICE].includes(
@@ -32,8 +32,8 @@ export default {
         )
       );
     },
-    session: (state) => state.session,
-    isInsctructorOrganization: (state) => {
+    session: state => state.session,
+    isInsctructorOrganization: state => {
       return (
         !!state.session &&
         !!state.session.me.member &&
@@ -42,11 +42,11 @@ export default {
         )
       );
     },
-    sessionUsers: (state) => state.sessionUsers,
-    sessionRegistereds: (state) =>
+    sessionUsers: state => state.sessionUsers,
+    sessionRegistereds: state =>
       state.session ? state.session.registereds : [],
-    userRegistered: (state) => !!state.session && !!state.session.me.registered,
-    getUserForSession: (state) => !!state.session && state.session.me,
+    userRegistered: state => !!state.session && !!state.session.me.registered,
+    getUserForSession: state => !!state.session && state.session.me
   },
   actions: {
     setOrganizations({ commit }) {
@@ -69,7 +69,7 @@ export default {
           `organization/${id}/session/`,
           {
             minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
-            maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ"),
+            maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
           },
           { errorMessage: true }
         )
@@ -90,7 +90,7 @@ export default {
           "user/session/",
           {
             minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
-            maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ"),
+            maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
           },
           { errorMessage: true }
         )
@@ -119,14 +119,14 @@ export default {
           {
             userId: id,
             sessionId: state.session.id,
-            dateCheck: dayjs().format("YYYY-MM-DDTHH:mm:ssZ"),
+            dateCheck: dayjs().format("YYYY-MM-DDTHH:mm:ssZ")
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           commit(types.DASH_SET_USER_PRESENT_SESSION, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -136,7 +136,7 @@ export default {
         .then(() => {
           commit(types.DASH_REMOVE_USER_PRESENT_SESSION, id);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -146,14 +146,14 @@ export default {
           "registered/",
           {
             sessionId: id,
-            dateRegistered: dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ"),
+            dateRegistered: dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ")
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           commit(types.DASH_ADD_REGISTERED, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -166,10 +166,10 @@ export default {
           },
           { errorMessage: true }
         )
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
-    },
+    }
   },
   mutations: {
     [types.DASH_SET_ORGANIZATIONS](state, organizations) {
@@ -195,13 +195,11 @@ export default {
       state.sessionUsers = users;
     },
     [types.DASH_SET_USER_PRESENT_SESSION](state, attendee) {
-      const userEdited = state.sessionUsers.find(
-        (u) => u.id === attendee.userId
-      );
+      const userEdited = state.sessionUsers.find(u => u.id === attendee.userId);
       userEdited.attendeeId = attendee.id;
     },
     [types.DASH_REMOVE_USER_PRESENT_SESSION](state, id) {
-      const userEdited = state.sessionUsers.find((u) => u.attendeeId === id);
+      const userEdited = state.sessionUsers.find(u => u.attendeeId === id);
       userEdited.attendeeId = null;
     },
     [types.DASH_ADD_REGISTERED](state, registered) {
@@ -210,9 +208,9 @@ export default {
     },
     [types.DASH_REMOVE_REGISTERED](state, id) {
       state.session.registereds = state.session.registereds.filter(
-        (r) => r.id !== id
+        r => r.id !== id
       );
       state.session.me.registered = null;
-    },
-  },
+    }
+  }
 };

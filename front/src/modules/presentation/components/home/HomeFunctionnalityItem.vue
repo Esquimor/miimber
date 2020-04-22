@@ -1,7 +1,11 @@
 <template>
   <article class="PresentationHomeFunctionnalityItem">
-    <h3 class="PresentationHomeFunctionnalityItem-title title is-4">{{ title }}</h3>
-    <p class="PresentationHomeFunctionnalityItem-message is-size-5">{{ message }}</p>
+    <h3 class="PresentationHomeFunctionnalityItem-title title is-4">
+      {{ title }}
+    </h3>
+    <p class="PresentationHomeFunctionnalityItem-message is-size-5">
+      {{ message }}
+    </p>
   </article>
 </template>
 

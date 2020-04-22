@@ -9,16 +9,16 @@ export default {
       return api
         .postNoAuth("login", {
           email: email,
-          password: password,
+          password: password
         })
-        .then((response) => {
+        .then(response => {
           if (response.status !== 200) return Promise.reject();
           localStorage.setItem("token", response.data.token);
           return dispatch("core/getMe", null, { root: true }).then(() => {
             return Promise.resolve();
           });
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -28,12 +28,12 @@ export default {
           email: email,
           password: password,
           lastName,
-          firstName,
+          firstName
         })
         .then(({ data }) => {
           return Promise.resolve(data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -42,14 +42,14 @@ export default {
         .postNoAuth(
           "password-forgotten",
           {
-            email,
+            email
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           return Promise.resolve(data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -60,14 +60,14 @@ export default {
           {
             id: idUser,
             token,
-            password,
+            password
           },
           { errorMessage: true }
         )
         .then(() => {
           return Promise.resolve();
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -75,15 +75,15 @@ export default {
       return api
         .postNoAuth("register-validated", {
           id,
-          token,
+          token
         })
         .then(() => {
           return Promise.resolve();
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
-    },
+    }
   },
-  mutations: {},
+  mutations: {}
 };

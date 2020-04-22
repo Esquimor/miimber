@@ -45,7 +45,9 @@
           :class="{ 'is-loading': loading }"
           @click="changePassword"
           :disabled="!canEdit"
-        >{{ $t("settings.security.change") }}</button>
+        >
+          {{ $t("settings.security.change") }}
+        </button>
       </div>
     </form>
   </TemplateSettings>

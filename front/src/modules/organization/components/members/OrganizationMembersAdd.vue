@@ -22,16 +22,25 @@
           class="OrganizationMembersAdd-noMember-notification"
           type="is-info"
           aria-close-label="Close notification"
-        >{{ $t("organization.members.add.noMember") }}</BNotification>
+          >{{ $t("organization.members.add.noMember") }}</BNotification
+        >
         <div class="columns">
           <div class="column">
             <BField :label="$t('organization.members.add.label.firstName')">
-              <BInput id="OrganizationOrganizationMembers-firstName" v-model="firstName" required></BInput>
+              <BInput
+                id="OrganizationOrganizationMembers-firstName"
+                v-model="firstName"
+                required
+              ></BInput>
             </BField>
           </div>
           <div class="column">
             <BField :label="$t('organization.members.add.label.lastName')">
-              <BInput id="OrganizationOrganizationMembers-lastName" v-model="lastName" required></BInput>
+              <BInput
+                id="OrganizationOrganizationMembers-lastName"
+                v-model="lastName"
+                required
+              ></BInput>
             </BField>
           </div>
         </div>
@@ -42,8 +51,12 @@
         class="OrganizationMembersAdd-alreadyExist"
         type="is-danger"
         aria-close-label="Close notification"
-      >{{ $t("organization.members.add.alreadyExist") }}</BNotification>
-      <div v-else-if="!noMember && !!member" class="OrganizationMembersAdd-member">
+        >{{ $t("organization.members.add.alreadyExist") }}</BNotification
+      >
+      <div
+        v-else-if="!noMember && !!member"
+        class="OrganizationMembersAdd-member"
+      >
         <div class="columns">
           <div class="column">
             <BField :label="$t('organization.members.add.label.firstName')">

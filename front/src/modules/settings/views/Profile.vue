@@ -2,13 +2,26 @@
   <TemplateSettings :title="$t('settings.profile.title')">
     <form @submit.prevent>
       <BField :label="$t('settings.profile.email')">
-        <BInput id="SettingsProfile-email" v-model="editMe.email" type="email" required />
+        <BInput
+          id="SettingsProfile-email"
+          v-model="editMe.email"
+          type="email"
+          required
+        />
       </BField>
       <BField :label="$t('settings.profile.firstName')">
-        <BInput id="SettingsProfile-firstName" v-model="editMe.firstName" required />
+        <BInput
+          id="SettingsProfile-firstName"
+          v-model="editMe.firstName"
+          required
+        />
       </BField>
       <BField :label="$t('settings.profile.lastName')">
-        <BInput id="SettingsProfile-lastName" v-model="editMe.lastName" required />
+        <BInput
+          id="SettingsProfile-lastName"
+          v-model="editMe.lastName"
+          required
+        />
       </BField>
       <div class="SettingsProfile-form-button">
         <button
@@ -17,7 +30,9 @@
           :class="{ 'is-loading': loading }"
           @click="update"
           :disabled="!canUpdate"
-        >{{ $t("settings.profile.update") }}</button>
+        >
+          {{ $t("settings.profile.update") }}
+        </button>
       </div>
     </form>
   </TemplateSettings>

@@ -2,13 +2,18 @@
   <section class="PresentationHomeLanding">
     <div class="PresentationHomeLanding-wrapper">
       <h1 class="PresentationHomeLanding-title title is-2">Miimber</h1>
-      <span class="PresentationHomeLanding-subtitle is-size-5">Connecte les clubs et les adhérents.</span>
+      <span class="PresentationHomeLanding-subtitle is-size-5"
+        >Connecte les clubs et les adhérents.</span
+      >
       <div v-if="!isConnected" class="PresentationHomeLanding-cta">
         <router-link
-          :to="{name: 'register'}"
+          :to="{ name: 'register' }"
           class="button is-primary is-outlined is-medium"
-        >Démarrer</router-link>
-        <router-link :to="{name: 'login'}" class="button is-primary is-medium">Se connecter</router-link>
+          >Démarrer</router-link
+        >
+        <router-link :to="{ name: 'login' }" class="button is-primary is-medium"
+          >Se connecter</router-link
+        >
       </div>
     </div>
   </section>

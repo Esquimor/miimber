@@ -15,7 +15,8 @@
         aria-close-label="Close notification"
         role="alert"
         @close="error = false"
-      >{{ $t("organization.members.rightModal.error") }}</BNotification>
+        >{{ $t("organization.members.rightModal.error") }}</BNotification
+      >
       <OrganizationMembersRightItem
         id="OrganizationMembersRight-owner"
         :class="{ unselectable: !memberIsOwner }"

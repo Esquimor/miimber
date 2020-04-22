@@ -6,7 +6,10 @@
       </div>
       <div class="TemplateSign-left">
         <slot name="left">
-          <img src="~@/assets/login_process.png" class="TemplateSign-left-img" />
+          <img
+            src="~@/assets/login_process.png"
+            class="TemplateSign-left-img"
+          />
         </slot>
       </div>
     </div>

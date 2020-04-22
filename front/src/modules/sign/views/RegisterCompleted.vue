@@ -4,9 +4,7 @@
     <span class="is-size-6">{{ $t("sign.registerCompleted.message") }}</span>
     <div class="SignRegisterCompleted-button">
       <router-link :to="{ name: 'login' }" class="button is-primary">
-        {{
-        $t("sign.registerCompleted.login")
-        }}
+        {{ $t("sign.registerCompleted.login") }}
       </router-link>
     </div>
   </TemplateInfo>

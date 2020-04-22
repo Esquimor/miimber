@@ -2,14 +2,17 @@
   <TemplateSign>
     <template v-slot:rigth>
       <form class="SignLogin-form" @submit.prevent>
-        <h1 class="SignLogin-form-title is-size-3">{{ $t("login.utils.title") }}</h1>
+        <h1 class="SignLogin-form-title is-size-3">
+          {{ $t("login.utils.title") }}
+        </h1>
         <BNotification
           v-if="error"
           class="SignLogin-form-error"
           type="is-danger"
           aria-close-label="Close notification"
           role="alert"
-        >{{ $t("login.utils.error") }}</BNotification>
+          >{{ $t("login.utils.error") }}</BNotification
+        >
         <BField :label="$t('login.email.label')">
           <BInput
             id="SignLogin-email"
@@ -33,7 +36,8 @@
           id="SignLogin-remember"
           class="SignLogin-form-remember"
           v-model="remember"
-        >{{ $t("login.utils.remember") }}</BCheckbox>
+          >{{ $t("login.utils.remember") }}</BCheckbox
+        >
         <div class="SignLogin-form-submit">
           <button
             id="SignLogin-submit"
@@ -42,17 +46,22 @@
             :class="{ 'is-loading': loading }"
             @click="submit"
             :disabled="!isLoggable"
-          >{{ $t("login.utils.submit") }}</button>
+          >
+            {{ $t("login.utils.submit") }}
+          </button>
         </div>
         <router-link
-          :to="{name: 'password-forgotten'}"
+          :to="{ name: 'password-forgotten' }"
           class="SignLogin-form-passwordForgotten"
-        >{{ $t('sign.passwordForgotten.link') }}</router-link>
+          >{{ $t("sign.passwordForgotten.link") }}</router-link
+        >
       </form>
       <div class="SignLogin-bottom">
         <span>
           {{ $t("login.register.label") }}
-          <router-link :to="{ name: 'register' }">{{ $t("login.register.link") }}</router-link>
+          <router-link :to="{ name: 'register' }">{{
+            $t("login.register.link")
+          }}</router-link>
         </span>
       </div>
     </template>
