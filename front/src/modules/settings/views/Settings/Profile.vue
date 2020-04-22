@@ -1,27 +1,11 @@
 <template>
   <TemplateSettings :title="$t('settings.profile.title')">
     <form @submit.prevent>
-      <BField :label="$t('settings.profile.email')">
-        <BInput
-          id="SettingsProfile-email"
-          v-model="editMe.email"
-          type="email"
-          required
-        />
-      </BField>
       <BField :label="$t('settings.profile.firstName')">
-        <BInput
-          id="SettingsProfile-firstName"
-          v-model="editMe.firstName"
-          required
-        />
+        <BInput id="SettingsProfile-firstName" v-model="editMe.firstName" required />
       </BField>
       <BField :label="$t('settings.profile.lastName')">
-        <BInput
-          id="SettingsProfile-lastName"
-          v-model="editMe.lastName"
-          required
-        />
+        <BInput id="SettingsProfile-lastName" v-model="editMe.lastName" required />
       </BField>
       <div class="SettingsProfile-form-button">
         <button
@@ -30,9 +14,7 @@
           :class="{ 'is-loading': loading }"
           @click="update"
           :disabled="!canUpdate"
-        >
-          {{ $t("settings.profile.update") }}
-        </button>
+        >{{ $t("core.utils.update") }}</button>
       </div>
     </form>
   </TemplateSettings>
@@ -42,8 +24,6 @@
 "use strict";
 
 import { mapGetters } from "vuex";
-
-import { validEmail } from "@/utils/function";
 
 import TemplateSettings from "@settings/template/TemplateSettings";
 
@@ -66,14 +46,11 @@ export default {
       me: "core/me"
     }),
     canUpdate() {
-      return (
-        !!this.editMe.firstName && !!this.editMe.lastName && !!this.editMe.email
-      );
+      return !!this.editMe.firstName && !!this.editMe.lastName;
     }
   },
   methods: {
     update() {
-      if (!validEmail(this.editMe.email)) return;
       if (!this.canUpdate) return;
       if (this.loading) return;
       this.loading = true;
@@ -98,7 +75,6 @@ export default {
   mounted() {
     if (this.me !== null) {
       this.$nextTick(() => {
-        this.editMe.email = this.me.email;
         this.editMe.firstName = this.me.firstName;
         this.editMe.lastName = this.me.lastName;
       });

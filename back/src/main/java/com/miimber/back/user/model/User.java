@@ -35,6 +35,9 @@ public class User {
 	@Column(name = "status")
 	private StatusEnum status = StatusEnum.Waiting;
 	
+	@Column(name = "newEmail")
+	private String newEmail;
+	
 	@Column(name = "tokenCreation")
 	private String tokenCreation;
 	
@@ -99,6 +102,14 @@ public class User {
 	
 	public void setStatus(StatusEnum status) {
 		this.status = status;
+	}
+	
+	public String getNewEmail() {
+		return this.newEmail;
+	}
+	
+	public void setNewEmail(String newEmail) {
+		this.newEmail = newEmail;
 	}
 	
 	public String getTokenCreation() {

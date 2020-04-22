@@ -1,6 +1,7 @@
 package com.miimber.back.core.helper;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class MailJetService {
 	
 	@Value("${mailjet.invitation}")
 	private Integer idInvitation;
+	
+	@Value("$mailjet.change_email")
+	private Integer idChangeEmail;
     
     public MailjetResponse sendEmail(String fromEmail, String fromName, String toEmail, String toName, String subject, JSONObject variables, Integer template) throws MailjetException, MailjetSocketTimeoutException {
     	MailjetClient client;
@@ -90,5 +94,17 @@ public class MailJetService {
 				.put("link", link),
 			idInvitation
 		);
+    }
+    
+    public MailjetResponse sendEmailChangeEmail(String email, String name, String link) throws JSONException, MailjetException, MailjetSocketTimeoutException {
+    	return this.sendEmail(
+    			"no-reply@test280407.ga",
+    			"Miimber",
+    			email,
+    			name,
+    			"Email",
+    			new JSONObject().put("link", link),
+    			idChangeEmail
+    		);
     }
 }

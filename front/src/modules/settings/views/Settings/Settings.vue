@@ -6,33 +6,38 @@
         <SettingsNavItem
           :route="NAV.PROFILE"
           :label="$t('settings.profile.title')"
-          @click.native="nav = 'settings-profile'"
+          @click.native="nav = NAV.PROFILE"
         />
         <!--<SettingsNavItem route="settings-account" :label="$t('settings.account.title')" />-->
         <SettingsNavItem
+          :route="NAV.EMAIL"
+          :label="$t('settings.email.title')"
+          @click.native="nav = NAV.EMAIL"
+        />
+        <SettingsNavItem
           :route="NAV.SECURITY"
           :label="$t('settings.security.title')"
-          @click.native="nav = 'settings-security'"
+          @click.native="nav = NAV.SECURITY"
         />
         <SettingsNavItem
           :route="NAV.ORGANIZATION"
           :label="$t('settings.organization.title')"
-          @click.native="nav = 'settings-organization'"
+          @click.native="nav = NAV.ORGANIZATION"
         />
       </nav>
-      <b-select
-        class="Settings-nav-tablet"
-        size="is-medium"
-        expanded
-        v-model="nav"
-      >
+      <b-select class="Settings-nav-tablet" size="is-medium" expanded v-model="nav">
         <option :value="NAV.PROFILE">{{ $t("settings.profile.title") }}</option>
-        <option :value="NAV.SECURITY">{{
+        <option :value="NAV.EMAIL">{{ $t("settings.email.title") }}</option>
+        <option :value="NAV.SECURITY">
+          {{
           $t("settings.security.title")
-        }}</option>
-        <option :value="NAV.ORGANIZATION">{{
+          }}
+        </option>
+        <option :value="NAV.ORGANIZATION">
+          {{
           $t("settings.organization.title")
-        }}</option>
+          }}
+        </option>
       </b-select>
       <router-view class="Settings-content"></router-view>
     </main>
@@ -49,7 +54,8 @@ import SettingsNavItem from "@settings/components/nav/SettingsNavItem";
 const NAV = {
   PROFILE: "settings-profile",
   SECURITY: "settings-security",
-  ORGANIZATION: "settings-organization"
+  ORGANIZATION: "settings-organization",
+  EMAIL: "settings-email"
 };
 
 export default {

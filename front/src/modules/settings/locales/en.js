@@ -5,12 +5,16 @@ export default {
       title: "Profile",
       firstName: "First name",
       lastName: "Last name",
-      email: "Email",
-      update: "Update profile",
-      success: "Profile updated."
+      success: "Profile updated.",
     },
     account: {
-      title: "Account"
+      title: "Account",
+    },
+    email: {
+      title: "Email",
+      label: {
+        email: "Email",
+      },
     },
     security: {
       title: "Security",
@@ -19,7 +23,7 @@ export default {
       confirmPassword: "Confirm",
       change: "Update password",
       notSame: "Passwords don't match.",
-      success: "Password changed."
+      success: "Password changed.",
     },
     organization: {
       title: "Organization",
@@ -27,7 +31,7 @@ export default {
       listEmpty: "You don't own any organizarion.",
       create: "Create an organization",
       button: "Create",
-      manage: "Manage"
+      manage: "Manage",
     },
     organizationCreate: {
       name: "Name",
@@ -35,17 +39,17 @@ export default {
       subscriptions: {
         monthly: {
           title: "Monthly subscription",
-          price: "14,99 € per month"
+          price: "14,99 € per month",
         },
         sixMonth: {
           title: "Six-month subscription",
-          price: "9,99 € per month"
-        }
+          price: "9,99 € per month",
+        },
       },
       cardNumber: "Card number",
       expiry: "Expiry date",
       cvc: "CVC",
-      button: "Add"
-    }
-  }
+      button: "Add",
+    },
+  },
 };

@@ -4,9 +4,12 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import org.json.JSONException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +23,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mailjet.client.errors.MailjetException;
+import com.mailjet.client.errors.MailjetSocketTimeoutException;
 import com.miimber.back.core.helper.Helper;
+import com.miimber.back.core.helper.MailJetService;
 import com.miimber.back.organization.dto.organization.OrganizationAndMemberReadResponseDTO;
 import com.miimber.back.organization.dto.organization.OrganizationCreateReadUpdateResponseDTO;
 import com.miimber.back.organization.model.Member;
@@ -29,9 +35,11 @@ import com.miimber.back.organization.service.MemberService;
 import com.miimber.back.organization.service.OrganizationService;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.service.SessionService;
+import com.miimber.back.user.dto.UserEmailUpdateRequestDTO;
 import com.miimber.back.user.dto.UserPasswordUpdateRequestDTO;
 import com.miimber.back.user.dto.UserSessionReadResponseDTO;
 import com.miimber.back.user.dto.UserUpdateRequestDTO;
+import com.miimber.back.user.dto.UserValideEmailRequestDTO;
 import com.miimber.back.user.model.User;
 import com.miimber.back.user.service.UserService;
 
@@ -39,11 +47,17 @@ import com.miimber.back.user.service.UserService;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 	
+	@Value("${front.url}")
+	private String frontUrl;
+	
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private MemberService memberService;
+
+	@Autowired
+	private MailJetService mailJetService;
 	
 	@Autowired
 	private OrganizationService organizationService;
@@ -78,9 +92,35 @@ public class UserController {
 		}
 		return ResponseEntity.ok(convertToDto(userService.update(user)));
 	}
+	
+	@RequestMapping(value = "/user/{id}/email", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateUserEmail(@RequestBody UserEmailUpdateRequestDTO userDto, @PathVariable Long id) throws Exception  {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		if (user.getId() != id) {
+			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+		}
+		String token = UUID.randomUUID().toString();
+		user.setTokenChangeEmail(token);
+		user.setNewEmail(userDto.getEmail());
+		userService.update(user);
+		String link = frontUrl + "/change-email?id="+user.getId()+"&token="+token;
+		mailJetService.sendEmailChangeEmail(user.getEmail(), user.getFirstName() + " "+ user.getLastName(), link);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/user/{id}/email", method = RequestMethod.POST)
+	public ResponseEntity<?> validateUserEmail(@RequestBody UserValideEmailRequestDTO userDto, @PathVariable Long id) throws Exception {
+		User user = userService.get(id);
+		if (!user.getTokenChangeEmail().equals(userDto.getToken())) {
+			return new ResponseEntity(HttpStatus.CONFLICT);
+		}
+		user.setEmail(user.getNewEmail());
+		userService.update(user);
+		return new ResponseEntity(HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/user/{id}/password", method = RequestMethod.PUT)
-	public ResponseEntity<?> updatePasswordUser(@RequestBody UserPasswordUpdateRequestDTO userDTO, @PathVariable Long id) {
+	public ResponseEntity<?> updatePasswordUser(@RequestBody UserPasswordUpdateRequestDTO userDTO, @PathVariable Long id) throws Exception  {
         User tokenUser = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		if (id != tokenUser.getId()) {
 			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
