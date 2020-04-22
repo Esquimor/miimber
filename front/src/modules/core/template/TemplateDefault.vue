@@ -4,7 +4,7 @@
       <nav class="TemplateDefault-header-nav">
         <router-link :to="{ name: 'home' }" exact class="TemplateDefault-header-nav-home">
           <img src="~@/assets/logo.svg" class="TemplateDefault-header-nav-home-logo" />
-          <span>Me'ember</span>
+          <span>Miimber</span>
         </router-link>
         <router-link v-if="isConnected" :to="{ name: 'dashboard-sessions' }">
           <span>{{ $t("core.menu.sessions") }}</span>
@@ -19,8 +19,8 @@
             <b-icon :icon="active ? 'menu-up' : 'menu-down'"></b-icon>
           </div>
 
-          <b-dropdown-item aria-role="listitem">
-            <router-link :to="{name: 'settings-profile'}">{{ $t('core.menu.profile') }}</router-link>
+          <b-dropdown-item aria-role="listitem" @click.native="goToProfile">
+            <span>{{ $t('core.menu.profile') }}</span>
           </b-dropdown-item>
           <b-dropdown-item aria-role="listitem" separator />
           <b-dropdown-item aria-role="listitem" @click.native="logout">
@@ -82,31 +82,37 @@
       <slot />
     </main>
     <component v-if="sideBar.open" :is="sideBar.component" />
-    <footer class="TemplateDefault-footer columns">
-      <div class="TemplateDefault-footer-list column">
-        <b-dropdown
-          class="TemplateDefault-footer-list-lang"
-          aria-role="list"
-          position="is-top-right"
-        >
-          <div slot="trigger" class="TemplateDefault-footer-list-element">
-            <BIcon icon="translate" class="TemplateDefault-footer-list-element-icon" />
-            <span>{{$t('core.footer.lang')}}</span>
-          </div>
-          <b-dropdown-item
-            v-for="lang in LANG"
-            :key="lang.item"
-            aria-role="listitem"
-            @click.native="changeLang(lang.code)"
-          >{{ $t(`core.lang.${lang.label}`) }}</b-dropdown-item>
-        </b-dropdown>
+    <footer class="TemplateDefault-footer">
+      <div class="columns">
+        <div class="TemplateDefault-footer-list column">
+          <b-dropdown
+            class="TemplateDefault-footer-list-lang"
+            aria-role="list"
+            position="is-top-right"
+          >
+            <div slot="trigger" class="TemplateDefault-footer-list-element">
+              <BIcon icon="translate" class="TemplateDefault-footer-list-element-icon" />
+              <span>{{$t('core.footer.lang')}}</span>
+            </div>
+            <b-dropdown-item
+              v-for="lang in LANG"
+              :key="lang.item"
+              aria-role="listitem"
+              @click.native="changeLang(lang.code)"
+            >{{ $t(`core.lang.${lang.label}`) }}</b-dropdown-item>
+          </b-dropdown>
+        </div>
+        <div class="TemplateDefault-footer-list column"></div>
+        <div class="TemplateDefault-footer-list column"></div>
+        <div class="TemplateDefault-footer-list column">
+          <router-link :to="{name: 'terms'}" class="TemplateDefault-footer-list-element">
+            <BIcon icon="file-certificate" class="TemplateDefault-footer-list-element-icon" />
+            <span>{{ $t("core.footer.terms") }}</span>
+          </router-link>
+        </div>
       </div>
-      <div class="TemplateDefault-footer-list column"></div>
-      <div class="TemplateDefault-footer-list column">
-        <router-link :to="{name: 'terms'}" class="TemplateDefault-footer-list-element">
-          <BIcon icon="file-certificate" class="TemplateDefault-footer-list-element-icon" />
-          <span>{{ $t("core.footer.terms") }}</span>
-        </router-link>
+      <div class="TemplateDefault-footer-info">
+        <span>Miimber - {{ dateYear }} v.{{version}}</span>
       </div>
     </footer>
   </div>
@@ -119,19 +125,27 @@ import { mapGetters } from "vuex";
 
 import { LANG } from "@/utils/consts";
 
+import dayjs from "dayjs";
+
 export default {
   name: "TemplateDefault",
-  computed: {
-    ...mapGetters({
-      sideBar: "core/sideBar",
-      isConnected: "core/isConnected"
-    })
-  },
   data() {
     return {
       openMobileMenu: false,
       LANG: LANG
     };
+  },
+  computed: {
+    ...mapGetters({
+      sideBar: "core/sideBar",
+      isConnected: "core/isConnected"
+    }),
+    dateYear() {
+      return dayjs().year();
+    },
+    version() {
+      return process.env.VUE_APP_VERSION;
+    }
   },
   methods: {
     logout() {
@@ -146,6 +160,9 @@ export default {
     changeLang(lang) {
       localStorage.setItem("lang", lang);
       document.location.reload();
+    },
+    goToProfile() {
+      this.$router.push({ name: "settings-profile" });
     }
   }
 };
@@ -256,7 +273,7 @@ export default {
   &-footer {
     background-color: $black-ter;
     color: $white-ter;
-    padding: 3rem 4rem;
+    padding: 1rem 4rem;
     a {
       color: $white-ter;
       &:hover {
@@ -267,6 +284,7 @@ export default {
       display: flex;
       flex-direction: column;
       &-lang {
+        cursor: pointer;
         a {
           color: $black-ter;
         }
@@ -279,6 +297,10 @@ export default {
           margin-right: 0.5rem;
         }
       }
+    }
+    &-info {
+      display: flex;
+      justify-content: center;
     }
   }
 }

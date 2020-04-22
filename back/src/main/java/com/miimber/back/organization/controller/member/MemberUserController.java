@@ -65,7 +65,7 @@ public class MemberUserController {
         newUser.setEmail(memberByOrganizationRequestDto.getEmail());
         newUser.setFirstName(memberByOrganizationRequestDto.getFirstName());
         newUser.setLastName(memberByOrganizationRequestDto.getLastName());
-        newUser.setToken(UUID.randomUUID().toString());
+        newUser.setTokenCreation(UUID.randomUUID().toString());
 
         newUser = userService.create(newUser);
         

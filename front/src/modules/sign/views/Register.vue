@@ -10,6 +10,24 @@
           aria-close-label="Close notification"
           role="alert"
         >{{ $t("register.utils.error") }}</BNotification>
+        <BField :label="$t('register.firstName.label')">
+          <BInput
+            id="SignRegister-firstName"
+            v-model.trim="firstName"
+            type="firstName"
+            :placeholder="$t('register.firstName.placeholder')"
+            required
+          ></BInput>
+        </BField>
+        <BField :label="$t('register.lastName.label')">
+          <BInput
+            id="SignRegister-lastName"
+            v-model.trim="lastName"
+            type="lastName"
+            :placeholder="$t('register.lastName.placeholder')"
+            required
+          ></BInput>
+        </BField>
         <BField :label="$t('register.email.label')">
           <BInput
             id="SignRegister-email"
@@ -80,6 +98,8 @@ export default {
   data() {
     return {
       email: "",
+      firstName: "",
+      lastName: "",
       password: "",
       confirm: "",
       loading: false,
@@ -90,7 +110,11 @@ export default {
   computed: {
     isRegistable() {
       return (
-        this.email !== "" && this.password !== "" && !this.errorSamePassword
+        this.email !== "" &&
+        this.firstName !== "" &&
+        this.lastName !== "" &&
+        this.password !== "" &&
+        !this.errorSamePassword
       );
     }
   },
@@ -106,6 +130,8 @@ export default {
       this.$store
         .dispatch("sign/register", {
           email: this.email,
+          firstName: this.firstName,
+          lastName: this.lastName,
           password: this.password
         })
         .then(() => {

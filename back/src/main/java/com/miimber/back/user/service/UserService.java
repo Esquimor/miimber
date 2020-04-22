@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.miimber.back.user.model.User;
+import com.miimber.back.user.model.enums.StatusEnum;
 import com.miimber.back.user.repository.UserRepository;
 
 @Service
@@ -24,6 +25,11 @@ public class UserService implements IUserService {
 	@Override
 	public User getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public User getUserByEmailAndStatusValidated(String email) {
+		return userRepository.findByEmailAndStatus(email, StatusEnum.Validated);
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.session.model.Attendee;
 import com.miimber.back.session.model.Registered;
-import com.miimber.back.user.model.enums.UserRoleEnum;
+import com.miimber.back.user.model.enums.StatusEnum;
 
 import java.util.List;
 
@@ -32,11 +32,17 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@Column(name = "role")
-	private UserRoleEnum role = UserRoleEnum.User;
+	@Column(name = "status")
+	private StatusEnum status = StatusEnum.Waiting;
 	
-	@Column(name = "token")
-	private String token;
+	@Column(name = "tokenCreation")
+	private String tokenCreation;
+	
+	@Column(name = "tokenPasswordForgotten")
+	private String tokenPasswordForgotten;
+	
+	@Column(name = "tokenChangeEmail")
+	private String tokenChangeEmail;
 	
 	@OneToMany(mappedBy = "user")
     private List<Member> members;
@@ -87,20 +93,36 @@ public class User {
 		this.lastName = lastName;
 	}
 	
-	public UserRoleEnum getRole() {
-		return this.role;
+	public StatusEnum getStatus() {
+		return this.status;
 	}
 	
-	public void setRole(UserRoleEnum role) {
-		this.role = role;
+	public void setStatus(StatusEnum status) {
+		this.status = status;
 	}
 	
-	public String getToken() {
-		return this.token;
+	public String getTokenCreation() {
+		return this.tokenCreation;
 	}
 	
-	public void setToken(String token) {
-		this.token = token;
+	public void setTokenCreation(String tokenCreation) {
+		this.tokenCreation = tokenCreation;
+	}
+	
+	public String getTokenPasswordForgotten() {
+		return this.tokenPasswordForgotten;
+	}
+	
+	public void setTokenPasswordForgotten(String tokenPasswordForgotten) {
+		this.tokenPasswordForgotten = tokenPasswordForgotten;
+	}
+	
+	public String getTokenChangeEmail() {
+		return this.tokenChangeEmail;
+	}
+	
+	public void setTokenChangeEmail(String tokenChangeEmail) {
+		this.tokenChangeEmail = tokenChangeEmail;
 	}
 	
 	public List<Member> getMembers() {

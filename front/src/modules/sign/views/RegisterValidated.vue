@@ -15,9 +15,25 @@ export default {
   components: {
     TemplateInfo
   },
+  data() {
+    return {
+      error: false
+    };
+  },
   mounted() {
-    const token = this.$route.params.token;
-    console.log(token);
+    const token = this.$route.query.token;
+    const id = this.$route.query.id;
+    this.$store
+      .dispatch("sign/registerValidated", {
+        token,
+        id
+      })
+      .then(() => {
+        this.$router.push({ name: "login" });
+      })
+      .catch(() => {
+        this.error = true;
+      });
   }
 };
 </script>

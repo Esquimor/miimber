@@ -22,6 +22,7 @@ export default {
       yes: "Oui",
       no: "Non",
       logout: "Déconne",
+      send: "Envoyer",
     },
     menu: {
       home: "Accueil",
@@ -146,6 +147,14 @@ export default {
       TO_COME_UP: "À venir",
       IN_PROGRESS: "En cours",
       COMPLETED: "Terminé",
+    },
+    lang: {
+      ENGLISH: "English",
+      FRENCH: "Français",
+    },
+    langCode: {
+      ENGLISH: "en",
+      FRENCH: "fr",
     },
   },
 };

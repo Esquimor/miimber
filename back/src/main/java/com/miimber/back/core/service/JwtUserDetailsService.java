@@ -1,6 +1,7 @@
 package com.miimber.back.core.service;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import com.mailjet.client.errors.MailjetSocketTimeoutException;
 import com.miimber.back.core.helper.MailJetService;
 import com.miimber.back.user.dto.UserRegisterDTO;
 import com.miimber.back.user.model.User;
+import com.miimber.back.user.model.enums.StatusEnum;
 import com.miimber.back.user.service.UserService;
 
 @Service
@@ -30,7 +32,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
     @Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    	User user = userService.getUserByEmail(email);
+    	User user = userService.getUserByEmailAndStatusValidated(email);
 		
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("The email %s doesn't exist", email));
@@ -42,7 +44,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public User save(UserRegisterDTO user) throws MailjetException, MailjetSocketTimeoutException {
 		User newUser = new User();
 		newUser.setEmail(user.getEmail());
+		newUser.setFirstName(user.getFirstName());
+		newUser.setLastName(user.getLastName());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		newUser.setTokenCreation(UUID.randomUUID().toString());
 		return userService.create(newUser);
 	}
 

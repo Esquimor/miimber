@@ -1,11 +1,11 @@
 <template>
   <TemplateSign>
     <template v-slot:rigth>
-      <form class="Login-form" @submit.prevent>
-        <h1 class="Login-form-title is-size-3">{{ $t("login.utils.title") }}</h1>
+      <form class="SignLogin-form" @submit.prevent>
+        <h1 class="SignLogin-form-title is-size-3">{{ $t("login.utils.title") }}</h1>
         <BNotification
           v-if="error"
-          class="Login-form-error"
+          class="SignLogin-form-error"
           type="is-danger"
           aria-close-label="Close notification"
           role="alert"
@@ -31,10 +31,10 @@
         </BField>
         <BCheckbox
           id="SignLogin-remember"
-          class="Login-form-remember"
+          class="SignLogin-form-remember"
           v-model="remember"
         >{{ $t("login.utils.remember") }}</BCheckbox>
-        <div class="Login-form-submit">
+        <div class="SignLogin-form-submit">
           <button
             id="SignLogin-submit"
             type="submit"
@@ -44,8 +44,12 @@
             :disabled="!isLoggable"
           >{{ $t("login.utils.submit") }}</button>
         </div>
+        <router-link
+          :to="{name: 'password-forgotten'}"
+          class="SignLogin-form-passwordForgotten"
+        >{{ $t('sign.passwordForgotten.link') }}</router-link>
       </form>
-      <div class="Login-bottom">
+      <div class="SignLogin-bottom">
         <span>
           {{ $t("login.register.label") }}
           <router-link :to="{ name: 'register' }">{{ $t("login.register.link") }}</router-link>
@@ -104,7 +108,7 @@ export default {
 </script>
 
 <style lang="scss">
-.Login {
+.SignLogin {
   &-form {
     display: flex;
     flex-direction: column;
@@ -124,6 +128,9 @@ export default {
     }
     &-remember {
       padding-top: 0.5rem;
+    }
+    &-passwordForgotten {
+      margin: 1rem 0;
     }
   }
   &-bottom {

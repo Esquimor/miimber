@@ -5,10 +5,10 @@ import javax.persistence.Converter;
 import java.util.stream.Stream;
 
 @Converter(autoApply = true)
-public class UserRoleConverter implements AttributeConverter<UserRoleEnum, String> {
+public class StatusConverter implements AttributeConverter<StatusEnum, String> {
 
 	@Override
-	public String convertToDatabaseColumn(UserRoleEnum role) {
+	public String convertToDatabaseColumn(StatusEnum role) {
         if (role == null) {
             return null;
         }
@@ -16,12 +16,12 @@ public class UserRoleConverter implements AttributeConverter<UserRoleEnum, Strin
 	}
 
 	@Override
-	public UserRoleEnum convertToEntityAttribute(String role) {
+	public StatusEnum convertToEntityAttribute(String role) {
 		if (role == null) {
         return null;
 		}
 
-	    return Stream.of(UserRoleEnum.values())
+	    return Stream.of(StatusEnum.values())
 	      .filter(c -> c.getRole().equals(role))
 	      .findFirst()
 	      .orElseThrow(IllegalArgumentException::new);

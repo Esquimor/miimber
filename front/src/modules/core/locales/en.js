@@ -21,6 +21,7 @@ export default {
       administer: "Administer",
       yes: "Yes",
       no: "No",
+      send: "Send",
     },
     menu: {
       home: "Home",

@@ -20,19 +20,10 @@
           @click.native="nav = 'settings-organization'"
         />
       </nav>
-      <b-select
-        class="Settings-nav-tablet"
-        size="is-medium"
-        expanded
-        v-model="nav"
-      >
+      <b-select class="Settings-nav-tablet" size="is-medium" expanded v-model="nav">
         <option :value="NAV.PROFILE">{{ $t("settings.profile.title") }}</option>
-        <option :value="NAV.SECURITY">{{
-          $t("settings.security.title")
-        }}</option>
-        <option :value="NAV.ORGANIZATION">{{
-          $t("settings.organization.title")
-        }}</option>
+        <option :value="NAV.SECURITY">{{ $t("settings.security.title") }}</option>
+        <option :value="NAV.ORGANIZATION">{{ $t("settings.organization.title") }}</option>
       </b-select>
       <router-view class="Settings-content"></router-view>
     </main>

@@ -15,4 +15,6 @@ public interface IUserService extends TemplateService<User> {
 	void deleteUserById(long id);
 	
 	User getUserByEmail(String email);
+	
+	User getUserByEmailAndStatusValidated(String email);
 }

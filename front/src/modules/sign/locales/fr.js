@@ -32,6 +32,14 @@ export default {
       label: "Mail",
       placeholder: "ex: mail@exemple.com",
     },
+    firstName: {
+      label: "Prénom",
+      placeholder: "John",
+    },
+    lastName: {
+      label: "Nom",
+      placeholder: "Doe",
+    },
     password: {
       label: "Mot de passe",
       confirm: "Confirmation",
@@ -52,6 +60,14 @@ export default {
     registerValidated: {
       title: "Veuillez patientez",
       message: "Vous ne effectuons des vérifications.",
+    },
+    passwordForgotten: {
+      link: "Mot de passe oublié ?",
+      title: "Mot de passe oublié",
+      label: {
+        email: "Entrez votre adresse mail",
+        emailPlaceholder: "ex: mail@exemple.com",
+      },
     },
   },
 };

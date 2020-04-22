@@ -1,11 +1,11 @@
 package com.miimber.back.user.model.enums;
 
-public enum UserRoleEnum {
-	Admin("A"), User("U");
+public enum StatusEnum {
+	Validated("V"), Waiting("W");
 	
     private String role;
     
-    private UserRoleEnum(String role) {
+    private StatusEnum(String role) {
         this.role = role;
     }
  

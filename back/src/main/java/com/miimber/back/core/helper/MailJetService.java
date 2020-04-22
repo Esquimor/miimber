@@ -54,7 +54,7 @@ public class MailJetService {
     public MailjetResponse sendEmailRegister(String email, String name, String link) throws MailjetException, MailjetSocketTimeoutException {
     	return this.sendEmail(
 			"no-reply@test280407.ga", 
-			"Me'ember", 
+			"Miimber", 
 			email, 
 			name, 
 			"Create a account", 
@@ -67,7 +67,7 @@ public class MailJetService {
     public MailjetResponse sendEmailResetPassword(String email, String name, String link) throws MailjetException, MailjetSocketTimeoutException {
     	return this.sendEmail(
 			"no-reply@test280407.ga", 
-			"Me'ember", 
+			"Miimber", 
 			email, 
 			name, 
 			"Reset password", 
@@ -80,7 +80,7 @@ public class MailJetService {
     public MailjetResponse sendEmailInvitation(String email, String name, String link, String sender, String organization) throws MailjetException, MailjetSocketTimeoutException {
     	return this.sendEmail(
 			"no-reply@test280407.ga", 
-			"Me'ember", 
+			"Miimber", 
 			email, 
 			name, 
 			"Invitation", 

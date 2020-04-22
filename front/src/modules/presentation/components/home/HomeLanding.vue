@@ -1,7 +1,7 @@
 <template>
   <section class="PresentationHomeLanding">
     <div class="PresentationHomeLanding-wrapper">
-      <h1 class="PresentationHomeLanding-title title is-2">Me'ember</h1>
+      <h1 class="PresentationHomeLanding-title title is-2">Miimber</h1>
       <span class="PresentationHomeLanding-subtitle is-size-5">Connecte les clubs et les adhérents.</span>
       <div v-if="!isConnected" class="PresentationHomeLanding-cta">
         <router-link
