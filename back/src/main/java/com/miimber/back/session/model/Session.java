@@ -27,19 +27,19 @@ public class Session {
 	@Column(name = "id")
 	private long id; 
 	
-	@Column(name = "title")
+	@Column(name = "title", length = 255, nullable = false)
 	private String title;
 	
-	@Column(name = "description")
+	@Column(name = "description", columnDefinition="TEXT", length = 5000, nullable = false)
 	private String description;
 	
-	@Column(name = "startDate", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "startDate", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
 	private OffsetDateTime start;
 	
-	@Column(name = "endDate", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Column(name = "endDate", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
 	private OffsetDateTime end;
 	
-	@Column(name = "limitUsers")
+	@Column(name = "limitUsers", nullable = false)
 	private int limit;
 	
 	@OneToMany(mappedBy = "session")

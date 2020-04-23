@@ -33,7 +33,7 @@ public class Registered implements Comparable<Registered> {
 	@ManyToOne
 	private User user;
 
-	@Column(name = "dateRegistered")
+	@Column(name = "dateRegistered", nullable = false)
 	private OffsetDateTime dateRegistered;
 
 	@Override

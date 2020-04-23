@@ -31,7 +31,7 @@ public class Organization {
 	@Column(name = "id")
 	private long id;
 	
-	@Column(name = "name")
+	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 	
 	@Column(name = "stripe")

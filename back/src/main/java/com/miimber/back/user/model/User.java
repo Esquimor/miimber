@@ -23,23 +23,23 @@ public class User {
 	@Column(name = "id")
 	private long id;
 	
-	@Column(name = "email")
+	@Column(name = "email", length = 60, nullable = false)
 	private String email;
 	
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	@JsonIgnore
 	private String password;
 	
-	@Column(name = "first_name")
+	@Column(name = "first_name", length = 40, nullable = false)
 	private String firstName;
 	
-	@Column(name = "last_name")
+	@Column(name = "last_name", length = 40, nullable = false)
 	private String lastName;
 	
-	@Column(name = "status")
+	@Column(name = "status", nullable = false)
 	private StatusEnum status = StatusEnum.Waiting;
 	
-	@Column(name = "newEmail")
+	@Column(name = "newEmail", length = 60)
 	private String newEmail;
 	
 	@Column(name = "tokenCreation")

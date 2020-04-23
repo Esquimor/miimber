@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.miimber.back.organization.model.enums.RoleEnum;
 import com.miimber.back.user.model.User;
@@ -27,10 +28,12 @@ public class Member {
 	
     @ManyToOne
     private User user;
-    
+
+	@Column(nullable = false)
 	private RoleEnum role = RoleEnum.MEMBER;
     
     @ManyToOne
+	@NotNull
     private Organization organization;
 	
 	public boolean canEditOrganization() {

@@ -31,6 +31,6 @@ public class Attendee {
 	@ManyToOne
 	private User user;
 
-	@Column(name = "dateCheck")
+	@Column(name = "dateCheck", nullable = false)
 	private OffsetDateTime dateCheck;
 }
