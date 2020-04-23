@@ -1,6 +1,7 @@
 package com.miimber.back.session.model;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +13,12 @@ import javax.persistence.Table;
 
 import com.miimber.back.user.model.User;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name="attendees")
+@Getter @Setter
 public class Attendee {
 
 	@Id
@@ -28,36 +33,4 @@ public class Attendee {
 
 	@Column(name = "dateCheck")
 	private OffsetDateTime dateCheck;
-	
-	public long getId() {
-		return this.id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public Session getSession() {
-		return this.session;
-	}
-	
-	public void setSession(Session session) {
-		this.session = session;
-	}
-	
-	public User getUser() {
-		return this.user;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	public OffsetDateTime getDateCheck() {
-		return this.dateCheck;
-	}
-	
-	public void setDateCheck(OffsetDateTime dateCheck) {
-		this.dateCheck = dateCheck;
-	}
 }

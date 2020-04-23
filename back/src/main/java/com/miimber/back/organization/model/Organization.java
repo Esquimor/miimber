@@ -12,11 +12,18 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.miimber.back.organization.model.enums.RoleEnum;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.TypeSession;
+import com.miimber.back.user.model.User;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="organizations")
+@Getter @Setter
 public class Organization {
 
 	@Id
@@ -52,72 +59,8 @@ public class Organization {
 		this.typeSessions = new ArrayList<TypeSession>();
 		this.sessions = new ArrayList<Session>();
 	}
-	
-	public long getId() {
-		return this.id;
-	}
-	
-	public String getName() {
-		return this.name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getStripe() {
-		return this.stripe;
-	}
-	
-	public void setStripe(String stripe) {
-		this.stripe = stripe;
-	}
-	
-	public List<Member> getMembers() {
-		return this.members;
-	}
-	
-	public void setMembers(List<Member> members) {
-		this.members = members;
-	}
-	
-	public void addMember(Member member) {
-		this.members.add(member);
-	}
-	
-	public void removeMember(Member member) {
-		this.members.remove(member);
-	}
-	
-	public List<TypeSession> getTypeSessions() {
-		return this.typeSessions;
-	}
-	
-	public void setTypeSessions(List<TypeSession> typeSessions) {
-		this.typeSessions = typeSessions;
-	}
-	
-	public void addTypeSession(TypeSession typeSession) {
-		this.typeSessions.add(typeSession);
-	}
-	
-	public void removeTypeSession(TypeSession typeSession) {
-		this.typeSessions.remove(typeSession);
-	}
-	
-	public List<Session> getSessions() {
-		return this.sessions;
-	}
-	
-	public void setSessions(List<Session> sessions) {
-		this.sessions = sessions;
-	}
-	
-	public void addSession(Session session) {
-		this.sessions.add(session);
-	}
-	
-	public void removeSession(Session session) {
-		this.sessions.remove(session);
+	public void addMember(Member newMember) {
+		this.members.add(newMember);
 	}
 }

@@ -9,23 +9,16 @@
         </div>
         <div class="column">
           <BField :label="$t('organization.sessions.label.between')">
-            <BDatepicker
-              v-model="dates"
-              range
-              @input="setSessions"
-              :nearbyMonthDays="false"
-            ></BDatepicker>
+            <BDatepicker v-model="dates" range @input="setSessions" :nearbyMonthDays="false"></BDatepicker>
           </BField>
         </div>
       </div>
     </div>
-    <div class="DashboardOrganizationSessions-sessions">
-      <SessionList
-        v-for="date in sessionByDate"
-        :key="date.item"
-        :date="date"
-        hideOrganization
-      />
+    <div v-if="sessionByDate.length > 0" class="DashboardOrganizationSessions-sessions">
+      <SessionList v-for="date in sessionByDate" :key="date.item" :date="date" hideOrganization />
+    </div>
+    <div v-else class="DashboardOrganizationSessions-empty">
+      <span>{{ $t("dashboard.sessions.label.empty") }}</span>
     </div>
   </div>
 </template>
@@ -148,5 +141,11 @@ export default {
   border: 1px solid $grey-lightest;
   min-height: 80vh;
   border-radius: 5px;
+  &-empty {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 3rem 2rem;
+  }
 }
 </style>

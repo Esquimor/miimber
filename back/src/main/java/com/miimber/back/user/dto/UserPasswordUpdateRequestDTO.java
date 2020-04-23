@@ -1,23 +1,11 @@
 package com.miimber.back.user.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class UserPasswordUpdateRequestDTO {
 
 	private String oldPassword;
 	private String newPassword;
-	
-	public String getOldPassword() {
-		return this.oldPassword;
-	}
-	
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
-	
-	public String getNewPassword() {
-		return this.newPassword;
-	}
-	
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
 }

@@ -32,7 +32,7 @@ public class MailJetService {
 	@Value("${mailjet.invitation}")
 	private Integer idInvitation;
 	
-	@Value("$mailjet.change_email")
+	@Value("${mailjet.change_email}")
 	private Integer idChangeEmail;
     
     public MailjetResponse sendEmail(String fromEmail, String fromName, String toEmail, String toName, String subject, JSONObject variables, Integer template) throws MailjetException, MailjetSocketTimeoutException {

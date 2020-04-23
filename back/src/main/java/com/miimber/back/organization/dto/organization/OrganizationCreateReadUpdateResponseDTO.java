@@ -2,6 +2,10 @@ package com.miimber.back.organization.dto.organization;
 
 import com.miimber.back.organization.model.Organization;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class OrganizationCreateReadUpdateResponseDTO {
 
 	private long id;
@@ -15,21 +19,5 @@ public class OrganizationCreateReadUpdateResponseDTO {
 	public OrganizationCreateReadUpdateResponseDTO(long id, String name) {
 		this.setId(id);
 		this.setName(name);
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 }

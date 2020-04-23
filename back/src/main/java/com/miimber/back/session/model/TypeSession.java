@@ -10,8 +10,12 @@ import javax.persistence.Table;
 
 import com.miimber.back.organization.model.Organization;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name="type_sessions")
+@Getter @Setter
 public class TypeSession {
 
 	@Id
@@ -27,29 +31,5 @@ public class TypeSession {
 	
 	public TypeSession() {
 		this.name = "";
-	}
-	
-	public long getId() {
-		return this.id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public String getName() {
-		return this.name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public Organization getOrganization() {
-		return this.organization;
-	}
-	
-	public void setOrganization(Organization organization) {
-		this.organization = organization;
 	}
 }

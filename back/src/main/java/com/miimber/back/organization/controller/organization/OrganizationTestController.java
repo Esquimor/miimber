@@ -53,7 +53,7 @@ public class OrganizationTestController {
         Member newMember = new Member();
         newMember.setOrganization(newOrganization);
         newMember.setUser(user);
-        newMember.setType(RoleEnum.OWNER);
+        newMember.setRole(RoleEnum.OWNER);
         newMember = memberService.create(newMember);
         
         newOrganization.addMember(newMember);

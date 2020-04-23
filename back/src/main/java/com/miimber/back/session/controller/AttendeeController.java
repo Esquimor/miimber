@@ -59,7 +59,7 @@ public class AttendeeController {
         if (member == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
-        if (member.getType() == RoleEnum.MEMBER || member.getType() == RoleEnum.OFFICE) {
+        if (member.getRole() == RoleEnum.MEMBER || member.getRole() == RoleEnum.OFFICE) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
@@ -92,7 +92,7 @@ public class AttendeeController {
         if (member == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
-        if (member.getType() == RoleEnum.MEMBER || member.getType() == RoleEnum.OFFICE) {
+        if (member.getRole() == RoleEnum.MEMBER || member.getRole() == RoleEnum.OFFICE) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         

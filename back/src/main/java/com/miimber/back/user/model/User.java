@@ -6,12 +6,16 @@ import com.miimber.back.session.model.Attendee;
 import com.miimber.back.session.model.Registered;
 import com.miimber.back.user.model.enums.StatusEnum;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="users")
+@Getter @Setter
 public class User {
 
 	@Id
@@ -56,94 +60,6 @@ public class User {
 	@OneToMany(mappedBy = "user")
     private List<Registered> registereds;
 	
-	public long getId() {
-		return this.id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public String getEmail() {
-		return this.email;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getPassword() {
-		return this.password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getFirstName() {
-		return this.firstName;
-	}
-	
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	
-	public String getLastName() {
-		return this.lastName;
-	}
-	
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
-	public StatusEnum getStatus() {
-		return this.status;
-	}
-	
-	public void setStatus(StatusEnum status) {
-		this.status = status;
-	}
-	
-	public String getNewEmail() {
-		return this.newEmail;
-	}
-	
-	public void setNewEmail(String newEmail) {
-		this.newEmail = newEmail;
-	}
-	
-	public String getTokenCreation() {
-		return this.tokenCreation;
-	}
-	
-	public void setTokenCreation(String tokenCreation) {
-		this.tokenCreation = tokenCreation;
-	}
-	
-	public String getTokenPasswordForgotten() {
-		return this.tokenPasswordForgotten;
-	}
-	
-	public void setTokenPasswordForgotten(String tokenPasswordForgotten) {
-		this.tokenPasswordForgotten = tokenPasswordForgotten;
-	}
-	
-	public String getTokenChangeEmail() {
-		return this.tokenChangeEmail;
-	}
-	
-	public void setTokenChangeEmail(String tokenChangeEmail) {
-		this.tokenChangeEmail = tokenChangeEmail;
-	}
-	
-	public List<Member> getMembers() {
-		return this.members;
-	}
-	
-	public void setMembers(List<Member> members) {
-		this.members = members;
-	}
-	
 	public void addMember(Member member) {
 		this.members.add(member);
 	}
@@ -152,28 +68,12 @@ public class User {
 		this.members.remove(member);
 	}
 	
-	public List<Attendee> getAttendees() {
-		return this.attendees;
-	}
-	
-	public void setAttendees(List<Attendee> attendees) {
-		this.attendees = attendees;
-	}
-	
 	public void addAttendee(Attendee attendee) {
 		this.attendees.add(attendee);
 	}
 	
 	public void removeAttendee(Attendee attendee) {
 		this.attendees.remove(attendee);
-	}
-	
-	public List<Registered> getRegistereds() {
-		return this.registereds;
-	}
-	
-	public void setRegistereds(List<Registered> registereds) {
-		this.registereds = registereds;
 	}
 	
 	public void addRegistered(Registered registered) {

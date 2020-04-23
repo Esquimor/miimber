@@ -2,6 +2,10 @@ package com.miimber.back.session.dto.typeSession;
 
 import com.miimber.back.session.model.TypeSession;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class TypeSessionReadResponseDTO {
 
 	private long id;
@@ -10,23 +14,5 @@ public class TypeSessionReadResponseDTO {
 	public TypeSessionReadResponseDTO(TypeSession typeSession) {
 		this.id = typeSession.getId();
 		this.name = typeSession.getName();
-	}
-	
-	public TypeSessionReadResponseDTO(long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 }

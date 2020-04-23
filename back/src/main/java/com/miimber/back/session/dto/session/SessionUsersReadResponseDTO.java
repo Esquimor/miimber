@@ -10,6 +10,10 @@ import com.miimber.back.session.model.Session;
 import com.miimber.back.user.dto.TemplateAttendeeDTO;
 import com.miimber.back.user.model.User;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class SessionUsersReadResponseDTO {
 		
 	private long id;
@@ -20,29 +24,5 @@ public class SessionUsersReadResponseDTO {
 		this.setId(session.getId());
 		this.setTitle(session.getTitle());
 		this.setUsers(users);
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public List<TemplateAttendeeDTO> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<TemplateAttendeeDTO> users) {
-		this.users = users;
 	}
 }

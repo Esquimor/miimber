@@ -12,8 +12,13 @@ import javax.persistence.Table;
 import com.miimber.back.organization.model.enums.RoleEnum;
 import com.miimber.back.user.model.User;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
 @Table(name="members")
+@Getter @Setter
 public class Member {
 
 	@Id
@@ -40,33 +45,5 @@ public class Member {
 			return false;
 		}
 		return true;
-	}
-	
-	public long getId() {
-		return this.id;
-	}
-	
-	public User getUser() {
-		return this.user;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	public RoleEnum getType() {
-		return this.role;
-	}
-	
-	public void setType(RoleEnum role) {
-		this.role = role;
-	}
-	
-	public Organization getOrganization() {
-		return this.organization;
-	}
-	
-	public void setOrganization(Organization organization) {
-		this.organization = organization;
 	}
 }

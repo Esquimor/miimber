@@ -6,6 +6,10 @@ import com.miimber.back.session.model.Registered;
 import com.miimber.back.session.model.enums.RegisteredEnum;
 import com.miimber.back.user.model.User;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class RegisteredCreateResponseDTO {
 
 	private long id;
@@ -24,54 +28,7 @@ public class RegisteredCreateResponseDTO {
 		this.setStatus(status);
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public OffsetDateTime getDateRegistered() {
-		return dateRegistered;
-	}
-
-	public void setDateRegistered(OffsetDateTime dateRegistered) {
-		this.dateRegistered = dateRegistered;
-	}
-
-	public long getSessionId() {
-		return sessionId;
-	}
-
-	public void setSessionId(long sessionId) {
-		this.sessionId = sessionId;
-	}
-	
-	public boolean isMember() {
-		return isMember;
-	}
-
-	public void setMember(boolean isMember) {
-		this.isMember = isMember;
-	}
-
-	public UserDTO getUser() {
-		return user;
-	}
-
-	public void setUser(UserDTO user) {
-		this.user = user;
-	}
-
-	public RegisteredEnum getStatus() {
-		return status;
-	}
-
-	public void setStatus(RegisteredEnum status) {
-		this.status = status;
-	}
-
+	@Getter @Setter
 	private class UserDTO {
 
 		private long id;
@@ -84,38 +41,6 @@ public class RegisteredCreateResponseDTO {
 			this.setFirstName(user.getFirstName());
 			this.setLastName(user.getLastName());
 			this.setEmail(user.getEmail());
-		}
-
-		public long getId() {
-			return id;
-		}
-
-		public void setId(long id) {
-			this.id = id;
-		}
-
-		public String getFirstName() {
-			return firstName;
-		}
-
-		public void setFirstName(String firstName) {
-			this.firstName = firstName;
-		}
-
-		public String getLastName() {
-			return lastName;
-		}
-
-		public void setLastName(String lastName) {
-			this.lastName = lastName;
-		}
-
-		public String getEmail() {
-			return email;
-		}
-
-		public void setEmail(String email) {
-			this.email = email;
 		}
 	}
 }

@@ -6,6 +6,10 @@ import java.time.format.DateTimeFormatter;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.TypeSession;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class SessionShortReadResponseDTO {
 
 	public long id;
@@ -34,87 +38,8 @@ public class SessionShortReadResponseDTO {
 			this.setNbRegistereds(session.getRegistereds().size());
 		}
 	}
-	
-	public long getId() {
-		return this.id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
 
-	public OffsetDateTime getStart() {
-		return this.start;
-	}
-
-	public void setStart(OffsetDateTime start) {
-		this.start = start;
-	}
-
-	public OffsetDateTime getEnd() {
-		return this.end;
-	}
-
-	public void setEnd(OffsetDateTime end) {
-		this.end = end;
-	}
-
-	public long getOrganizationId() {
-		return organizationId;
-	}
-
-	public void setOrganizationId(long organizationId) {
-		this.organizationId = organizationId;
-	}
-
-	public long getTemplateSessionId() {
-		return templateSessionId;
-	}
-
-	public void setTemplateSessionId(long templateSessionId) {
-		this.templateSessionId = templateSessionId;
-	}
-	
-	public TypeSessionDTO getTypeSession() {
-		return typeSession;
-	}
-
-	public void setTypeSession(TypeSessionDTO typeSession) {
-		this.typeSession = typeSession;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public int getLimit() {
-		return limit;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
-
-	public int getNbRegistereds() {
-		return nbRegistereds;
-	}
-
-	public void setNbRegistereds(int nbRegistereds) {
-		this.nbRegistereds = nbRegistereds;
-	}
-
+	@Getter @Setter
 	private class TypeSessionDTO {
 
 		private long id;
@@ -123,19 +48,6 @@ public class SessionShortReadResponseDTO {
 		public TypeSessionDTO(TypeSession typeSession) {
 			this.id = typeSession.getId();
 			this.name = typeSession.getName();
-		}
-		
-		public long getId() {
-			return id;
-		}
-		public void setId(long id) {
-			this.id = id;
-		}
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
 		}
 	}
 }

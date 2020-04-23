@@ -2,6 +2,13 @@ package com.miimber.back.core.helper;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class JwtRequest implements Serializable {
 	
 	/**
@@ -9,7 +16,10 @@ public class JwtRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@NotNull
 	private String email;
+	
+	@NotNull
 	private String password;
 	
 	public JwtRequest() {
@@ -18,22 +28,6 @@ public class JwtRequest implements Serializable {
 	
 	public JwtRequest(String email, String password) {
 		this.email = email;
-		this.password = password;
-	}
-	
-	public String getEmail() {
-		return this.email;
-	}
-	
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getPassword() {
-		return this.password;
-	}
-	
-	public void setPassword(String password) {
 		this.password = password;
 	}
 }

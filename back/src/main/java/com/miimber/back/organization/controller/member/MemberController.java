@@ -58,24 +58,24 @@ public class MemberController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         Member memberUser = memberService.getMemberByOrganizationAndByUser(member.getOrganization(), user);
-        if (memberUser.getType() == RoleEnum.MEMBER || memberUser.getType() == RoleEnum.INSTRUCTOR) {
+        if (memberUser.getRole() == RoleEnum.MEMBER || memberUser.getRole() == RoleEnum.INSTRUCTOR) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        if (memberUser.getType() != RoleEnum.OWNER && memberDto.getRole() == RoleEnum.OWNER) {
+        if (memberUser.getRole() != RoleEnum.OWNER && memberDto.getRole() == RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        if (member.getType() == RoleEnum.OWNER && memberUser.getType() != RoleEnum.OWNER) {
+        if (member.getRole() == RoleEnum.OWNER && memberUser.getRole() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         if (memberDto.getRole() == RoleEnum.OWNER && member.getId() == memberUser.getId()) {
-            Predicate<Member> byType = m -> m.getType() == RoleEnum.OWNER;
+            Predicate<Member> byType = m -> m.getRole() == RoleEnum.OWNER;
             int numberOwners = member.getOrganization().getMembers().stream().filter(byType)
                     .collect(Collectors.toList()).size();
             if (numberOwners == 1) {
             	return new ResponseEntity(HttpStatus.CONFLICT);
             }
         }
-        member.setType(memberDto.getRole());
+        member.setRole(memberDto.getRole());
         return ResponseEntity.ok(new MemberReadUpdateResponseDTO(memberService.update(member)));
 	}
 	
@@ -90,7 +90,7 @@ public class MemberController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
-        if (memberUser.getType() == RoleEnum.MEMBER || memberUser.getType() == RoleEnum.INSTRUCTOR) {
+        if (memberUser.getRole() == RoleEnum.MEMBER || memberUser.getRole() == RoleEnum.INSTRUCTOR) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
@@ -106,7 +106,7 @@ public class MemberController {
         
         Member newMember = new Member();
         newMember.setUser(userToMember);
-        newMember.setType(memberDto.getRole());
+        newMember.setRole(memberDto.getRole());
         newMember.setOrganization(organization);
         
         if (organization.getStripe() != null) {
@@ -134,11 +134,11 @@ public class MemberController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
-        if (memberUser.getType() == RoleEnum.MEMBER || memberUser.getType() == RoleEnum.INSTRUCTOR) {
+        if (memberUser.getRole() == RoleEnum.MEMBER || memberUser.getRole() == RoleEnum.INSTRUCTOR) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        if (member.getType() == RoleEnum.OWNER && memberUser.getType() != RoleEnum.OWNER) {
+        if (member.getRole() == RoleEnum.OWNER && memberUser.getRole() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
 

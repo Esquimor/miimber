@@ -53,7 +53,7 @@ public class MemberUserController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
-        if (memberUser.getType() == RoleEnum.MEMBER || memberUser.getType() == RoleEnum.INSTRUCTOR) {
+        if (memberUser.getRole() == RoleEnum.MEMBER || memberUser.getRole() == RoleEnum.INSTRUCTOR) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
@@ -71,7 +71,7 @@ public class MemberUserController {
         
         Member newMember = new Member();
         newMember.setUser(newUser);
-        newMember.setType(memberByOrganizationRequestDto.getRole());
+        newMember.setRole(memberByOrganizationRequestDto.getRole());
         newMember.setOrganization(organization);
         
         if (organization.getStripe() != null) {

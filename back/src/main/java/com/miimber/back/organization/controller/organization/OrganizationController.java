@@ -86,7 +86,7 @@ public class OrganizationController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
-        if (member.getType().equals(RoleEnum.MEMBER)) {
+        if (member.getRole().equals(RoleEnum.MEMBER)) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
@@ -144,7 +144,7 @@ public class OrganizationController {
         Member newMember = new Member();
         newMember.setOrganization(newOrganization);
         newMember.setUser(user);
-        newMember.setType(RoleEnum.OWNER);
+        newMember.setRole(RoleEnum.OWNER);
         newMember = memberService.create(newMember);
         
         newOrganization.addMember(newMember);
@@ -188,7 +188,7 @@ public class OrganizationController {
         if (memberUser == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        if (memberUser.getType() != RoleEnum.OWNER) {
+        if (memberUser.getRole() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         stripeService.updateCardForSubscription(memberUser.getOrganization().getStripe(), organizationDto.getToken());
@@ -232,7 +232,7 @@ public class OrganizationController {
         if (memberUser == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        if (memberUser.getType() != RoleEnum.OWNER) {
+        if (memberUser.getRole() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         Organization organization = memberUser.getOrganization();

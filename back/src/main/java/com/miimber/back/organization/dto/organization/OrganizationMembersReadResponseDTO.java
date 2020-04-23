@@ -1,8 +1,14 @@
 package com.miimber.back.organization.dto.organization;
 
+import java.util.List;
+
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.model.enums.RoleEnum;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class OrganizationMembersReadResponseDTO {
 
 	private long id;
@@ -14,58 +20,10 @@ public class OrganizationMembersReadResponseDTO {
 	
 	public OrganizationMembersReadResponseDTO(Member member) {
 		this.setId(member.getId());
-		this.setRole(member.getType());
+		this.setRole(member.getRole());
 		this.setFirstName(member.getUser().getFirstName());
 		this.setLastName(member.getUser().getLastName());
 		this.setEmail(member.getUser().getEmail());
 		this.setUserId(member.getUser().getId());
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public RoleEnum getRole() {
-		return role;
-	}
-
-	public void setRole(RoleEnum role) {
-		this.role = role;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
 	}
 }

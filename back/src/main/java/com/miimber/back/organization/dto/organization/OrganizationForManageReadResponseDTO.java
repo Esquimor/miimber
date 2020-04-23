@@ -8,6 +8,10 @@ import com.miimber.back.organization.model.Organization;
 import com.miimber.back.organization.model.enums.RoleEnum;
 import com.stripe.model.Subscription;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class OrganizationForManageReadResponseDTO extends OrganizationCreateReadUpdateResponseDTO {
 
 	private List<MemberDTO> members;
@@ -24,8 +28,8 @@ public class OrganizationForManageReadResponseDTO extends OrganizationCreateRead
 		super(organization.getId(), organization.getName());
 		this.setMembers(convertMembersDTO(organization.getMembers()));
 		if (subscription != null) {
-			this.setCurrentPeriodEnd(subscription.getCurrentPeriodEnd());
-			this.setCancelAtPeriodEnd(subscription.getCancelAtPeriodEnd());
+			this.setCurrent_period_end(subscription.getCurrentPeriodEnd());
+			this.cancel_at_period_end = subscription.getCancelAtPeriodEnd();
 			this.setStatus(subscription.getStatus());
 			this.setPlan(subscription.getPlan().getId());
 		}
@@ -35,51 +39,11 @@ public class OrganizationForManageReadResponseDTO extends OrganizationCreateRead
 		super(id, name);
 		this.setMembers(convertMembersDTO(members));
 		if (subscription != null) {
-			this.setCurrentPeriodEnd(subscription.getCurrentPeriodEnd());
-			this.setCancelAtPeriodEnd(subscription.getCancelAtPeriodEnd());
+			this.setCurrent_period_end(subscription.getCurrentPeriodEnd());
+			this.cancel_at_period_end = subscription.getCancelAtPeriodEnd();
 			this.setStatus(subscription.getStatus());
 			this.setPlan(subscription.getPlan().getId());
 		}
-	}
-	
-	public List<MemberDTO> getMembers() {
-		return members;
-	}
-
-	public void setMembers(List<MemberDTO> members) {
-		this.members = members;
-	}
-
-	public Long getCurrentPeriodEnd() {
-		return current_period_end;
-	}
-
-	public void setCurrentPeriodEnd(Long current_period_end) {
-		this.current_period_end = current_period_end;
-	}
-
-	public boolean isCancelAtPeriodEnd() {
-		return cancel_at_period_end;
-	}
-
-	public void setCancelAtPeriodEnd(boolean cancel_at_period_end) {
-		this.cancel_at_period_end = cancel_at_period_end;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getPlan() {
-		return plan;
-	}
-
-	public void setPlan(String plan) {
-		this.plan = plan;
 	}
 	
 	private List<MemberDTO> convertMembersDTO(List<Member> members) {
@@ -96,10 +60,11 @@ public class OrganizationForManageReadResponseDTO extends OrganizationCreateRead
 				member.getId(),
 				member.getUser().getLastName(),
 				member.getUser().getFirstName(),
-				member.getType()
+				member.getRole()
 				);
 	}
 
+	@Getter @Setter
 	private class MemberDTO {
 		
 		private Long id;
@@ -111,38 +76,6 @@ public class OrganizationForManageReadResponseDTO extends OrganizationCreateRead
 			this.id = id;
 			this.lastName = lastName;
 			this.firstName = firstName;
-			this.role = role;
-		}
-		
-		public Long getId() {
-			return this.id;
-		}
-		
-		public void setId(Long id) {
-			this.id = id;
-		}
-		
-		public String getLastName() {
-			return this.lastName;
-		}
-		
-		public void setLastName(String lastName) {
-			this.lastName = lastName;
-		}
-		
-		public String getFirstName() {
-			return this.firstName;
-		}
-		
-		public void setFirstName(String firstName) {
-			this.firstName = firstName;
-		}
-		
-		public RoleEnum getRole() {
-			return this.role;
-		}
-		
-		public void setRole(RoleEnum role) {
 			this.role = role;
 		}
 	}

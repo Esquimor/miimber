@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
-import com.miimber.back.core.helper.MailJetService;
 import com.miimber.back.user.dto.UserRegisterDTO;
 import com.miimber.back.user.model.User;
-import com.miimber.back.user.model.enums.StatusEnum;
 import com.miimber.back.user.service.UserService;
 
 @Service
@@ -26,9 +24,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
-	
-	@Autowired
-	private MailJetService mailJetService;
 	
     @Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

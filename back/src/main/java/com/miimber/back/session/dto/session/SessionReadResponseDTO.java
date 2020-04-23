@@ -15,6 +15,10 @@ import com.miimber.back.session.model.TypeSession;
 import com.miimber.back.session.model.enums.RegisteredEnum;
 import com.miimber.back.user.model.User;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class SessionReadResponseDTO {
 
 	private long id;
@@ -38,9 +42,9 @@ public class SessionReadResponseDTO {
 		this.setOrganization(new OrganizationDTO(session.getOrganization()));
 		this.setTypeSession(new TypeSessionDTO(session.getTypeSession()));
 		this.setMe(new MeDTO(member, getByUserId(session, userId)));
-		if ( member != null && (member.getType() == RoleEnum.INSTRUCTOR ||
-			member.getType() == RoleEnum.OFFICE_INSTRUCTOR ||
-			member.getType() == RoleEnum.OWNER)) {
+		if ( member != null && (member.getRole() == RoleEnum.INSTRUCTOR ||
+			member.getRole() == RoleEnum.OFFICE_INSTRUCTOR ||
+			member.getRole() == RoleEnum.OWNER)) {
 		}
 		setRegistereds(session);
 	}
@@ -78,86 +82,7 @@ public class SessionReadResponseDTO {
 		}
 	}
 	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public OffsetDateTime getStart() {
-		return start;
-	}
-
-	public void setStart(OffsetDateTime start) {
-		this.start = start;
-	}
-
-	public OffsetDateTime getEnd() {
-		return end;
-	}
-
-	public void setEnd(OffsetDateTime end) {
-		this.end = end;
-	}
-
-	public OrganizationDTO getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(OrganizationDTO organization) {
-		this.organization = organization;
-	}
-
-	public TypeSessionDTO getTypeSession() {
-		return typeSession;
-	}
-
-	public void setTypeSession(TypeSessionDTO typeSession) {
-		this.typeSession = typeSession;
-	}
-
-	public List<RegisteredDTO> getRegistereds() {
-		return registereds;
-	}
-
-	public void setRegistereds(List<RegisteredDTO> registereds) {
-		this.registereds = registereds;
-	}
-
-	public int getLimit() {
-		return limit;
-	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
-
-	public MeDTO getMe() {
-		return me;
-	}
-
-	public void setMe(MeDTO me) {
-		this.me = me;
-	}
-
+	@Getter @Setter
 	private class OrganizationDTO {
 		
 		private long id;
@@ -167,24 +92,9 @@ public class SessionReadResponseDTO {
 			this.setId(organization.getId());
 			this.setName(organization.getName());
 		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public long getId() {
-			return id;
-		}
-
-		public void setId(long id) {
-			this.id = id;
-		}
 	}
 	
+	@Getter @Setter
 	private class TypeSessionDTO {
 		
 		private long id;
@@ -194,24 +104,9 @@ public class SessionReadResponseDTO {
 			this.setId(typeSession.getId());
 			this.setName(typeSession.getName());
 		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public long getId() {
-			return id;
-		}
-
-		public void setId(long id) {
-			this.id = id;
-		}
 	}
 	
+	@Getter @Setter
 	private class MeDTO {
 		
 		private MemberUserDTO member;
@@ -224,22 +119,7 @@ public class SessionReadResponseDTO {
 			}
 		}
 
-		public MemberUserDTO getMember() {
-			return member;
-		}
-
-		public void setMember(MemberUserDTO member) {
-			this.member = member;
-		}
-		
-		public MeRegisteredDTO getRegistered() {
-			return registered;
-		}
-
-		public void setRegistered(MeRegisteredDTO registered) {
-			this.registered = registered;
-		}
-
+		@Getter @Setter
 		private class MeRegisteredDTO {
 			
 			private long id;
@@ -249,24 +129,9 @@ public class SessionReadResponseDTO {
 				this.setId(registered.getId());
 				this.setDateRegistered(registered.getDateRegistered());
 			}
-
-			public long getId() {
-				return id;
-			}
-
-			public void setId(long id) {
-				this.id = id;
-			}
-
-			public OffsetDateTime getDateRegistered() {
-				return dateRegistered;
-			}
-
-			public void setDateRegistered(OffsetDateTime dateRegistered) {
-				this.dateRegistered = dateRegistered;
-			}
 		}
 
+		@Getter @Setter
 		private class MemberUserDTO {
 			
 			private long id;
@@ -274,27 +139,12 @@ public class SessionReadResponseDTO {
 			
 			public MemberUserDTO(Member member) {
 				this.setId(member.getId());
-				this.setRole(member.getType());
-			}
-
-			public long getId() {
-				return id;
-			}
-
-			public void setId(long id) {
-				this.id = id;
-			}
-
-			public RoleEnum getRole() {
-				return role;
-			}
-
-			public void setRole(RoleEnum role) {
-				this.role = role;
+				this.setRole(member.getRole());
 			}
 		}
 	}
 
+	@Getter @Setter
 	private class RegisteredDTO {
 		
 		private long id;
@@ -310,47 +160,8 @@ public class SessionReadResponseDTO {
 			this.setUser(new UserRegisteredDTO(registered.getUser()));
 			this.setStatus(status);
 		}
-		
-		public long getId() {
-			return id;
-		}
 
-		public void setId(long id) {
-			this.id = id;
-		}
-
-		public OffsetDateTime getDateRegistered() {
-			return dateRegistered;
-		}
-
-		public void setDateRegistered(OffsetDateTime dateRegistered) {
-			this.dateRegistered = dateRegistered;
-		}
-
-		public boolean isMember() {
-			return isMember;
-		}
-
-		public void setMember(boolean isMember) {
-			this.isMember = isMember;
-		}
-
-		public UserRegisteredDTO getUser() {
-			return user;
-		}
-
-		public void setUser(UserRegisteredDTO user) {
-			this.user = user;
-		}
-
-		public RegisteredEnum getStatus() {
-			return status;
-		}
-
-		public void setStatus(RegisteredEnum status) {
-			this.status = status;
-		}
-
+		@Getter @Setter
 		private class UserRegisteredDTO {
 			
 			private long id;
@@ -363,38 +174,6 @@ public class SessionReadResponseDTO {
 				this.setFirstName(user.getFirstName());
 				this.setLastName(user.getLastName());
 				this.setEmail(user.getEmail());
-			}
-
-			public long getId() {
-				return id;
-			}
-
-			public void setId(long id) {
-				this.id = id;
-			}
-
-			public String getFirstName() {
-				return firstName;
-			}
-
-			public void setFirstName(String firstName) {
-				this.firstName = firstName;
-			}
-
-			public String getLastName() {
-				return lastName;
-			}
-
-			public void setLastName(String lastName) {
-				this.lastName = lastName;
-			}
-
-			public String getEmail() {
-				return email;
-			}
-
-			public void setEmail(String email) {
-				this.email = email;
 			}
 		}
 	}
