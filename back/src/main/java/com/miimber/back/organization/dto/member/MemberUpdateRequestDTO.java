@@ -1,5 +1,7 @@
 package com.miimber.back.organization.dto.member;
 
+import javax.validation.constraints.NotNull;
+
 import com.miimber.back.organization.model.enums.RoleEnum;
 
 import lombok.Getter;
@@ -8,5 +10,6 @@ import lombok.Setter;
 @Getter @Setter
 public class MemberUpdateRequestDTO {
 
-	private RoleEnum role = RoleEnum.MEMBER;
+	@NotNull
+	private RoleEnum role;
 }

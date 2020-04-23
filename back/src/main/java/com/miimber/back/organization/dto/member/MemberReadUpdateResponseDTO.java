@@ -1,5 +1,7 @@
 package com.miimber.back.organization.dto.member;
 
+import javax.validation.constraints.NotNull;
+
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.model.enums.RoleEnum;
 
@@ -8,8 +10,14 @@ import lombok.Setter;
 
 @Getter @Setter
 public class MemberReadUpdateResponseDTO extends MemberUpdateRequestDTO {
+	
+	@NotNull
 	private Long id;
+	
+	@NotNull
 	private Long idUser;
+	
+	@NotNull
 	private Long idOrganization;
 	
 	public MemberReadUpdateResponseDTO(Member member) {
