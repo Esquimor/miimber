@@ -13,18 +13,44 @@
           role="alert"
           >{{ $t("register.utils.error") }}</BNotification
         >
+        <BField :label="$t('register.firstName.label')">
+          <BInput
+            id="SignRegister-firstName"
+            v-model.trim="firstName"
+            type="firstName"
+            :placeholder="$t('register.firstName.placeholder')"
+            required
+          ></BInput>
+        </BField>
+        <BField :label="$t('register.lastName.label')">
+          <BInput
+            id="SignRegister-lastName"
+            v-model.trim="lastName"
+            type="lastName"
+            :placeholder="$t('register.lastName.placeholder')"
+            required
+          ></BInput>
+        </BField>
         <BField :label="$t('register.email.label')">
           <BInput
-            v-model="email"
+            id="SignRegister-email"
+            v-model.trim="email"
             type="email"
             :placeholder="$t('register.email.placeholder')"
+            required
           ></BInput>
         </BField>
         <BField
           :label="$t('register.password.label')"
           :type="errorSamePassword ? 'is-danger' : ''"
         >
-          <BInput v-model="password" type="password" password-reveal></BInput>
+          <BInput
+            id="SignRegister-password"
+            v-model="password"
+            type="password"
+            password-reveal
+            required
+          ></BInput>
         </BField>
         <BField
           :label="$t('register.password.confirm')"
@@ -32,14 +58,17 @@
           :message="errorSamePassword ? $t('register.password.notSame') : ''"
         >
           <BInput
+            id="SignRegister-confirm"
             v-model="confirm"
             type="password"
             @blur="verifySamePassword"
             @focus="errorSamePassword = false"
+            required
           ></BInput>
         </BField>
         <div class="Register-form-submit">
           <button
+            id="SignRegister-submit"
             type="submit"
             class="button is-primary"
             :class="{ 'is-loading': loading }"
@@ -75,6 +104,8 @@ export default {
   data() {
     return {
       email: "",
+      firstName: "",
+      lastName: "",
       password: "",
       confirm: "",
       loading: false,
@@ -85,7 +116,11 @@ export default {
   computed: {
     isRegistable() {
       return (
-        this.email !== "" && this.password !== "" && !this.errorSamePassword
+        this.email !== "" &&
+        this.firstName !== "" &&
+        this.lastName !== "" &&
+        this.password !== "" &&
+        !this.errorSamePassword
       );
     }
   },
@@ -95,17 +130,25 @@ export default {
         this.errorSamePassword = true;
         return;
       }
+      if (!this.isRegistable) return;
+      if (this.loading) return;
       this.loading = true;
       this.$store
         .dispatch("sign/register", {
           email: this.email,
+          firstName: this.firstName,
+          lastName: this.lastName,
           password: this.password
         })
-        .catch(() => {
+        .then(() => {
+          this.$router.push({ name: "register-completed" });
           this.loading = false;
+        })
+        .catch(() => {
           this.password = "";
           this.confirm = "";
           this.error = true;
+          this.loading = false;
         });
     },
     verifySamePassword() {

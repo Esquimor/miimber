@@ -8,6 +8,7 @@
     <div class="OrganizationMembersAdd">
       <BField :label="$t('organization.members.add.label.email')">
         <BInput
+          id="OrganizationOrganizationMembersAdd-email"
           type="email"
           v-model="email"
           @blur="verifyMember"
@@ -17,6 +18,7 @@
       </BField>
       <div v-if="noMember" class="OrganizationMembersAdd-noMember">
         <BNotification
+          id="OrganizationOrganizationMembers-notification-noMember"
           class="OrganizationMembersAdd-noMember-notification"
           type="is-info"
           aria-close-label="Close notification"
@@ -25,18 +27,27 @@
         <div class="columns">
           <div class="column">
             <BField :label="$t('organization.members.add.label.firstName')">
-              <BInput v-model="firstName" required></BInput>
+              <BInput
+                id="OrganizationOrganizationMembers-firstName"
+                v-model="firstName"
+                required
+              ></BInput>
             </BField>
           </div>
           <div class="column">
             <BField :label="$t('organization.members.add.label.lastName')">
-              <BInput v-model="lastName" required></BInput>
+              <BInput
+                id="OrganizationOrganizationMembers-lastName"
+                v-model="lastName"
+                required
+              ></BInput>
             </BField>
           </div>
         </div>
       </div>
       <BNotification
         v-else-if="alreadyExist"
+        id="OrganizationOrganizationMembers-notification-alreadyExist"
         class="OrganizationMembersAdd-alreadyExist"
         type="is-danger"
         aria-close-label="Close notification"
@@ -123,6 +134,7 @@ export default {
             this.$store.dispatch("core/closeSideBar");
           });
       } else {
+        if (!this.member) return;
         this.$store
           .dispatch("organization/addMember", {
             organizationId: this.organization.id,

@@ -1,7 +1,7 @@
 export default {
   login: {
     utils: {
-      title: "Login",
+      title: "Se connecter",
       submit: "Se connecter",
       remember: "Se souvenir",
       error: "Une erreur est survenue. Merci de réessayer."
@@ -32,6 +32,14 @@ export default {
       label: "Mail",
       placeholder: "ex: mail@exemple.com"
     },
+    firstName: {
+      label: "Prénom",
+      placeholder: "John"
+    },
+    lastName: {
+      label: "Nom",
+      placeholder: "Doe"
+    },
     password: {
       label: "Mot de passe",
       confirm: "Confirmation",
@@ -40,6 +48,26 @@ export default {
     login: {
       label: "Déjà un compte. ",
       link: "Se connecter."
+    }
+  },
+  sign: {
+    registerCompleted: {
+      title: "Compte crée",
+      message:
+        "Pour confirmer votre compte, cliquez sur le lien reçus par mail.",
+      login: "Se connecter"
+    },
+    registerValidated: {
+      title: "Veuillez patientez",
+      message: "Vous ne effectuons des vérifications."
+    },
+    passwordForgotten: {
+      link: "Mot de passe oublié ?",
+      title: "Mot de passe oublié",
+      label: {
+        email: "Entrez votre adresse mail",
+        emailPlaceholder: "ex: mail@exemple.com"
+      }
     }
   }
 };

@@ -119,7 +119,7 @@ export default {
           {
             userId: id,
             sessionId: state.session.id,
-            dateCheck: Date.now()
+            dateCheck: dayjs().format("YYYY-MM-DDTHH:mm:ssZ")
           },
           { errorMessage: true }
         )

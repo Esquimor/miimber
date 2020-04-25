@@ -67,3 +67,14 @@ export const DAYS = {
   SATURDAY: { label: "SATURDAY", value: 6 },
   SUNDAY: { label: "SUNDAY", value: 7 }
 };
+
+export const LANG = {
+  ENGLISH: {
+    label: "ENGLISH",
+    code: "en"
+  },
+  FRENCH: {
+    label: "FRENCH",
+    code: "fr"
+  }
+};

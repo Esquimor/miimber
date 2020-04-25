@@ -25,6 +25,7 @@
         >
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
           <OrganizationMembersDropdown
+            :id="`OrganizationMembersDropdown-${row.id}`"
             @changeRight="changeRight(row)"
             @remove="remove(row.id)"
           />

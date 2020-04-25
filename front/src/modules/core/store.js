@@ -50,10 +50,15 @@ export default {
   },
   actions: {
     getMe({ commit }) {
-      return api.get("me", {}, { errorRedirect: true }).then(({ data }) => {
-        commit(types.COR_SET_ME, data);
-        return Promise.resolve();
-      });
+      return api
+        .get("me", {}, { errorRedirect: true })
+        .then(({ data }) => {
+          commit(types.COR_SET_ME, data);
+          return Promise.resolve();
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     },
     updateMeByProfile({ commit }, payload) {
       commit(types.COR_UPDATE_ME_BY_PROFILE, payload);
@@ -68,6 +73,9 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    logout({ commit }) {
+      commit(types.COR_LOGOUT);
     },
     openSideBar({ commit }, payload) {
       commit(types.COR_OPEN_SIDE_BAR, payload);
@@ -128,6 +136,11 @@ export default {
     },
     [types.COR_EMPTY_ERROR](state) {
       state.error = error();
+    },
+    [types.COR_LOGOUT](state) {
+      state.me = null;
+      state.member = null;
+      localStorage.removeItem("token");
     }
   }
 };

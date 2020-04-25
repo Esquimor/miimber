@@ -16,7 +16,7 @@
       <div v-if="isInsctructorOrganization" class="DashboardSession-emerge">
         <router-link
           :to="{ name: 'dashboard-session-emerge', params: { id: session.id } }"
-          class="button is-primary"
+          class="button is-primary is-medium"
           >{{ $t("dashboard.session.label.emerge") }}</router-link
         >
       </div>
@@ -51,9 +51,9 @@
                 session.end | formatHour
               }}
             </span>
-            <span class="DashboardSession-bottom-info-title text is-size-5">{{
-              session.title
-            }}</span>
+            <span class="DashboardSession-bottom-info-title text is-size-5">
+              {{ session.title }}
+            </span>
           </div>
           <div class="DashboardSession-bottom-button">
             <BButton
@@ -142,12 +142,18 @@ export default {
   },
   methods: {
     registerd() {
+      if (this.loadingRegisterd) return;
       this.loadingRegisterd = true;
       this.$store.dispatch("dashboard/registered", this.session.id).then(() => {
+        this.$buefy.toast.open({
+          message: this.$t("dashboard.session.registered.success"),
+          type: "is-success"
+        });
         this.loadingRegisterd = false;
       });
     },
     unsubscribe() {
+      if (this.loadingRegisterd) return;
       this.$buefy.dialog.confirm({
         title: this.$t("dashboard.session.unsubscribe.title"),
         message: this.$t("dashboard.session.unsubscribe.message"),
@@ -162,6 +168,10 @@ export default {
               this.getUserForSession.registered.id
             )
             .then(() => {
+              this.$buefy.toast.open({
+                message: this.$t("dashboard.session.unsubscribe.success"),
+                type: "is-success"
+              });
               this.loadingRegisterd = false;
             });
         }

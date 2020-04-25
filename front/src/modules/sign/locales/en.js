@@ -32,6 +32,14 @@ export default {
       label: "Email",
       placeholder: "ex: email@example.com"
     },
+    firstName: {
+      label: "First Name",
+      placeholder: "John"
+    },
+    lastName: {
+      label: "Last Name",
+      placeholder: "Doe"
+    },
     password: {
       label: "Password",
       confirm: "Confirm",
@@ -41,5 +49,15 @@ export default {
       label: "Already an account. ",
       link: "Sign in."
     }
+  },
+  sign: {
+    registerCompleted: {
+      title: "Accout created",
+      message: "To confirm your account, click on the link received by email.",
+      login: "Login"
+    }
+  },
+  passwordForgotten: {
+    link: "Password forgotten ?"
   }
 };

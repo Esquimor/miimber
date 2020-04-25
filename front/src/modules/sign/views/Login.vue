@@ -1,48 +1,67 @@
 <template>
   <TemplateSign>
     <template v-slot:rigth>
-      <form class="Login-form" @submit.prevent>
-        <h1 class="Login-form-title is-size-3">{{ $t("login.utils.title") }}</h1>
+      <form class="SignLogin-form" @submit.prevent>
+        <h1 class="SignLogin-form-title is-size-3">
+          {{ $t("login.utils.title") }}
+        </h1>
         <BNotification
           v-if="error"
-          class="Login-form-error"
+          class="SignLogin-form-error"
           type="is-danger"
           aria-close-label="Close notification"
           role="alert"
-        >{{ $t("login.utils.error") }}</BNotification>
+          >{{ $t("login.utils.error") }}</BNotification
+        >
         <BField :label="$t('login.email.label')">
-          <BInput v-model="email" :placeholder="$t('login.email.placeholder')"></BInput>
+          <BInput
+            id="SignLogin-email"
+            type="email"
+            v-model="email"
+            :placeholder="$t('login.email.placeholder')"
+            required
+          ></BInput>
         </BField>
         <BField :label="$t('login.password.label')">
           <BInput
+            id="SignLogin-password"
             v-model="password"
             :placeholder="$t('login.password.placeholder')"
             type="password"
             password-reveal
+            required
           ></BInput>
         </BField>
-        <BCheckbox class="Login-form-remember" v-model="remember">
-          {{
-          $t("login.utils.remember")
-          }}
-        </BCheckbox>
-        <div class="Login-form-submit">
+        <BCheckbox
+          id="SignLogin-remember"
+          class="SignLogin-form-remember"
+          v-model="remember"
+          >{{ $t("login.utils.remember") }}</BCheckbox
+        >
+        <div class="SignLogin-form-submit">
           <button
+            id="SignLogin-submit"
             type="submit"
             class="button is-primary"
             :class="{ 'is-loading': loading }"
             @click="submit"
-          >{{ $t("login.utils.submit") }}</button>
+            :disabled="!isLoggable"
+          >
+            {{ $t("login.utils.submit") }}
+          </button>
         </div>
+        <router-link
+          :to="{ name: 'password-forgotten' }"
+          class="SignLogin-form-passwordForgotten"
+          >{{ $t("sign.passwordForgotten.link") }}</router-link
+        >
       </form>
-      <div class="Login-bottom">
+      <div class="SignLogin-bottom">
         <span>
           {{ $t("login.register.label") }}
-          <router-link :to="{ name: 'register' }">
-            {{
+          <router-link :to="{ name: 'register' }">{{
             $t("login.register.link")
-            }}
-          </router-link>
+          }}</router-link>
         </span>
       </div>
     </template>
@@ -68,8 +87,15 @@ export default {
       error: false
     };
   },
+  computed: {
+    isLoggable() {
+      return this.email !== "" && this.password !== "";
+    }
+  },
   methods: {
     submit() {
+      if (!this.isLoggable) return;
+      if (this.loading) return;
       this.loading = true;
       this.$store
         .dispatch("sign/login", {
@@ -78,11 +104,12 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: "dashboard-sessions" });
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false;
           this.password = "";
           this.error = true;
+          this.loading = false;
         });
     }
   }
@@ -90,7 +117,7 @@ export default {
 </script>
 
 <style lang="scss">
-.Login {
+.SignLogin {
   &-form {
     display: flex;
     flex-direction: column;
@@ -110,6 +137,9 @@ export default {
     }
     &-remember {
       padding-top: 0.5rem;
+    }
+    &-passwordForgotten {
+      margin: 1rem 0;
     }
   }
   &-bottom {

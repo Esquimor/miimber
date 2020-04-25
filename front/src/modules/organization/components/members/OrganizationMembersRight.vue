@@ -10,6 +10,7 @@
     <div class="OrganizationMembersRight">
       <BNotification
         v-if="error"
+        id="OrganizationMembersRight-error"
         type="is-danger"
         aria-close-label="Close notification"
         role="alert"
@@ -17,6 +18,7 @@
         >{{ $t("organization.members.rightModal.error") }}</BNotification
       >
       <OrganizationMembersRightItem
+        id="OrganizationMembersRight-owner"
         :class="{ unselectable: !memberIsOwner }"
         :title="$t('core.role.OWNER')"
         :description="$t('organization.members.rightModal.OWNER.description')"
@@ -24,6 +26,7 @@
         @click.native="changeRole(ROLE.OWNER)"
       />
       <OrganizationMembersRightItem
+        id="OrganizationMembersRight-officeInsctructor"
         :title="$t('core.role.OFFICE_INSTRUCTOR')"
         :description="
           $t('organization.members.rightModal.OFFICE_INSTRUCTOR.description')
@@ -32,12 +35,14 @@
         @click.native="changeRole(ROLE.OFFICE_INSTRUCTOR)"
       />
       <OrganizationMembersRightItem
+        id="OrganizationMembersRight-office"
         :title="$t('core.role.OFFICE')"
         :description="$t('organization.members.rightModal.OFFICE.description')"
         :selected="ROLE.OFFICE === editRole"
         @click.native="changeRole(ROLE.OFFICE)"
       />
       <OrganizationMembersRightItem
+        id="OrganizationMembersRight-instructor"
         :title="$t('core.role.INSTRUCTOR')"
         :description="
           $t('organization.members.rightModal.INSTRUCTOR.description')
@@ -46,6 +51,7 @@
         @click.native="changeRole(ROLE.INSTRUCTOR)"
       />
       <OrganizationMembersRightItem
+        id="OrganizationMembersRight-member"
         :title="$t('core.role.MEMBER')"
         :description="$t('organization.members.rightModal.MEMBER.description')"
         :selected="ROLE.MEMBER === editRole"
@@ -83,7 +89,7 @@ export default {
       error: false,
       loading: false,
       ROLE: ROLE,
-      editRole: this.member.role,
+      editRole: ROLE.MEMBER,
       size: {
         width: "450px",
         height: "auto"
@@ -97,7 +103,7 @@ export default {
     title() {
       return `${this.$t("organization.members.rightModal.title")} ${
         this.member.firstName
-      } ${this.member.lastName}`;
+      } ${this.member.lastName} `;
     }
   },
   methods: {
@@ -122,8 +128,11 @@ export default {
     }
   },
   watch: {
-    member(newVal) {
-      this.editRole = newVal.role;
+    member: {
+      immediate: true,
+      handler(newVal) {
+        this.editRole = newVal.role;
+      }
     }
   }
 };

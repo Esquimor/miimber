@@ -1,7 +1,11 @@
 <template>
-  <div class="TemplateSidePanelRight">
+  <div id="TemplateSidePanelRight" class="TemplateSidePanelRight">
     <div class="TemplateSidePanelRight-background" @click="closeSideBar" />
-    <div class="TemplateSidePanelRight-content" :style="contentStyle">
+    <main
+      id="TemplateSidePanelRight-main"
+      class="TemplateSidePanelRight-content"
+      :style="contentStyle"
+    >
       <slot name="header">
         <header class="TemplateSidePanelRight-content-header">
           <h2 class="title is-5">{{ title }}</h2>
@@ -15,6 +19,7 @@
       <slot name="footer">
         <footer class="TemplateSidePanelRight-content-footer">
           <button
+            id="TemplateSidePanelRight-cancel"
             class="button is-outlined is-danger"
             @click="closeSideBar"
             :disabled="loading"
@@ -22,16 +27,17 @@
             {{ $t("core.utils.cancel") }}
           </button>
           <button
+            id="TemplateSidePanelRight-confirm"
             class="button is-primary"
             :class="{ 'is-loading': loading }"
             :disabled="disabled"
-            @click="$emit('confirm')"
+            @click="confirm"
           >
             {{ $t("core.utils.confirm") }}
           </button>
         </footer>
       </slot>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -70,6 +76,11 @@ export default {
   methods: {
     closeSideBar() {
       this.$store.dispatch("core/closeSideBar");
+    },
+    confirm() {
+      if (this.loading) return;
+      if (this.disabled) return;
+      this.$emit("confirm");
     }
   }
 };
@@ -83,6 +94,7 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: 1500;
   &-background {
     cursor: pointer;
     flex-grow: 1;

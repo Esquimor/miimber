@@ -8,6 +8,7 @@ export const COR_SET_MESSAGE = "COR_SET_MESSAGE";
 export const CORE_SET_MESSAGE_ERROR = "CORE_SET_MESSAGE_ERROR";
 export const COR_EMPTY_MESSAGE = "COR_EMPTY_MESSAGE";
 export const COR_EMPTY_ERROR = "COR_EMPTY_ERROR";
+export const COR_LOGOUT = "COR_LOGOUT";
 
 // Sign
 export const SGN_SET_USER = "SGN_SET_USER";
