@@ -11,6 +11,7 @@
           id="OrganizationOrganizationMembersAdd-email"
           type="email"
           v-model="email"
+          :placeholder="$t('core.label.email.placeholder')"
           @blur="verifyMember"
           @input="emptyMember"
           required
@@ -26,19 +27,21 @@
         >
         <div class="columns">
           <div class="column">
-            <BField :label="$t('organization.members.add.label.firstName')">
+            <BField :label="$t('core.label.firstName.label')">
               <BInput
                 id="OrganizationOrganizationMembers-firstName"
                 v-model="firstName"
+                :placeholder="$t('core.label.firstName.placeholder')"
                 required
               ></BInput>
             </BField>
           </div>
           <div class="column">
-            <BField :label="$t('organization.members.add.label.lastName')">
+            <BField :label="$t('core.label.lastName.label')">
               <BInput
                 id="OrganizationOrganizationMembers-lastName"
                 v-model="lastName"
+                :placeholder="$t('core.label.lastName.placeholder')"
                 required
               ></BInput>
             </BField>

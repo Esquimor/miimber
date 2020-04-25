@@ -23,6 +23,15 @@ export const PANEL_SIZE = {
   BIG: "800px"
 };
 
+export const CONTENT_SIZE = {
+  SMALLEST: "200px",
+  SMALLER: "400px",
+  SMALL: "500px",
+  MEDIUM: "800px",
+  NORMAL: "960px",
+  LARGE: "1100px"
+};
+
 export const SESSION_RECURRENCE = {
   ONCE: "ONCE",
   EVERYDAY: "EVERYDAY",

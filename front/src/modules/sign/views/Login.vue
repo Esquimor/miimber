@@ -13,20 +13,20 @@
           role="alert"
           >{{ $t("login.utils.error") }}</BNotification
         >
-        <BField :label="$t('login.email.label')">
+        <BField :label="$t('core.label.email.label')">
           <BInput
             id="SignLogin-email"
             type="email"
             v-model="email"
-            :placeholder="$t('login.email.placeholder')"
+            :placeholder="$t('core.label.email.placeholder')"
             required
           ></BInput>
         </BField>
-        <BField :label="$t('login.password.label')">
+        <BField :label="$t('core.label.password.label')">
           <BInput
             id="SignLogin-password"
             v-model="password"
-            :placeholder="$t('login.password.placeholder')"
+            :placeholder="$t('core.label.password.placeholder')"
             type="password"
             password-reveal
             required
@@ -59,9 +59,9 @@
       <div class="SignLogin-bottom">
         <span>
           {{ $t("login.register.label") }}
-          <router-link :to="{ name: 'register' }">{{
-            $t("login.register.link")
-          }}</router-link>
+          <router-link :to="{ name: 'register' }">
+            {{ $t("login.register.link") }}
+          </router-link>
         </span>
       </div>
     </template>

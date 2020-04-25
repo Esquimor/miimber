@@ -4,6 +4,7 @@ import RegisterCompleted from "@sign/views/RegisterCompleted";
 import RegisterValidated from "@sign/views/RegisterValidated";
 import PasswordForgotten from "@sign/views/PasswordForgotten";
 import ResetPassword from "@sign/views/ResetPassword";
+import Invitation from "@sign/views/Invitation";
 
 export default [
   {
@@ -35,5 +36,10 @@ export default [
     path: "/reset-password",
     name: "reset-password",
     component: ResetPassword
+  },
+  {
+    path: "/invitation",
+    name: "invitation",
+    component: Invitation
   }
 ];

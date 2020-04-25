@@ -5,12 +5,12 @@
         <h1 class="SignPasswordForgotten-form-title is-size-3">
           {{ $t("sign.passwordForgotten.title") }}
         </h1>
-        <BField :label="$t('sign.passwordForgotten.label.email')">
+        <BField :label="$t('core.label.email.label')">
           <BInput
             id="SignPasswordForgotten-email"
             type="email"
             v-model="email"
-            :placeholder="$t('sign.passwordForgotten.label.emailPlaceholder')"
+            :placeholder="$t('core.label.email.placeholder')"
             required
           ></BInput>
         </BField>

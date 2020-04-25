@@ -2,22 +2,22 @@ export default {
   dashboard: {
     menu: {
       menu: "Menu",
-      account: "My account",
+      account: "My account"
     },
     panel: {
       sessions: "Sessions",
-      organizations: "Organizations",
+      organizations: "Organizations"
     },
     organization: {
       table: {
-        name: "Name",
+        name: "Name"
       },
       label: {
         list: "My organizations",
         sessions: "Sessions",
         members: "Members",
-        empty: "You are not a member of an organization",
-      },
+        empty: "You are not a member of an organization"
+      }
     },
     session: {
       label: {
@@ -38,26 +38,26 @@ export default {
         registeredEmpty: "No registrant",
         search: "Search",
         emptyUsers: "Empty",
-        empty: "No session found",
+        empty: "No session found"
       },
       emerge: {
         table: {
           name: "Name",
-          present: "Present",
-        },
+          present: "Present"
+        }
       },
       registered: {
         empty: "Nobody is registered for this session.",
         table: {
-          name: "Name",
+          name: "Name"
         },
-        success: "Registered",
+        success: "Registered"
       },
       unsubscribe: {
         title: "Cancelled",
         message: "Are you sure to unsubscribe ?",
-        success: "Unsubscribe",
-      },
-    },
-  },
+        success: "Unsubscribe"
+      }
+    }
+  }
 };

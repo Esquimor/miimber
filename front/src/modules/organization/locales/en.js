@@ -43,9 +43,7 @@ export default {
         success: "Member added",
         label: {
           email: "Enter Email Address",
-          role: "Role of the member",
-          firstName: "First Name",
-          lastName: "Last Name"
+          role: "Role of the member"
         },
         alreadyExist: "This user is already a member of your organization.",
         noMember:

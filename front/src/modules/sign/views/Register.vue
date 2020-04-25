@@ -13,49 +13,50 @@
           role="alert"
           >{{ $t("register.utils.error") }}</BNotification
         >
-        <BField :label="$t('register.firstName.label')">
+        <BField :label="$t('core.label.firstName.label')">
           <BInput
             id="SignRegister-firstName"
             v-model.trim="firstName"
             type="firstName"
-            :placeholder="$t('register.firstName.placeholder')"
+            :placeholder="$t('core.label.firstName.placeholder')"
             required
           ></BInput>
         </BField>
-        <BField :label="$t('register.lastName.label')">
+        <BField :label="$t('core.label.lastName.label')">
           <BInput
             id="SignRegister-lastName"
             v-model.trim="lastName"
             type="lastName"
-            :placeholder="$t('register.lastName.placeholder')"
+            :placeholder="$t('core.label.lastName.placeholder')"
             required
           ></BInput>
         </BField>
-        <BField :label="$t('register.email.label')">
+        <BField :label="$t('core.label.email.label')">
           <BInput
             id="SignRegister-email"
             v-model.trim="email"
             type="email"
-            :placeholder="$t('register.email.placeholder')"
+            :placeholder="$t('core.label.email.placeholder')"
             required
           ></BInput>
         </BField>
         <BField
-          :label="$t('register.password.label')"
+          :label="$t('core.label.password.label')"
           :type="errorSamePassword ? 'is-danger' : ''"
         >
           <BInput
             id="SignRegister-password"
             v-model="password"
             type="password"
+            :placeholder="$t('core.label.password.placeholder')"
             password-reveal
             required
           ></BInput>
         </BField>
         <BField
-          :label="$t('register.password.confirm')"
+          :label="$t('core.label.password.confirm')"
           :type="errorSamePassword ? 'is-danger' : ''"
-          :message="errorSamePassword ? $t('register.password.notSame') : ''"
+          :message="errorSamePassword ? $t('core.label.password.notSame') : ''"
         >
           <BInput
             id="SignRegister-confirm"
@@ -82,9 +83,9 @@
       <div class="Register-bottom">
         <span>
           {{ $t("register.login.label") }}
-          <router-link :to="{ name: 'login' }">
-            {{ $t("register.login.link") }}
-          </router-link>
+          <router-link :to="{ name: 'login' }">{{
+            $t("register.login.link")
+          }}</router-link>
         </span>
       </div>
     </template>

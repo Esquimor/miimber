@@ -14,7 +14,7 @@ export default [
       {
         path: "profile",
         name: "settings-profile",
-        component: Profile,
+        component: Profile
       },
       /*{
         path: "account",
@@ -24,23 +24,23 @@ export default [
       {
         path: "security",
         name: "settings-security",
-        component: Security,
+        component: Security
       },
       {
         path: "organization",
         name: "settings-organization",
-        component: Organization,
+        component: Organization
       },
       {
         path: "email",
         name: "settings-email",
-        component: Email,
-      },
-    ],
+        component: Email
+      }
+    ]
   },
   {
     path: "/settings/organization/create",
     name: "settings-organization-create",
-    component: OrganizationCreate,
-  },
+    component: OrganizationCreate
+  }
 ];

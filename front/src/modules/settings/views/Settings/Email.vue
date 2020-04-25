@@ -1,8 +1,14 @@
 <template>
   <TemplateSettings :title="$t('settings.email.title')">
     <form @submit.prevent>
-      <BField :label="$t('settings.email.label.email')">
-        <BInput id="SettingsEmail-email" v-model="email" type="email" required />
+      <BField :label="$t('core.label.email.label')">
+        <BInput
+          id="SettingsEmail-email"
+          v-model="email"
+          :placeholder="$t('core.label.email.placeholder')"
+          type="email"
+          required
+        />
       </BField>
       <div class="SettingsEmail-form-button">
         <button
@@ -11,7 +17,9 @@
           :class="{ 'is-loading': loading }"
           @click="update"
           :disabled="!canUpdate"
-        >{{ $t("core.utils.update") }}</button>
+        >
+          {{ $t("core.utils.update") }}
+        </button>
       </div>
     </form>
   </TemplateSettings>
@@ -79,5 +87,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
