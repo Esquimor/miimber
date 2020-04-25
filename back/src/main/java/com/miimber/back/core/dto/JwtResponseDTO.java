@@ -1,4 +1,4 @@
-package com.miimber.back.core.helper;
+package com.miimber.back.core.dto;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JwtResponse implements Serializable {
+public class JwtResponseDTO implements Serializable {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class JwtResponse implements Serializable {
 	@NotNull
 	private final String jwttoken;
 	
-	public JwtResponse(String jwttoken) {
+	public JwtResponseDTO(String jwttoken) {
 		this.jwttoken = jwttoken;
 	}
 }

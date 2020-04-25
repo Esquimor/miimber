@@ -5,15 +5,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.model.RegisteredSession;
 import com.miimber.back.session.model.Session;
-import com.miimber.back.session.repository.RegisteredRepository;
+import com.miimber.back.session.repository.RegisteredSessionRepository;
 
 @Service
-public class RegisteredService implements IRegisteredService {
+public class RegisteredSessionService implements IRegisteredSessionService {
 
 	@Autowired
-	private RegisteredRepository registeredRepository;
+	private RegisteredSessionRepository registeredRepository;
 	
 	@Override
 	public Long countRegisteredBySession(Session session) {
@@ -21,23 +21,23 @@ public class RegisteredService implements IRegisteredService {
 	}
 
 	@Override
-	public Registered create(Registered entity) {
+	public RegisteredSession create(RegisteredSession entity) {
 		return registeredRepository.save(entity);
 	}
 
 	@Override
-	public Registered update(Registered entity) {
+	public RegisteredSession update(RegisteredSession entity) {
 		return registeredRepository.save(entity);
 	}
 
 	@Override
-	public void delete(Registered entity) {
+	public void delete(RegisteredSession entity) {
 		registeredRepository.delete(entity);
 	}
 
 	@Override
-	public Registered get(Long id) {
-		Optional<Registered> registered =  registeredRepository.findById(id);
+	public RegisteredSession get(Long id) {
+		Optional<RegisteredSession> registered =  registeredRepository.findById(id);
 		if (registered.isEmpty()) {
 			return null;
 		}

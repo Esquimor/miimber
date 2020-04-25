@@ -81,8 +81,6 @@ public class StripeService {
 				.setQuantity(quantity)
 				.build();
 		
-		boolean trial = quantity < trialQt;
-		
 		SubscriptionCreateParams subscriptionParams = 
 				SubscriptionCreateParams.builder()
 				.setCustomer(customer.getId())

@@ -1,12 +1,7 @@
 package com.miimber.back.user.controller;
 
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-import org.json.JSONException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,24 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mailjet.client.errors.MailjetException;
-import com.mailjet.client.errors.MailjetSocketTimeoutException;
 import com.miimber.back.core.helper.Helper;
 import com.miimber.back.core.helper.MailJetService;
-import com.miimber.back.organization.dto.organization.OrganizationAndMemberReadResponseDTO;
-import com.miimber.back.organization.dto.organization.OrganizationCreateReadUpdateResponseDTO;
 import com.miimber.back.organization.model.Member;
-import com.miimber.back.organization.model.Organization;
 import com.miimber.back.organization.service.MemberService;
-import com.miimber.back.organization.service.OrganizationService;
-import com.miimber.back.session.model.Session;
-import com.miimber.back.session.service.SessionService;
 import com.miimber.back.user.dto.UserEmailUpdateRequestDTO;
 import com.miimber.back.user.dto.UserPasswordUpdateRequestDTO;
-import com.miimber.back.user.dto.UserSessionReadResponseDTO;
 import com.miimber.back.user.dto.UserUpdateRequestDTO;
 import com.miimber.back.user.dto.UserValideEmailRequestDTO;
 import com.miimber.back.user.model.User;
@@ -58,12 +43,6 @@ public class UserController {
 
 	@Autowired
 	private MailJetService mailJetService;
-	
-	@Autowired
-	private OrganizationService organizationService;
-	
-	@Autowired
-	private SessionService sessionService;
 	
     @Autowired
     private ModelMapper modelMapper;
@@ -99,6 +78,10 @@ public class UserController {
 		if (user.getId() != id) {
 			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 		}
+		User userAlreadyEmail = userService.getUserByEmail(userDto.getEmail());
+		if (userAlreadyEmail != null) {
+			return new ResponseEntity(HttpStatus.CONFLICT);
+		}
 		String token = UUID.randomUUID().toString();
 		user.setTokenChangeEmail(token);
 		user.setNewEmail(userDto.getEmail());
@@ -111,7 +94,14 @@ public class UserController {
 	@RequestMapping(value = "/user/{id}/email", method = RequestMethod.POST)
 	public ResponseEntity<?> validateUserEmail(@RequestBody UserValideEmailRequestDTO userDto, @PathVariable Long id) throws Exception {
 		User user = userService.get(id);
+		if (user == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
 		if (!user.getTokenChangeEmail().equals(userDto.getToken())) {
+			return new ResponseEntity(HttpStatus.CONFLICT);
+		}
+		User userAlreadyEmail = userService.getUserByEmail(user.getNewEmail());
+		if (userAlreadyEmail != null) {
 			return new ResponseEntity(HttpStatus.CONFLICT);
 		}
 		user.setEmail(user.getNewEmail());
@@ -144,31 +134,6 @@ public class UserController {
 		}
 		return ResponseEntity.ok(convertToDto(user));
 	}
-
-	@RequestMapping(value = "/user/organization", method = RequestMethod.GET)
-	public ResponseEntity<?> readUserOrganization() throws Exception {
-        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        List<OrganizationAndMemberReadResponseDTO> responseOrganization = new ArrayList<OrganizationAndMemberReadResponseDTO>();
-        for (Organization organization : organizationService.getOrganizationByUser(user)) 
-        { 
-        	Member member = memberService.getMemberByOrganizationAndByUser(organization, user);
-        	responseOrganization.add(new OrganizationAndMemberReadResponseDTO(organization, member));
-        }
-		return ResponseEntity.ok(responseOrganization);
-	}
-	
-	@RequestMapping(value = "/user/session/", method = RequestMethod.GET)
-	public ResponseEntity<?> readUserSessions(@RequestParam String minDate, @RequestParam String maxDate) throws Exception {
-        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        
-        List<UserSessionReadResponseDTO> sessions = new ArrayList<UserSessionReadResponseDTO>();
-        for (Session session : sessionService.getSessionByUserAndDate(user, OffsetDateTime.parse(minDate), OffsetDateTime.parse(maxDate)))
-        {
-        	sessions.add(SessionToUserSessionDTO(session));
-        }
-        return ResponseEntity.ok(sessions);
-	}
 	
 	private UserUpdateRequestDTO convertToDto(User user) {
 		UserUpdateRequestDTO userDto = modelMapper.map(user, UserUpdateRequestDTO.class);
@@ -183,16 +148,5 @@ public class UserController {
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
 		return user;
-	}
-
-	private OrganizationCreateReadUpdateResponseDTO OrganizationToDTO(Organization organization) {
-		return new OrganizationCreateReadUpdateResponseDTO(
-        				organization.getId(),
-        				organization.getName()
-        		);
-	}
-	
-	private UserSessionReadResponseDTO SessionToUserSessionDTO(Session session) {
-		return new UserSessionReadResponseDTO(session);
 	}
 }

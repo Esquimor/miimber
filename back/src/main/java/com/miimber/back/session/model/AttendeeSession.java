@@ -1,7 +1,6 @@
 package com.miimber.back.session.model;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +18,7 @@ import lombok.Setter;
 @Entity
 @Table(name="attendees")
 @Getter @Setter
-public class Attendee {
+public class AttendeeSession {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

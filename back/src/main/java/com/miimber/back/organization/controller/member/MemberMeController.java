@@ -1,6 +1,7 @@
 package com.miimber.back.organization.controller.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,9 @@ public class MemberMeController {
 	public ResponseEntity<?> readMemberMe(@PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Member member = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        if (member == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
         return ResponseEntity.ok(new MemberReadUpdateResponseDTO(member));
 	}
 }

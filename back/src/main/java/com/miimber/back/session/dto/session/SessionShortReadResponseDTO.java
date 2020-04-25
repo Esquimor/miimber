@@ -1,7 +1,6 @@
 package com.miimber.back.session.dto.session;
 
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.TypeSession;

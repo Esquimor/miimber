@@ -2,7 +2,7 @@ package com.miimber.back.session.dto.registered;
 
 import java.time.OffsetDateTime;
 
-import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.model.RegisteredSession;
 import com.miimber.back.session.model.enums.RegisteredEnum;
 import com.miimber.back.user.model.User;
 
@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class RegisteredCreateResponseDTO {
+public class RegisteredSessionCreateResponseDTO {
 
 	private long id;
 	private OffsetDateTime dateRegistered;
@@ -19,7 +19,7 @@ public class RegisteredCreateResponseDTO {
 	private UserDTO user;
 	private RegisteredEnum status;
 	
-	public RegisteredCreateResponseDTO(Registered registered, boolean isMember, RegisteredEnum status) {
+	public RegisteredSessionCreateResponseDTO(RegisteredSession registered, boolean isMember, RegisteredEnum status) {
 		this.setId(registered.getId());
 		this.setDateRegistered(registered.getDateRegistered());
 		this.setSessionId(registered.getSession().getId());

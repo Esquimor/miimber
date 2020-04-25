@@ -1,4 +1,4 @@
-package com.miimber.back.core.helper;
+package com.miimber.back.core.dto;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JwtRequest implements Serializable {
+public class JwtRequestDTO implements Serializable {
 	
 	/**
 	 * 
@@ -22,11 +22,11 @@ public class JwtRequest implements Serializable {
 	@NotNull
 	private String password;
 	
-	public JwtRequest() {
+	public JwtRequestDTO() {
 		
 	}
 	
-	public JwtRequest(String email, String password) {
+	public JwtRequestDTO(String email, String password) {
 		this.email = email;
 		this.password = password;
 	}

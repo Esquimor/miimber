@@ -26,11 +26,13 @@ import com.miimber.back.session.dto.session.SessionEditRequestDTO;
 import com.miimber.back.session.dto.session.SessionReadResponseDTO;
 import com.miimber.back.session.dto.session.SessionShortReadResponseDTO;
 import com.miimber.back.session.dto.session.SessionUsersReadResponseDTO;
-import com.miimber.back.session.model.Attendee;
-import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.model.AttendeeSession;
+import com.miimber.back.session.model.RegisteredSession;
 import com.miimber.back.session.model.Session;
+import com.miimber.back.session.model.TemplateSession;
 import com.miimber.back.session.model.TypeSession;
 import com.miimber.back.session.service.SessionService;
+import com.miimber.back.session.service.TemplateSessionService;
 import com.miimber.back.session.service.TypeSessionService;
 import com.miimber.back.user.dto.TemplateAttendeeDTO;
 import com.miimber.back.user.model.User;
@@ -44,6 +46,9 @@ public class SessionController {
 	
 	@Autowired
 	private TypeSessionService typeSessionService;
+	
+	@Autowired
+	private TemplateSessionService templateSessionService;
 	
 	@Autowired
 	private MemberService memberService;
@@ -82,13 +87,14 @@ public class SessionController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
 
-		List<Member> members = session.getOrganization().getMembers();
-		List<Attendee> attendees = session.getAttendees();
-		List<Registered> registereds = session.getRegistereds();
+		List<AttendeeSession> attendees = session.getAttendees();
+		List<RegisteredSession> registereds = session.getRegistereds();
         
 		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
 		
 		if (session.getLimit() == 0) {
+			List<Member> members = session.getOrganization().getMembers();
+			
 	    	users.addAll(getAllMembers(members, attendees, registereds));
 	    	users.addAll(getAllAttendeesWithoutAlreadyUsers(attendees, registereds, users));
 	    	users.addAll(getAllRegisteredsWithourAlreadyUsers(registereds, users));
@@ -117,12 +123,14 @@ public class SessionController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
+        TemplateSession templateSession = templateSessionService.create(new TemplateSession());
+        
         List<Session> listSession = new ArrayList<Session>();
         OffsetDateTime cursor =  sessionDto.getStartDate();
         switch (sessionDto.getPeriodicity()) {
         	case ONCE: {
                 listSession.add(sessionService.create(
-                		createSessionBySessionDtoAndDate(sessionDto, sessionDto.getStart(), typeSession, memberUser.getOrganization())
+                		createSessionBySessionDtoAndDate(sessionDto, sessionDto.getStart(), typeSession, memberUser.getOrganization(), templateSession)
                 		));
         		break;
         	}
@@ -131,7 +139,7 @@ public class SessionController {
                 cursor = cursor.plusDays(1);
         		while(cursor.isBefore(endDate)) {
                     listSession.add(sessionService.create(
-                    		createSessionBySessionDtoAndDate(sessionDto, cursor, typeSession, memberUser.getOrganization())
+                    		createSessionBySessionDtoAndDate(sessionDto, cursor, typeSession, memberUser.getOrganization(), templateSession)
                     		));
                     cursor = cursor.plusDays(1);
         		}
@@ -143,7 +151,7 @@ public class SessionController {
         		while(cursor.isBefore(endDate)) {
         			if (sessionDto.getDays().contains(cursor.getDayOfWeek().getValue())) {
                         listSession.add(sessionService.create(
-                        		createSessionBySessionDtoAndDate(sessionDto, cursor, typeSession, memberUser.getOrganization())
+                        		createSessionBySessionDtoAndDate(sessionDto, cursor, typeSession, memberUser.getOrganization(), templateSession)
                         		));
         			}
         			if (cursor.getDayOfWeek() == DayOfWeek.SUNDAY) {
@@ -158,7 +166,6 @@ public class SessionController {
         	}
         }
 
-        
 		return ResponseEntity.ok(listSessionToListSessionDto(listSession));
 	}
 	
@@ -226,7 +233,7 @@ public class SessionController {
 	}
 	
 	
-	private Session createSessionBySessionDtoAndDate(SessionCreateRequestDTO sessionDto, OffsetDateTime date, TypeSession typeSession, Organization organization) {
+	private Session createSessionBySessionDtoAndDate(SessionCreateRequestDTO sessionDto, OffsetDateTime date, TypeSession typeSession, Organization organization, TemplateSession templateSession) {
 		Session session = new Session();
         session.setTitle(sessionDto.getTitle());
         session.setDescription(sessionDto.getDescription());
@@ -235,6 +242,7 @@ public class SessionController {
         session.setTypeSession(typeSession);
         session.setOrganization(organization);
         session.setLimit(sessionDto.getLimit());
+        session.setTemplateSession(templateSession);
         return session;
 	}
 	
@@ -247,19 +255,19 @@ public class SessionController {
 	}
 
 	// List all organization members
-	private List<TemplateAttendeeDTO> getAllMembers(List<Member> members, List<Attendee> attendees, List<Registered> registereds) {
+	private List<TemplateAttendeeDTO> getAllMembers(List<Member> members, List<AttendeeSession> attendees, List<RegisteredSession> registereds) {
 		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
 		for(Member member: members) {
 			Long attendeId = 0L;
 			boolean isRegistered = false;
 			// Look if memberOrganization is present
-			for(Attendee attendee: attendees) {
+			for(AttendeeSession attendee: attendees) {
 				if (attendee.getUser().getId() == member.getUser().getId()) {
 					attendeId = attendee.getId();
 					break;
 				}
 			}
-			for(Registered registered: registereds) {
+			for(RegisteredSession registered: registereds) {
 				if (member.getUser().getId() == registered.getUser().getId()) {
 					isRegistered = true;
 					break;
@@ -272,9 +280,9 @@ public class SessionController {
 	}
 
 	// List all users outside organization
-	private List<TemplateAttendeeDTO> getAllAttendeesWithoutAlreadyUsers(List<Attendee> attendees, List<Registered> registereds, List<TemplateAttendeeDTO> alreadyUsers) {
+	private List<TemplateAttendeeDTO> getAllAttendeesWithoutAlreadyUsers(List<AttendeeSession> attendees, List<RegisteredSession> registereds, List<TemplateAttendeeDTO> alreadyUsers) {
 		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
-		for(Attendee attendee: attendees) {
+		for(AttendeeSession attendee: attendees) {
 			User userAttendee = attendee.getUser();
 			boolean alreadyTaken = false;
 			// Look if attendee is already a member
@@ -287,7 +295,7 @@ public class SessionController {
 			// If attendee is not a member add it
 			if (alreadyTaken == false) {
 				boolean isRegistered = false;
-				for(Registered registered: registereds) {
+				for(RegisteredSession registered: registereds) {
 					if (attendee.getUser().getId() == registered.getUser().getId()) {
 						isRegistered = true;
 						break;
@@ -299,9 +307,9 @@ public class SessionController {
 		return users;
 	}
 	
-	private List<TemplateAttendeeDTO> getAllRegisteredsWithourAlreadyUsers(List<Registered> registereds, List<TemplateAttendeeDTO> alreadyUsers) {
+	private List<TemplateAttendeeDTO> getAllRegisteredsWithourAlreadyUsers(List<RegisteredSession> registereds, List<TemplateAttendeeDTO> alreadyUsers) {
 		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
-		for(Registered registered: registereds) {
+		for(RegisteredSession registered: registereds) {
 			// Look if attendee is already a member
 			User userRegistered = registered.getUser();
 			boolean alreadyTaken = false;
@@ -318,13 +326,13 @@ public class SessionController {
 		return users;
 	}
 	
-	private List<TemplateAttendeeDTO> getAllRegistered(List<Registered> registereds, List<Attendee> attendees) {
+	private List<TemplateAttendeeDTO> getAllRegistered(List<RegisteredSession> registereds, List<AttendeeSession> attendees) {
 		List<TemplateAttendeeDTO> users = new ArrayList<TemplateAttendeeDTO>();
-		for(Registered registered: registereds) {
+		for(RegisteredSession registered: registereds) {
 			// Look if attendee is already a member
 			Long userId = registered.getUser().getId();
 			Long attendeeId = 0L;
-			for(Attendee attendee: attendees) {
+			for(AttendeeSession attendee: attendees) {
 				if (attendee.getUser().getId() == userId) {
 					attendeeId = attendee.getId();
 					break;

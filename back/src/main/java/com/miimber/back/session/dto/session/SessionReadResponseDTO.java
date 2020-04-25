@@ -8,8 +8,7 @@ import java.util.List;
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.model.Organization;
 import com.miimber.back.organization.model.enums.RoleEnum;
-import com.miimber.back.session.model.Attendee;
-import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.model.RegisteredSession;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.TypeSession;
 import com.miimber.back.session.model.enums.RegisteredEnum;
@@ -49,9 +48,9 @@ public class SessionReadResponseDTO {
 		setRegistereds(session);
 	}
 	
-	private Registered getByUserId(Session session, long id) {
-		Registered findRegistered = null;
-		for(Registered registered: session.getRegistereds()) {
+	private RegisteredSession getByUserId(Session session, long id) {
+		RegisteredSession findRegistered = null;
+		for(RegisteredSession registered: session.getRegistereds()) {
 			if (registered.getUser().getId() == id) {
 				findRegistered = registered;
 				break;
@@ -63,7 +62,7 @@ public class SessionReadResponseDTO {
 	private void setRegistereds(Session session) {
 		this.registereds = new ArrayList<RegisteredDTO>();
 		List<Member> members = session.getOrganization().getMembers();
-		List<Registered> registereds = session.getRegistereds();
+		List<RegisteredSession> registereds = session.getRegistereds();
 		Collections.sort(registereds);
 		int limitSession = session.getLimit();
 		for(int i = 0; i < registereds.size(); i++) {
@@ -112,7 +111,7 @@ public class SessionReadResponseDTO {
 		private MemberUserDTO member;
 		private MeRegisteredDTO registered;
 		
-		public MeDTO(Member member, Registered registered) {
+		public MeDTO(Member member, RegisteredSession registered) {
 			this.member = new MemberUserDTO(member);
 			if (registered != null) {
 				this.setRegistered(new MeRegisteredDTO(registered));
@@ -125,7 +124,7 @@ public class SessionReadResponseDTO {
 			private long id;
 			private OffsetDateTime dateRegistered;
 			
-			public MeRegisteredDTO(Registered registered) {
+			public MeRegisteredDTO(RegisteredSession registered) {
 				this.setId(registered.getId());
 				this.setDateRegistered(registered.getDateRegistered());
 			}
@@ -153,7 +152,7 @@ public class SessionReadResponseDTO {
 		private UserRegisteredDTO user;
 		private RegisteredEnum status;
 		
-		public RegisteredDTO(Registered registered, boolean isMember, RegisteredEnum status) {
+		public RegisteredDTO(RegisteredSession registered, boolean isMember, RegisteredEnum status) {
 			this.setId(registered.getId());
 			this.setDateRegistered(registered.getDateRegistered());
 			this.setMember(isMember);

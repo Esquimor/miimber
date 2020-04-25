@@ -12,13 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.miimber.back.organization.model.enums.RoleEnum;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.TypeSession;
-import com.miimber.back.user.model.User;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity

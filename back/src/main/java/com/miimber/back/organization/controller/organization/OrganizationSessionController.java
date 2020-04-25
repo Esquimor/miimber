@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.miimber.back.core.helper.Helper;
 import com.miimber.back.session.dto.session.SessionShortReadResponseDTO;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.service.SessionService;

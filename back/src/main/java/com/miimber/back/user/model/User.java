@@ -2,8 +2,8 @@ package com.miimber.back.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.miimber.back.organization.model.Member;
-import com.miimber.back.session.model.Attendee;
-import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.model.AttendeeSession;
+import com.miimber.back.session.model.RegisteredSession;
 import com.miimber.back.user.model.enums.StatusEnum;
 
 import lombok.Getter;
@@ -55,10 +55,10 @@ public class User {
     private List<Member> members;
 	
 	@OneToMany(mappedBy = "user")
-    private List<Attendee> attendees;
+    private List<AttendeeSession> attendees;
 	
 	@OneToMany(mappedBy = "user")
-    private List<Registered> registereds;
+    private List<RegisteredSession> registereds;
 	
 	public void addMember(Member member) {
 		this.members.add(member);
@@ -68,19 +68,19 @@ public class User {
 		this.members.remove(member);
 	}
 	
-	public void addAttendee(Attendee attendee) {
+	public void addAttendee(AttendeeSession attendee) {
 		this.attendees.add(attendee);
 	}
 	
-	public void removeAttendee(Attendee attendee) {
+	public void removeAttendee(AttendeeSession attendee) {
 		this.attendees.remove(attendee);
 	}
 	
-	public void addRegistered(Registered registered) {
+	public void addRegistered(RegisteredSession registered) {
 		this.registereds.add(registered);
 	}
 	
-	public void removeRegistered(Registered registered) {
+	public void removeRegistered(RegisteredSession registered) {
 		this.registereds.remove(registered);
 	}
 }

@@ -1,7 +1,6 @@
 package com.miimber.back.user.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.miimber.back.core.service.TemplateService;
 import com.miimber.back.user.model.User;

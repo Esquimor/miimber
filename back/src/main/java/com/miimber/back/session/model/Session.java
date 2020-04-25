@@ -43,10 +43,10 @@ public class Session {
 	private int limit;
 	
 	@OneToMany(mappedBy = "session")
-    private List<Attendee> attendees;
+    private List<AttendeeSession> attendees;
 	
 	@OneToMany(mappedBy = "session")
-    private List<Registered> registereds;
+    private List<RegisteredSession> registereds;
     
     @ManyToOne
     private Organization organization;
@@ -57,19 +57,19 @@ public class Session {
     @ManyToOne
     private TypeSession typeSession;
 	
-	public void addAttendee(Attendee attendee) {
+	public void addAttendee(AttendeeSession attendee) {
 		this.attendees.add(attendee);
 	}
 	
-	public void removeAttendee(Attendee attendee) {
+	public void removeAttendee(AttendeeSession attendee) {
 		this.attendees.remove(attendee);
 	}
 	
-	public void addRegistered(Registered registered) {
+	public void addRegistered(RegisteredSession registered) {
 		this.registereds.add(registered);
 	}
 	
-	public void removeRegistered(Registered registered) {
+	public void removeRegistered(RegisteredSession registered) {
 		this.registereds.remove(registered);
 	}
 }

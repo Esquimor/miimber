@@ -1,4 +1,4 @@
-package com.miimber.back.core.helper;
+package com.miimber.back.core.dto;
 
 import javax.validation.constraints.NotNull;
 

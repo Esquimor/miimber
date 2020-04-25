@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.miimber.back.core.helper.Helper;
 import com.miimber.back.organization.service.MemberService;
-import com.miimber.back.session.dto.registered.RegisteredCreateRequestDTO;
-import com.miimber.back.session.dto.registered.RegisteredCreateResponseDTO;
-import com.miimber.back.session.model.Registered;
+import com.miimber.back.session.dto.registered.RegisteredSessionCreateRequestDTO;
+import com.miimber.back.session.dto.registered.RegisteredSessionCreateResponseDTO;
+import com.miimber.back.session.model.RegisteredSession;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.enums.RegisteredEnum;
-import com.miimber.back.session.service.RegisteredService;
+import com.miimber.back.session.service.RegisteredSessionService;
 import com.miimber.back.session.service.SessionService;
 import com.miimber.back.user.model.User;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class RegisteredController {
+public class RegisteredSessionController {
 
 	@Autowired
-	private RegisteredService registeredService;
+	private RegisteredSessionService registeredService;
 
 	@Autowired
 	private SessionService sessionService;
@@ -40,7 +40,7 @@ public class RegisteredController {
 	private Helper helper;
 
 	@RequestMapping(value= "/registered/", method = RequestMethod.POST)
-	public ResponseEntity<?> createRegistered(@RequestBody RegisteredCreateRequestDTO registeredDto) throws Exception {
+	public ResponseEntity<?> createRegistered(@RequestBody RegisteredSessionCreateRequestDTO registeredDto) throws Exception {
 		Session session = sessionService.get(registeredDto.getSessionId());
 		
 		if (session == null) {
@@ -49,26 +49,26 @@ public class RegisteredController {
 		
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-    	Registered registered = new Registered();
+    	RegisteredSession registered = new RegisteredSession();
     	registered.setSession(session);
     	registered.setUser(user);
     	registered.setDateRegistered(registeredDto.getDateRegistered());
     	registered = registeredService.create(registered);
     	
-    	long nbRegistered = registeredService.countRegisteredBySession(session);
 		RegisteredEnum status = RegisteredEnum.TAKEN;
 		if (session.getLimit() != 0) {
+	    	long nbRegistered = registeredService.countRegisteredBySession(session);
 			status = session.getLimit() > nbRegistered ? RegisteredEnum.TAKEN : RegisteredEnum.WAITING;
 		}
     	
     	boolean isMember = memberService.getMemberByOrganizationAndByUser(session.getOrganization(), user) != null;
     	
-    	return ResponseEntity.ok(new RegisteredCreateResponseDTO(registered, isMember, status));
+    	return ResponseEntity.ok(new RegisteredSessionCreateResponseDTO(registered, isMember, status));
 	}
 	
 	@RequestMapping(value = "/registered/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteRegistered(@PathVariable long id) throws Exception {
-		Registered registered = registeredService.get(id);
+		RegisteredSession registered = registeredService.get(id);
 		
 		if (registered == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);

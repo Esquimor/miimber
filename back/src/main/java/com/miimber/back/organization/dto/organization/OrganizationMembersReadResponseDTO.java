@@ -1,7 +1,5 @@
 package com.miimber.back.organization.dto.organization;
 
-import java.util.List;
-
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.model.enums.RoleEnum;
 

@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.miimber.back.core.config.JwtTokenUtil;
-import com.miimber.back.core.helper.JwtRequest;
-import com.miimber.back.core.helper.JwtResponse;
+import com.miimber.back.core.dto.JwtRequestDTO;
+import com.miimber.back.core.dto.JwtResponseDTO;
+import com.miimber.back.core.dto.PasswordForgottenDTO;
+import com.miimber.back.core.dto.RegisterValidatedDTO;
+import com.miimber.back.core.dto.ResetPasswordDTO;
 import com.miimber.back.core.helper.MailJetService;
-import com.miimber.back.core.helper.PasswordForgottenDTO;
-import com.miimber.back.core.helper.RegisterValidatedDTO;
-import com.miimber.back.core.helper.ResetPasswordDTO;
 import com.miimber.back.core.service.JwtUserDetailsService;
 import com.miimber.back.user.dto.UserRegisterDTO;
 import com.miimber.back.user.model.User;
@@ -53,14 +53,14 @@ public class AuthController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDTO authenticationRequest) throws Exception {
 		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 		
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getEmail());
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		
-		return ResponseEntity.ok(new JwtResponse(token));
+		return ResponseEntity.ok(new JwtResponseDTO(token));
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.miimber.back.core.helper.Helper;
-import com.miimber.back.core.helper.StripeService;
 import com.miimber.back.organization.dto.organization.OrganizationCreateReadUpdateResponseDTO;
 import com.miimber.back.organization.dto.organization.OrganizationCreateRequestDTO;
 import com.miimber.back.organization.model.Member;
@@ -22,8 +21,6 @@ import com.miimber.back.organization.service.OrganizationService;
 import com.miimber.back.session.model.TypeSession;
 import com.miimber.back.session.service.TypeSessionService;
 import com.miimber.back.user.model.User;
-import com.stripe.model.Customer;
-import com.stripe.model.Subscription;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

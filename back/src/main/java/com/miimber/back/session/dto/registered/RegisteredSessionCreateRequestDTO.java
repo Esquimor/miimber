@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class RegisteredCreateRequestDTO {
+public class RegisteredSessionCreateRequestDTO {
 
 	@NotNull
 	private long sessionId;

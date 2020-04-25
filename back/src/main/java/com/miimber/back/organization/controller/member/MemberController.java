@@ -1,6 +1,5 @@
 package com.miimber.back.organization.controller.member;
 
-import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -53,21 +52,25 @@ public class MemberController {
 	public ResponseEntity<?> updateRole(@RequestBody MemberUpdateRequestDTO memberDto, @PathVariable Long id) throws Exception {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
-        Member member = memberService.get(id);
-        if (member == null ) {
+        Member memberToEdit = memberService.get(id);
+        if (memberToEdit == null ) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        Member memberUser = memberService.getMemberByOrganizationAndByUser(member.getOrganization(), user);
-        if (memberUser.getRole() == RoleEnum.MEMBER || memberUser.getRole() == RoleEnum.INSTRUCTOR) {
+        Member member = memberService.getMemberByOrganizationAndByUser(memberToEdit.getOrganization(), user);
+        // If member can't edit organization Send UnAuthorized
+        if (!member.canEditOrganization()) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        if (memberUser.getRole() != RoleEnum.OWNER && memberDto.getRole() == RoleEnum.OWNER) {
+        // If member isn't a owner and try to put owner to other member
+        if (member.getRole() != RoleEnum.OWNER && memberDto.getRole() == RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        if (member.getRole() == RoleEnum.OWNER && memberUser.getRole() != RoleEnum.OWNER) {
+        // If memberToEdit is a owner and member isn't.
+        if (memberToEdit.getRole() == RoleEnum.OWNER && member.getRole() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        if (memberDto.getRole() == RoleEnum.OWNER && member.getId() == memberUser.getId()) {
+        // Keep at least one owner by organization
+        if (memberDto.getRole() == RoleEnum.OWNER && member.getId() == memberToEdit.getId()) {
             Predicate<Member> byType = m -> m.getRole() == RoleEnum.OWNER;
             int numberOwners = member.getOrganization().getMembers().stream().filter(byType)
                     .collect(Collectors.toList()).size();
@@ -75,7 +78,7 @@ public class MemberController {
             	return new ResponseEntity(HttpStatus.CONFLICT);
             }
         }
-        member.setRole(memberDto.getRole());
+        memberToEdit.setRole(memberDto.getRole());
         return ResponseEntity.ok(new MemberReadUpdateResponseDTO(memberService.update(member)));
 	}
 	
@@ -84,13 +87,16 @@ public class MemberController {
         User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Organization organization = organizationService.get(memberDto.getIdOrganization());
+        if (organization == null) {
+        	return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
         
         Member memberUser = memberService.getMemberByOrganizationAndByUser(organization, user);
         if (memberUser == null ) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
-        if (memberUser.getRole() == RoleEnum.MEMBER || memberUser.getRole() == RoleEnum.INSTRUCTOR) {
+        if (!memberUser.canEditOrganization()) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
@@ -99,8 +105,8 @@ public class MemberController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
-        Member existingMember = memberService.getMemberByOrganizationAndByUser(organization, userToMember);
-        if (existingMember != null) {
+        Member alreadyExistMember = memberService.getMemberByOrganizationAndByUser(organization, userToMember);
+        if (alreadyExistMember != null) {
         	return new ResponseEntity(HttpStatus.CONFLICT);
         }
         
@@ -134,10 +140,10 @@ public class MemberController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
-        if (memberUser.getRole() == RoleEnum.MEMBER || memberUser.getRole() == RoleEnum.INSTRUCTOR) {
+        if (!memberUser.canEditOrganization()) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        
+        // Can't delete a owner, if not owner
         if (member.getRole() == RoleEnum.OWNER && memberUser.getRole() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }

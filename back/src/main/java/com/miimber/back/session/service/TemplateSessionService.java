@@ -3,10 +3,12 @@ package com.miimber.back.session.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.miimber.back.session.model.TemplateSession;
 import com.miimber.back.session.repository.TemplateSessionRepository;
 
+@Service
 public class TemplateSessionService implements ITemplateSessionService {
 
 	@Autowired
