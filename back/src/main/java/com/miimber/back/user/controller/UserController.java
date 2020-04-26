@@ -87,7 +87,7 @@ public class UserController {
 		user.setNewEmail(userDto.getEmail());
 		userService.update(user);
 		String link = frontUrl + "/change-email?id="+user.getId()+"&token="+token;
-		mailJetService.sendEmailChangeEmail(user.getEmail(), user.getFirstName() + " "+ user.getLastName(), link);
+		mailJetService.sendEmailChangeEmail(user.getEmail(), user.getFirstName() + " "+ user.getLastName(), userDto.getLang(), link);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 	

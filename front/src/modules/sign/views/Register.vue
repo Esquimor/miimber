@@ -83,9 +83,9 @@
       <div class="Register-bottom">
         <span>
           {{ $t("register.login.label") }}
-          <router-link :to="{ name: 'login' }">{{
-            $t("register.login.link")
-          }}</router-link>
+          <router-link :to="{ name: 'login' }">
+            {{ $t("register.login.link") }}
+          </router-link>
         </span>
       </div>
     </template>
@@ -139,7 +139,8 @@ export default {
           email: this.email,
           firstName: this.firstName,
           lastName: this.lastName,
-          password: this.password
+          password: this.password,
+          lang: this.$i18n.locale
         })
         .then(() => {
           this.$router.push({ name: "register-completed" });

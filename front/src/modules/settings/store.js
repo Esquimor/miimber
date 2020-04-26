@@ -27,12 +27,13 @@ export default {
           return Promise.reject(e);
         });
     },
-    updateEmail(_, { email, id }) {
+    updateEmail(_, { email, id, lang }) {
       return api
         .put(
           `user/${id}/email`,
           {
-            email
+            email,
+            lang
           },
           { errorMessage: true }
         )

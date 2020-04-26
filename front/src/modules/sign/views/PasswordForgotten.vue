@@ -58,7 +58,10 @@ export default {
       if (this.loading) return;
       this.loading = true;
       this.$store
-        .dispatch("sign/passwordForgotten", this.email)
+        .dispatch("sign/passwordForgotten", {
+          email: this.email,
+          lang: this.$i18n.locale
+        })
         .then(() => {
           this.loading = false;
         })

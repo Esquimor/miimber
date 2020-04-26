@@ -75,8 +75,7 @@ public class AuthController {
 			return new ResponseEntity(HttpStatus.CONFLICT);
 		}
 		User newUser = userDetailsService.save(userDto);
-		String link = frontUrl + "/register-validated?id="+newUser.getId()+"&token="+newUser.getTokenCreation();
-		mailJetService.sendEmailRegister(newUser.getEmail(), newUser.getFirstName() + " " + newUser.getLastName(), link);
+		mailJetService.sendEmailRegister(newUser.getEmail(), newUser.getFirstName() + " " + newUser.getLastName(), userDto.getLang(), newUser.getTokenCreation());
 		return ResponseEntity.ok(newUser);
 	}
 	
@@ -87,7 +86,7 @@ public class AuthController {
 		user.setTokenPasswordForgotten(token);
 		userService.update(user);
 		String link = frontUrl + "/reset-password?id="+user.getId()+"&token="+token;
-		mailJetService.sendEmailResetPassword(user.getEmail(), user.getFirstName() + " " + user.getLastName(), link);
+		mailJetService.sendEmailResetPassword(user.getEmail(), user.getFirstName() + " " + user.getLastName(), passwordForgottenDto.getLang(), link);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 	

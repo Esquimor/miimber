@@ -5,6 +5,7 @@ import Security from "@settings/views/Settings/Security";
 import Organization from "@settings/views/Settings/Organization";
 import OrganizationCreate from "@settings/views/Settings/OrganizationCreate";
 import Email from "@settings/views/Settings/Email";
+import ChangeEmail from "@settings/views/ChangeEmail";
 
 export default [
   {
@@ -42,5 +43,10 @@ export default [
     path: "/settings/organization/create",
     name: "settings-organization-create",
     component: OrganizationCreate
+  },
+  {
+    path: "/change-email",
+    name: "change-email",
+    component: ChangeEmail
   }
 ];

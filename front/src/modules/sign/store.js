@@ -22,13 +22,14 @@ export default {
           return Promise.reject(e);
         });
     },
-    register(_, { email, firstName, lastName, password }) {
+    register(_, { email, firstName, lastName, password, lang }) {
       return api
         .postNoAuth("register", {
           email: email,
           password: password,
           lastName,
-          firstName
+          firstName,
+          lang
         })
         .then(({ data }) => {
           return Promise.resolve(data);
@@ -37,12 +38,13 @@ export default {
           return Promise.reject(e);
         });
     },
-    passwordForgotten(_, email) {
+    passwordForgotten(_, { email, lang }) {
       return api
         .postNoAuth(
           "password-forgotten",
           {
-            email
+            email,
+            lang
           },
           { errorMessage: true }
         )

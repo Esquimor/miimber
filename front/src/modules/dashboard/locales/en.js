@@ -26,7 +26,7 @@ export default {
         start: "Start",
         end: "End",
         information: "Information",
-        attendee: "Participants",
+        attendee: "Attendees",
         emerge: "Emerge",
         registered: "Registered",
         registeredWaiting: "On waiting list",

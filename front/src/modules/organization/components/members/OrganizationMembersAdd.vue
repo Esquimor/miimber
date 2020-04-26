@@ -124,7 +124,8 @@ export default {
             organizationId: this.organization.id,
             email: this.email,
             firstName: this.firstName,
-            lastName: this.lastName
+            lastName: this.lastName,
+            lang: this.$i18n.locale
           })
           .then(() => {
             this.$buefy.toast.open({

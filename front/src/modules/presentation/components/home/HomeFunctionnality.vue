@@ -1,31 +1,41 @@
 <template>
   <section class="PresentationHomeFunctionnality">
     <div class="PresentationHomeFunctionnality-wrapper">
-      <h2 class="title is-3">Fonctionnalités :</h2>
+      <h2 class="title is-3">
+        {{ $t("presentation.home.functionnality.title") }} :
+      </h2>
       <div class="columns">
         <HomeFunctionnalityItem
-          title="Créer des sessions"
-          message="Créer des sessions pour votre club."
+          :title="$t('presentation.home.functionnality.createSession.title')"
+          :message="
+            $t('presentation.home.functionnality.createSession.description')
+          "
           class="column"
         />
         <HomeFunctionnalityItem
-          title="Liste d'attente"
-          message="Limiter le nombre de participants à une session avec une liste d'attente."
+          :title="$t('presentation.home.functionnality.waitingList.title')"
+          :message="
+            $t('presentation.home.functionnality.waitingList.description')
+          "
           class="column"
         />
       </div>
       <h2 class="PresentationHomeFunctionnality-next title is-3">
-        Prochainement :
+        {{ $t("presentation.home.functionnality.next") }} :
       </h2>
       <div class="columns">
         <HomeFunctionnalityItem
-          title="Commentaires"
-          message="Ajouter des commentaires aux sessions."
+          :title="$t('presentation.home.functionnality.commentary.title')"
+          :message="
+            $t('presentation.home.functionnality.commentary.description')
+          "
           class="column"
         />
         <HomeFunctionnalityItem
-          title="Session privée"
-          message="Créer des sessions accèssibles qu'à vos membres."
+          :title="$t('presentation.home.functionnality.privateSession.title')"
+          :message="
+            $t('presentation.home.functionnality.privateSession.description')
+          "
           class="column"
         />
       </div>

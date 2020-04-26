@@ -85,7 +85,7 @@ public class MemberUserController {
         newMember.setOrganization(organization);
 
 		String link = frontUrl + "/invitation?id="+newUser.getId()+"&token="+token;
-		mailJetService.sendEmailInvitation(user.getEmail(), user.getFirstName() + " " + user.getLastName(), link, user.getFirstName() + " "+ user.getLastName(), organization.getName());
+		mailJetService.sendEmailInvitation(user.getEmail(), user.getFirstName() + " " + user.getLastName(), memberByOrganizationRequestDto.getLang(), link, user.getFirstName() + " "+ user.getLastName(), organization.getName());
         
         if (organization.getStripe() != null) {
             stripeService.addOneMemberSubscription(organization.getStripe());

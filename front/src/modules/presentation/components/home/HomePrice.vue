@@ -3,8 +3,10 @@
     <div class="PresentationHomePrice-wrapper">
       <img src="~@/assets/add.png" />
       <div class="PresentationHomePrice-info">
-        <h2 class="title is-3">5 Licences gratuites</h2>
-        <p class="is-size-4">puis 0.99 €/par licence et par mois</p>
+        <h2 class="title is-3">
+          5 {{ $t("presentation.home.price.licence") }}
+        </h2>
+        <p class="is-size-4">{{ $t("presentation.home.price.licenceNext") }}</p>
       </div>
     </div>
   </section>

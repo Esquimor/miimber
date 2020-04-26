@@ -95,7 +95,7 @@ export default {
     },
     addMemberAndUser(
       { commit },
-      { organizationId, email, firstName, lastName, role }
+      { organizationId, email, firstName, lastName, role, lang }
     ) {
       return api
         .post(
@@ -105,7 +105,8 @@ export default {
             email,
             firstName,
             lastName,
-            role
+            role,
+            lang
           },
           { errorMessage: true }
         )

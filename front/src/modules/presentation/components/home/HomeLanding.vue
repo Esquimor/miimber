@@ -2,17 +2,19 @@
   <section class="PresentationHomeLanding">
     <div class="PresentationHomeLanding-wrapper">
       <h1 class="PresentationHomeLanding-title title is-2">Miimber</h1>
-      <span class="PresentationHomeLanding-subtitle is-size-5"
-        >Connecte les clubs et les adhérents.</span
-      >
+      <span class="PresentationHomeLanding-subtitle is-size-5">{{
+        $t("presentation.home.landing.subtitle")
+      }}</span>
       <div v-if="!isConnected" class="PresentationHomeLanding-cta">
         <router-link
           :to="{ name: 'register' }"
           class="button is-primary is-outlined is-medium"
-          >Démarrer</router-link
+          >{{ $t("core.menu.register") }}</router-link
         >
-        <router-link :to="{ name: 'login' }" class="button is-primary is-medium"
-          >Se connecter</router-link
+        <router-link
+          :to="{ name: 'login' }"
+          class="button is-primary is-medium"
+          >{{ $t("core.menu.login") }}</router-link
         >
       </div>
     </div>
