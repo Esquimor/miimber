@@ -35,9 +35,6 @@ import com.miimber.back.user.service.UserService;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
-	
-	@Value("${front.url}")
-	private String frontUrl;
 
 	@Autowired
 	private MailJetService mailJetService;
@@ -75,7 +72,7 @@ public class AuthController {
 			return new ResponseEntity(HttpStatus.CONFLICT);
 		}
 		User newUser = userDetailsService.save(userDto);
-		mailJetService.sendEmailRegister(newUser.getEmail(), newUser.getFirstName() + " " + newUser.getLastName(), userDto.getLang(), newUser.getTokenCreation());
+		mailJetService.sendEmailRegister(newUser.getEmail(), newUser.getFirstName() + " " + newUser.getLastName(), userDto.getLang(), newUser.getTokenCreation(), newUser.getId());
 		return ResponseEntity.ok(newUser);
 	}
 	
@@ -85,8 +82,7 @@ public class AuthController {
 		String token = UUID.randomUUID().toString();
 		user.setTokenPasswordForgotten(token);
 		userService.update(user);
-		String link = frontUrl + "/reset-password?id="+user.getId()+"&token="+token;
-		mailJetService.sendEmailResetPassword(user.getEmail(), user.getFirstName() + " " + user.getLastName(), passwordForgottenDto.getLang(), link);
+		mailJetService.sendEmailResetPassword(user.getEmail(), user.getFirstName() + " " + user.getLastName(), passwordForgottenDto.getLang(), token, user.getId());
 		return new ResponseEntity(HttpStatus.OK);
 	}
 	

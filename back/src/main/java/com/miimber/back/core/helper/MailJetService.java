@@ -24,7 +24,7 @@ public class MailJetService {
 	@Value("${mailjet.private}")
 	private String apiKeyPrivate;
     
-    public MailjetResponse sendEmail(String fromEmail, String fromName, String toEmail, String toName, JSONObject variables, Integer template) throws MailjetException, MailjetSocketTimeoutException {
+    public MailjetResponse sendEmail(String fromEmail, String fromName, String toEmail, String toName, String subject, JSONObject variables, Integer template) throws MailjetException, MailjetSocketTimeoutException {
     	MailjetClient client;
         MailjetResponse response;
     	client = new MailjetClient(apiKeyPublic, apiKeyPrivate, new ClientOptions("v3.1"));
@@ -38,20 +38,26 @@ public class MailJetService {
     	                            .put("Email", toEmail)
     	                            .put("Name", toName)))
     	                    .put(Emailv31.Message.VARIABLES, variables)
+    	                    .put(Emailv31.Message.SUBJECT, subject)
     	                    .put(Emailv31.Message.TEMPLATELANGUAGE, true)
     	                    .put(Emailv31.Message.TEMPLATEID, template)));
         response = client.post(request);
+		System.out.println(response.getStatus());
+		System.out.println(response.getData());
         return response;
     }
     
-    public MailjetResponse sendEmailRegister(String email, String name, LangEnum lang, String token) throws MailjetException, MailjetSocketTimeoutException {
+    public MailjetResponse sendEmailRegister(String email, String name, LangEnum lang, String token, Long userId) throws MailjetException, MailjetSocketTimeoutException {
     	Integer idTemplate;
+    	String subject;
     	switch(lang) {
     		case FR:
     			idTemplate = 1379267;
+    			subject = "Valider votre compte";
     			break;
     		default:
     			idTemplate = 1357551;
+    			subject = "Validate your account";
     			break;
     	}
     	
@@ -60,20 +66,25 @@ public class MailJetService {
 			"Miimber", 
 			email, 
 			name, 
+			subject,
 			new JSONObject()
-				.put("token", token), 
+				.put("token", token)
+				.put("id", userId),
 			idTemplate
 		);
     }
     
-    public MailjetResponse sendEmailResetPassword(String email, String name, LangEnum lang, String link) throws MailjetException, MailjetSocketTimeoutException {
+    public MailjetResponse sendEmailResetPassword(String email, String name, LangEnum lang, String token, Long userId) throws MailjetException, MailjetSocketTimeoutException {
     	Integer idTemplate;
+    	String subject;
     	switch(lang) {
     		case FR:
     			idTemplate = 1359680;
+    			subject = "Mot de passe oublié";
     			break;
     		default:
     			idTemplate = 1379269;
+    			subject = "Reset Password";
     			break;
     	}
     	
@@ -82,20 +93,25 @@ public class MailJetService {
 			"Miimber", 
 			email, 
 			name, 
+			subject,
 			new JSONObject()
-				.put("link", link), 
+				.put("token", token)
+				.put("id", userId),
 			idTemplate
 		);
     }
     
-    public MailjetResponse sendEmailInvitation(String email, String name, LangEnum lang, String link, String sender, String organization) throws MailjetException, MailjetSocketTimeoutException {
+    public MailjetResponse sendEmailInvitation(String email, String name, LangEnum lang, String token, Long userId, String sender, String organization) throws MailjetException, MailjetSocketTimeoutException {
     	Integer idTemplate;
+    	String subject;
     	switch(lang) {
     		case FR:
     			idTemplate = 1359682;
+    			subject = "Bonjour. Tu es invité sur Miimber.";
     			break;
     		default:
     			idTemplate = 1379272;
+    			subject = "Hello. You are invited on Miimber.";
     			break;
     	}
     	
@@ -104,22 +120,27 @@ public class MailJetService {
 			"Miimber", 
 			email, 
 			name, 
+			subject,
 			new JSONObject()
 				.put("sender", sender)
 				.put("organization", organization)
-				.put("link", link),
+				.put("token", token)
+				.put("id", userId),
 			idTemplate
 		);
     }
     
-    public MailjetResponse sendEmailChangeEmail(String email, String name, LangEnum lang, String link) throws JSONException, MailjetException, MailjetSocketTimeoutException {
+    public MailjetResponse sendEmailChangeEmail(String email, String name, LangEnum lang, String token, Long userId) throws JSONException, MailjetException, MailjetSocketTimeoutException {
     	Integer idTemplate;
+    	String subject;
     	switch(lang) {
     		case FR:
     			idTemplate = 1379146;
+    			subject = "Changement de mail";
     			break;
     		default:
     			idTemplate = 1379266;
+    			subject = "Mail change";
     			break;
     	}
     	
@@ -128,7 +149,10 @@ public class MailJetService {
     			"Miimber",
     			email,
     			name,
-    			new JSONObject().put("link", link),
+    			subject,
+    			new JSONObject()
+					.put("token", token)
+					.put("id", userId),
     			idTemplate
     		);
     }

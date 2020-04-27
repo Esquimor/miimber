@@ -23,8 +23,7 @@
           class="OrganizationMembersAdd-noMember-notification"
           type="is-info"
           aria-close-label="Close notification"
-          >{{ $t("organization.members.add.noMember") }}</BNotification
-        >
+        >{{ $t("organization.members.add.noMember") }}</BNotification>
         <div class="columns">
           <div class="column">
             <BField :label="$t('core.label.firstName.label')">
@@ -54,12 +53,8 @@
         class="OrganizationMembersAdd-alreadyExist"
         type="is-danger"
         aria-close-label="Close notification"
-        >{{ $t("organization.members.add.alreadyExist") }}</BNotification
-      >
-      <div
-        v-else-if="!noMember && !!member"
-        class="OrganizationMembersAdd-member"
-      >
+      >{{ $t("organization.members.add.alreadyExist") }}</BNotification>
+      <div v-else-if="!noMember && !!member" class="OrganizationMembersAdd-member">
         <div class="columns">
           <div class="column">
             <BField :label="$t('organization.members.add.label.firstName')">
@@ -125,7 +120,7 @@ export default {
             email: this.email,
             firstName: this.firstName,
             lastName: this.lastName,
-            lang: this.$i18n.locale
+            lang: this.$i18n.locale.toUpperCase()
           })
           .then(() => {
             this.$buefy.toast.open({

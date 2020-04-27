@@ -5,7 +5,7 @@ export default {
       INSTRUCTOR: "Instructeur",
       MEMBER: "Membre",
       OFFICE: "Membre du bureau",
-      OFFICE_INSTRUCTOR: "Membre du bureau et Instructeur"
+      OFFICE_INSTRUCTOR: "Membre du bureau et Instructeur",
     },
     utils: {
       delete: "Supprimer",
@@ -23,34 +23,34 @@ export default {
       no: "Non",
       logout: "Déconnecter",
       send: "Envoyer",
-      update: "Modifier"
+      update: "Modifier",
     },
     label: {
       email: {
         label: "Mail",
         required: "Le mail est requis.",
         valid: "Le mail doit être valide.",
-        placeholder: "ex: mail@exemple.com"
+        placeholder: "ex: mail@exemple.com",
       },
       firstName: {
         label: "Prénom",
         required: "Le prénom est requis",
         valid: "Le prénom doit être valide",
-        placeholder: "John"
+        placeholder: "John",
       },
       lastName: {
         label: "Nom",
         required: "Le nom est requis",
         valid: "Le nom doit être valide",
-        placeholder: "Doe"
+        placeholder: "Doe",
       },
       password: {
         label: "Mot de passe",
         required: "Le mot de passe est requis",
         placeholder: "ex: Sup3r_S3cre7!",
         confirm: "Confirmation",
-        notSame: "Les mots de passes ne sont pas identiques"
-      }
+        notSame: "Les mots de passes ne sont pas identiques",
+      },
     },
     menu: {
       home: "Accueil",
@@ -60,25 +60,28 @@ export default {
       register: "Créer un compte",
       profile: "Profile",
       login: "Se connecter",
-      logout: "Se déconnecter"
+      logout: "Se déconnecter",
     },
     footer: {
       terms: "Mention Légales",
-      lang: "Langue"
+      lang: "Langue",
     },
     error: {
       title: "Erreur: {status}",
-      message: "Oups, une erreur est survenue."
+      message: "Oups, une erreur est survenue.",
+    },
+    verification: {
+      label: "Vérification en cours",
     },
     logout: {
-      success: "Déconnecté"
+      success: "Déconnecté",
     },
     recurrence: {
       ONCE: "Une fois",
       EVERYDAY: "Tous les jours",
       BY_WEEK: "Par semaine",
       //ON_DATE_EACH_MONTH: "Une fois par mois",
-      CUSTOM: "Personnaliser"
+      CUSTOM: "Personnaliser",
     },
     days: {
       MONDAY: "Lundi",
@@ -87,7 +90,7 @@ export default {
       THURSDAY: "Jeudi",
       FRIDAY: "Vendredi",
       SATURDAY: "Samedi",
-      SUNDAY: "Dimanche"
+      SUNDAY: "Dimanche",
     },
     daysNumber: {
       1: "Lundi",
@@ -96,7 +99,7 @@ export default {
       4: "Jeudi",
       5: "Vendredi",
       6: "Samedi",
-      0: "Dimanche"
+      0: "Dimanche",
     },
     daysShort: {
       MONDAY: "Lun",
@@ -105,7 +108,7 @@ export default {
       THURSDAY: "Jeu",
       FRIDAY: "Ven",
       SATURDAY: "Sam",
-      SUNDAY: "Dim"
+      SUNDAY: "Dim",
     },
     daysFirstLetter: {
       MONDAY: "L",
@@ -114,20 +117,20 @@ export default {
       THURSDAY: "J",
       FRIDAY: "V",
       SATURDAY: "S",
-      SUNDAY: "D"
+      SUNDAY: "D",
     },
     repeatWeek: {
       ONE: "1 Semaine",
       TWO: "2 Semaines",
       THREE: "3 Semaines",
-      FOUR: "4 Semaines"
+      FOUR: "4 Semaines",
     },
     time: {
       hours: "heures",
-      minutes: "minutes"
+      minutes: "minutes",
     },
     timeShort: {
-      minutes: "min."
+      minutes: "min.",
     },
     months: {
       JANUARY: "Janvier",
@@ -141,7 +144,7 @@ export default {
       SEPTEMBER: "Septembre",
       OCTOBER: "Octobre",
       NOVEMBER: "Novembre",
-      DECEMBER: "Décembre"
+      DECEMBER: "Décembre",
     },
     monthsNumber: {
       0: "Janvier",
@@ -155,7 +158,7 @@ export default {
       8: "Septembre",
       9: "Octobre",
       10: "Novembre",
-      11: "Décembre"
+      11: "Décembre",
     },
     monthsShort: {
       JANUARY: "Jan",
@@ -169,20 +172,20 @@ export default {
       SEPTEMBER: "Sept",
       OCTOBER: "Oct",
       NOVEMBER: "Nov",
-      DECEMBER: "Déc"
+      DECEMBER: "Déc",
     },
     sessionType: {
       TO_COME_UP: "À venir",
       IN_PROGRESS: "En cours",
-      COMPLETED: "Terminé"
+      COMPLETED: "Terminé",
     },
     lang: {
       ENGLISH: "English",
-      FRENCH: "Français"
+      FRENCH: "Français",
     },
     langCode: {
       ENGLISH: "en",
-      FRENCH: "fr"
-    }
-  }
+      FRENCH: "fr",
+    },
+  },
 };

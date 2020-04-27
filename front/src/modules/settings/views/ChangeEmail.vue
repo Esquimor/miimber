@@ -1,27 +1,43 @@
 <template>
-  <TemplateInfo>Email Changé</TemplateInfo>
+  <TemplateVerification :state="state">{{ $t('settings.changeEmail.label') }}</TemplateVerification>
 </template>
 
 <script>
 "use strict";
 
-import TemplateInfo from "@core/template/TemplateInfo";
+import { STATE_VALIDATION } from "@/utils/consts";
+
+import TemplateVerification from "@core/template/TemplateVerification";
 
 export default {
   name: "SetingsChangeEmail",
   components: {
-    TemplateInfo
+    TemplateVerification
+  },
+  data() {
+    return {
+      error: false,
+      state: STATE_VALIDATION.WAIT
+    };
   },
   mounted() {
     const id = this.$route.query.id;
-    const token = this.$router.query.token;
+    const token = this.$route.query.token;
+    if (!this.id || !token) {
+      this.state = STATE_VALIDATION.ERROR;
+      return;
+    }
     this.$store
       .dispatch("settings/valideChangeEmail", {
         id,
         token
       })
-      .then(() => {})
-      .catch(() => {});
+      .then(() => {
+        this.state = STATE_VALIDATION.SUCCESS;
+      })
+      .catch(() => {
+        this.state = STATE_VALIDATION.ERROR;
+      });
   }
 };
 </script>

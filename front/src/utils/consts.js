@@ -87,3 +87,9 @@ export const LANG = {
     code: "fr"
   }
 };
+
+export const STATE_VALIDATION = {
+  WAIT: "WAIT",
+  SUCCESS: "SUCCESS",
+  ERROR: "ERROR"
+}

@@ -32,9 +32,6 @@ import com.miimber.back.user.service.UserService;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 	
-	@Value("${front.url}")
-	private String frontUrl;
-	
 	@Autowired
 	private UserService userService;
 	
@@ -86,8 +83,7 @@ public class UserController {
 		user.setTokenChangeEmail(token);
 		user.setNewEmail(userDto.getEmail());
 		userService.update(user);
-		String link = frontUrl + "/change-email?id="+user.getId()+"&token="+token;
-		mailJetService.sendEmailChangeEmail(user.getEmail(), user.getFirstName() + " "+ user.getLastName(), userDto.getLang(), link);
+		mailJetService.sendEmailChangeEmail(user.getEmail(), user.getFirstName() + " "+ user.getLastName(), userDto.getLang(), token, user.getId());
 		return new ResponseEntity(HttpStatus.OK);
 	}
 	

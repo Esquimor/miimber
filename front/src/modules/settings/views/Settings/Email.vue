@@ -17,9 +17,7 @@
           :class="{ 'is-loading': loading }"
           @click="update"
           :disabled="!canUpdate"
-        >
-          {{ $t("core.utils.update") }}
-        </button>
+        >{{ $t("core.utils.update") }}</button>
       </div>
     </form>
   </TemplateSettings>
@@ -63,7 +61,7 @@ export default {
         .dispatch("settings/updateEmail", {
           email: this.email,
           id: this.me.id,
-          lang: this.$i18n.locale
+          lang: this.$i18n.locale.toUpperCase()
         })
         .then(() => {
           this.loading = false;

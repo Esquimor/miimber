@@ -29,9 +29,6 @@ import com.miimber.back.user.service.UserService;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MemberUserController {
-	
-	@Value("${front.url}")
-	private String frontUrl;
 
 	@Autowired
 	private MailJetService mailJetService;
@@ -84,8 +81,7 @@ public class MemberUserController {
         newMember.setRole(memberByOrganizationRequestDto.getRole());
         newMember.setOrganization(organization);
 
-		String link = frontUrl + "/invitation?id="+newUser.getId()+"&token="+token;
-		mailJetService.sendEmailInvitation(user.getEmail(), user.getFirstName() + " " + user.getLastName(), memberByOrganizationRequestDto.getLang(), link, user.getFirstName() + " "+ user.getLastName(), organization.getName());
+		mailJetService.sendEmailInvitation(user.getEmail(), user.getFirstName() + " " + user.getLastName(), memberByOrganizationRequestDto.getLang(), token, user.getId(), user.getFirstName() + " "+ user.getLastName(), organization.getName());
         
         if (organization.getStripe() != null) {
             stripeService.addOneMemberSubscription(organization.getStripe());

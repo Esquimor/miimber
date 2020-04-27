@@ -1,10 +1,12 @@
 <template>
-  <TemplateInfo>
+  <TemplateForm
+    @click="submit"
+    :disabled="!isSubmitable"
+    :loading="loading"
+    :button="$t('register.utils.submit')"
+  >
     <form @submit.prevent class="SignResetPassword-form">
-      <BField
-        :label="$t('core.label.password.label')"
-        :type="errorSamePassword ? 'is-danger' : ''"
-      >
+      <BField :label="$t('core.label.password.label')" :type="errorSamePassword ? 'is-danger' : ''">
         <BInput
           id="SignResetPassword-password"
           v-model="password"
@@ -28,31 +30,19 @@
           required
         ></BInput>
       </BField>
-      <div class="SignResetPassword-form-submit">
-        <button
-          id="SignResetPassword-submit"
-          type="submit"
-          class="button is-primary"
-          :class="{ 'is-loading': loading }"
-          @click="submit"
-          :disabled="!isSubmitable"
-        >
-          {{ $t("register.utils.submit") }}
-        </button>
-      </div>
     </form>
-  </TemplateInfo>
+  </TemplateForm>
 </template>
 
 <script>
 "use strict";
 
-import TemplateInfo from "@core/template/TemplateInfo";
+import TemplateForm from "@core/template/TemplateForm";
 
 export default {
   name: "SignResetPassword",
   components: {
-    TemplateInfo
+    TemplateForm
   },
   data() {
     return {
