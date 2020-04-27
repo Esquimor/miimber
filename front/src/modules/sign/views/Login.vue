@@ -17,7 +17,7 @@
           <BInput
             id="SignLogin-email"
             type="email"
-            v-model="email"
+            v-model.trim="email"
             :placeholder="$t('core.label.email.placeholder')"
             required
           ></BInput>
@@ -59,9 +59,9 @@
       <div class="SignLogin-bottom">
         <span>
           {{ $t("login.register.label") }}
-          <router-link :to="{ name: 'register' }">
-            {{ $t("login.register.link") }}
-          </router-link>
+          <router-link :to="{ name: 'register' }">{{
+            $t("login.register.link")
+          }}</router-link>
         </span>
       </div>
     </template>

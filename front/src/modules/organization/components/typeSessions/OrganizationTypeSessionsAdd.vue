@@ -9,7 +9,7 @@
     <div class="columns">
       <div class="column is-half">
         <BField :label="$t('organization.typeSessions.label.name')">
-          <BInput v-model="typeSession.name" required />
+          <BInput v-model.trim="typeSession.name" required />
         </BField>
       </div>
     </div>

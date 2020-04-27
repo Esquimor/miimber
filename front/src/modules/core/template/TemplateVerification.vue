@@ -8,11 +8,16 @@
         class="TemplateVerification-icon TemplateVerification-icon-loading"
       />
       <span class="TemplateVerification-text">
-        <slot name="wait">{{ $t('core.verification.label') }}</slot>
+        <slot name="wait">{{ $t("core.verification.label") }}</slot>
       </span>
     </div>
     <div v-if="STATE_VALIDATION.SUCESS === state" class="TemplateVerification">
-      <BIcon icon="thumb-up" size="is-large" type="is-success" class="TemplateVerification-icon" />
+      <BIcon
+        icon="thumb-up"
+        size="is-large"
+        type="is-success"
+        class="TemplateVerification-icon"
+      />
       <span class="TemplateVerification-text">
         <slot />
       </span>
@@ -25,7 +30,7 @@
         class="TemplateVerification-icon"
       />
       <span class="TemplateVerification-text">
-        <slot name="error">{{ $t('core.error.message') }}</slot>
+        <slot name="error">{{ $t("core.error.message") }}</slot>
       </span>
     </div>
   </TemplateInfo>

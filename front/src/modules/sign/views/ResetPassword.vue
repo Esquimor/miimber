@@ -6,7 +6,10 @@
     :button="$t('register.utils.submit')"
   >
     <form @submit.prevent class="SignResetPassword-form">
-      <BField :label="$t('core.label.password.label')" :type="errorSamePassword ? 'is-danger' : ''">
+      <BField
+        :label="$t('core.label.password.label')"
+        :type="errorSamePassword ? 'is-danger' : ''"
+      >
         <BInput
           id="SignResetPassword-password"
           v-model="password"

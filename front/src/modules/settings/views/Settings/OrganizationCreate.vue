@@ -11,38 +11,12 @@
             :message="message"
           >
             <b-input
-              v-model="name"
+              v-model.trim="name"
               @focus="focusName"
               @blur="searchIfExit"
               required
             ></b-input>
           </b-field>
-        </div>
-      </div>
-      <div class="columns">
-        <div
-          class="column is-half is-offset-one-quarter OrganizationCreate-subscriptions"
-        >
-          <SettingsOrganizationCreateItem
-            @selected="subscription = STRIPE_PLAN.SIX_MONTH"
-            :selected="subscription === STRIPE_PLAN.SIX_MONTH"
-            :title="
-              $t('settings.organizationCreate.subscriptions.sixMonth.title')
-            "
-            :price="
-              $t('settings.organizationCreate.subscriptions.sixMonth.price')
-            "
-          />
-          <SettingsOrganizationCreateItem
-            @selected="subscription = STRIPE_PLAN.ONE_MONTH"
-            :selected="subscription === STRIPE_PLAN.ONE_MONTH"
-            :title="
-              $t('settings.organizationCreate.subscriptions.monthly.title')
-            "
-            :price="
-              $t('settings.organizationCreate.subscriptions.monthly.price')
-            "
-          />
         </div>
       </div>
       <div class="columns">
@@ -114,13 +88,10 @@ import { STRIPE_PLAN } from "@/utils/consts";
 
 import TemplateDefault from "@core/template/TemplateDefault";
 
-import SettingsOrganizationCreateItem from "@settings/components/organization/create/SettingsOrganizationCreateItem";
-
 export default {
   name: "OrganizationCreate",
   components: {
-    TemplateDefault,
-    SettingsOrganizationCreateItem
+    TemplateDefault
   },
   data() {
     return {
@@ -129,8 +100,7 @@ export default {
       name: "",
       valid: false,
       message: "",
-      subscription: STRIPE_PLAN.SIX_MONTH,
-      STRIPE_PLAN: STRIPE_PLAN,
+      subscription: STRIPE_PLAN,
       cardNumberElement: {
         element: null,
         message: "",

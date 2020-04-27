@@ -4,7 +4,7 @@
       <BField :label="$t('core.label.email.label')">
         <BInput
           id="SettingsEmail-email"
-          v-model="email"
+          v-model.trim="email"
           :placeholder="$t('core.label.email.placeholder')"
           type="email"
           required
@@ -17,7 +17,9 @@
           :class="{ 'is-loading': loading }"
           @click="update"
           :disabled="!canUpdate"
-        >{{ $t("core.utils.update") }}</button>
+        >
+          {{ $t("core.utils.update") }}
+        </button>
       </div>
     </form>
   </TemplateSettings>

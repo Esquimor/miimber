@@ -2,14 +2,14 @@
   <TemplateSign>
     <template v-slot:rigth>
       <form class="SignPasswordForgotten-form" @submit.prevent>
-        <h1
-          class="SignPasswordForgotten-form-title is-size-3"
-        >{{ $t("sign.passwordForgotten.title") }}</h1>
+        <h1 class="SignPasswordForgotten-form-title is-size-3">
+          {{ $t("sign.passwordForgotten.title") }}
+        </h1>
         <BField :label="$t('core.label.email.label')">
           <BInput
             id="SignPasswordForgotten-email"
             type="email"
-            v-model="email"
+            v-model.trim="email"
             :placeholder="$t('core.label.email.placeholder')"
             required
           ></BInput>
@@ -22,7 +22,9 @@
             :class="{ 'is-loading': loading }"
             @click="send"
             :disabled="!isSendable"
-          >{{ $t("core.utils.send") }}</button>
+          >
+            {{ $t("core.utils.send") }}
+          </button>
         </div>
       </form>
     </template>

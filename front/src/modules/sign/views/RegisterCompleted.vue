@@ -3,10 +3,9 @@
     <h1 class="title is-5">{{ $t("sign.registerCompleted.title") }}</h1>
     <span class="is-size-6">{{ $t("sign.registerCompleted.message") }}</span>
     <div class="SignRegisterCompleted-button">
-      <router-link
-        :to="{ name: 'login' }"
-        class="button is-primary"
-      >{{ $t("sign.registerCompleted.login") }}</router-link>
+      <router-link :to="{ name: 'login' }" class="button is-primary">{{
+        $t("sign.registerCompleted.login")
+      }}</router-link>
     </div>
   </TemplateInfo>
 </template>

@@ -9,7 +9,7 @@
     <div class="columns">
       <div class="column">
         <BField :label="$t('organization.sessions.label.title')">
-          <BInput v-model="session.title" required></BInput>
+          <BInput v-model.trim="session.title" required></BInput>
         </BField>
       </div>
     </div>
@@ -152,9 +152,9 @@
           :label="$t('organization.sessions.label.hasLimit')"
           style="height: 68px;"
         >
-          <BSwitch v-model="hasLimit">{{
-            hasLimit ? $t("core.utils.yes") : $t("core.utils.no")
-          }}</BSwitch>
+          <BSwitch v-model="hasLimit">
+            {{ hasLimit ? $t("core.utils.yes") : $t("core.utils.no") }}
+          </BSwitch>
         </BField>
       </div>
       <div class="column" v-if="hasLimit">
@@ -181,7 +181,7 @@
       <div class="column">
         <BField :label="$t('organization.sessions.label.description')">
           <BInput
-            v-model="session.description"
+            v-model.trim="session.description"
             maxlength="500"
             type="textarea"
           ></BInput>

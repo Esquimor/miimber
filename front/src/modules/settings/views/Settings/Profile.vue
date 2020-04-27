@@ -4,7 +4,7 @@
       <BField :label="$t('core.label.firstName.label')">
         <BInput
           id="SettingsProfile-firstName"
-          v-model="editMe.firstName"
+          v-model.trim="editMe.firstName"
           :placeholder="$t('core.label.firstName.placeholder')"
           required
         />
@@ -12,7 +12,7 @@
       <BField :label="$t('core.label.lastName.label')">
         <BInput
           id="SettingsProfile-lastName"
-          v-model="editMe.lastName"
+          v-model.trim="editMe.lastName"
           :placeholder="$t('core.label.lastName.placeholder')"
           required
         />

@@ -1,5 +1,7 @@
 <template>
-  <TemplateVerification :state="state">{{ $t('settings.changeEmail.label') }}</TemplateVerification>
+  <TemplateVerification :state="state">{{
+    $t("settings.changeEmail.label")
+  }}</TemplateVerification>
 </template>
 
 <script>

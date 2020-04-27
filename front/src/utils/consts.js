@@ -1,7 +1,4 @@
-export const STRIPE_PLAN = {
-  ONE_MONTH: "test42",
-  SIX_MONTH: "test42"
-};
+export const STRIPE_PLAN = "test42";
 
 export const ROLE = {
   OWNER: "OWNER",
@@ -92,4 +89,4 @@ export const STATE_VALIDATION = {
   WAIT: "WAIT",
   SUCCESS: "SUCCESS",
   ERROR: "ERROR"
-}
+};

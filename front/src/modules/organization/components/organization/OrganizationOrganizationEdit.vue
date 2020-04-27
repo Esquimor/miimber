@@ -11,7 +11,7 @@
         <BField :label="$t('organization.organization.label.name')">
           <BInput
             id="OrganizationOrganizationEdit-name"
-            v-model="editName"
+            v-model.trim="editName"
             required
           ></BInput>
         </BField>

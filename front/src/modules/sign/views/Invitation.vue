@@ -10,7 +10,7 @@
       <BField :label="$t('core.label.firstName.label')">
         <BInput
           id="SignInvitation-firstName"
-          v-model="firstName"
+          v-model.trim="firstName"
           :placeholder="$t('core.label.firstName.placeholder')"
           required
         />
@@ -18,7 +18,7 @@
       <BField :label="$t('core.label.lastName.label')">
         <BInput
           id="SignInvitation-lastName"
-          v-model="lastName"
+          v-model.trim="lastName"
           :placeholder="$t('core.label.lastName.placeholder')"
           required
         />
