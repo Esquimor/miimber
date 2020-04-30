@@ -23,8 +23,7 @@
           class="OrganizationMembersAdd-noMember-notification"
           type="is-info"
           aria-close-label="Close notification"
-          >{{ $t("organization.members.add.noMember") }}</BNotification
-        >
+        >{{ $t("organization.members.add.noMember") }}</BNotification>
         <div class="columns">
           <div class="column">
             <BField :label="$t('core.label.firstName.label')">
@@ -54,20 +53,16 @@
         class="OrganizationMembersAdd-alreadyExist"
         type="is-danger"
         aria-close-label="Close notification"
-        >{{ $t("organization.members.add.alreadyExist") }}</BNotification
-      >
-      <div
-        v-else-if="!noMember && !!member"
-        class="OrganizationMembersAdd-member"
-      >
+      >{{ $t("organization.members.add.alreadyExist") }}</BNotification>
+      <div v-else-if="!noMember && !!member" class="OrganizationMembersAdd-member">
         <div class="columns">
           <div class="column">
-            <BField :label="$t('organization.members.add.label.firstName')">
+            <BField :label="$t('core.label.firstName.label')">
               <span>{{ member.firstName }}</span>
             </BField>
           </div>
           <div class="column">
-            <BField :label="$t('organization.members.add.label.lastName')">
+            <BField :label="$t('core.label.lastName.label')">
               <span>{{ member.lastName }}</span>
             </BField>
           </div>
@@ -117,8 +112,10 @@ export default {
   },
   methods: {
     confirm() {
+      if (this.loading) return;
       if (this.noMember) {
         if (!this.firstName || !this.lastName) return;
+        this.loading = true;
         this.$store
           .dispatch("organization/addMemberAndUser", {
             organizationId: this.organization.id,
@@ -133,12 +130,15 @@ export default {
               type: "is-success"
             });
             this.$store.dispatch("core/closeSideBar");
+            this.loading = false;
           })
           .catch(() => {
             this.$store.dispatch("core/closeSideBar");
+            this.loading = false;
           });
       } else {
         if (!this.member) return;
+        this.loading = true;
         this.$store
           .dispatch("organization/addMember", {
             organizationId: this.organization.id,
@@ -150,9 +150,11 @@ export default {
               type: "is-success"
             });
             this.$store.dispatch("core/closeSideBar");
+            this.loading = false;
           })
           .catch(() => {
             this.$store.dispatch("core/closeSideBar");
+            this.loading = false;
           });
       }
     },
@@ -161,11 +163,13 @@ export default {
     },
     verifyMember() {
       if (!this.email) return;
+      this.loading = true;
       this.emptyMember();
       api
         .get(`user/email/${this.email}/${this.organization.id}`)
         .then(({ data }) => {
           this.member = data;
+          this.loading = false;
         })
         .catch(e => {
           if (e.response) {
@@ -173,8 +177,15 @@ export default {
             else if (e.response.status === 409) {
               this.alreadyExist = true;
               this.email = "";
+            } else {
+              this.$store.dispatch("core/setError");
+              this.$store.dispatch("core/closeSideBar");
             }
+          } else {
+            this.$store.dispatch("core/setError");
+            this.$store.dispatch("core/closeSideBar");
           }
+          this.loading = false;
         });
     }
   }

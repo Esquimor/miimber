@@ -1,7 +1,9 @@
 <template>
   <section class="DashboardSessionRegistereds">
     <h2 class="DashboardSessionDescription-title title is-5">
-      {{ label }} ({{ nbRegistered }})
+      {{ label }}
+      <span>({{ nbRegistered }}</span>
+      <span v-if="showLimit">/{{limit}}</span>)
     </h2>
     <div v-if="nbRegistered > 0" class="DashboardSessionDescription-users">
       <SessionUserItem
@@ -34,6 +36,14 @@ export default {
     label: {
       type: String,
       default: ""
+    },
+    showLimit: {
+      type: Boolean,
+      default: false
+    },
+    limit: {
+      type: Number,
+      default: 0
     }
   },
   computed: {

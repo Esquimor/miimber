@@ -22,7 +22,7 @@ export default {
   mounted() {
     const token = this.$route.query.token;
     const id = this.$route.query.id;
-    if (!this.id || !token) {
+    if (!id || !token) {
       this.state = STATE_VALIDATION.ERROR;
       return;
     }

@@ -1,7 +1,9 @@
 <template>
-  <TemplateVerification :state="state">{{
+  <TemplateVerification :state="state">
+    {{
     $t("settings.changeEmail.label")
-  }}</TemplateVerification>
+    }}
+  </TemplateVerification>
 </template>
 
 <script>
@@ -25,7 +27,7 @@ export default {
   mounted() {
     const id = this.$route.query.id;
     const token = this.$route.query.token;
-    if (!this.id || !token) {
+    if (!id || !token) {
       this.state = STATE_VALIDATION.ERROR;
       return;
     }

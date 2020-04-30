@@ -11,13 +11,11 @@
     <slot name="footer">
       <footer class="TemplateForm-footer">
         <button
-          @click="$emit('confirm')"
+          @click="$emit('click')"
           class="button is-primary"
           :disabled="disabled"
           :class="{ 'is-loading': loading }"
-        >
-          {{ button }}
-        </button>
+        >{{ button }}</button>
       </footer>
     </slot>
   </TemplateInfo>

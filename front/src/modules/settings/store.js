@@ -4,10 +4,10 @@ import * as types from "@/utils/types";
 export default {
   namespaced: true,
   state: {
-    organizations: []
+    organizations: [],
   },
   getters: {
-    organizations: state => state.organizations
+    organizations: (state) => state.organizations,
   },
   actions: {
     updateProfile({ dispatch }, { lastName, firstName, id }) {
@@ -16,14 +16,14 @@ export default {
           `user/${id}`,
           {
             lastName,
-            firstName
+            firstName,
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           dispatch("core/updateMeByProfile", data, { root: true });
         })
-        .catch(e => {
+        .catch((e) => {
           return Promise.reject(e);
         });
     },
@@ -33,26 +33,26 @@ export default {
           `user/${id}/email`,
           {
             email,
-            lang
+            lang,
           },
           { errorMessage: true }
         )
         .then(() => {
           return Promise.resolve();
         })
-        .catch(e => {
+        .catch((e) => {
           return Promise.reject(e);
         });
     },
     valideChangeEmail(_, { id, token }) {
       return api
         .post(`user/${id}/email`, {
-          token
+          token,
         })
         .then(() => {
           return Promise.resolve();
         })
-        .catch(e => {
+        .catch((e) => {
           return Promise.reject(e);
         });
     },
@@ -62,25 +62,25 @@ export default {
           `user/${id}`,
           {
             oldPassword,
-            newPassword
+            newPassword,
           },
           { errorMessage: true }
         )
         .then(() => {
           return Promise.resolve();
         })
-        .catch(e => {
+        .catch((e) => {
           return Promise.reject(e);
         });
     },
     getOrganizationOwnered({ commit }) {
       return api
-        .get("organization/editable", {}, { errorMessage: true })
+        .get("organization/editable", {}, { errorRedirect: true })
         .then(({ data }) => {
           commit(types.STG_SET_ORGANIZATION_OWNERED, data);
           return Promise.resolve();
         })
-        .catch(e => {
+        .catch((e) => {
           return Promise.reject(e);
         });
     },
@@ -91,21 +91,21 @@ export default {
           {
             tokenId: token,
             name,
-            subscription
+            subscription,
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           return Promise.resolve(data);
         })
-        .catch(e => {
+        .catch((e) => {
           return Promise.reject(e);
         });
-    }
+    },
   },
   mutations: {
     [types.STG_SET_ORGANIZATION_OWNERED](state, organizations) {
       state.organizations = organizations;
-    }
-  }
+    },
+  },
 };

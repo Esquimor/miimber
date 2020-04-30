@@ -78,10 +78,9 @@ public class MemberUserController {
         
         Member newMember = new Member();
         newMember.setUser(newUser);
-        newMember.setRole(memberByOrganizationRequestDto.getRole());
         newMember.setOrganization(organization);
 
-		mailJetService.sendEmailInvitation(user.getEmail(), user.getFirstName() + " " + user.getLastName(), memberByOrganizationRequestDto.getLang(), token, user.getId(), user.getFirstName() + " "+ user.getLastName(), organization.getName());
+		mailJetService.sendEmailInvitation(newUser.getEmail(), newUser.getFirstName() + " " + newUser.getLastName(), memberByOrganizationRequestDto.getLang(), token, newUser.getId(), user.getFirstName() + " "+ user.getLastName(), organization.getName());
         
         if (organization.getStripe() != null) {
             stripeService.addOneMemberSubscription(organization.getStripe());

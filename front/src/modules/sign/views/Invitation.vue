@@ -23,10 +23,7 @@
           required
         />
       </BField>
-      <BField
-        :label="$t('core.label.password.label')"
-        :type="errorSamePassword ? 'is-danger' : ''"
-      >
+      <BField :label="$t('core.label.password.label')" :type="errorSamePassword ? 'is-danger' : ''">
         <BInput
           id="SignInvitation-password"
           v-model="password"

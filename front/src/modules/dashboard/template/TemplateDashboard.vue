@@ -79,6 +79,7 @@ export default {
   padding: 1.5rem 0.5rem;
   &-main {
     padding: 1rem;
+    min-height: 60vh;
     width: 100%;
     margin: 0 auto;
     background-color: $white;
