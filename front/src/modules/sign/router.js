@@ -1,45 +1,37 @@
-import Login from "@sign/views/Login";
-import Register from "@sign/views/Register";
-import RegisterCompleted from "@sign/views/RegisterCompleted";
-import RegisterValidated from "@sign/views/RegisterValidated";
-import PasswordForgotten from "@sign/views/PasswordForgotten";
-import ResetPassword from "@sign/views/ResetPassword";
-import Invitation from "@sign/views/Invitation";
-
 export default [
   {
     path: "/login",
     name: "login",
-    component: Login
+    component: () => import("@sign/views/Login"),
   },
   {
     path: "/register",
     name: "register",
-    component: Register
+    component: () => import("@sign/views/Register"),
   },
   {
     path: "/register-completed",
     name: "register-completed",
-    component: RegisterCompleted
+    component: () => import("@sign/views/RegisterCompleted"),
   },
   {
     path: "/register-validated",
     name: "register-validated",
-    component: RegisterValidated
+    component: () => import("@sign/views/RegisterValidated"),
   },
   {
     path: "/password-forgotten",
     name: "password-forgotten",
-    component: PasswordForgotten
+    component: () => import("@sign/views/PasswordForgotten"),
   },
   {
     path: "/reset-password",
     name: "reset-password",
-    component: ResetPassword
+    component: () => import("@sign/views/ResetPassword"),
   },
   {
     path: "/invitation",
     name: "invitation",
-    component: Invitation
-  }
+    component: () => import("@sign/views/Invitation"),
+  },
 ];

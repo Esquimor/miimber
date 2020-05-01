@@ -4,13 +4,13 @@ import store from "./store";
 
 Vue.use(VueRouter);
 
-import routerCore from "@core/router.js";
-import routerDashboard from "@dashboard/router.js";
-import routerError from "@error/router.js";
-import routerPresentation from "@presentation/router.js";
-import routerSign from "@sign/router.js";
-import routerSettings from "@settings/router.js";
-import routerOrganization from "@organization/router.js";
+const routerCore = () => import("@core/router.js");
+const routerDashboard = () => import("@dashboard/router.js");
+const routerError = () => import("@error/router.js");
+const routerPresentation = () => import("@presentation/router.js");
+const routerSign = () => import("@sign/router.js");
+const routerSettings = () => import("@settings/router.js");
+const routerOrganization = () => import("@organization/router.js");
 
 const routes = [];
 
@@ -25,7 +25,7 @@ const router = new VueRouter({
     routerSettings,
     routerOrganization,
     routerError
-  )
+  ),
 });
 
 router.beforeEach((to, from, next) => {

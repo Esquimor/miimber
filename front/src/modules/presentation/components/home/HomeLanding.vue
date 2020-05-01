@@ -2,20 +2,24 @@
   <section class="PresentationHomeLanding">
     <div class="PresentationHomeLanding-wrapper">
       <h1 class="PresentationHomeLanding-title title is-2">Miimber</h1>
-      <span class="PresentationHomeLanding-subtitle is-size-5">
-        {{ $t("presentation.home.landing.subtitle") }}
-      </span>
+      <span
+        class="PresentationHomeLanding-subtitle is-size-5"
+      >{{ $t("presentation.home.landing.subtitle") }}</span>
       <div v-if="!isConnected" class="PresentationHomeLanding-cta">
         <router-link
           :to="{ name: 'register' }"
           class="PresentationHomeLanding-cta-register button is-primary is-outlined is-medium"
-          >{{ $t("core.menu.register") }}</router-link
-        >
+        >{{ $t("core.menu.register") }}</router-link>
         <router-link
           :to="{ name: 'login' }"
           class="button is-primary is-medium"
-          >{{ $t("core.menu.login") }}</router-link
-        >
+        >{{ $t("core.menu.login") }}</router-link>
+      </div>
+      <div v-else class="PresentationHomeLanding-cta">
+        <router-link
+          :to="{name: 'dashboard-sessions'}"
+          class="PresentationHomeLanding-cta-register button is-primary is-medium"
+        >{{ $t('presentation.home.landing.sessions') }}</router-link>
       </div>
     </div>
   </section>
