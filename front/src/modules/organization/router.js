@@ -1,34 +1,28 @@
-import Organization from "@organization/views/Organization";
-import Members from "@organization/views/Members";
-import Settings from "@organization/views/Settings";
-import Sessions from "@organization/views/Sessions/Sessions";
-import TypeSessions from "@organization/views/Sessions/TypeSessions";
-
 export default [
   {
     path: "/organization-manage/:id",
-    component: Organization,
+    component: () => import("@organization/views/Organization"),
     children: [
       {
         path: "members",
         name: "organization-manage-members",
-        component: Members
+        component: () => import("@organization/views/Members"),
       },
       {
         path: "settings",
         name: "organization-manage-settings",
-        component: Settings
+        component: () => import("@organization/views/Settings"),
       },
       {
         path: "sessions",
         name: "organization-manage-sessions",
-        component: Sessions
+        component: () => import("@organization/views/Sessions/Sessions"),
       },
       {
         path: "sessions/categories",
         name: "organization-manage-sessions-types",
-        component: TypeSessions
-      }
-    ]
-  }
+        component: () => import("@organization/views/Sessions/TypeSessions"),
+      },
+    ],
+  },
 ];

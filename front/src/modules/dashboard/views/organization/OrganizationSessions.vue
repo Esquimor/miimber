@@ -18,7 +18,7 @@
       <SessionList v-for="date in sessionByDate" :key="date.item" :date="date" hideOrganization />
     </div>
     <div v-else class="DashboardOrganizationSessions-empty">
-      <span>{{ $t("dashboard.sessions.label.empty") }}</span>
+      <span>{{ $t("dashboard.session.label.empty") }}</span>
     </div>
   </div>
 </template>

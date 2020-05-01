@@ -25,7 +25,9 @@ export default {
     },
     showMessageError(error) {
       this.$buefy.dialog.alert({
-        title: this.$t("core.error.title", { status: error.status }),
+        title: error.status
+          ? this.$t("core.error.titleStatus", { status: error.status })
+          : this.$t("core.error.title"),
         message: this.$t("core.error.message"),
         type: "is-danger",
         confirmText: this.$t("core.utils.close"),

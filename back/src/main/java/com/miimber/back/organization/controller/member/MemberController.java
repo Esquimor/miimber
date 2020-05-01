@@ -70,16 +70,17 @@ public class MemberController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         // Keep at least one owner by organization
-        if (memberDto.getRole() == RoleEnum.OWNER && member.getId() == memberToEdit.getId()) {
+        if (memberDto.getRole() != RoleEnum.OWNER && member.getId() == memberToEdit.getId()) {
             Predicate<Member> byType = m -> m.getRole() == RoleEnum.OWNER;
             int numberOwners = member.getOrganization().getMembers().stream().filter(byType)
                     .collect(Collectors.toList()).size();
+            System.out.print(numberOwners);
             if (numberOwners == 1) {
             	return new ResponseEntity(HttpStatus.CONFLICT);
             }
         }
         memberToEdit.setRole(memberDto.getRole());
-        return ResponseEntity.ok(new MemberReadUpdateResponseDTO(memberService.update(member)));
+        return ResponseEntity.ok(new MemberReadUpdateResponseDTO(memberService.update(memberToEdit)));
 	}
 	
 	@RequestMapping(value = "/member/", method = RequestMethod.POST)
@@ -88,11 +89,13 @@ public class MemberController {
         
         Organization organization = organizationService.get(memberDto.getIdOrganization());
         if (organization == null) {
+        	System.out.print("organization");
         	return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
         Member memberUser = memberService.getMemberByOrganizationAndByUser(organization, user);
         if (memberUser == null ) {
+        	System.out.print("Member");
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         
@@ -112,7 +115,6 @@ public class MemberController {
         
         Member newMember = new Member();
         newMember.setUser(userToMember);
-        newMember.setRole(memberDto.getRole());
         newMember.setOrganization(organization);
         
         if (organization.getStripe() != null) {

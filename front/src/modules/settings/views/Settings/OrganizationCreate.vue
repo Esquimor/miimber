@@ -1,79 +1,35 @@
 <template>
   <TemplateDefault class="OrganizationCreate">
-    <form @submit.prevent>
-      <h1 class="title is-4 OrganizationCreate-title">
-        {{ $t("settings.organization.create") }}
-      </h1>
+    <form @submit.prevent="add">
+      <h1 class="title is-4 OrganizationCreate-title">{{ $t("settings.organization.create") }}</h1>
       <div class="columns">
         <div class="column is-half is-offset-one-quarter">
-          <b-field
-            :label="$t('settings.organizationCreate.name')"
-            :message="message"
-          >
-            <b-input
-              v-model="name"
-              @focus="focusName"
-              @blur="searchIfExit"
-              required
-            ></b-input>
+          <b-field :label="$t('settings.organizationCreate.name')" :message="message">
+            <b-input v-model.trim="name" @focus="focusName" @blur="searchIfExit" required></b-input>
           </b-field>
         </div>
       </div>
       <div class="columns">
         <div
-          class="column is-half is-offset-one-quarter OrganizationCreate-subscriptions"
-        >
-          <SettingsOrganizationCreateItem
-            @selected="subscription = STRIPE_PLAN.SIX_MONTH"
-            :selected="subscription === STRIPE_PLAN.SIX_MONTH"
-            :title="
-              $t('settings.organizationCreate.subscriptions.sixMonth.title')
-            "
-            :price="
-              $t('settings.organizationCreate.subscriptions.sixMonth.price')
-            "
-          />
-          <SettingsOrganizationCreateItem
-            @selected="subscription = STRIPE_PLAN.ONE_MONTH"
-            :selected="subscription === STRIPE_PLAN.ONE_MONTH"
-            :title="
-              $t('settings.organizationCreate.subscriptions.monthly.title')
-            "
-            :price="
-              $t('settings.organizationCreate.subscriptions.monthly.price')
-            "
-          />
-        </div>
-      </div>
-      <div class="columns">
-        <div
-          class="column is-half is-offset-one-quarter OrganizationCreate-column"
+          class="column is-half is-offset-one-quarter OrganizationCreate-column OrganizationCreate-cardNumber"
         >
           <b-field
             :label="$t('settings.organizationCreate.cardNumber')"
             :message="cardNumberElement.message"
             :type="cardNumberElement.type"
           >
-            <div
-              id="card-number-element"
-              class="OrganizationCreate-stripe-input"
-            ></div>
+            <div id="card-number-element" class="OrganizationCreate-stripe-input"></div>
           </b-field>
         </div>
       </div>
       <div class="columns">
-        <div
-          class="column is-3 is-offset-one-quarter OrganizationCreate-column"
-        >
+        <div class="column is-3 is-offset-one-quarter OrganizationCreate-column">
           <b-field
             :label="$t('settings.organizationCreate.expiry')"
             :message="cardExpiryElement.message"
             :type="cardExpiryElement.type"
           >
-            <div
-              id="card-expiry-element"
-              class="OrganizationCreate-stripe-input"
-            ></div>
+            <div id="card-expiry-element" class="OrganizationCreate-stripe-input"></div>
           </b-field>
         </div>
         <div class="column is-3 OrganizationCreate-column">
@@ -82,10 +38,7 @@
             :message="cardCvcElement.message"
             :type="cardCvcElement.type"
           >
-            <div
-              id="card-cvc-element"
-              class="OrganizationCreate-stripe-input"
-            ></div>
+            <div id="card-cvc-element" class="OrganizationCreate-stripe-input"></div>
           </b-field>
         </div>
       </div>
@@ -95,9 +48,7 @@
           :class="{ 'is-loading': loading }"
           type="submit"
           @click="add"
-        >
-          {{ $t("settings.organizationCreate.button") }}
-        </button>
+        >{{ $t("settings.organizationCreate.button") }}</button>
       </div>
     </form>
   </TemplateDefault>
@@ -114,13 +65,10 @@ import { STRIPE_PLAN } from "@/utils/consts";
 
 import TemplateDefault from "@core/template/TemplateDefault";
 
-import SettingsOrganizationCreateItem from "@settings/components/organization/create/SettingsOrganizationCreateItem";
-
 export default {
   name: "OrganizationCreate",
   components: {
-    TemplateDefault,
-    SettingsOrganizationCreateItem
+    TemplateDefault
   },
   data() {
     return {
@@ -129,8 +77,7 @@ export default {
       name: "",
       valid: false,
       message: "",
-      subscription: STRIPE_PLAN.SIX_MONTH,
-      STRIPE_PLAN: STRIPE_PLAN,
+      subscription: STRIPE_PLAN,
       cardNumberElement: {
         element: null,
         message: "",
@@ -277,14 +224,8 @@ export default {
     text-align: center;
     padding: 1rem;
   }
-  &-subscriptions {
-    display: flex !important;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    @media (max-width: 1300px) {
-      justify-content: center;
-    }
+  &-cardNumber {
+    margin-top: 0.5rem;
   }
   &-stripe {
     &-input {

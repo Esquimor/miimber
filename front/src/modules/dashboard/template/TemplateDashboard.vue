@@ -1,7 +1,7 @@
 <template>
   <TemplateDefault>
     <div class="TemplateDashboard">
-      <main class="TemplateDashboard-main" ref="template">
+      <main class="TemplateDashboard-main" ref="template" :style="styleMain">
         <template v-if="!loading">
           <slot />
         </template>
@@ -12,6 +12,8 @@
 
 <script>
 "use strict";
+
+import { CONTENT_SIZE } from "@/utils/consts";
 
 import TemplateDefault from "@core/template/TemplateDefault";
 
@@ -30,6 +32,13 @@ export default {
     return {
       loadingComponent: this.loading
     };
+  },
+  computed: {
+    styleMain() {
+      return {
+        maxWidth: CONTENT_SIZE.NORMAL
+      };
+    }
   },
   methods: {
     startLoading() {
@@ -70,7 +79,7 @@ export default {
   padding: 1.5rem 0.5rem;
   &-main {
     padding: 1rem;
-    max-width: 960px;
+    min-height: 80vh;
     width: 100%;
     margin: 0 auto;
     background-color: $white;

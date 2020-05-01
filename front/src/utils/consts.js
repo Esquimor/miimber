@@ -1,7 +1,4 @@
-export const STRIPE_PLAN = {
-  ONE_MONTH: "test42",
-  SIX_MONTH: "test42"
-};
+export const STRIPE_PLAN = "test42";
 
 export const ROLE = {
   OWNER: "OWNER",
@@ -21,6 +18,15 @@ export const PANEL_SIZE = {
   SMALL: "400px",
   MEDIUM: "650px",
   BIG: "800px"
+};
+
+export const CONTENT_SIZE = {
+  SMALLEST: "200px",
+  SMALLER: "400px",
+  SMALL: "500px",
+  MEDIUM: "800px",
+  NORMAL: "960px",
+  LARGE: "1100px"
 };
 
 export const SESSION_RECURRENCE = {
@@ -77,4 +83,10 @@ export const LANG = {
     label: "FRENCH",
     code: "fr"
   }
+};
+
+export const STATE_VALIDATION = {
+  WAIT: "WAIT",
+  SUCCESS: "SUCCESS",
+  ERROR: "ERROR"
 };

@@ -6,11 +6,13 @@
       params: { id: organization.id }
     }"
   >
-    <img :src="image" class="SettingsOrganizationItem-image" />
-    <span
-      class="SettingsOrganizationItem-info is-size-6 has-text-weight-semibold"
-      >{{ organization.name }}</span
-    >
+    <div class="SettingsOrganizationItem-left">
+      <img :src="image" class="SettingsOrganizationItem-image" />
+      <span
+        class="SettingsOrganizationItem-info is-size-6 has-text-weight-semibold"
+      >{{ organization.name }}</span>
+    </div>
+    <button class="SettingsOrganizationItem-button button is-primary">{{ $t('core.utils.manage') }}</button>
   </router-link>
 </template>
 
@@ -39,6 +41,7 @@ export default {
 .SettingsOrganizationItem {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0.5rem 0;
   margin: 0.5rem 0.4rem;
   &:hover {
@@ -46,6 +49,10 @@ export default {
   }
   &:nth-child(even) {
     background-color: $grey-lightest;
+  }
+  &-left {
+    display: flex;
+    align-items: center;
   }
   &-image {
     max-width: 50px;
@@ -60,6 +67,9 @@ export default {
     &-name {
       text-overflow: ellipsis;
     }
+  }
+  &-button {
+    margin-right: 2rem;
   }
 }
 </style>

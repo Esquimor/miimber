@@ -2,6 +2,8 @@ package com.miimber.back.organization.dto.member;
 
 import javax.validation.constraints.NotNull;
 
+import com.miimber.back.core.enums.LangEnum;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +21,7 @@ public class MemberAndUserCreateRequestDTO extends MemberUpdateRequestDTO {
 	
 	@NotNull
 	private String lastName;
+	
+	@NotNull
+	private LangEnum lang;
 }

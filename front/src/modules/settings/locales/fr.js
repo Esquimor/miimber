@@ -3,18 +3,13 @@ export default {
     title: "Paramètres",
     profile: {
       title: "Profil",
-      firstName: "Prénom",
-      lastName: "Nom",
-      success: "Profil modifié.",
+      success: "Profil modifié."
     },
     account: {
-      title: "Compte",
+      title: "Compte"
     },
     email: {
-      title: "Mail",
-      label: {
-        email: "Mail",
-      },
+      title: "Mail"
     },
     security: {
       title: "Sécurité",
@@ -23,15 +18,15 @@ export default {
       confirmPassword: "Confirmer",
       change: "Mettre à jour le mot de passe",
       notSame: "Les mots de passes ne sont pas identiques.",
-      success: "Mot de passe changé.",
+      success: "Mot de passe changé."
     },
     organization: {
       title: "Organisation",
       listTitle: "Mes organisations: ",
-      listEmpty: "Vous ne possédez aucune organisation.",
+      listEmpty: "Vous ne pouvez modifier aucune organisation.",
       create: "Créer une organisation",
       button: "Créer",
-      manage: "Gérer",
+      manage: "Gérer"
     },
     organizationCreate: {
       name: "Nom",
@@ -39,17 +34,20 @@ export default {
       subscriptions: {
         monthly: {
           title: "Abonnement mensuel",
-          price: "14,99 € par mois",
+          price: "14,99 € par mois"
         },
         sixMonth: {
           title: "Abonnement 6 mois",
-          price: "9,99 € par mois",
-        },
+          price: "9,99 € par mois"
+        }
       },
       cardNumber: "Numéro de la carte",
       expiry: "Date d'expiration",
       cvc: "Code de sécurité",
-      button: "Créer",
+      button: "Créer"
     },
-  },
+    changeEmail: {
+      label: "Votre mail vient d'être changé"
+    }
+  }
 };

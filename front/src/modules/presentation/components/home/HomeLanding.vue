@@ -2,18 +2,24 @@
   <section class="PresentationHomeLanding">
     <div class="PresentationHomeLanding-wrapper">
       <h1 class="PresentationHomeLanding-title title is-2">Miimber</h1>
-      <span class="PresentationHomeLanding-subtitle is-size-5"
-        >Connecte les clubs et les adhérents.</span
-      >
+      <span
+        class="PresentationHomeLanding-subtitle is-size-5"
+      >{{ $t("presentation.home.landing.subtitle") }}</span>
       <div v-if="!isConnected" class="PresentationHomeLanding-cta">
         <router-link
           :to="{ name: 'register' }"
-          class="button is-primary is-outlined is-medium"
-          >Démarrer</router-link
-        >
-        <router-link :to="{ name: 'login' }" class="button is-primary is-medium"
-          >Se connecter</router-link
-        >
+          class="PresentationHomeLanding-cta-register button is-primary is-outlined is-medium"
+        >{{ $t("core.menu.register") }}</router-link>
+        <router-link
+          :to="{ name: 'login' }"
+          class="button is-primary is-medium"
+        >{{ $t("core.menu.login") }}</router-link>
+      </div>
+      <div v-else class="PresentationHomeLanding-cta">
+        <router-link
+          :to="{name: 'dashboard-sessions'}"
+          class="PresentationHomeLanding-cta-register button is-primary is-medium"
+        >{{ $t('presentation.home.landing.sessions') }}</router-link>
       </div>
     </div>
   </section>
@@ -64,9 +70,26 @@ export default {
   }
   &-cta {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-top: 2rem;
-    width: 300px;
+    @media (max-width: $tablet) {
+      justify-content: space-around;
+    }
+    @media (max-width: $mobile) {
+      flex-direction: column;
+    }
+    > a {
+      margin: 0 0.5rem;
+      @media (max-width: $mobile) {
+        margin: 0.75rem 0.5rem;
+      }
+    }
+    &-register {
+      margin-left: 0px !important;
+      @media (max-width: $tablet) {
+        margin-left: 0.5rem !important;
+      }
+    }
   }
 }
 </style>

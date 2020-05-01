@@ -25,6 +25,33 @@ export default {
       send: "Envoyer",
       update: "Modifier",
     },
+    label: {
+      email: {
+        label: "Mail",
+        required: "Le mail est requis.",
+        valid: "Le mail doit être valide.",
+        placeholder: "ex: mail@exemple.com",
+      },
+      firstName: {
+        label: "Prénom",
+        required: "Le prénom est requis",
+        valid: "Le prénom doit être valide",
+        placeholder: "John",
+      },
+      lastName: {
+        label: "Nom",
+        required: "Le nom est requis",
+        valid: "Le nom doit être valide",
+        placeholder: "Doe",
+      },
+      password: {
+        label: "Mot de passe",
+        required: "Le mot de passe est requis",
+        placeholder: "ex: Sup3r_S3cre7!",
+        confirm: "Confirmation",
+        notSame: "Les mots de passes ne sont pas identiques",
+      },
+    },
     menu: {
       home: "Accueil",
       sessions: "Sessions",
@@ -40,8 +67,12 @@ export default {
       lang: "Langue",
     },
     error: {
-      title: "Erreur: {status}",
+      title: "Erreur",
+      titleStatus: "Erreur: {status}",
       message: "Oups, une erreur est survenue.",
+    },
+    verification: {
+      label: "Vérification en cours",
     },
     logout: {
       success: "Déconnecté",

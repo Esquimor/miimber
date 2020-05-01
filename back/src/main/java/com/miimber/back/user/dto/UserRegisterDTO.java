@@ -2,6 +2,8 @@ package com.miimber.back.user.dto;
 
 import javax.validation.constraints.NotNull;
 
+import com.miimber.back.core.enums.LangEnum;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +18,6 @@ public class UserRegisterDTO {
 	private String lastName;
 	@NotNull
 	private String firstName;
+	@NotNull
+	private LangEnum lang;
 }

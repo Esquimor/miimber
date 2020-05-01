@@ -1,10 +1,13 @@
 <template>
   <TemplateDashboard :loading="loading">
     <div class="DashboardOrganizations">
-      <h1
-        class="DashboardOrganizations-title title is-4"
-      >{{ $t("dashboard.organization.label.list") }}</h1>
-      <div v-if="organizations.length > 0" class="DashboardOrganizations-organizations">
+      <h1 class="DashboardOrganizations-title title is-4">
+        {{ $t("dashboard.organization.label.list") }}
+      </h1>
+      <div
+        v-if="organizations.length > 0"
+        class="DashboardOrganizations-organizations"
+      >
         <OrganizationItem
           v-for="organization in organizations"
           :key="organization.id"
@@ -12,7 +15,7 @@
         />
       </div>
       <div v-else class="DashboardOrganizationSessions-empty">
-        <span>{{ $t('dashboard.organization.label.empty') }}</span>
+        <span>{{ $t("dashboard.organization.label.empty") }}</span>
       </div>
     </div>
   </TemplateDashboard>

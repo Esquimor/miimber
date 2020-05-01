@@ -9,47 +9,49 @@ export default {
       return api
         .postNoAuth("login", {
           email: email,
-          password: password,
+          password: password
         })
-        .then((response) => {
+        .then(response => {
           if (response.status !== 200) return Promise.reject();
           localStorage.setItem("token", response.data.jwttoken);
           return dispatch("core/getMe", null, { root: true }).then(() => {
             return Promise.resolve();
           });
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
-    register(_, { email, firstName, lastName, password }) {
+    register(_, { email, firstName, lastName, password, lang }) {
       return api
         .postNoAuth("register", {
           email: email,
           password: password,
           lastName,
           firstName,
+          lang
         })
         .then(({ data }) => {
           return Promise.resolve(data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
-    passwordForgotten(_, email) {
+    passwordForgotten(_, { email, lang }) {
       return api
         .postNoAuth(
           "password-forgotten",
           {
             email,
+            lang
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           return Promise.resolve(data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -60,14 +62,14 @@ export default {
           {
             id: idUser,
             token,
-            password,
+            password
           },
           { errorMessage: true }
         )
         .then(() => {
           return Promise.resolve();
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -75,15 +77,31 @@ export default {
       return api
         .postNoAuth("register-validated", {
           id,
-          token,
+          token
         })
         .then(() => {
           return Promise.resolve();
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
+    invitUser(_, { id, token, firstName, lastName, password }) {
+      return api
+        .postNoAuth("invitation-validated", {
+          id,
+          token,
+          firstName,
+          lastName,
+          password
+        })
+        .then(() => {
+          return Promise.resolve();
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    }
   },
-  mutations: {},
+  mutations: {}
 };

@@ -11,6 +11,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.miimber.back.core.config.JwtTokenUtil;
+import com.miimber.back.core.dto.InvitationValidatedDTO;
 import com.miimber.back.core.dto.JwtRequestDTO;
 import com.miimber.back.core.dto.JwtResponseDTO;
 import com.miimber.back.core.dto.PasswordForgottenDTO;
@@ -33,9 +35,6 @@ import com.miimber.back.user.service.UserService;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
-	
-	@Value("${front.url}")
-	private String frontUrl;
 
 	@Autowired
 	private MailJetService mailJetService;
@@ -51,6 +50,9 @@ public class AuthController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDTO authenticationRequest) throws Exception {
@@ -70,8 +72,7 @@ public class AuthController {
 			return new ResponseEntity(HttpStatus.CONFLICT);
 		}
 		User newUser = userDetailsService.save(userDto);
-		String link = frontUrl + "/register-validated?id="+newUser.getId()+"&token="+newUser.getTokenCreation();
-		mailJetService.sendEmailRegister(newUser.getEmail(), newUser.getFirstName() + " " + newUser.getLastName(), link);
+		mailJetService.sendEmailRegister(newUser.getEmail(), newUser.getFirstName() + " " + newUser.getLastName(), userDto.getLang(), newUser.getTokenCreation(), newUser.getId());
 		return ResponseEntity.ok(newUser);
 	}
 	
@@ -81,8 +82,7 @@ public class AuthController {
 		String token = UUID.randomUUID().toString();
 		user.setTokenPasswordForgotten(token);
 		userService.update(user);
-		String link = frontUrl + "/reset-password?id="+user.getId()+"&token="+token;
-		mailJetService.sendEmailResetPassword(user.getEmail(), user.getFirstName() + " " + user.getLastName(), link);
+		mailJetService.sendEmailResetPassword(user.getEmail(), user.getFirstName() + " " + user.getLastName(), passwordForgottenDto.getLang(), token, user.getId());
 		return new ResponseEntity(HttpStatus.OK);
 	}
 	
@@ -109,6 +109,23 @@ public class AuthController {
 			return new ResponseEntity(HttpStatus.CONFLICT);
 		}
 		user.setStatus(StatusEnum.Validated);
+		userService.update(user);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/invitation-validated", method = RequestMethod.POST)
+	public ResponseEntity<?> invitationValidated(@RequestBody InvitationValidatedDTO invitationValidatedDto) throws Exception {
+		User user = userService.get(invitationValidatedDto.getId());
+		if (user == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		if (!user.getTokenCreation().equals(invitationValidatedDto.getToken())) {
+			return new ResponseEntity(HttpStatus.CONFLICT);
+		}
+		user.setStatus(StatusEnum.Validated);
+		user.setPassword(bcryptEncoder.encode(invitationValidatedDto.getPassword()));
+		user.setFirstName(invitationValidatedDto.getFirstName());
+		user.setLastName(invitationValidatedDto.getLastName());
 		userService.update(user);
 		return new ResponseEntity(HttpStatus.OK);
 	}

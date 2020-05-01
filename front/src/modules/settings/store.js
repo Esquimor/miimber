@@ -27,12 +27,13 @@ export default {
           return Promise.reject(e);
         });
     },
-    updateEmail(_, { email, id }) {
+    updateEmail(_, { email, id, lang }) {
       return api
         .put(
           `user/${id}/email`,
           {
             email,
+            lang,
           },
           { errorMessage: true }
         )
@@ -74,7 +75,7 @@ export default {
     },
     getOrganizationOwnered({ commit }) {
       return api
-        .get("organization/editable", {}, { errorMessage: true })
+        .get("organization/editable", {}, { errorRedirect: true })
         .then(({ data }) => {
           commit(types.STG_SET_ORGANIZATION_OWNERED, data);
           return Promise.resolve();

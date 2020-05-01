@@ -1,7 +1,7 @@
 <template>
   <TemplateDefault>
     <div class="TemplateInfo">
-      <div class="TemplateInfo-wrapper">
+      <div class="TemplateInfo-wrapper" :style="styleWrapper">
         <slot />
       </div>
     </div>
@@ -11,12 +11,27 @@
 <script>
 "use strict";
 
+import { CONTENT_SIZE } from "@/utils/consts";
+
 import TemplateDefault from "@core/template/TemplateDefault";
 
 export default {
   name: "TemplateInfo",
   components: {
     TemplateDefault
+  },
+  props: {
+    size: {
+      type: String,
+      default: CONTENT_SIZE.NORMAL
+    }
+  },
+  computed: {
+    styleWrapper() {
+      return {
+        maxWidth: this.size
+      };
+    }
   }
 };
 </script>
@@ -28,7 +43,6 @@ export default {
   align-items: center;
   &-wrapper {
     padding: 1rem;
-    max-width: 960px;
     width: 100%;
     margin: 2rem auto;
     background-color: $white;

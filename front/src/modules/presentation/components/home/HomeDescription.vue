@@ -2,15 +2,20 @@
   <section class="PresentationHomeDescription">
     <div class="PresentationHomeDescription-wrapper columns">
       <div class="column">
-        <h2 class="title is-3">Gestion simplifié</h2>
+        <h2 class="title is-3">
+          {{ $t("presentation.home.description.manage.title") }}
+        </h2>
         <p class="is-size-5">
-          Connaissez directement les différentes séssions de votre club avec le
-          nombre de places disponibles.
+          {{ $t("presentation.home.description.manage.description") }}
         </p>
       </div>
       <div class="column">
-        <h2 class="title is-3">Communauté</h2>
-        <p class="is-size-5">Renforcez le sens de communauté de votre club.</p>
+        <h2 class="title is-3">
+          {{ $t("presentation.home.description.community.title") }}
+        </h2>
+        <p class="is-size-5">
+          {{ $t("presentation.home.description.community.description") }}
+        </p>
       </div>
     </div>
   </section>

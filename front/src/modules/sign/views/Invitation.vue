@@ -1,17 +1,31 @@
 <template>
   <TemplateForm
+    title="Invitation"
     @click="submit"
     :disabled="!isSubmitable"
     :loading="loading"
     :button="$t('register.utils.submit')"
   >
-    <form @submit.prevent class="SignResetPassword-form">
-      <BField
-        :label="$t('core.label.password.label')"
-        :type="errorSamePassword ? 'is-danger' : ''"
-      >
+    <form @submit.prevent="submit" class="SignInvitation-form">
+      <BField :label="$t('core.label.firstName.label')">
         <BInput
-          id="SignResetPassword-password"
+          id="SignInvitation-firstName"
+          v-model.trim="firstName"
+          :placeholder="$t('core.label.firstName.placeholder')"
+          required
+        />
+      </BField>
+      <BField :label="$t('core.label.lastName.label')">
+        <BInput
+          id="SignInvitation-lastName"
+          v-model.trim="lastName"
+          :placeholder="$t('core.label.lastName.placeholder')"
+          required
+        />
+      </BField>
+      <BField :label="$t('core.label.password.label')" :type="errorSamePassword ? 'is-danger' : ''">
+        <BInput
+          id="SignInvitation-password"
           v-model="password"
           type="password"
           :placeholder="$t('core.label.password.placeholder')"
@@ -25,7 +39,7 @@
         :message="errorSamePassword ? $t('core.label.password.notSame') : ''"
       >
         <BInput
-          id="SignResetPassword-confirm"
+          id="SignInvitation-confirm"
           v-model="confirm"
           type="password"
           @blur="verifySamePassword"
@@ -43,12 +57,14 @@
 import TemplateForm from "@core/template/TemplateForm";
 
 export default {
-  name: "SignResetPassword",
+  name: "SignInvitation",
   components: {
     TemplateForm
   },
   data() {
     return {
+      firstName: "",
+      lastName: "",
       password: "",
       confirm: "",
       loading: false,
@@ -58,8 +74,9 @@ export default {
   computed: {
     isSubmitable() {
       return (
+        this.firstName !== "" &&
+        this.lastName !== "" &&
         this.password !== "" &&
-        this.confirm !== "" &&
         this.password === this.confirm
       );
     }
@@ -70,10 +87,12 @@ export default {
       if (this.loading) return;
       this.loading = true;
       this.$store
-        .dispatch("sign/resetPassword", {
-          password: this.password,
-          idUser: this.$route.query.id,
-          token: this.$route.query.token
+        .dispatch("sign/invitUser", {
+          id: this.$route.query.id,
+          token: this.$route.query.token,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          password: this.password
         })
         .then(() => {
           this.loading = false;

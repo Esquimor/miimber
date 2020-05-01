@@ -44,9 +44,7 @@ export default {
         success: "Membre ajouté",
         label: {
           email: "Saisir l'adresse mail du membre",
-          role: "Role du membre",
-          firstName: "Prénom",
-          lastName: "Nom"
+          role: "Role du membre"
         },
         alreadyExist: "Cet utilisateur est déjà membre de votre organisation.",
         noMember:

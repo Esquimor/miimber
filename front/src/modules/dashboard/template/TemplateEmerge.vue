@@ -1,7 +1,7 @@
 <template>
   <TemplateDefault>
     <div class="TemplateEmerge">
-      <main class="TemplateEmerge-main" ref="template">
+      <main class="TemplateEmerge-main" ref="template" :style="styleMain">
         <template v-if="!loading">
           <slot />
         </template>
@@ -12,6 +12,8 @@
 
 <script>
 "use strict";
+
+import { CONTENT_SIZE } from "@/utils/consts";
 
 import TemplateDefault from "@core/template/TemplateDefault";
 
@@ -30,6 +32,13 @@ export default {
     return {
       loadingComponent: this.loading
     };
+  },
+  computed: {
+    styleMain() {
+      return {
+        maxWidth: CONTENT_SIZE.SMALL
+      };
+    }
   },
   methods: {
     startLoading() {
@@ -70,7 +79,6 @@ export default {
   padding: 1.5rem 0.5rem;
   &-main {
     padding: 1rem 2rem;
-    max-width: 500px;
     width: 100%;
     margin: 0 auto;
     background-color: $white;

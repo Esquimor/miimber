@@ -24,6 +24,33 @@ export default {
       send: "Send",
       update: "Update",
     },
+    label: {
+      email: {
+        label: "Email",
+        required: "Email is required.",
+        valid: "Email must be valid",
+        placeholder: "ex: email@example.com",
+      },
+      firstName: {
+        label: "First Name",
+        required: "First Name is required",
+        valid: "First Name must be valid",
+        placeholder: "John",
+      },
+      lastName: {
+        label: "Last Name",
+        required: "Last Name is required",
+        valid: "Last Name must be valid",
+        placeholder: "Doe",
+      },
+      password: {
+        label: "Password",
+        required: "Password is required",
+        placeholder: "ex: Sup3r_S3cre7!",
+        confirm: "Confirm",
+        notSame: "Password doesn't match",
+      },
+    },
     menu: {
       home: "Home",
       sessions: "Sessions",
@@ -39,8 +66,12 @@ export default {
       lang: "Language",
     },
     error: {
-      title: "Error: {status}",
+      title: "Error",
+      titleStatus: "Error: {status}",
       message: "Oops, an error has occurred.",
+    },
+    verification: {
+      label: "Verification in progress",
     },
     logout: {
       success: "Logout",
