@@ -3,13 +3,13 @@ import VueI18n from "vue-i18n";
 
 Vue.use(VueI18n);
 
-const core = () => import("@core/locales/index.js");
-const dashboard = () => import("@dashboard/locales/index.js");
-const presentation = () => import("@presentation/locales/index.js");
-const sign = () => import("@sign/locales/index.js");
-const settings = () => import("@settings/locales/index.js");
-const organization = () => import("@organization/locales/index.js");
-const error = () => import("@error/locales/index.js");
+import core from "@core/locales/index.js";
+import dashboard from "@dashboard/locales/index.js";
+import presentation from "@presentation/locales/index.js";
+import sign from "@sign/locales/index.js";
+import settings from "@settings/locales/index.js";
+import organization from "@organization/locales/index.js";
+import error from "@error/locales/index.js";
 
 const fr = Object.assign(
   {},
