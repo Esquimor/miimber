@@ -25,7 +25,7 @@ const router = new VueRouter({
     routerSettings,
     routerOrganization,
     routerError
-  ),
+  )
 });
 
 router.beforeEach((to, from, next) => {

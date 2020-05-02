@@ -53,6 +53,7 @@
         >
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
           <OrganizationSessionsDropdown
+            :id="row.id"
             @edit="edit(row)"
             @delete="deleteItem(row.id)"
           />

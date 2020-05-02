@@ -1,7 +1,11 @@
 <template>
   <div v-if="!loading" class="DashboardOrganizationMembers">
     <div class="DashboardOrganizationMembers-members">
-      <SessionUserItem v-for="member in members" :key="member.id" :user="member" />
+      <SessionUserItem
+        v-for="member in members"
+        :key="member.id"
+        :user="member"
+      />
     </div>
   </div>
 </template>

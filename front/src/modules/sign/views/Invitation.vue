@@ -23,7 +23,10 @@
           required
         />
       </BField>
-      <BField :label="$t('core.label.password.label')" :type="errorSamePassword ? 'is-danger' : ''">
+      <BField
+        :label="$t('core.label.password.label')"
+        :type="errorSamePassword ? 'is-danger' : ''"
+      >
         <BInput
           id="SignInvitation-password"
           v-model="password"
@@ -92,7 +95,8 @@ export default {
           token: this.$route.query.token,
           firstName: this.firstName,
           lastName: this.lastName,
-          password: this.password
+          password: this.password,
+          lang: this.$i18n.locale.toUpperCase()
         })
         .then(() => {
           this.loading = false;

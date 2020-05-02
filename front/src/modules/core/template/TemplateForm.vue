@@ -15,7 +15,9 @@
           class="button is-primary"
           :disabled="disabled"
           :class="{ 'is-loading': loading }"
-        >{{ button }}</button>
+        >
+          {{ button }}
+        </button>
       </footer>
     </slot>
   </TemplateInfo>

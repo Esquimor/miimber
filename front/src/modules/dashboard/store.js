@@ -1,7 +1,7 @@
 import api from "@/utils/api";
 import * as types from "@/utils/types";
 
-import { ROLE } from "@/utils/consts";
+import { ROLE, STATUS_REGISTERED } from "@/utils/consts";
 
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -145,8 +145,7 @@ export default {
         .post(
           "registered/",
           {
-            sessionId: id,
-            dateRegistered: dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ssZ")
+            sessionId: id
           },
           { errorMessage: true }
         )
@@ -161,8 +160,13 @@ export default {
       return api
         .delete(`registered/${id}`)
         .then(
-          () => {
+          ({ data }) => {
             commit(types.DASH_REMOVE_REGISTERED, id);
+            console.log(data.id);
+            if (data.id) {
+              console.log("a");
+              commit(types.DASH_PUSH_TAKEN_REGISTERED, data.id);
+            }
           },
           { errorMessage: true }
         )
@@ -211,6 +215,10 @@ export default {
         r => r.id !== id
       );
       state.session.me.registered = null;
+    },
+    [types.DASH_PUSH_TAKEN_REGISTERED](state, id) {
+      const registeredTaken = state.session.registereds.find(r => r.id === id);
+      registeredTaken.status = STATUS_REGISTERED.TAKEN;
     }
   }
 };

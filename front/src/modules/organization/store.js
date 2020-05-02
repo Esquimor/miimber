@@ -10,26 +10,26 @@ export default {
   state: {
     organization: null,
     typeSessions: [],
-    sessions: [],
+    sessions: []
   },
   getters: {
-    organization: (state) => state.organization,
-    organizationMembers: (state) => state.organization.members,
-    typeSessions: (state) => state.typeSessions,
-    sessions: (state) => state.sessions,
+    organization: state => state.organization,
+    organizationMembers: state => state.organization.members,
+    typeSessions: state => state.typeSessions,
+    sessions: state => state.sessions
   },
   actions: {
     setOrganization({ commit, dispatch }, id) {
       return api
         .get(`organization/${id}/manage`, {}, { errorRedirect: true })
-        .then((organization) => {
+        .then(organization => {
           dispatch("core/getMember", organization.data.id, { root: true }).then(
             () => {
               commit(types.ORG_SET_ORGANIZATION, organization.data);
             }
           );
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -43,7 +43,7 @@ export default {
         .then(({ data }) => {
           commit(types.ORG_EDIT_ORGANIZATION, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -57,7 +57,7 @@ export default {
         .then(() => {
           return Promise.resolve();
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -66,14 +66,14 @@ export default {
         .put(
           `organization/${state.organization.id}/card`,
           {
-            token,
+            token
           },
           { errorMessage: true }
         )
         .then(() => {
           return Promise.resolve();
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -82,14 +82,14 @@ export default {
         .put(
           `member/${id}`,
           {
-            role,
+            role
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           commit(types.ORG_CHANGE_MEMBER_ROLE, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -106,14 +106,14 @@ export default {
             firstName,
             lastName,
             role,
-            lang,
+            lang
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           commit(types.ORG_ADD_MEMBER, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -123,14 +123,14 @@ export default {
           "member/",
           {
             idOrganization: organizationId,
-            idUser: userId,
+            idUser: userId
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           commit(types.ORG_ADD_MEMBER, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -140,7 +140,7 @@ export default {
         .then(() => {
           commit(types.ORG_REMOVE_MEMBER, id);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -154,7 +154,7 @@ export default {
         .then(({ data }) => {
           commit(types.ORG_SET_TYPE_SESSIONS, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -164,14 +164,14 @@ export default {
           "type-session/",
           {
             name,
-            organizationId: state.organization.id,
+            organizationId: state.organization.id
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           commit(types.ORG_ADD_TYPE_SESSION, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -180,14 +180,14 @@ export default {
         .put(
           `type-session/${id}`,
           {
-            name,
+            name
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           commit(types.ORG_EDIT_TYPE_SESSION, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -196,14 +196,14 @@ export default {
         .put(
           `type-session/${id}`,
           {
-            name,
+            name
           },
           { errorMessage: true }
         )
         .then(() => {
           commit(types.ORG_DELETE_TYPE_SESSION, id);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -213,14 +213,14 @@ export default {
           `organization/${state.organization.id}/session/`,
           {
             minDate: dayjs(minDate).format("YYYY-MM-DDTHH:mm:ssZ"),
-            maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ"),
+            maxDate: dayjs(maxDate).format("YYYY-MM-DDTHH:mm:ssZ")
           },
           { errorMessage: true }
         )
         .then(({ data }) => {
           commit(types.ORG_SET_SESSIONS, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -237,7 +237,7 @@ export default {
         periodicity,
         days,
         repeat,
-        limit,
+        limit
       }
     ) {
       return api
@@ -253,12 +253,12 @@ export default {
           days,
           repeat,
           organizationId: state.organization.id,
-          limit,
+          limit
         })
         .then(({ data }) => {
           commit(types.ORG_ADD_SESSIONS, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -273,12 +273,12 @@ export default {
           start,
           end,
           typeSessionId,
-          limit,
+          limit
         })
         .then(({ data }) => {
           commit(types.ORG_EDIT_SESSION, data);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -288,10 +288,10 @@ export default {
         .then(() => {
           commit(types.ORG_DELETE_SESSION, id);
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
-    },
+    }
   },
   mutations: {
     [types.ORG_SET_ORGANIZATION](state, organization) {
@@ -301,7 +301,7 @@ export default {
       state.organization.name = organization.name;
     },
     [types.ORG_CHANGE_MEMBER_ROLE](state, { id, role }) {
-      const member = state.organization.members.find((m) => m.id === id);
+      const member = state.organization.members.find(m => m.id === id);
       member.role = role;
     },
     [types.ORG_ADD_MEMBER](state, member) {
@@ -309,7 +309,7 @@ export default {
     },
     [types.ORG_REMOVE_MEMBER](state, id) {
       state.organization.members = state.organization.members.filter(
-        (m) => m.id !== id
+        m => m.id !== id
       );
     },
     [types.ORG_SET_TYPE_SESSIONS](state, typeSessions) {
@@ -319,11 +319,11 @@ export default {
       state.typeSessions.push(typeSession);
     },
     [types.ORG_EDIT_TYPE_SESSION](state, { name, id }) {
-      const editedTypeSession = state.typeSessions.find((t) => t.id === id);
+      const editedTypeSession = state.typeSessions.find(t => t.id === id);
       editedTypeSession.name = name;
     },
     [types.ORG_DELETE_TYPE_SESSION](state, id) {
-      state.typeSessions = state.typeSessions.filter((t) => t.id !== id);
+      state.typeSessions = state.typeSessions.filter(t => t.id !== id);
     },
     [types.ORG_SET_SESSIONS](state, sessions) {
       state.sessions = sessions;
@@ -333,17 +333,18 @@ export default {
     },
     [types.ORG_EDIT_SESSION](
       state,
-      { title, description, start, end, typeSession, id }
+      { title, description, start, end, typeSession, id, limit }
     ) {
-      const editedSession = state.sessions.find((s) => s.id === id);
+      const editedSession = state.sessions.find(s => s.id === id);
       editedSession.title = title;
       editedSession.description = description;
       editedSession.start = start;
       editedSession.end = end;
       editedSession.typeSession = typeSession;
+      editedSession.limit = limit;
     },
     [types.ORG_DELETE_SESSION](state, id) {
-      state.sessions = state.sessions.filter((s) => s.id !== id);
-    },
-  },
+      state.sessions = state.sessions.filter(s => s.id !== id);
+    }
+  }
 };

@@ -86,14 +86,15 @@ export default {
           return Promise.reject(e);
         });
     },
-    invitUser(_, { id, token, firstName, lastName, password }) {
+    invitUser(_, { id, token, firstName, lastName, password, lang }) {
       return api
         .postNoAuth("invitation-validated", {
           id,
           token,
           firstName,
           lastName,
-          password
+          password,
+          lang
         })
         .then(() => {
           return Promise.resolve();

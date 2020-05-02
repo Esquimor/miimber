@@ -4,9 +4,9 @@
     class="DashboardSessionItem"
   >
     <div class="DashboardSessionItem-time">
-      <BTag :type="statusSession.type">{{
-        $t(`core.sessionType.${statusSession.label}`)
-      }}</BTag>
+      <BTag :type="statusSession.type">
+        {{ $t(`core.sessionType.${statusSession.label}`) }}
+      </BTag>
       <div class="DashboardSessionItem-time-start">
         {{ session.start | formatHour }}
       </div>
@@ -23,10 +23,10 @@
       </div>
       <div class="text is-size-5">{{ session.title }}</div>
       <div class="DashboardSessionItem-info-person">
-        <span class="DashboardSessionItem-info-person-registered"
-          >{{ session.nbRegistereds }}
-          {{ $t("dashboard.session.label.registered") }}</span
-        >
+        <span class="DashboardSessionItem-info-person-registered">
+          {{ session.nbRegistereds }}
+          {{ $t("dashboard.session.label.registered") }}
+        </span>
         <template
           v-if="
             isRegisteredLimited && statusSession === STATUS_SESSION.TO_COME_UP
@@ -35,17 +35,21 @@
           <span
             v-if="session.nbRegistereds < session.limit"
             class="DashboardSessionItem-info-person-places"
-            >{{
+          >
+            {{
               $t("dashboard.session.label.placesLeft", {
                 nb: session.limit - session.nbRegistereds
               })
-            }}</span
-          >
-          <span v-else class="DashboardSessionItem-info-person-waiting">{{
-            $t("dashboard.session.label.waiting", {
-              nb: session.nbRegistereds - session.limit
-            })
-          }}</span>
+            }}
+          </span>
+          <span v-else class="DashboardSessionItem-info-person-waiting">
+            -
+            {{
+              $t("dashboard.session.label.waiting", {
+                nb: session.nbRegistereds - session.limit
+              })
+            }}
+          </span>
         </template>
       </div>
     </div>
@@ -119,9 +123,6 @@ export default {
       &-places {
         margin-left: 0.5rem;
         color: $primary;
-      }
-      &-waiting {
-        margin-left: 0.5rem;
       }
     }
   }

@@ -71,8 +71,16 @@ public class AuthController {
 		if (user != null) {
 			return new ResponseEntity(HttpStatus.CONFLICT);
 		}
-		User newUser = userDetailsService.save(userDto);
-		mailJetService.sendEmailRegister(newUser.getEmail(), newUser.getFirstName() + " " + newUser.getLastName(), userDto.getLang(), newUser.getTokenCreation(), newUser.getId());
+		User newUser = new User();
+		newUser.setEmail(userDto.getEmail());
+		newUser.setFirstName(userDto.getFirstName());
+		newUser.setLastName(userDto.getLastName());
+		newUser.setPassword(bcryptEncoder.encode(userDto.getPassword()));
+		newUser.setTokenCreation(UUID.randomUUID().toString());
+		newUser.setLang(userDto.getLang());
+		userService.create(newUser);
+		
+		mailJetService.sendEmailRegister(newUser.getEmail(), newUser.getFirstName() + " " + newUser.getLastName(), newUser.getLang(), newUser.getTokenCreation(), newUser.getId());
 		return ResponseEntity.ok(newUser);
 	}
 	
@@ -126,6 +134,7 @@ public class AuthController {
 		user.setPassword(bcryptEncoder.encode(invitationValidatedDto.getPassword()));
 		user.setFirstName(invitationValidatedDto.getFirstName());
 		user.setLastName(invitationValidatedDto.getLastName());
+		user.setLang(invitationValidatedDto.getLang());
 		userService.update(user);
 		return new ResponseEntity(HttpStatus.OK);
 	}
