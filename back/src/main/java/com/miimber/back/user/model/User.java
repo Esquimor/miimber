@@ -1,6 +1,7 @@
 package com.miimber.back.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.miimber.back.core.enums.LangEnum;
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.session.model.AttendeeSession;
 import com.miimber.back.session.model.RegisteredSession;
@@ -39,6 +40,9 @@ public class User {
 	@Column(name = "status", nullable = false)
 	private StatusEnum status = StatusEnum.Waiting;
 	
+	@Column(name = "lang", nullable = false)
+	private LangEnum lang = LangEnum.EN;
+	
 	@Column(name = "newEmail", length = 60)
 	private String newEmail;
 	
@@ -59,6 +63,10 @@ public class User {
 	
 	@OneToMany(mappedBy = "user")
     private List<RegisteredSession> registereds;
+	
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
 	
 	public void addMember(Member member) {
 		this.members.add(member);

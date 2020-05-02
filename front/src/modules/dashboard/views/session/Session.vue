@@ -30,11 +30,13 @@
               :label="$t('dashboard.session.label.registered')"
               :showLimit="session.limit > 0"
               :limit="session.limit"
+              class="DashboardSession-main-left-attendees"
             />
             <SessionRegistereds
               v-if="registeredsWaiting.length > 0"
               :registereds="registeredsWaiting"
               :label="$t('dashboard.session.label.registeredWaiting')"
+              class="DashboardSession-main-left-attendees"
             />
           </div>
           <div class="DashboardSession-main-right">
@@ -236,6 +238,9 @@ export default {
     &-left {
       flex-grow: 1;
       &-description {
+        margin-bottom: 1rem;
+      }
+      &-attendees {
         margin-bottom: 1rem;
       }
     }

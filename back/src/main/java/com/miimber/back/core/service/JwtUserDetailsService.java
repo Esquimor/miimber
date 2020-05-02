@@ -36,14 +36,4 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),new ArrayList<>());
 	}
 
-	public User save(UserRegisterDTO user) throws MailjetException, MailjetSocketTimeoutException {
-		User newUser = new User();
-		newUser.setEmail(user.getEmail());
-		newUser.setFirstName(user.getFirstName());
-		newUser.setLastName(user.getLastName());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		newUser.setTokenCreation(UUID.randomUUID().toString());
-		return userService.create(newUser);
-	}
-
 }

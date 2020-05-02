@@ -7,7 +7,7 @@
     </h2>
     <div v-if="nbRegistered > 0" class="DashboardSessionDescription-users">
       <SessionUserItem
-        v-for="registered in registereds"
+        v-for="registered in orderRegistered"
         :key="registered.id"
         :user="registered.user"
       />
@@ -22,6 +22,7 @@
 "use strict";
 
 import SessionUserItem from "@dashboard/components/session/SessionUserItem";
+import dayjs from "dayjs";
 
 export default {
   name: "DashboardSessionRegistereds",
@@ -49,6 +50,12 @@ export default {
   computed: {
     nbRegistered() {
       return this.registereds.length;
+    },
+    orderRegistered() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      return this.registereds.sort((a, b) =>
+        dayjs(a.dateRegistered).isAfter(dayjs(b.dateRegistered))
+      );
     }
   }
 };

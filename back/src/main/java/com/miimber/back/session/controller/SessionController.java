@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.miimber.back.core.helper.Helper;
+import com.miimber.back.core.helper.MailJetService;
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.model.Organization;
 import com.miimber.back.organization.service.MemberService;
@@ -31,6 +32,7 @@ import com.miimber.back.session.model.RegisteredSession;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.TemplateSession;
 import com.miimber.back.session.model.TypeSession;
+import com.miimber.back.session.service.RegisteredSessionService;
 import com.miimber.back.session.service.SessionService;
 import com.miimber.back.session.service.TemplateSessionService;
 import com.miimber.back.session.service.TypeSessionService;
@@ -45,6 +47,9 @@ public class SessionController {
 	private SessionService sessionService;
 	
 	@Autowired
+	private RegisteredSessionService registeredService;
+	
+	@Autowired
 	private TypeSessionService typeSessionService;
 	
 	@Autowired
@@ -55,6 +60,9 @@ public class SessionController {
 	
 	@Autowired
 	private Helper helper;
+	
+	@Autowired
+	private MailJetService mailjetService;
 	
 	@RequestMapping(value = "/session/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> readSession(@PathVariable Long id) throws Exception {
@@ -191,13 +199,48 @@ public class SessionController {
         if (typeSession == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+        
+        int oldLimit = session.getLimit();
+        int newLimit = sessionDto.getLimit();
+        
         session.setTitle(sessionDto.getTitle());
         session.setDescription(sessionDto.getDescription());
         session.setStart(sessionDto.getStart());
         session.setEnd(sessionDto.getEnd());
         session.setTypeSession(typeSession);
         session.setLimit(sessionDto.getLimit());
-
+        
+        
+        // Add taken registered
+        if (oldLimit < newLimit) {
+        	List<RegisteredSession> registereds = session.getRegistereds();
+        	for (int i = 0; i < registereds.size(); i++) {
+        		if (oldLimit < i + 1 && i + 1 <= newLimit) {
+            		User userRegistered = registereds.get(i).getUser();
+            		mailjetService.sendEmailTakenSession(userRegistered.getEmail(), userRegistered.getFullName() , userRegistered.getLang(), session);
+        		}
+        	}
+        }
+        
+        // Remove taken registered
+        if (oldLimit > newLimit) {
+        	List<RegisteredSession> registereds = session.getRegistereds();
+        	for (int i = 0; i < registereds.size(); i++) {
+        		if (oldLimit >= i + 1 && i + 1 > newLimit) {
+            		User userRegistered = registereds.get(i).getUser();
+            		mailjetService.sendEmailWaitingSession(userRegistered.getEmail(), userRegistered.getFullName() , userRegistered.getLang(), session);
+        		}
+        	}
+        }
+        
+        if (oldLimit != 0 && newLimit == 0) {
+        	List<RegisteredSession> registereds = session.getRegistereds();
+        	for (int i = 0; i < registereds.size(); i++) {
+        		User userRegistered = registereds.get(i).getUser();
+        		mailjetService.sendEmailTakenSession(userRegistered.getEmail(), userRegistered.getFullName() , userRegistered.getLang(), session);
+        	}
+        }
+        
 		return ResponseEntity.ok(new SessionShortReadResponseDTO(sessionService.update(session)));
 	}
 	
@@ -217,6 +260,11 @@ public class SessionController {
         }
         if (!memberUser.canEditOrganization()) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        
+        for(RegisteredSession registered: session.getRegistereds()) {
+    		User userRegistered = registered.getUser();
+    		mailjetService.sendEmailCanceledSession(userRegistered.getEmail(), userRegistered.getFullName() , userRegistered.getLang(), session);
         }
         
         sessionService.delete(session);

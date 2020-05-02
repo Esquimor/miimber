@@ -92,7 +92,8 @@ export default {
           token: this.$route.query.token,
           firstName: this.firstName,
           lastName: this.lastName,
-          password: this.password
+          password: this.password,
+          lang: this.$i18n.locale.toUpperCase()
         })
         .then(() => {
           this.loading = false;

@@ -22,6 +22,7 @@ import com.miimber.back.core.helper.MailJetService;
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.service.MemberService;
 import com.miimber.back.user.dto.UserEmailUpdateRequestDTO;
+import com.miimber.back.user.dto.UserLangUpdateRequest;
 import com.miimber.back.user.dto.UserPasswordUpdateRequestDTO;
 import com.miimber.back.user.dto.UserUpdateRequestDTO;
 import com.miimber.back.user.dto.UserValideEmailRequestDTO;
@@ -129,6 +130,17 @@ public class UserController {
 			return new ResponseEntity(HttpStatus.CONFLICT);
 		}
 		return ResponseEntity.ok(convertToDto(user));
+	}
+	
+	@RequestMapping(value = "/user/{id}/lang", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateLangUser(@RequestBody UserLangUpdateRequest userLang, @PathVariable Long id) throws Exception {
+		User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		if (id != user.getId()) {
+			return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+		}
+		user.setLang(userLang.getLang());
+		userService.update(user);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 	
 	private UserUpdateRequestDTO convertToDto(User user) {

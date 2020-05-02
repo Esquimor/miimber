@@ -1,5 +1,7 @@
 package com.miimber.back.session.controller;
 
+import java.time.OffsetDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.miimber.back.core.helper.Helper;
+import com.miimber.back.core.helper.MailJetService;
 import com.miimber.back.organization.service.MemberService;
 import com.miimber.back.session.dto.registered.RegisteredSessionCreateRequestDTO;
 import com.miimber.back.session.dto.registered.RegisteredSessionCreateResponseDTO;
+import com.miimber.back.session.dto.registered.RegisteredSessionDeleteResponseDTO;
 import com.miimber.back.session.model.RegisteredSession;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.enums.RegisteredEnum;
@@ -38,6 +42,9 @@ public class RegisteredSessionController {
 	
 	@Autowired
 	private Helper helper;
+	
+	@Autowired
+	private MailJetService mailjetService;
 
 	@RequestMapping(value= "/registered/", method = RequestMethod.POST)
 	public ResponseEntity<?> createRegistered(@RequestBody RegisteredSessionCreateRequestDTO registeredDto) throws Exception {
@@ -52,13 +59,13 @@ public class RegisteredSessionController {
     	RegisteredSession registered = new RegisteredSession();
     	registered.setSession(session);
     	registered.setUser(user);
-    	registered.setDateRegistered(registeredDto.getDateRegistered());
+    	registered.setDateRegistered(OffsetDateTime.now());
     	registered = registeredService.create(registered);
     	
 		RegisteredEnum status = RegisteredEnum.TAKEN;
 		if (session.getLimit() != 0) {
 	    	long nbRegistered = registeredService.countRegisteredBySession(session);
-			status = session.getLimit() > nbRegistered ? RegisteredEnum.TAKEN : RegisteredEnum.WAITING;
+			status = session.getLimit() >= nbRegistered ? RegisteredEnum.TAKEN : RegisteredEnum.WAITING;
 		}
     	
     	boolean isMember = memberService.getMemberByOrganizationAndByUser(session.getOrganization(), user) != null;
@@ -78,6 +85,20 @@ public class RegisteredSessionController {
         
         if (user.getId() != registered.getUser().getId()) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        
+        Session session = registered.getSession();
+        if (session.getLimit() != 0) {
+        	long placeRegistered = registeredService.countRegisteredBySessionAndBefore(session, registered.getDateRegistered());
+        	if (placeRegistered <= session.getLimit()) {
+        		RegisteredSession registeredTaken = registeredService.getNextRegistered(session, registered.getDateRegistered());
+        		if (registeredTaken != null) {
+        			User userTaken = registeredTaken.getUser();
+        			mailjetService.sendEmailTakenSession(userTaken.getEmail(), userTaken.getFirstName() + " " + userTaken.getLastName(), userTaken.getLang(), session);  
+        	        registeredService.delete(registered);
+        	        return ResponseEntity.ok(new RegisteredSessionDeleteResponseDTO(registeredTaken.getId()));
+        		}
+        	}
         }
         
         registeredService.delete(registered);

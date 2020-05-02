@@ -75,6 +75,9 @@ export default {
           return Promise.reject(e);
         });
     },
+    updateLang({ state }, { lang }) {
+      return api.put(`user/${state.me.id}/lang`, { lang });
+    },
     logout({ commit }) {
       commit(types.COR_LOGOUT);
     },

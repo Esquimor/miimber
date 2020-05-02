@@ -166,7 +166,20 @@ export default {
     },
     changeLang(lang) {
       localStorage.setItem("lang", lang);
-      document.location.reload();
+      if (!this.isConnected) {
+        document.location.reload();
+        return;
+      }
+      this.$store
+        .dispatch("core/updateLang", {
+          lang
+        })
+        .then(() => {
+          document.location.reload();
+        })
+        .catch(() => {
+          document.location.reload();
+        });
     },
     goToProfile() {
       this.$router.push({ name: "settings-profile" });

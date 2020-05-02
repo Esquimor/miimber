@@ -3,7 +3,6 @@ package com.miimber.back.organization.controller.member;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -71,8 +70,8 @@ public class MemberUserController {
         newUser.setEmail(memberByOrganizationRequestDto.getEmail());
         newUser.setFirstName(memberByOrganizationRequestDto.getFirstName());
         newUser.setLastName(memberByOrganizationRequestDto.getLastName());
-        newUser.setTokenCreation(UUID.randomUUID().toString());
-		newUser.setTokenCreation(token);
+        newUser.setTokenCreation(token);
+		newUser.setLang(memberByOrganizationRequestDto.getLang());
 		
         newUser = userService.create(newUser);
         

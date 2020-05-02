@@ -333,7 +333,7 @@ export default {
     },
     [types.ORG_EDIT_SESSION](
       state,
-      { title, description, start, end, typeSession, id }
+      { title, description, start, end, typeSession, id, limit }
     ) {
       const editedSession = state.sessions.find((s) => s.id === id);
       editedSession.title = title;
@@ -341,6 +341,7 @@ export default {
       editedSession.start = start;
       editedSession.end = end;
       editedSession.typeSession = typeSession;
+      editedSession.limit = limit;
     },
     [types.ORG_DELETE_SESSION](state, id) {
       state.sessions = state.sessions.filter((s) => s.id !== id);

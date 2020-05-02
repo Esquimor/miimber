@@ -1,7 +1,7 @@
 package com.miimber.back.core.enums;
 
 public enum LangEnum {
-	FR("fr"), EN("EN");
+	FR("fr"), EN("en");
 	
     private String lang;
     

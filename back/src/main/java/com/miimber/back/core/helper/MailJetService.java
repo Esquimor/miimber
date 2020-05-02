@@ -1,5 +1,9 @@
 package com.miimber.back.core.helper;
 
+import java.time.OffsetDateTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +18,7 @@ import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
 import com.mailjet.client.resource.Emailv31;
 import com.miimber.back.core.enums.LangEnum;
+import com.miimber.back.session.model.Session;
 
 @Service
 public class MailJetService {
@@ -155,5 +160,113 @@ public class MailJetService {
 					.put("id", userId),
     			idTemplate
     		);
+    }
+    
+    public MailjetResponse sendEmailTakenSession(String email, String name, LangEnum lang, Session session)  throws JSONException, MailjetException, MailjetSocketTimeoutException {
+    	Integer idTemplate;
+    	String subject;
+    	String date;
+    	
+    	switch(lang) {
+    		case FR:
+    			idTemplate = 1390934;
+    			subject = "Participation confirmé";
+    			date = getDate(session.getStart(), session.getEnd(), lang, "de", "à");
+    			break;
+    		default:
+    			idTemplate = 1390928;
+    			subject = "Participation confirmed";
+    			date = getDate(session.getStart(), session.getEnd(), lang, "to", "at");
+    			break;
+    	}
+    	
+    	return this.sendEmail(
+    			"no-reply@test280407.ga",
+    			"Miimber",
+    			email,
+    			name,
+    			subject,
+    			new JSONObject()
+				.put("session", session.getTitle())
+				.put("id", session.getId())
+				.put("organization", session.getOrganization().getName())
+				.put("date", date),
+    			idTemplate
+    		);
+    }
+    
+    public MailjetResponse sendEmailWaitingSession(String email, String name, LangEnum lang, Session session) throws JSONException, MailjetException, MailjetSocketTimeoutException {
+    	Integer idTemplate;
+    	String subject;
+    	String date;
+    	
+    	switch(lang) {
+    		case FR:
+    			idTemplate = 1391122;
+    			subject = "Participation mise en attente";
+    			date = getDate(session.getStart(), session.getEnd(), lang, "de", "à");
+    			break;
+    		default:
+    			idTemplate = 1391123;
+    			subject = "Participation put on hold";
+    			date = getDate(session.getStart(), session.getEnd(), lang, "to", "at");
+    			break;
+    	}
+    	
+    	return this.sendEmail(
+    			"no-reply@test280407.ga",
+    			"Miimber",
+    			email,
+    			name,
+    			subject,
+    			new JSONObject()
+				.put("session", session.getTitle())
+				.put("id", session.getId())
+				.put("organization", session.getOrganization().getName())
+				.put("date", date),
+    			idTemplate
+    		);
+    }
+    
+    public MailjetResponse sendEmailCanceledSession(String email, String name, LangEnum lang, Session session) throws JSONException, MailjetException, MailjetSocketTimeoutException {
+    	Integer idTemplate;
+    	String subject;
+    	String date;
+    	
+    	switch(lang) {
+    		case FR:
+    			idTemplate = 1391122;
+    			subject = "Participation annulé";
+    			date = getDate(session.getStart(), session.getEnd(), lang, "de", "à");
+    			break;
+    		default:
+    			idTemplate = 1391194;
+    			subject = "Participation canceled";
+    			date = getDate(session.getStart(), session.getEnd(), lang, "to", "at");
+    			break;
+    	}
+    	
+    	return this.sendEmail(
+    			"no-reply@test280407.ga",
+    			"Miimber",
+    			email,
+    			name,
+    			subject,
+    			new JSONObject()
+				.put("session", session.getTitle())
+				.put("organization", session.getOrganization().getName())
+				.put("date", date),
+    			idTemplate
+    		);
+    }
+    
+    private String getDate(OffsetDateTime start, OffsetDateTime end, LangEnum lang, String attachWordFirst, String attachWordSecond) {
+    	int hourStart = start.getHour();
+    	int minuteStart = start.getMinute();
+    	int hourEnd = end.getHour();
+    	int minuteEnd = end.getMinute();
+    	int dayMonthValue = start.getDayOfMonth();
+    	String dayWeekValue = start.getDayOfWeek().getDisplayName(TextStyle.SHORT_STANDALONE, new Locale(lang.getLang()));
+    	return dayWeekValue + " " + dayMonthValue + " " + attachWordFirst + " "+ hourStart + "h"+ minuteStart + " " + attachWordSecond + " "+ hourEnd + "h"+ minuteEnd;
     }
 }
