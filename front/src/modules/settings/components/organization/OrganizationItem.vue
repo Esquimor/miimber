@@ -10,9 +10,12 @@
       <img :src="image" class="SettingsOrganizationItem-image" />
       <span
         class="SettingsOrganizationItem-info is-size-6 has-text-weight-semibold"
-      >{{ organization.name }}</span>
+        >{{ organization.name }}</span
+      >
     </div>
-    <button class="SettingsOrganizationItem-button button is-primary">{{ $t('core.utils.manage') }}</button>
+    <button class="SettingsOrganizationItem-button button is-primary">
+      {{ $t("core.utils.manage") }}
+    </button>
   </router-link>
 </template>
 

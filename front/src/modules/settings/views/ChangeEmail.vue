@@ -1,8 +1,6 @@
 <template>
   <TemplateVerification :state="state">
-    {{
-    $t("settings.changeEmail.label")
-    }}
+    {{ $t("settings.changeEmail.label") }}
   </TemplateVerification>
 </template>
 

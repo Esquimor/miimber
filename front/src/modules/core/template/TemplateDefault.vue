@@ -2,19 +2,37 @@
   <div class="TemplateDefault">
     <header class="TemplateDefault-header">
       <nav class="TemplateDefault-header-nav">
-        <router-link :to="{ name: 'home' }" exact class="TemplateDefault-header-nav-home">
-          <img src="~@/assets/logo.svg" class="TemplateDefault-header-nav-home-logo" />
+        <router-link
+          :to="{ name: 'home' }"
+          exact
+          class="TemplateDefault-header-nav-home"
+        >
+          <img
+            src="~@/assets/logo.svg"
+            class="TemplateDefault-header-nav-home-logo"
+          />
           <span>Miimber</span>
         </router-link>
         <router-link v-if="isConnected" :to="{ name: 'dashboard-sessions' }">
           <span>{{ $t("core.menu.sessions") }}</span>
         </router-link>
-        <router-link v-if="isConnected" :to="{ name: 'dashboard-organizations' }">
+        <router-link
+          v-if="isConnected"
+          :to="{ name: 'dashboard-organizations' }"
+        >
           <span>{{ $t("core.menu.organizations") }}</span>
         </router-link>
         <div class="TemplateDefault-header-nav-separator" />
-        <b-dropdown v-if="isConnected" aria-role="list" position="is-bottom-left">
-          <div class="TemplateDefault-header-nav-dropdown" slot="trigger" slot-scope="{ active }">
+        <b-dropdown
+          v-if="isConnected"
+          aria-role="list"
+          position="is-bottom-left"
+        >
+          <div
+            class="TemplateDefault-header-nav-dropdown"
+            slot="trigger"
+            slot-scope="{ active }"
+          >
             <span>{{ $t("core.menu.account") }}</span>
             <b-icon :icon="active ? 'menu-up' : 'menu-down'"></b-icon>
           </div>
@@ -22,7 +40,10 @@
           <b-dropdown-item aria-role="listitem" @click.native="goToProfile">
             <span>{{ $t("core.menu.profile") }}</span>
           </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem" @click.native="goToOrganization">
+          <b-dropdown-item
+            aria-role="listitem"
+            @click.native="goToOrganization"
+          >
             <span>{{ $t("core.menu.organizations") }}</span>
           </b-dropdown-item>
           <b-dropdown-item aria-role="listitem" separator />
@@ -69,13 +90,18 @@
           <router-link v-if="isConnected" :to="{ name: 'dashboard-sessions' }">
             <span>{{ $t("core.menu.sessions") }}</span>
           </router-link>
-          <router-link v-if="isConnected" :to="{ name: 'dashboard-organizations' }">
+          <router-link
+            v-if="isConnected"
+            :to="{ name: 'dashboard-organizations' }"
+          >
             <span>{{ $t("core.menu.organizations") }}</span>
           </router-link>
           <router-link v-if="isConnected" :to="{ name: 'settings-profile' }">
             <span>{{ $t("core.menu.account") }}</span>
           </router-link>
-          <span v-if="isConnected" @click="logout">{{ $t("core.menu.logout") }}</span>
+          <span v-if="isConnected" @click="logout">{{
+            $t("core.menu.logout")
+          }}</span>
           <router-link v-if="!isConnected" :to="{ name: 'register' }">
             <span>{{ $t("core.menu.register") }}</span>
           </router-link>
@@ -98,7 +124,10 @@
             position="is-top-right"
           >
             <div slot="trigger" class="TemplateDefault-footer-list-element">
-              <BIcon icon="translate" class="TemplateDefault-footer-list-element-icon" />
+              <BIcon
+                icon="translate"
+                class="TemplateDefault-footer-list-element-icon"
+              />
               <span>{{ $t("core.footer.lang") }}</span>
             </div>
             <b-dropdown-item
@@ -106,14 +135,21 @@
               :key="lang.item"
               aria-role="listitem"
               @click.native="changeLang(lang.code)"
-            >{{ $t(`core.lang.${lang.label}`) }}</b-dropdown-item>
+              >{{ $t(`core.lang.${lang.label}`) }}</b-dropdown-item
+            >
           </b-dropdown>
         </div>
         <div class="TemplateDefault-footer-list column"></div>
         <div class="TemplateDefault-footer-list column"></div>
         <div class="TemplateDefault-footer-list column">
-          <router-link :to="{ name: 'terms' }" class="TemplateDefault-footer-list-element">
-            <BIcon icon="file-certificate" class="TemplateDefault-footer-list-element-icon" />
+          <router-link
+            :to="{ name: 'terms' }"
+            class="TemplateDefault-footer-list-element"
+          >
+            <BIcon
+              icon="file-certificate"
+              class="TemplateDefault-footer-list-element-icon"
+            />
             <span>{{ $t("core.footer.terms") }}</span>
           </router-link>
         </div>

@@ -8,14 +8,14 @@ const message = () => {
     show: false,
     title: "",
     message: "",
-    type: "",
+    type: ""
   };
 };
 
 const error = () => {
   return {
     show: false,
-    status: "",
+    status: ""
   };
 };
 
@@ -25,18 +25,17 @@ export default {
     me: null,
     member: null,
     sideBar: {
-      open: false,
+      open: false
     },
     message: message(),
-    error: error(),
+    error: error()
   },
   getters: {
-    isConnected: (state) => !!state.me,
-    me: (state) => state.me,
-    member: (state) => state.member,
-    memberIsOwner: (state) =>
-      !!state.member && state.member.role === ROLE.OWNER,
-    canChangeOrganization: (state) => {
+    isConnected: state => !!state.me,
+    me: state => state.me,
+    member: state => state.member,
+    memberIsOwner: state => !!state.member && state.member.role === ROLE.OWNER,
+    canChangeOrganization: state => {
       return (
         !!state.member &&
         [ROLE.OWNER, ROLE.OFFICE, ROLE.OFFICE_INSTRUCTOR].includes(
@@ -44,10 +43,10 @@ export default {
         )
       );
     },
-    sideBar: (state) => state.sideBar,
-    sideBarProps: (state) => state.sideBar.open && state.sideBar.props,
-    message: (state) => state.message,
-    error: (state) => state.error,
+    sideBar: state => state.sideBar,
+    sideBarProps: state => state.sideBar.open && state.sideBar.props,
+    message: state => state.message,
+    error: state => state.error
   },
   actions: {
     getMe({ commit }) {
@@ -57,7 +56,7 @@ export default {
           commit(types.COR_SET_ME, data);
           return Promise.resolve();
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -71,7 +70,7 @@ export default {
           commit(types.COR_SET_MEMBER_ME, data);
           return Promise.resolve();
         })
-        .catch((e) => {
+        .catch(e => {
           return Promise.reject(e);
         });
     },
@@ -101,7 +100,7 @@ export default {
     },
     emptyError({ commit }) {
       commit(types.COR_EMPTY_ERROR);
-    },
+    }
   },
   mutations: {
     [types.COR_SET_ME](state, user) {
@@ -118,7 +117,7 @@ export default {
       state.sideBar = {
         component,
         open: true,
-        props,
+        props
       };
     },
     [types.COR_CLOSE_SIDE_BAR](state) {
@@ -129,18 +128,18 @@ export default {
         type,
         message,
         title,
-        show: true,
+        show: true
       };
     },
     [types.CORE_SET_MESSAGE_ERROR_STATUS](state, status) {
       state.error = {
         show: true,
-        status,
+        status
       };
     },
     [types.CORE_SET_MESSAGE_ERROR](state) {
       state.error = {
-        show: true,
+        show: true
       };
     },
     [types.COR_EMPTY_MESSAGE](state) {
@@ -153,6 +152,6 @@ export default {
       state.me = null;
       state.member = null;
       localStorage.removeItem("token");
-    },
-  },
+    }
+  }
 };

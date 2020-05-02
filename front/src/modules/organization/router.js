@@ -6,23 +6,23 @@ export default [
       {
         path: "members",
         name: "organization-manage-members",
-        component: () => import("@organization/views/Members"),
+        component: () => import("@organization/views/Members")
       },
       {
         path: "settings",
         name: "organization-manage-settings",
-        component: () => import("@organization/views/Settings"),
+        component: () => import("@organization/views/Settings")
       },
       {
         path: "sessions",
         name: "organization-manage-sessions",
-        component: () => import("@organization/views/Sessions/Sessions"),
+        component: () => import("@organization/views/Sessions/Sessions")
       },
       {
         path: "sessions/categories",
         name: "organization-manage-sessions-types",
-        component: () => import("@organization/views/Sessions/TypeSessions"),
-      },
-    ],
-  },
+        component: () => import("@organization/views/Sessions/TypeSessions")
+      }
+    ]
+  }
 ];

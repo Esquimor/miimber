@@ -17,7 +17,9 @@
           :class="{ 'is-loading': loading }"
           @click="update"
           :disabled="!canUpdate"
-        >{{ $t("core.utils.update") }}</button>
+        >
+          {{ $t("core.utils.update") }}
+        </button>
       </div>
     </form>
   </TemplateSettings>
