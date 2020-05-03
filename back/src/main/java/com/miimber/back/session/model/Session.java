@@ -47,6 +47,9 @@ public class Session {
 	
 	@OneToMany(mappedBy = "session")
     private List<RegisteredSession> registereds;
+	
+	@OneToMany(mappedBy = "session")
+    private List<CommentSession> comments;
     
     @ManyToOne
     private Organization organization;
@@ -71,5 +74,13 @@ public class Session {
 	
 	public void removeRegistered(RegisteredSession registered) {
 		this.registereds.remove(registered);
+	}
+	
+	public void addComment(CommentSession comment) {
+		this.comments.add(comment);
+	}
+	
+	public void removeComment(CommentSession comment) {
+		this.comments.remove(comment);
 	}
 }

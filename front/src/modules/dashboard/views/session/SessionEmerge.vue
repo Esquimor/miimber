@@ -41,24 +41,24 @@ import { mapGetters } from "vuex";
 
 import TemplateEmerge from "@dashboard/template/TemplateEmerge";
 
-import SessionEmergeItem from "@dashboard/components/session/SessionEmergeItem";
+import SessionEmergeItem from "@dashboard/components/session/emerge/SessionEmergeItem";
 
 export default {
   name: "DashboardSessionEmerge",
   components: {
     TemplateEmerge,
-    SessionEmergeItem
+    SessionEmergeItem,
   },
   data() {
     return {
       loading: true,
-      search: ""
+      search: "",
     };
   },
   computed: {
     ...mapGetters({
       users: "dashboard/sessionUsers",
-      session: "dashboard/session"
+      session: "dashboard/session",
     }),
     reorderUser() {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -69,11 +69,11 @@ export default {
       if (this.search === "") return this.reorderUser;
 
       const lowerCaseSearch = this.search.toLowerCase();
-      return this.reorderUser.filter(p => {
+      return this.reorderUser.filter((p) => {
         const nameConcat = `${p.firstName} ${p.lastName}`;
         return nameConcat.toLowerCase().search(lowerCaseSearch) !== -1;
       });
-    }
+    },
   },
   methods: {
     setUser(user) {
@@ -84,7 +84,7 @@ export default {
           "dashboard/removeUserPresentSession",
           user.attendeeId
         );
-    }
+    },
   },
   mounted() {
     this.$store
@@ -95,7 +95,7 @@ export default {
       .catch(() => {
         this.loading = false;
       });
-  }
+  },
 };
 </script>
 
