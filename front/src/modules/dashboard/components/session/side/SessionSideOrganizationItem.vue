@@ -1,14 +1,14 @@
 <template>
   <router-link
-    class="DashboardSessionOrganizationItem"
+    class="DashboardSideSessionOrganizationItem"
     :to="{
       name: 'dashboard-organization-sessions',
-      params: { id: organization.id }
+      params: { id: organization.id },
     }"
   >
-    <img :src="image" class="DashboardSessionOrganizationItem-image" />
+    <img :src="image" class="DashboardSideSessionOrganizationItem-image" />
     <span
-      class="DashboardSessionOrganizationItem-info is-size-6 has-text-weight-semibold"
+      class="DashboardSideSessionOrganizationItem-info is-size-6 has-text-weight-semibold"
       >{{ organization.name }}</span
     >
   </router-link>
@@ -18,25 +18,25 @@
 "use strict";
 
 export default {
-  name: "DashboardSessionOrganizationItem",
+  name: "DashboardSideSessionOrganizationItem",
   props: {
     organization: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     image() {
       return this.organization.image
         ? this.organization.image
         : require("@/assets/imagePlaceholder.png");
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-.DashboardSessionOrganizationItem {
+.DashboardSideSessionOrganizationItem {
   display: flex;
   width: 280px;
   padding: 0.5rem;

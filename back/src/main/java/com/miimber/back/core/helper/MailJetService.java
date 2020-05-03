@@ -235,7 +235,7 @@ public class MailJetService {
     	
     	switch(lang) {
     		case FR:
-    			idTemplate = 1391122;
+    			idTemplate = 1391198;
     			subject = "Participation annulé";
     			date = getDate(session.getStart(), session.getEnd(), lang, "de", "à");
     			break;

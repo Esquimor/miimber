@@ -8,6 +8,7 @@ import java.util.List;
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.model.Organization;
 import com.miimber.back.organization.model.enums.RoleEnum;
+import com.miimber.back.session.model.CommentSession;
 import com.miimber.back.session.model.RegisteredSession;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.TypeSession;
@@ -30,6 +31,7 @@ public class SessionReadResponseDTO {
 	private MeDTO me;
 	private List<RegisteredDTO> registereds;
 	private int limit;
+	private List<CommentDTO> comments;
 	
 	public SessionReadResponseDTO(Session session, Member member, Long userId) {
 		this.setId(session.getId());
@@ -46,6 +48,10 @@ public class SessionReadResponseDTO {
 			member.getRole() == RoleEnum.OWNER)) {
 		}
 		setRegistereds(session);
+		this.comments = new ArrayList<CommentDTO>();
+		for(CommentSession comment: session.getComments()) {
+			this.comments.add(new CommentDTO(comment));
+		}
 	}
 	
 	private RegisteredSession getByUserId(Session session, long id) {
@@ -173,6 +179,38 @@ public class SessionReadResponseDTO {
 				this.setFirstName(user.getFirstName());
 				this.setLastName(user.getLastName());
 				this.setEmail(user.getEmail());
+			}
+		}
+	}
+	
+	@Getter @Setter
+	private class CommentDTO {
+		
+		private Long id;
+		private String comment;
+		private OffsetDateTime dateComment;
+		private UserDTO user;
+		
+		public CommentDTO(CommentSession comment) {
+			this.id = comment.getId();
+			this.comment = comment.getComment();
+			this.dateComment = comment.getDateComment();
+			this.user = new UserDTO(comment.getUser());
+		}
+		
+		@Getter @Setter
+		private class UserDTO {
+		
+			private Long id;
+			private String firstName;
+			private String lastName;
+			private String email;
+			
+			public UserDTO(User user) {
+				this.id = user.getId();
+				this.firstName= user.getFirstName();
+				this.lastName = user.getLastName();
+				this.email = user.getEmail();
 			}
 		}
 	}

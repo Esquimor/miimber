@@ -1,29 +1,29 @@
 <template>
   <router-link
     :to="{ name: 'dashboard-session', params: { id: session.id } }"
-    class="DashboardSessionItem"
+    class="DashboardSessionListItem"
   >
-    <div class="DashboardSessionItem-time">
+    <div class="DashboardSessionListItem-time">
       <BTag :type="statusSession.type">
         {{ $t(`core.sessionType.${statusSession.label}`) }}
       </BTag>
-      <div class="DashboardSessionItem-time-start">
+      <div class="DashboardSessionListItem-time-start">
         {{ session.start | formatHour }}
       </div>
-      <div class="DashboardSessionItem-time-end">
+      <div class="DashboardSessionListItem-time-end">
         {{ session.end | formatHour }}
       </div>
     </div>
-    <div class="DashboardSessionItem-info">
+    <div class="DashboardSessionListItem-info">
       <div
         v-if="!hideOrganization"
-        class="DashboardSessionItem-info-organization text is-size-6"
+        class="DashboardSessionListItem-info-organization text is-size-6"
       >
         {{ session.organizationName }}
       </div>
       <div class="text is-size-5">{{ session.title }}</div>
-      <div class="DashboardSessionItem-info-person">
-        <span class="DashboardSessionItem-info-person-registered">
+      <div class="DashboardSessionListItem-info-person">
+        <span class="DashboardSessionListItem-info-person-registered">
           {{ session.nbRegistereds }}
           {{ $t("dashboard.session.label.registered") }}
         </span>
@@ -34,19 +34,19 @@
         >
           <span
             v-if="session.nbRegistereds < session.limit"
-            class="DashboardSessionItem-info-person-places"
+            class="DashboardSessionListItem-info-person-places"
           >
             {{
               $t("dashboard.session.label.placesLeft", {
-                nb: session.limit - session.nbRegistereds
+                nb: session.limit - session.nbRegistereds,
               })
             }}
           </span>
-          <span v-else class="DashboardSessionItem-info-person-waiting">
+          <span v-else class="DashboardSessionListItem-info-person-waiting">
             -
             {{
               $t("dashboard.session.label.waiting", {
-                nb: session.nbRegistereds - session.limit
+                nb: session.nbRegistereds - session.limit,
               })
             }}
           </span>
@@ -64,20 +64,20 @@ import dayjs from "dayjs";
 import { STATUS_SESSION } from "@/utils/consts";
 
 export default {
-  name: "DashboardSessionItem",
+  name: "DashboardSessionListItem",
   props: {
     session: {
       type: Object,
-      required: true
+      required: true,
     },
     hideOrganization: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      STATUS_SESSION: STATUS_SESSION
+      STATUS_SESSION: STATUS_SESSION,
     };
   },
   computed: {
@@ -95,13 +95,13 @@ export default {
         return STATUS_SESSION.IN_PROGRESS;
       }
       return STATUS_SESSION.COMPLETED;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-.DashboardSessionItem {
+.DashboardSessionListItem {
   color: $text;
   display: flex;
   border-bottom: 1px solid $grey-lightest;

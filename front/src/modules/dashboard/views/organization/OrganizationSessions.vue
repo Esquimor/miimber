@@ -43,12 +43,12 @@ import { mapGetters } from "vuex";
 
 import dayjs from "dayjs";
 
-import SessionList from "@dashboard/components/session/SessionList";
+import SessionList from "@dashboard/components/session/list/SessionList";
 
 export default {
   name: "DashboardOrganizationSessions",
   components: {
-    SessionList
+    SessionList,
   },
   data() {
     let startDate = dayjs()
@@ -66,12 +66,12 @@ export default {
     return {
       loading: true,
       dates: [startDate.clone().toDate(), endDate.clone().toDate()],
-      search: ""
+      search: "",
     };
   },
   computed: {
     ...mapGetters({
-      sessions: "dashboard/organizationSessions"
+      sessions: "dashboard/organizationSessions",
     }),
     reorderByDate() {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -84,7 +84,7 @@ export default {
       if (this.search === "") return this.reorderByDate;
 
       const lowerCaseSearch = this.search.toLowerCase();
-      return this.reorderByDate.filter(p => {
+      return this.reorderByDate.filter((p) => {
         return p.title.toLowerCase().search(lowerCaseSearch) !== -1;
       });
     },
@@ -92,7 +92,7 @@ export default {
       return this.filteredSession.reduce((list, session) => {
         const start = dayjs(session.start);
         const sameDay = list.find(
-          e =>
+          (e) =>
             e.date === start.get("date") &&
             e.month === start.get("month") &&
             e.year === start.get("year")
@@ -107,13 +107,13 @@ export default {
               day: start.get("day"),
               month: start.get("month"),
               year: start.get("year"),
-              sessions: [session]
-            }
+              sessions: [session],
+            },
           ];
         }
         return list;
       }, []);
-    }
+    },
   },
   methods: {
     setSessions() {
@@ -122,19 +122,19 @@ export default {
         .dispatch("dashboard/setOrganizationSessions", {
           id: this.$route.params.id,
           minDate: this.dates[0],
-          maxDate: this.dates[1]
+          maxDate: this.dates[1],
         })
         .then(() => {
           this.loading = false;
         });
-    }
+    },
   },
   mounted() {
     this.$store
       .dispatch("dashboard/setOrganizationSessions", {
         id: this.$route.params.id,
         minDate: this.dates[0],
-        maxDate: this.dates[1]
+        maxDate: this.dates[1],
       })
       .then(() => {
         this.loading = false;
@@ -142,7 +142,7 @@ export default {
       .catch(() => {
         this.loading = false;
       });
-  }
+  },
 };
 </script>
 

@@ -3,14 +3,23 @@
     <div v-if="loading === false">
       <header class="DashboardSession-header">
         <div class="DashboardSession-header-wrapper">
-          <span class="DashboardSession-header-date">
-            {{ dateLabel }} {{ session.start | formatHour }}-{{
-              session.end | formatHour
-            }}
-          </span>
-          <h1 class="DashboardSession-header-title title is-3">
-            {{ session.title }}
-          </h1>
+          <div class="DashboardSession-header-left">
+            <span class="DashboardSession-header-date">
+              {{ dateLabel }} {{ session.start | formatHour }}-{{
+                session.end | formatHour
+              }}
+            </span>
+            <h1 class="DashboardSession-header-title title is-3">
+              {{ session.title }}
+            </h1>
+          </div>
+          <SessionButtonRegistered
+            class="DashboardSession-header-right"
+            @unsubscribe="unsubscribe"
+            @registerd="registerd"
+            :isRegistered="userRegistered"
+            :loading="loadingRegisterd"
+          />
         </div>
       </header>
       <div v-if="isInsctructorOrganization" class="DashboardSession-emerge">
@@ -22,28 +31,29 @@
       </div>
       <main class="DashboardSession-main">
         <div class="DashboardSession-main-wrapper">
-          <div class="DashboardSession-main-left">
-            <SessionDescription
+          <div class="DashboardSession-main-content">
+            <SessionContentDescription
               v-if="session.description !== ''"
               :description="session.description"
-              class="DashboardSession-main-left-description"
+              class="DashboardSession-main-content-description"
             />
-            <SessionRegistereds
+            <SessionContentRegistereds
               :registereds="registeredsTaken"
               :label="$t('dashboard.session.label.registered')"
               :showLimit="session.limit > 0"
               :limit="session.limit"
-              class="DashboardSession-main-left-attendees"
+              class="DashboardSession-main-content-attendees"
             />
-            <SessionRegistereds
+            <SessionContentRegistereds
               v-if="registeredsWaiting.length > 0"
               :registereds="registeredsWaiting"
               :label="$t('dashboard.session.label.registeredWaiting')"
-              class="DashboardSession-main-left-attendees"
+              class="DashboardSession-main-content-attendees"
             />
+            <SessionComment />
           </div>
-          <div class="DashboardSession-main-right">
-            <SessionOrganizationItem :organization="session.organization" />
+          <div class="DashboardSession-main-side">
+            <SessionSideOrganizationItem :organization="session.organization" />
           </div>
         </div>
       </main>
@@ -59,23 +69,13 @@
               session.title
             }}</span>
           </div>
-          <div class="DashboardSession-bottom-button">
-            <BButton
-              v-if="userRegistered"
-              type="is-primary"
-              :loading="loadingRegisterd"
-              @click.native="unsubscribe"
-              outlined
-              >{{ $t("dashboard.session.label.iUnsubscribe") }}</BButton
-            >
-            <BButton
-              v-else
-              type="is-primary"
-              :loading="loadingRegisterd"
-              @click.native="registerd"
-              >{{ $t("dashboard.session.label.imRegistered") }}</BButton
-            >
-          </div>
+          <SessionButtonRegistered
+            class="DashboardSession-bottom-button"
+            @unsubscribe="unsubscribe"
+            @registerd="registerd"
+            :isRegistered="userRegistered"
+            :loading="loadingRegisterd"
+          />
         </div>
       </div>
     </div>
@@ -91,9 +91,13 @@ import { STATUS_REGISTERED } from "@/utils/consts";
 
 import TemplateDefault from "@core/template/TemplateDefault";
 
-import SessionOrganizationItem from "@dashboard/components/session/SessionOrganizationItem";
-import SessionDescription from "@dashboard/components/session/SessionDescription";
-import SessionRegistereds from "@dashboard/components/session/SessionRegistereds";
+import SessionSideOrganizationItem from "@dashboard/components/session/side/SessionSideOrganizationItem";
+import SessionContentDescription from "@dashboard/components/session/content/SessionContentDescription";
+import SessionContentRegistereds from "@dashboard/components/session/content/SessionContentRegistereds";
+
+import SessionComment from "@dashboard/components/session/comment/SessionComment";
+
+import SessionButtonRegistered from "@dashboard/components/session/button/SessionButtonRegistered";
 
 import dayjs from "dayjs";
 
@@ -101,15 +105,17 @@ export default {
   name: "DashboardSession",
   components: {
     TemplateDefault,
-    SessionOrganizationItem,
-    SessionDescription,
-    SessionRegistereds
+    SessionSideOrganizationItem,
+    SessionContentDescription,
+    SessionContentRegistereds,
+    SessionComment,
+    SessionButtonRegistered,
   },
   data() {
     return {
       loadingRegisterd: false,
       loadingComponent: null,
-      loading: true
+      loading: true,
     };
   },
   computed: {
@@ -117,7 +123,7 @@ export default {
       session: "dashboard/session",
       isInsctructorOrganization: "dashboard/isInsctructorOrganization",
       userRegistered: "dashboard/userRegistered",
-      getUserForSession: "dashboard/getUserForSession"
+      getUserForSession: "dashboard/getUserForSession",
     }),
     dateLabel() {
       if (!this.session) return "";
@@ -130,19 +136,19 @@ export default {
     },
     registeredsTaken() {
       return this.session.registereds.filter(
-        r => r.status === STATUS_REGISTERED.TAKEN
+        (r) => r.status === STATUS_REGISTERED.TAKEN
       );
     },
     registeredsWaiting() {
       return this.session.registereds.filter(
-        r => r.status === STATUS_REGISTERED.WAITING
+        (r) => r.status === STATUS_REGISTERED.WAITING
       );
     },
     showRegister() {
       const now = dayjs();
       const start = dayjs(this.session.start);
       return now.isBefore(start);
-    }
+    },
   },
   methods: {
     registerd() {
@@ -151,7 +157,7 @@ export default {
       this.$store.dispatch("dashboard/registered", this.session.id).then(() => {
         this.$buefy.toast.open({
           message: this.$t("dashboard.session.registered.success"),
-          type: "is-success"
+          type: "is-success",
         });
         this.loadingRegisterd = false;
       });
@@ -174,11 +180,11 @@ export default {
             .then(() => {
               this.$buefy.toast.open({
                 message: this.$t("dashboard.session.unsubscribe.success"),
-                type: "is-success"
+                type: "is-success",
               });
               this.loadingRegisterd = false;
             });
-        }
+        },
       });
     },
     startLoading() {
@@ -191,7 +197,7 @@ export default {
         this.loadingComponent = null;
         this.loading = false;
       }
-    }
+    },
   },
   mounted() {
     this.loading = true;
@@ -207,7 +213,7 @@ export default {
           this.loading = false;
         });
     });
-  }
+  },
 };
 </script>
 
@@ -217,9 +223,27 @@ export default {
     padding: 1rem 0.5rem 1rem;
     box-shadow: 0 1px 4px 0 $grey;
     &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       width: 100%;
       max-width: 960px;
       margin: 0 auto;
+      @media (max-width: $mobile) {
+        flex-direction: column;
+      }
+    }
+    &-right {
+      @media (max-width: $mobile) {
+        margin-top: 1rem;
+      }
+    }
+    &-left {
+      @media (max-width: $mobile) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
     }
   }
   &-emerge {
@@ -230,7 +254,7 @@ export default {
   &-main {
     min-height: 100vh;
     background-color: $white-bis;
-    padding: 0 1rem;
+    padding: 0 1rem 5rem;
     &-wrapper {
       display: flex;
       width: 100%;
@@ -242,7 +266,7 @@ export default {
         padding: 0.5rem 0;
       }
     }
-    &-left {
+    &-content {
       flex-grow: 1;
       &-description {
         margin-bottom: 1rem;
@@ -251,7 +275,7 @@ export default {
         margin-bottom: 1rem;
       }
     }
-    &-right {
+    &-side {
       width: 375px;
       @media (max-width: $tablet) {
         display: flex;
@@ -265,7 +289,6 @@ export default {
   &-bottom {
     background-color: $white;
     box-shadow: 0 -2px 7px 0 $grey;
-    position: sticky;
     bottom: 0;
     padding: 0.5rem;
     &-wrapper {

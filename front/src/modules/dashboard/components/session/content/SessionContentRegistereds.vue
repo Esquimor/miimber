@@ -1,5 +1,5 @@
 <template>
-  <section class="DashboardSessionRegistereds">
+  <section class="DashboardSessionContentRegistereds">
     <h2 class="DashboardSessionDescription-title title is-5">
       {{ label }}
       <span>({{ nbRegistered }}</span>
@@ -26,27 +26,27 @@ import SessionUserItem from "@dashboard/components/session/SessionUserItem";
 import dayjs from "dayjs";
 
 export default {
-  name: "DashboardSessionRegistereds",
+  name: "DashboardSessionContentRegistereds",
   components: {
-    SessionUserItem
+    SessionUserItem,
   },
   props: {
     registereds: {
       type: Array,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      default: ""
+      default: "",
     },
     showLimit: {
       type: Boolean,
-      default: false
+      default: false,
     },
     limit: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   computed: {
     nbRegistered() {
@@ -57,8 +57,8 @@ export default {
       return this.registereds.sort((a, b) =>
         dayjs(a.dateRegistered).isAfter(dayjs(b.dateRegistered))
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
