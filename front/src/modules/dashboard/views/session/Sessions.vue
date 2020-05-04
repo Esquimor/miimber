@@ -47,7 +47,7 @@ export default {
   name: "DashboardSession",
   components: {
     TemplateDashboard,
-    SessionList,
+    SessionList
   },
   data() {
     let startDate = dayjs()
@@ -75,13 +75,13 @@ export default {
         endDate
           .clone()
           .add(1, "week")
-          .toDate(),
-      ],
+          .toDate()
+      ]
     };
   },
   computed: {
     ...mapGetters({
-      sessions: "dashboard/sessions",
+      sessions: "dashboard/sessions"
     }),
     reorderByDate() {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -94,7 +94,7 @@ export default {
       if (this.search === "") return this.reorderByDate;
 
       const lowerCaseSearch = this.search.toLowerCase();
-      return this.reorderByDate.filter((p) => {
+      return this.reorderByDate.filter(p => {
         return p.title.toLowerCase().search(lowerCaseSearch) !== -1;
       });
     },
@@ -102,7 +102,7 @@ export default {
       return this.filteredSession.reduce((list, session) => {
         const start = dayjs(session.start);
         const sameDay = list.find(
-          (e) =>
+          e =>
             e.date === start.get("date") &&
             e.month === start.get("month") &&
             e.year === start.get("year")
@@ -117,13 +117,13 @@ export default {
               day: start.get("day"),
               month: start.get("month"),
               year: start.get("year"),
-              sessions: [session],
-            },
+              sessions: [session]
+            }
           ];
         }
         return list;
       }, []);
-    },
+    }
   },
   methods: {
     setSessions() {
@@ -131,18 +131,18 @@ export default {
       this.$store
         .dispatch("dashboard/setSessions", {
           minDate: this.dates[0],
-          maxDate: this.dates[1],
+          maxDate: this.dates[1]
         })
         .then(() => {
           this.loading = false;
         });
-    },
+    }
   },
   mounted() {
     this.$store
       .dispatch("dashboard/setSessions", {
         minDate: this.dates[0],
-        maxDate: this.dates[1],
+        maxDate: this.dates[1]
       })
       .then(() => {
         this.loading = false;
@@ -150,7 +150,7 @@ export default {
       .catch(() => {
         this.loading = false;
       });
-  },
+  }
 };
 </script>
 

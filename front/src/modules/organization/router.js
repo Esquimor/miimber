@@ -22,6 +22,11 @@ export default [
         path: "sessions/categories",
         name: "organization-manage-sessions-types",
         component: () => import("@organization/views/Sessions/TypeSessions")
+      },
+      {
+        path: "forum",
+        name: "organization-manage-forum",
+        component: () => import("@organization/views/Forum")
       }
     ]
   }

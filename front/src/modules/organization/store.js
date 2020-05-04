@@ -10,13 +10,15 @@ export default {
   state: {
     organization: null,
     typeSessions: [],
-    sessions: []
+    sessions: [],
+    categoriesForum: []
   },
   getters: {
     organization: state => state.organization,
     organizationMembers: state => state.organization.members,
     typeSessions: state => state.typeSessions,
-    sessions: state => state.sessions
+    sessions: state => state.sessions,
+    categoriesForum: state => state.categoriesForum
   },
   actions: {
     setOrganization({ commit, dispatch }, id) {
@@ -291,6 +293,70 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    setForum({ commit, state }) {
+      return api
+        .get(
+          `organization/${state.organization.id}/forum/category/`,
+          {},
+          { errorRedirect: true }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_SET_FORUM, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    addCategoryForum({ commit, state }, { title }) {
+      return api
+        .post(
+          `organization/${state.organization.id}/forum/category/`,
+          {
+            title
+          },
+          {
+            errorMessage: true
+          }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_ADD_FORUM_CATEGORY, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    editForumCategory({ commit, state }, { id, title, position }) {
+      return api
+        .put(
+          `organization/${state.organization.id}/forum/category/${id}`,
+          {
+            id,
+            title,
+            position
+          },
+          { errorMessage: true }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_EDIT_FORUM_CATEGORY, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    deleteForumCategory({ commit, state }, id) {
+      return api
+        .delete(
+          `organization/${state.organization.id}/forum/category/${id}`,
+          {},
+          { errorMessage: true }
+        )
+        .then(() => {
+          commit(types.ORG_DELETE_FORUM_CATEGORY, id);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
@@ -345,6 +411,20 @@ export default {
     },
     [types.ORG_DELETE_SESSION](state, id) {
       state.sessions = state.sessions.filter(s => s.id !== id);
+    },
+    [types.ORG_SET_FORUM](state, forum) {
+      state.categoriesForum = forum;
+    },
+    [types.ORG_ADD_FORUM_CATEGORY](state, category) {
+      state.categoriesForum.push(category);
+    },
+    [types.ORG_EDIT_FORUM_CATEGORY](state, { title, position, id }) {
+      const categoryForum = state.categoriesForum.find(t => t.id === id);
+      categoryForum.title = title;
+      categoryForum.position = position;
+    },
+    [types.ORG_DELETE_FORUM_CATEGORY](state, id) {
+      state.categoriesForum = state.categoriesForum.filter(c => c.id !== id);
     }
   }
 };

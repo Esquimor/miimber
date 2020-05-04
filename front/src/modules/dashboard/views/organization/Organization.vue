@@ -20,6 +20,14 @@
         <router-link
           class="DashboardOrganization-nav-item"
           :to="{
+            name: 'dashboard-organization-forum',
+            params: { id: organization.id }
+          }"
+          >{{ $t("dashboard.organization.label.forum") }}</router-link
+        >
+        <router-link
+          class="DashboardOrganization-nav-item"
+          :to="{
             name: 'dashboard-organization-members',
             params: { id: organization.id }
           }"

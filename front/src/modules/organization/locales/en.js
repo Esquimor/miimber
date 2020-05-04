@@ -123,6 +123,16 @@ export default {
       label: {
         name: "Name"
       }
+    },
+    forum: {
+      title: "Forum",
+      label: {
+        title: "Title"
+      },
+      add: {
+        title: "Add a category",
+        success: "Category added"
+      }
     }
   }
 };

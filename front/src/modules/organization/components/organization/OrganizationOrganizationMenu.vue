@@ -37,6 +37,18 @@
       </router-link>
     </div>
     <router-link
+      :to="{ name: NAV.FORUM }"
+      class="OrganizationOrganizationMenu-link"
+      @click.native="setRouterAndNav(ROUTER.FORUM, NAV.FORUM)"
+    >
+      <BIcon
+        size="is-small"
+        icon="forum"
+        class="OrganizationOrganizationMenu-link-icon"
+      />
+      <span>{{ $t("organization.forum.title") }}</span>
+    </router-link>
+    <router-link
       :to="{ name: NAV.SETTINGS }"
       class="OrganizationOrganizationMenu-link"
       @click.native="setRouterAndNav(ROUTER.SETTINGS, NAV.SETTINGS)"
@@ -55,19 +67,20 @@
       expanded
       v-model="nav"
     >
-      <option :value="NAV.MEMBERS">{{
-        $t("organization.members.title")
-      }}</option>
-      <option :value="NAV.SESSIONS">{{
-        $t("organization.sessions.title")
-      }}</option>
-      <option :value="NAV.SESSIONS_TYPES"
-        >{{ $t("organization.sessions.title") }} -
-        {{ $t("organization.typeSessions.title") }}</option
-      >
-      <option :value="NAV.SETTINGS">{{
-        $t("organization.settings.title")
-      }}</option>
+      <option :value="NAV.MEMBERS">
+        {{ $t("organization.members.title") }}
+      </option>
+      <option :value="NAV.SESSIONS">
+        {{ $t("organization.sessions.title") }}
+      </option>
+      <option :value="NAV.SESSIONS_TYPES">
+        {{ $t("organization.sessions.title") }} -
+        {{ $t("organization.typeSessions.title") }}
+      </option>
+      <option :value="NAV.FORUM">{{ $t("organization.forum.title") }}</option>
+      <option :value="NAV.SETTINGS">
+        {{ $t("organization.settings.title") }}
+      </option>
     </BSelect>
   </div>
 </template>
@@ -79,6 +92,7 @@ const ROUTER = {
   MEMBERS: "MEMBERS",
   SESSIONS: "SESSIONS",
   SETTINGS: "SETTINGS",
+  FORUM: "FORUM",
   NOT_FOUND: "NOT_FOUND"
 };
 
@@ -86,7 +100,8 @@ const NAV = {
   MEMBERS: "organization-manage-members",
   SESSIONS: "organization-manage-sessions",
   SESSIONS_TYPES: "organization-manage-sessions-types",
-  SETTINGS: "organization-manage-settings"
+  SETTINGS: "organization-manage-settings",
+  FORUM: "organization-manage-forum"
 };
 
 export default {
@@ -111,12 +126,12 @@ export default {
       case "organization-manage-members":
         this.router = ROUTER.MEMBERS;
         break;
-      case "organization-manage-sessions":
+      case NAV.SESSIONS:
       case "organization-manage-sessions-types":
         this.router = ROUTER.SESSIONS;
         break;
 
-      case "organization-manage-settings":
+      case NAV.SETTINGS:
         this.router = ROUTER.SETTINGS;
         break;
 

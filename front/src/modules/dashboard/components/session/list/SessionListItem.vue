@@ -38,7 +38,7 @@
           >
             {{
               $t("dashboard.session.label.placesLeft", {
-                nb: session.limit - session.nbRegistereds,
+                nb: session.limit - session.nbRegistereds
               })
             }}
           </span>
@@ -46,7 +46,7 @@
             -
             {{
               $t("dashboard.session.label.waiting", {
-                nb: session.nbRegistereds - session.limit,
+                nb: session.nbRegistereds - session.limit
               })
             }}
           </span>
@@ -68,16 +68,16 @@ export default {
   props: {
     session: {
       type: Object,
-      required: true,
+      required: true
     },
     hideOrganization: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
-      STATUS_SESSION: STATUS_SESSION,
+      STATUS_SESSION: STATUS_SESSION
     };
   },
   computed: {
@@ -95,8 +95,8 @@ export default {
         return STATUS_SESSION.IN_PROGRESS;
       }
       return STATUS_SESSION.COMPLETED;
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -15,9 +15,9 @@ export default {
   props: {
     description: {
       type: String,
-      default: "",
-    },
-  },
+      default: ""
+    }
+  }
 };
 </script>
 

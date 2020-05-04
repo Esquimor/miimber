@@ -30,6 +30,12 @@ export default [
           import("@dashboard/views/organization/OrganizationSessions")
       },
       {
+        path: "forum",
+        name: "dashboard-organization-forum",
+        component: () =>
+          import("@dashboard/views/organization/forum/OrganizationForum")
+      },
+      {
         path: "members",
         name: "dashboard-organization-members",
         component: () =>

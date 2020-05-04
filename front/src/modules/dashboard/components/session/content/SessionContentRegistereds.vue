@@ -28,25 +28,25 @@ import dayjs from "dayjs";
 export default {
   name: "DashboardSessionContentRegistereds",
   components: {
-    SessionUserItem,
+    SessionUserItem
   },
   props: {
     registereds: {
       type: Array,
-      required: true,
+      required: true
     },
     label: {
       type: String,
-      default: "",
+      default: ""
     },
     showLimit: {
       type: Boolean,
-      default: false,
+      default: false
     },
     limit: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   computed: {
     nbRegistered() {
@@ -57,8 +57,8 @@ export default {
       return this.registereds.sort((a, b) =>
         dayjs(a.dateRegistered).isAfter(dayjs(b.dateRegistered))
       );
-    },
-  },
+    }
+  }
 };
 </script>
 

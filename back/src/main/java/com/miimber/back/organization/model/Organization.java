@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.miimber.back.forum.model.CategoryForum;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.TypeSession;
 
@@ -43,11 +44,15 @@ public class Organization {
 	@OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
     private List<Session> sessions;
 	
+	@OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
+    private List<CategoryForum> categoriesForum;
+	
 	public Organization() {
 		this.name = "";
 		this.members = new ArrayList<Member>();
 		this.typeSessions = new ArrayList<TypeSession>();
 		this.sessions = new ArrayList<Session>();
+		this.categoriesForum = new ArrayList<CategoryForum>();
 	}
 	
 	public Organization(String name) {
@@ -55,6 +60,7 @@ public class Organization {
 		this.members = new ArrayList<Member>();
 		this.typeSessions = new ArrayList<TypeSession>();
 		this.sessions = new ArrayList<Session>();
+		this.categoriesForum = new ArrayList<CategoryForum>();
 	}
 
 	public void addMember(Member newMember) {
