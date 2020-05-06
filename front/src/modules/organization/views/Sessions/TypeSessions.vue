@@ -10,13 +10,9 @@
           field="name"
           :label="$t('organization.typeSessions.table.name')"
           sortable
-          >{{ row.name }}</BTableColumn
-        >
+        >{{ row.name }}</BTableColumn>
         <BTableColumn class="OrganizationMembers-column-manage" :width="200">
-          <OrganizationTypeSessionsDropdown
-            @edit="edit(row)"
-            @delete="deleteItem(row.id)"
-          />
+          <OrganizationTypeSessionsDropdown @edit="edit(row)" @delete="deleteItem(row.id)" />
         </BTableColumn>
       </template>
     </BTable>
@@ -68,6 +64,7 @@ export default {
         title: this.$t("organization.typeSessions.delete.title"),
         message: this.$t("organization.typeSessions.delete.message"),
         confirmText: this.$t("core.utils.delete"),
+        cancelText: this.$t("core.utils.cancel"),
         type: "is-danger",
         hasIcon: true,
         onConfirm: () => {

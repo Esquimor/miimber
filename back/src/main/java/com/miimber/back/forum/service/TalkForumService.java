@@ -5,33 +5,33 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.miimber.back.forum.model.PostForum;
-import com.miimber.back.forum.repository.PostForumRepository;
+import com.miimber.back.forum.model.TalkForum;
+import com.miimber.back.forum.repository.TalkForumRepository;
 
 @Service
-public class PostForumService implements IPostForumService {
+public class TalkForumService implements ITalkForumService {
 
 	@Autowired
-	private PostForumRepository postRepository;
+	private TalkForumRepository postRepository;
 	
 	@Override
-	public PostForum create(PostForum entity) {
+	public TalkForum create(TalkForum entity) {
 		return postRepository.save(entity);
 	}
 
 	@Override
-	public PostForum update(PostForum entity) {
+	public TalkForum update(TalkForum entity) {
 		return postRepository.save(entity);
 	}
 
 	@Override
-	public void delete(PostForum entity) {
+	public void delete(TalkForum entity) {
 		postRepository.delete(entity);
 	}
 
 	@Override
-	public PostForum get(Long id) {
-		Optional<PostForum> post = postRepository.findById(id);
+	public TalkForum get(Long id) {
+		Optional<TalkForum> post = postRepository.findById(id);
 		if (post.isEmpty())	 {
 			return null;
 		}

@@ -36,11 +36,18 @@ export default [
           import("@dashboard/views/organization/forum/OrganizationForum")
       },
       {
+        path: "forum/:idSubject",
+        name: "dashboard-organization-forum-subject",
+        component: () =>
+          import("@dashboard/views/organization/forum/OrganizationForumSubject")
+      },
+      {
         path: "members",
         name: "dashboard-organization-members",
         component: () =>
           import("@dashboard/views/organization/OrganizationMembers")
-      }
+      },
+
     ]
   }
 ];

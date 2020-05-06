@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.miimber.back.forum.model.CategoryForum;
-import com.miimber.back.forum.model.PostForum;
+import com.miimber.back.forum.model.TalkForum;
 import com.miimber.back.forum.model.SubjectForum;
 import com.miimber.back.user.model.User;
 
@@ -18,15 +18,15 @@ public class SubjectForumReadResponseDTO {
 	private Long id;
 	private String title;
 	private CategoryDTO category;
-	private List<PostDTO> posts;
+	private List<TalkDTO> talks;
 	
 	public SubjectForumReadResponseDTO(SubjectForum subject) {
 		this.id = subject.getId();
 		this.title = subject.getTitle();
 		this.category = new CategoryDTO(subject.getCategory());
-		this.posts = new ArrayList<PostDTO>();
-		for(PostForum post: subject.getPosts()) {
-			this.posts.add(new PostDTO(post));
+		this.talks = new ArrayList<TalkDTO>();
+		for(TalkForum talk: subject.getPosts()) {
+			this.talks.add(new TalkDTO(talk));
 		}
 	}
 	
@@ -43,18 +43,18 @@ public class SubjectForumReadResponseDTO {
 	}
 	
 	@Getter @Setter
-	private class PostDTO {
+	private class TalkDTO {
 		
 		private Long id;
-		private String post;
+		private String title;
 		private OffsetDateTime datePost;
 		private UserDTO user;
 		
-		public PostDTO(PostForum post) {
-			this.id = post.getId();
-			this.post = post.getPost();
-			this.datePost = post.getDatePost();
-			this.user = new UserDTO(post.getUser());
+		public TalkDTO(TalkForum talk) {
+			this.id = talk.getId();
+			this.title = talk.getTitle();
+			this.datePost = talk.getDatePost();
+			this.user = new UserDTO(talk.getUser());
 		}
 		
 		@Getter @Setter

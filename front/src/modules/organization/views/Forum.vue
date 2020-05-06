@@ -1,17 +1,19 @@
 <template>
   <OrganizationTemplateList
     :title="$t('organization.forum.title')"
-    :loading="false"
+    :loading="loading"
     @add="add"
+    addLabel="organization.forum.label.add"
   >
     <div class="OrganizationForum">
-      <div class="OrganizationForum-categories">
+      <draggable class="OrganizationForum-categories" v-model="myList">
         <OrganizationForumCategory
-          v-for="category in categories"
+          v-for="category in myList"
           :key="category.id"
           :category="category"
+          class="OrganizationForum-categories-category"
         />
-      </div>
+      </draggable>
     </div>
   </OrganizationTemplateList>
 </template>
@@ -20,6 +22,8 @@
 "use strict";
 
 import { mapGetters } from "vuex";
+
+import draggable from "vuedraggable";
 
 import OrganizationTemplateList from "@organization/templates/OrganizationTemplateList";
 
@@ -30,6 +34,7 @@ import OrganizationForumCagegoryAdd from "@organization/components/forum/Organiz
 export default {
   name: "OrganizationForum",
   components: {
+    draggable,
     OrganizationTemplateList,
     OrganizationForumCategory
   },
@@ -41,7 +46,24 @@ export default {
   computed: {
     ...mapGetters({
       categories: "organization/categoriesForum"
-    })
+    }),
+    myList: {
+      get() {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        return this.categories.sort((a, b) => a.position - b.position);
+      },
+      set(value) {
+        this.loading = true;
+        this.$store
+          .dispatch("organization/setPositionForumCategory", value)
+          .then(() => {
+            this.loading = false;
+          })
+          .catch(() => {
+            this.loading = false;
+          });
+      }
+    }
   },
   methods: {
     add() {
@@ -58,4 +80,12 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.OrganizationForum {
+  &-categories {
+    &-category {
+      margin-bottom: 1rem;
+    }
+  }
+}
+</style>

@@ -1,43 +1,35 @@
 <template>
-  <div class="OrganizationTemplateList">
-    <header class="OrganizationTemplateList-header">
-      <h2 class="title is-4">{{ title }}</h2>
-      <BButton
-        id="OrganizationTemplateList-add"
-        type="is-primary"
-        icon-left="plus"
-        @click="$emit('add')"
-      >{{ $t(addLabel) }}</BButton>
-    </header>
-    <main class="OrganizationTemplateList-main" ref="template">
+  <div class="TemplateOrganization" ref="template">
+    <template v-if="!loading">
       <slot />
-    </main>
+    </template>
   </div>
 </template>
 
 <script>
 "use strict";
 
+import { CONTENT_SIZE } from "@/utils/consts";
+
 export default {
-  name: "OrganizationTemplateList",
+  name: "TemplateWrapper",
   props: {
-    title: {
-      type: String,
-      default: ""
-    },
     loading: {
       type: Boolean,
       default: true
-    },
-    addLabel: {
-      type: String,
-      default: "core.utils.add"
     }
   },
   data() {
     return {
       loadingComponent: this.loading
     };
+  },
+  computed: {
+    styleMain() {
+      return {
+        maxWidth: CONTENT_SIZE.NORMAL
+      };
+    }
   },
   methods: {
     startLoading() {
@@ -70,11 +62,12 @@ export default {
 </script>
 
 <style lang="scss">
-.OrganizationTemplateList {
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.TemplateOrganization {
+  width: 100%;
+  padding: 1rem;
+  background-color: $white;
+  border: 1px solid $grey-lightest;
+  min-height: 80vh;
+  border-radius: 5px;
 }
 </style>

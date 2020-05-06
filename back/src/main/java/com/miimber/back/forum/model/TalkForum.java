@@ -19,14 +19,14 @@ import lombok.Setter;
 @Entity
 @Table(name="posts_forum")
 @Getter @Setter
-public class PostForum {
+public class TalkForum {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name= "post")
-	private String post;
+	@Column(name= "title")
+	private String title;
 	
 	@Column(name = "datePost")
 	private OffsetDateTime datePost;

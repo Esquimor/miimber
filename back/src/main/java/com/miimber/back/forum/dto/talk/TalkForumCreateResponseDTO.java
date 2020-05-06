@@ -1,24 +1,24 @@
-package com.miimber.back.forum.dto.post;
+package com.miimber.back.forum.dto.talk;
 
 import java.time.OffsetDateTime;
 
-import com.miimber.back.forum.model.PostForum;
+import com.miimber.back.forum.model.TalkForum;
 import com.miimber.back.user.model.User;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class PostForumCreateResponseDTO {
+public class TalkForumCreateResponseDTO {
 
 	private Long id;
-	private String post;
+	private String title;
 	private OffsetDateTime datePost;
 	private UserDTO user;
 	
-	public PostForumCreateResponseDTO(PostForum post) {
+	public TalkForumCreateResponseDTO(TalkForum post) {
 		this.id = post.getId();
-		this.post = post.getPost();
+		this.title = post.getTitle();
 		this.datePost = post.getDatePost();
 		this.user = new UserDTO(post.getUser());
 	}

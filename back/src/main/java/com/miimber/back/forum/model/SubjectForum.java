@@ -36,5 +36,5 @@ public class SubjectForum {
 	private CategoryForum category;
     
 	@OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE)
-    private List<PostForum> posts;
+    private List<TalkForum> posts;
 }

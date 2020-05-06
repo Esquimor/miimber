@@ -1,39 +1,28 @@
 <template>
-  <div class="DashboardOrganizationSessions" v-if="!loading">
-    <div class="DashboardOrganizationSessions-search">
-      <div class="columns">
-        <div class="column">
-          <BField :label="$t('organization.sessions.label.search')">
-            <BInput v-model="search" type="search"></BInput>
-          </BField>
-        </div>
-        <div class="column">
-          <BField :label="$t('organization.sessions.label.between')">
-            <BDatepicker
-              v-model="dates"
-              range
-              @input="setSessions"
-              :nearbyMonthDays="false"
-            ></BDatepicker>
-          </BField>
+  <TemplateOrganization :loading="loading">
+    <div class="DashboardOrganizationSessions">
+      <div class="DashboardOrganizationSessions-search">
+        <div class="columns">
+          <div class="column">
+            <BField :label="$t('organization.sessions.label.search')">
+              <BInput v-model="search" type="search"></BInput>
+            </BField>
+          </div>
+          <div class="column">
+            <BField :label="$t('organization.sessions.label.between')">
+              <BDatepicker v-model="dates" range @input="setSessions" :nearbyMonthDays="false"></BDatepicker>
+            </BField>
+          </div>
         </div>
       </div>
+      <div v-if="sessionByDate.length > 0" class="DashboardOrganizationSessions-sessions">
+        <SessionList v-for="date in sessionByDate" :key="date.item" :date="date" hideOrganization />
+      </div>
+      <div v-else class="DashboardOrganizationSessions-empty">
+        <span>{{ $t("dashboard.session.label.empty") }}</span>
+      </div>
     </div>
-    <div
-      v-if="sessionByDate.length > 0"
-      class="DashboardOrganizationSessions-sessions"
-    >
-      <SessionList
-        v-for="date in sessionByDate"
-        :key="date.item"
-        :date="date"
-        hideOrganization
-      />
-    </div>
-    <div v-else class="DashboardOrganizationSessions-empty">
-      <span>{{ $t("dashboard.session.label.empty") }}</span>
-    </div>
-  </div>
+  </TemplateOrganization>
 </template>
 
 <script>
@@ -43,11 +32,14 @@ import { mapGetters } from "vuex";
 
 import dayjs from "dayjs";
 
+import TemplateOrganization from "@dashboard/template/TemplateOrganization";
+
 import SessionList from "@dashboard/components/session/list/SessionList";
 
 export default {
   name: "DashboardOrganizationSessions",
   components: {
+    TemplateOrganization,
     SessionList
   },
   data() {
@@ -148,12 +140,6 @@ export default {
 
 <style lang="scss">
 .DashboardOrganizationSessions {
-  width: 100%;
-  padding: 1rem;
-  background-color: $white;
-  border: 1px solid $grey-lightest;
-  min-height: 80vh;
-  border-radius: 5px;
   &-empty {
     display: flex;
     justify-content: center;

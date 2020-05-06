@@ -1,4 +1,4 @@
-package com.miimber.back.forum.dto.post;
+package com.miimber.back.forum.dto.talk;
 
 import java.time.OffsetDateTime;
 
@@ -8,12 +8,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class PostForumCreateRequestDTO {
+public class TalkForumCreateRequestDTO {
 
 	@NotNull
-	private String post;
-	@NotNull
-	private OffsetDateTime datePost;
+	private String title;
 	@NotNull
 	private Long idSubject;
+	@NotNull
+	private String message;
 }

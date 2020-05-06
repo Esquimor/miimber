@@ -11,7 +11,5 @@ public class SubjectForumCreateRequestDTO {
 	@NotNull
 	private String title;
 	@NotNull
-	private Integer position;
-	@NotNull
 	private Long idCategory;
 }

@@ -89,7 +89,7 @@ public class SubjectForumController {
         SubjectForum subject = new SubjectForum();
         subject.setCategory(category);
         subject.setTitle(subjectDto.getTitle());
-        subject.setPosition(subjectDto.getPosition());
+        subject.setPosition(category.getSubjects().size());
         
         return ResponseEntity.ok(new SubjectForumCreateUpdateResponseDTO(subjectService.create(subject)));
 	}
@@ -121,8 +121,8 @@ public class SubjectForumController {
         return ResponseEntity.ok(new SubjectForumCreateUpdateResponseDTO(subjectService.update(subject)));
 	}
 	
-	@RequestMapping(value = "/organization/{idOrg}/forum/subject", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateSubjects(@PathVariable Long idOrg, @PathVariable Long idSub, @RequestBody SubjectForumMultipleUpdateRequestDTO subjectsDto) throws Exception {
+	@RequestMapping(value = "/organization/{idOrg}/forum/subject/", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateSubjects(@PathVariable Long idOrg, @RequestBody SubjectForumMultipleUpdateRequestDTO subjectsDto) throws Exception {
 		User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Member member = memberService.getMemberByOrganizationIdAndByUser(idOrg, user);
