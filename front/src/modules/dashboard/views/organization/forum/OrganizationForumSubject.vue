@@ -19,7 +19,7 @@
         </div>
       </header>
       <div class="DashboardOrganizationForumSubject-talks">
-        <OrganizationForumTalkItem v-for="talk in subject.talks" :key="talk.id" :talk="talk" />
+        <OrganizationForumTalkItem v-for="talk in orderTalks" :key="talk.id" :talk="talk" />
       </div>
     </div>
   </TemplateOrganization>
@@ -27,6 +27,8 @@
 
 <script>
 "use strict";
+
+import dayjs from "dayjs";
 
 import { mapGetters } from "vuex";
 
@@ -50,7 +52,14 @@ export default {
   computed: {
     ...mapGetters({
       subject: "dashboard/organizationForumSubject"
-    })
+    }),
+    orderTalks() {
+      if (!this.subject.talks) return [];
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      return this.subject.talks.sort((a, b) =>
+        dayjs(a.dateTalk).isBefore(dayjs(b.dateTalk))
+      );
+    }
   },
   methods: {
     addTalk() {
@@ -73,13 +82,19 @@ export default {
 .DashboardOrganizationForumSubject {
   display: flex;
   flex-direction: column;
+  border: 1px solid $white-ter;
+  border-radius: 5px;
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid $white-ter;
+    border-bottom: 1px solid $grey-lightest;
+    background-color: $white-bis;
     padding: 0.5rem;
-    border-radius: 5px;
+  }
+  &-talks {
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>

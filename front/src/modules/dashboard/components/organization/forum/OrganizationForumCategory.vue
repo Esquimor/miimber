@@ -3,7 +3,7 @@
     <div class="DashboardOrganizationForumCategory-category text is-size-5">{{ category.title }}</div>
     <div class="DashboardOrganizationForumCategory-subjects">
       <OrganizationForumSubjectItem
-        v-for="subject in category.subjects"
+        v-for="subject in orderSubjects"
         :key="subject.id"
         :subject="subject"
         class="DashboardOrganizationForumCategory-subject"
@@ -26,6 +26,12 @@ export default {
     category: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    orderSubjects() {
+      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+      return this.category.subjects.sort((a, b) => a.position - b.position);
     }
   }
 };

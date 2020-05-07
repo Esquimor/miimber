@@ -23,5 +23,8 @@ export default {
 .DashboardOrganizationForumSubjectItem {
   padding: 0.5rem;
   color: $black-ter;
+  &:hover {
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+  }
 }
 </style>

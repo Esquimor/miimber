@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.miimber.back.core.helper.Helper;
 import com.miimber.back.forum.dto.talk.TalkForumCreateRequestDTO;
 import com.miimber.back.forum.dto.talk.TalkForumCreateResponseDTO;
+import com.miimber.back.forum.dto.talk.TalkForumReadResponseDTO;
 import com.miimber.back.forum.model.TalkForum;
+import com.miimber.back.forum.model.MessageForum;
 import com.miimber.back.forum.model.SubjectForum;
 import com.miimber.back.forum.service.TalkForumService;
+import com.miimber.back.forum.service.MessageForumService;
 import com.miimber.back.forum.service.SubjectForumService;
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.service.MemberService;
@@ -40,9 +43,12 @@ public class TalkForumController {
 	
 	@Autowired
 	private SubjectForumService subjectService;
+	
+	@Autowired
+	private MessageForumService messageService;
 
 	@RequestMapping(value = "/organization/{idOrg}/forum/talk/", method = RequestMethod.POST)
-	public ResponseEntity<?> createPost(@PathVariable Long idOrg, @RequestBody TalkForumCreateRequestDTO talkDto) throws Exception {
+	public ResponseEntity<?> createTalk(@PathVariable Long idOrg, @RequestBody TalkForumCreateRequestDTO talkDto) throws Exception {
 		User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         
         Member member = memberService.getMemberByOrganizationIdAndByUser(idOrg, user);
@@ -58,12 +64,45 @@ public class TalkForumController {
         if (subject.getCategory().getOrganization().getId() != idOrg) {
         	return new ResponseEntity(HttpStatus.CONFLICT);
         }
-        TalkForum post = new TalkForum();
-        post.setDatePost(OffsetDateTime.now());
-        post.setTitle(talkDto.getTitle());
-        post.setSubject(subject);
-        post.setUser(user);
+        TalkForum talk = new TalkForum();
+        talk.setDateTalk(OffsetDateTime.now());
+        talk.setTitle(talkDto.getTitle());
+        talk.setSubject(subject);
+        talk.setUser(user);
         
-        return ResponseEntity.ok(new TalkForumCreateResponseDTO(talkService.create(post)));
+        talk = talkService.create(talk);
+        
+        MessageForum message = new MessageForum();
+        message.setDateMessage(OffsetDateTime.now());
+        message.setTalk(talk);
+        message.setMessage(talkDto.getMessage());
+        message.setUser(user);
+        
+        messageService.create(message);
+        
+        return ResponseEntity.ok(new TalkForumCreateResponseDTO(talk));
+	}
+	
+	@RequestMapping(value = "/organization/{idOrg}/forum/talk/{idTalk}", method = RequestMethod.GET)
+	public ResponseEntity<?> readTalk(@PathVariable Long idOrg, @PathVariable Long idTalk) throws Exception {
+		TalkForum talk = talkService.get(idTalk);
+		
+		if (talk == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		
+		if (talk.getSubject().getCategory().getOrganization().getId() != idOrg) {
+			return new ResponseEntity(HttpStatus.CONFLICT);
+		}
+		
+		User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Member member = memberService.getMemberByOrganizationIdAndByUser(idOrg, user);
+        
+        if (member == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(new TalkForumReadResponseDTO(talk));
 	}
 }

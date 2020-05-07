@@ -16,6 +16,7 @@ export default {
     organizations: [],
     organizationsCategoriesForum: [],
     organizationForumSubject: {},
+    organizationForumTalk: {},
     sessions: [],
     session: null,
     sessionUsers: [],
@@ -27,6 +28,7 @@ export default {
     organizationMembers: (state) => state.organizationMembers,
     organizationsCategoriesForum: (state) => state.organizationsCategoriesForum,
     organizationForumSubject: (state) => state.organizationForumSubject,
+    organizationForumTalk: (state) => state.organizationForumTalk,
     sessions: (state) => state.sessions,
     canChangeOrganization: (state) => {
       return (
@@ -234,6 +236,33 @@ export default {
           commit(types.DASH_ADD_FORUM_SUBJECT_TALK, data);
         });
     },
+    setForumTalk({ commit, state }, id) {
+      return api
+        .get(
+          `organization/${state.organization.id}/forum/talk/${id}`,
+          {},
+          { errorRedirect: true }
+        )
+        .then(({ data }) => {
+          commit(types.DASH_SET_FORUM_TALK, data);
+        });
+    },
+    addMessage({ commit, state }, { message }) {
+      return api
+        .post(
+          `organization/${state.organization.id}/forum/message/`,
+          {
+            message,
+            talkId: state.organizationForumTalk.id,
+          },
+          {
+            errorMessage: true,
+          }
+        )
+        .then(({ data }) => {
+          commit(types.DASH_ADD_FORUM_TALK_MESSAGE, data);
+        });
+    },
   },
   mutations: {
     [types.DASH_SET_ORGANIZATIONS](state, organizations) {
@@ -295,6 +324,12 @@ export default {
     },
     [types.DASH_ADD_FORUM_SUBJECT_TALK](state, talk) {
       state.organizationForumSubject.talks.push(talk);
+    },
+    [types.DASH_SET_FORUM_TALK](state, talk) {
+      state.organizationForumTalk = talk;
+    },
+    [types.DASH_ADD_FORUM_TALK_MESSAGE](state, message) {
+      state.organizationForumTalk.messages.push(message);
     },
   },
 };

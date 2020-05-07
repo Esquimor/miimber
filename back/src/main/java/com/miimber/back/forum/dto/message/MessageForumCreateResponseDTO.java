@@ -1,26 +1,26 @@
-package com.miimber.back.forum.dto.talk;
+package com.miimber.back.forum.dto.message;
 
 import java.time.OffsetDateTime;
 
-import com.miimber.back.forum.model.TalkForum;
+import com.miimber.back.forum.model.MessageForum;
 import com.miimber.back.user.model.User;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class TalkForumCreateResponseDTO {
+public class MessageForumCreateResponseDTO {
 
 	private Long id;
-	private String title;
-	private OffsetDateTime datePost;
+	private String message;
+	private OffsetDateTime dateMessage;
 	private UserDTO user;
 	
-	public TalkForumCreateResponseDTO(TalkForum post) {
-		this.id = post.getId();
-		this.title = post.getTitle();
-		this.datePost = post.getDateTalk();
-		this.user = new UserDTO(post.getUser());
+	public MessageForumCreateResponseDTO(MessageForum message) {
+		this.id = message.getId();
+		this.message = message.getMessage();
+		this.dateMessage = message.getDateMessage();
+		this.user = new UserDTO(message.getUser());
 	}
 	
 	@Getter @Setter

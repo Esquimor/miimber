@@ -47,13 +47,13 @@ public class SubjectForumReadResponseDTO {
 		
 		private Long id;
 		private String title;
-		private OffsetDateTime datePost;
+		private OffsetDateTime dateTalk;
 		private UserDTO user;
 		
 		public TalkDTO(TalkForum talk) {
 			this.id = talk.getId();
 			this.title = talk.getTitle();
-			this.datePost = talk.getDatePost();
+			this.dateTalk = talk.getDateTalk();
 			this.user = new UserDTO(talk.getUser());
 		}
 		

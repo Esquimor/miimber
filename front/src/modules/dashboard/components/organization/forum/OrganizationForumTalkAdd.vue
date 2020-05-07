@@ -65,16 +65,13 @@ export default {
           message: this.message.getHTML(),
           idSubject: this.$route.params.idSubject
         })
-        .then(idTalk => {
+        .then(() => {
           this.$buefy.toast.open({
             message: this.$t("dashboard.organization.subjectForum.add.success"),
             type: "is-success"
           });
           this.loading = false;
-          this.$router.push({
-            name: "dashboard-organization-forum-talk",
-            params: { idTalk: idTalk }
-          });
+          this.$store.dispatch("core/closeSideBar");
         })
         .catch(() => {
           this.loading = false;
