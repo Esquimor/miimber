@@ -1,13 +1,13 @@
 <template>
-  <div v-if="!loading" class="DashboardOrganizationMembers">
-    <div class="DashboardOrganizationMembers-members">
+  <TemplateOrganization :loading="loading">
+    <div class="DashboardOrganizationMembers">
       <SessionUserItem
         v-for="member in members"
         :key="member.id"
         :user="member"
       />
     </div>
-  </div>
+  </TemplateOrganization>
 </template>
 
 <script>
@@ -15,11 +15,14 @@
 
 import { mapGetters } from "vuex";
 
+import TemplateOrganization from "@dashboard/template/TemplateOrganization";
+
 import SessionUserItem from "@dashboard/components/session/SessionUserItem";
 
 export default {
   name: "DashboardOrganizationMembers",
   components: {
+    TemplateOrganization,
     SessionUserItem
   },
   data() {
@@ -29,10 +32,20 @@ export default {
   },
   computed: {
     ...mapGetters({
-      members: "dashboard/organizationMembers"
+      members: "dashboard/organizationMembers",
+      isOrganizationArchived: "dashboard/isOrganizationArchived",
+      isOrganizationSuspended: "dashboard/isOrganizationSuspended"
     })
   },
   mounted() {
+    if (this.isOrganizationArchived) {
+      this.$router.push({
+        name: "dashboard-organization-archived",
+        params: { id: this.$route.params.id }
+      });
+      this.loading = false;
+      return;
+    }
     this.$store
       .dispatch("dashboard/setOrganizationMembers", this.$route.params.id)
       .then(() => {
@@ -47,15 +60,7 @@ export default {
 
 <style lang="scss">
 .DashboardOrganizationMembers {
-  width: 100%;
-  padding: 1rem;
-  background-color: $white;
-  border: 1px solid $grey-lightest;
-  min-height: 80vh;
-  border-radius: 5px;
-  &-members {
-    display: flex;
-    flex-wrap: wrap;
-  }
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

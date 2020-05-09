@@ -61,14 +61,16 @@ export default {
         description:
           "Vous pouvez changer le moyen de paiement de votre organisation",
         button: "Changer",
-        success: "Moyen de paiement modifié"
+        success: "Moyen de paiement modifié",
+        invalid:
+          "La carte actuel n'est plus valide. Merci de changer pour continuer sur Miimber."
       },
-      delete: {
-        title: "Supprimer l'organisation",
+      archive: {
+        title: "Archiver l'organisation",
         description:
-          "Une organisation supprimée n'est pas récupérable. Soyez en sûrs.",
-        button: "Suppimer votre organisation",
-        success: "Organisation supprimée"
+          "Une organisation archivée n'est pas récupérable. Plus aucun élément de l'organisation ne sera accessible. Le paiement s'arrête avant la prochaine échéance.",
+        button: "Archiver votre organisation",
+        success: "Organisation archivée"
       }
     },
     sessions: {
@@ -130,6 +132,41 @@ export default {
       },
       label: {
         name: "Nom"
+      }
+    },
+    forum: {
+      title: "Forum",
+      label: {
+        title: "Titre",
+        add: "Ajouter une categorie"
+      },
+      add: {
+        title: "Ajouté une categorie",
+        success: "Categorie ajouté"
+      },
+      delete: {
+        title: "Supprimer une catégorie",
+        message: "Êtez-vous sur de supprimer la catégorie ?",
+        success: "Catégorie supprimée"
+      }
+    },
+    subjectforum: {
+      label: {
+        title: "Titre",
+        add: "Ajouter un sujet"
+      },
+      add: {
+        title: "Ajouté un sujet",
+        success: "Sujet ajouté"
+      },
+      delete: {
+        title: "Supprimer un sujet",
+        message: "Êtez-vous sur de supprimer le sujet ?",
+        success: "Sujet supprimée"
+      },
+      edit: {
+        title: "Modifier un sujet",
+        success: "Sujet modifiée"
       }
     }
   }

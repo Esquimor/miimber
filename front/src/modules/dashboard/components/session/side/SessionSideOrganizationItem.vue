@@ -3,7 +3,7 @@
     class="DashboardSideSessionOrganizationItem"
     :to="{
       name: 'dashboard-organization-sessions',
-      params: { id: organization.id },
+      params: { id: organization.id }
     }"
   >
     <img :src="image" class="DashboardSideSessionOrganizationItem-image" />
@@ -22,16 +22,16 @@ export default {
   props: {
     organization: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     image() {
       return this.organization.image
         ? this.organization.image
         : require("@/assets/imagePlaceholder.png");
-    },
-  },
+    }
+  }
 };
 </script>
 

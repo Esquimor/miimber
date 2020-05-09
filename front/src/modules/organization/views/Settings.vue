@@ -1,7 +1,15 @@
 <template>
   <div class="OrganizationSettings">
-    <div class="OrganizationSettings-stripe">
+    <div v-if="!organization.isFree" class="OrganizationSettings-stripe">
       <h2 class="title is-5">{{ $t("organization.settings.stripe.title") }}</h2>
+      <b-notification
+        v-if="!organization.isFree && !organization.isPayed"
+        type="is-warning"
+        aria-close-label="Close notification"
+        role="alert"
+        class="OrganizationSettings-stripe-notification"
+        >{{ $t("organization.settings.stripe.invalid") }}</b-notification
+      >
       <h3 class="subtitle is-6 OrganizationSettings-stripe-description">
         {{ $t("organization.settings.stripe.description") }}
       </h3>
@@ -34,10 +42,17 @@
 <script>
 "use strict";
 
+import { mapGetters } from "vuex";
+
 import OrganizationSettingsEditStripe from "@organization/components/settings/OrganizationSettingsEditStripe";
 
 export default {
   name: "OrganizationSettings",
+  computed: {
+    ...mapGetters({
+      organization: "organization/organization"
+    })
+  },
   methods: {
     stripeOrganization() {
       this.$store.dispatch("core/openSideBar", {
@@ -46,17 +61,17 @@ export default {
     },
     deleteOrganization() {
       this.$buefy.dialog.confirm({
-        title: this.$t("organization.settings.delete.title"),
-        message: this.$t("organization.settings.delete.description"),
+        title: this.$t("organization.settings.archive.title"),
+        message: this.$t("organization.settings.archive.description"),
         confirmText: this.$t("core.utils.confirm"),
         cancelText: this.$t("core.utils.cancel"),
         type: "is-danger",
         hasIcon: true,
         onConfirm: () => {
-          this.$store.dispatch("organization/deleteOrganization").then(() => {
+          this.$store.dispatch("organization/archiveOrganization").then(() => {
             this.$router.push({ name: "settings-organization" });
             this.$buefy.toast.open({
-              message: this.$t("organization.settings.delete.success"),
+              message: this.$t("organization.settings.archive.success"),
               type: "is-success"
             });
           });
@@ -73,6 +88,10 @@ export default {
     margin-bottom: 2rem;
     &-description {
       margin-bottom: 0.5rem !important;
+    }
+    &-notification {
+      width: 100%;
+      max-width: 450px;
     }
   }
   &-delete {

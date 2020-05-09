@@ -65,9 +65,9 @@
                 session.end | formatHour
               }}
             </span>
-            <span class="DashboardSession-bottom-info-title text is-size-5">{{
-              session.title
-            }}</span>
+            <span class="DashboardSession-bottom-info-title text is-size-5">
+              {{ session.title }}
+            </span>
           </div>
           <SessionButtonRegistered
             class="DashboardSession-bottom-button"
@@ -109,13 +109,13 @@ export default {
     SessionContentDescription,
     SessionContentRegistereds,
     SessionComment,
-    SessionButtonRegistered,
+    SessionButtonRegistered
   },
   data() {
     return {
       loadingRegisterd: false,
       loadingComponent: null,
-      loading: true,
+      loading: true
     };
   },
   computed: {
@@ -123,7 +123,7 @@ export default {
       session: "dashboard/session",
       isInsctructorOrganization: "dashboard/isInsctructorOrganization",
       userRegistered: "dashboard/userRegistered",
-      getUserForSession: "dashboard/getUserForSession",
+      getUserForSession: "dashboard/getUserForSession"
     }),
     dateLabel() {
       if (!this.session) return "";
@@ -136,19 +136,19 @@ export default {
     },
     registeredsTaken() {
       return this.session.registereds.filter(
-        (r) => r.status === STATUS_REGISTERED.TAKEN
+        r => r.status === STATUS_REGISTERED.TAKEN
       );
     },
     registeredsWaiting() {
       return this.session.registereds.filter(
-        (r) => r.status === STATUS_REGISTERED.WAITING
+        r => r.status === STATUS_REGISTERED.WAITING
       );
     },
     showRegister() {
       const now = dayjs();
       const start = dayjs(this.session.start);
       return now.isBefore(start);
-    },
+    }
   },
   methods: {
     registerd() {
@@ -157,7 +157,7 @@ export default {
       this.$store.dispatch("dashboard/registered", this.session.id).then(() => {
         this.$buefy.toast.open({
           message: this.$t("dashboard.session.registered.success"),
-          type: "is-success",
+          type: "is-success"
         });
         this.loadingRegisterd = false;
       });
@@ -180,11 +180,11 @@ export default {
             .then(() => {
               this.$buefy.toast.open({
                 message: this.$t("dashboard.session.unsubscribe.success"),
-                type: "is-success",
+                type: "is-success"
               });
               this.loadingRegisterd = false;
             });
-        },
+        }
       });
     },
     startLoading() {
@@ -197,7 +197,7 @@ export default {
         this.loadingComponent = null;
         this.loading = false;
       }
-    },
+    }
   },
   mounted() {
     this.loading = true;
@@ -213,7 +213,7 @@ export default {
           this.loading = false;
         });
     });
-  },
+  }
 };
 </script>
 

@@ -2,22 +2,42 @@ export default {
   dashboard: {
     menu: {
       menu: "Menu",
-      account: "My account",
+      account: "My account"
     },
     panel: {
       sessions: "Sessions",
-      organizations: "Organizations",
+      organizations: "Organizations"
     },
     organization: {
       table: {
-        name: "Name",
+        name: "Name"
       },
       label: {
         list: "My organizations",
         sessions: "Sessions",
         members: "Members",
-        empty: "You are not a member of an organization",
+        forum: "Forum",
+        empty: "You are not a member of an organization"
       },
+      subjectForum: {
+        add: {
+          title: "Add a talk",
+          success: "Talk added"
+        },
+        label: {
+          title: "Titre",
+          message: "Message",
+          placeholder: "My message"
+        }
+      },
+      archive: {
+        tag: "Archived",
+        title: "This organization is no longer available."
+      },
+      suspended: {
+        tag: "Suspended",
+        title: "This organization is temporarily unavailable."
+      }
     },
     session: {
       label: {
@@ -38,31 +58,31 @@ export default {
         registeredEmpty: "No registrant",
         search: "Search",
         emptyUsers: "Empty",
-        empty: "No session found",
+        empty: "No session found"
       },
       emerge: {
         table: {
           name: "Name",
-          present: "Present",
-        },
+          present: "Present"
+        }
       },
       comment: {
         title: "Comments",
         add: "Add a comment",
-        success: "Comment added",
+        success: "Comment added"
       },
       registered: {
         empty: "Nobody is registered for this session.",
         table: {
-          name: "Name",
+          name: "Name"
         },
-        success: "Registered",
+        success: "Registered"
       },
       unsubscribe: {
         title: "Cancelled",
         message: "Are you sure to unsubscribe ?",
-        success: "Unsubscribe",
-      },
-    },
-  },
+        success: "Unsubscribe"
+      }
+    }
+  }
 };

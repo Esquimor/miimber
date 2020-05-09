@@ -68,6 +68,7 @@ export default {
         title: this.$t("organization.typeSessions.delete.title"),
         message: this.$t("organization.typeSessions.delete.message"),
         confirmText: this.$t("core.utils.delete"),
+        cancelText: this.$t("core.utils.cancel"),
         type: "is-danger",
         hasIcon: true,
         onConfirm: () => {

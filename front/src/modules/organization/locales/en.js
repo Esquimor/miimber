@@ -55,12 +55,20 @@ export default {
     },
     settings: {
       title: "Settings",
-      delete: {
-        title: "Delete organization",
+      stripe: {
+        title: "Change payment method",
+        description: "You can change the payment method of your organization",
+        button: "Change",
+        success: "Modified payment method",
+        invalid:
+          "The current card is no longer valid. Please change to continue on Miimber."
+      },
+      archive: {
+        title: "Archive organization",
         description:
-          "Once you delete your organization, there is no going back. Please be certain.",
-        button: "Delete your organization",
-        success: "Organization deleted"
+          "An archived organization is not recoverable. No more elements of the organization will be accessible. Payment stops before the next due date.",
+        button: "Archive your organization",
+        success: "Organization archived"
       }
     },
     sessions: {
@@ -122,6 +130,44 @@ export default {
       },
       label: {
         name: "Name"
+      }
+    },
+    forum: {
+      title: "Forum",
+      label: {
+        title: "Title",
+        add: "Add a category"
+      },
+      add: {
+        title: "Add a category",
+        success: "Category added"
+      },
+      delete: {
+        title: "Delete a category",
+        message: "Do you really want to delete this category ?",
+        success: "Category deleted"
+      },
+      edit: {
+        success: "Category edited"
+      }
+    },
+    subjectforum: {
+      label: {
+        title: "Title",
+        add: "Add a subject"
+      },
+      add: {
+        title: "Add a subject",
+        success: "Subject added"
+      },
+      delete: {
+        title: "Delete a subject",
+        message: "Do you really want to delete this subject ?",
+        success: "Subject deleted"
+      },
+      edit: {
+        title: "Edit a subject",
+        success: "Subject edited"
       }
     }
   }

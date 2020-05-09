@@ -6,10 +6,23 @@
           <h1 class="DashboardOrganization-header-title title is-3">
             {{ organization.name }}
           </h1>
+          <b-tag
+            v-if="isOrganizationArchive"
+            type="is-danger"
+            class="DashboardOrganization-header-tag"
+            >{{ $t("dashboard.organization.archive.tag") }}</b-tag
+          >
+          <b-tag
+            v-if="isOrganizationSuspended"
+            type="is-warning"
+            class="DashboardOrganization-header-tag"
+            >{{ $t("dashboard.organization.suspended.tag") }}</b-tag
+          >
         </div>
       </header>
       <nav class="DashboardOrganization-nav">
         <router-link
+          v-if="isOrganizationActive"
           class="DashboardOrganization-nav-item"
           :to="{
             name: 'dashboard-organization-sessions',
@@ -18,6 +31,16 @@
           >{{ $t("dashboard.organization.label.sessions") }}</router-link
         >
         <router-link
+          v-if="isMemberOrganization && isOrganizationActive"
+          class="DashboardOrganization-nav-item"
+          :to="{
+            name: 'dashboard-organization-forum',
+            params: { id: organization.id }
+          }"
+          >{{ $t("dashboard.organization.label.forum") }}</router-link
+        >
+        <router-link
+          v-if="!isOrganizationArchive"
           class="DashboardOrganization-nav-item"
           :to="{
             name: 'dashboard-organization-members',
@@ -56,7 +79,11 @@ export default {
   computed: {
     ...mapGetters({
       organization: "dashboard/organization",
-      canChangeOrganization: "dashboard/canChangeOrganization"
+      canChangeOrganization: "dashboard/canChangeOrganization",
+      isMemberOrganization: "dashboard/isMemberOrganization",
+      isOrganizationActive: "dashboard/isOrganizationActive",
+      isOrganizationArchive: "dashboard/isOrganizationArchive",
+      isOrganizationSuspended: "dashboard/isOrganizationSuspended"
     }),
     title() {
       return this.loading ? "" : this.organization.name;
@@ -99,9 +126,17 @@ export default {
     padding: 1rem 0.5rem 1rem;
     box-shadow: 0 1px 0 $grey-lightest;
     &-wrapper {
+      display: flex;
+      align-items: flex-end;
       width: 100%;
       max-width: 960px;
       margin: 0 auto;
+    }
+    &-title {
+      margin-bottom: 0px !important;
+    }
+    &-tag {
+      margin-left: 0.5rem;
     }
   }
   &-nav {

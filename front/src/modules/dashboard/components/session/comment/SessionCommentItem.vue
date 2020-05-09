@@ -2,7 +2,9 @@
   <div class="DashboardSessionCommentItem">
     <div
       class="DashboardSessionCommentItem-head text is-size-7 has-text-weight-medium"
-    >{{ comment.user.firstName}} {{ comment.user.lastName}}</div>
+    >
+      {{ comment.user.firstName }} {{ comment.user.lastName }}
+    </div>
     <div class="DashboardSessionCommentItem-content" v-html="comment.comment" />
   </div>
 </template>

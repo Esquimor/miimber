@@ -26,13 +26,13 @@ export default {
   props: {
     isRegistered: {
       type: Boolean,
-      default: true,
+      default: true
     },
     loading: {
       type: Boolean,
-      default: true,
-    },
-  },
+      default: true
+    }
+  }
 };
 </script>
 

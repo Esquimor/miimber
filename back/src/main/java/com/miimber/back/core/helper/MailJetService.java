@@ -18,6 +18,7 @@ import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
 import com.mailjet.client.resource.Emailv31;
 import com.miimber.back.core.enums.LangEnum;
+import com.miimber.back.organization.model.Organization;
 import com.miimber.back.session.model.Session;
 
 @Service
@@ -256,6 +257,33 @@ public class MailJetService {
 				.put("session", session.getTitle())
 				.put("organization", session.getOrganization().getName())
 				.put("date", date),
+    			idTemplate
+    		);
+    }
+    
+    public MailjetResponse sendEmailPaymentFailed(String email, String name, LangEnum lang, Organization organization) throws JSONException, MailjetException, MailjetSocketTimeoutException {
+    	Integer idTemplate;
+    	String subject;
+    	
+    	switch(lang) {
+    		case FR:
+    			idTemplate = 1403281;
+    			subject = "Paiement refusé";
+    			break;
+    		default:
+    			idTemplate = 1403284;
+    			subject = "Payment failed";
+    			break;
+    	}
+    	
+    	return this.sendEmail(
+    			"no-reply@test280407.ga",
+    			"Miimber",
+    			email,
+    			name,
+    			subject,
+    			new JSONObject()
+				.put("organization", organization.getName()),
     			idTemplate
     		);
     }

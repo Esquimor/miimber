@@ -161,6 +161,9 @@ export default {
               .then(() => {
                 that.loading = false;
                 that.$router.push({ name: "settings-organization" });
+              })
+              .catch(() => {
+                that.loading = false;
               });
           }
         });

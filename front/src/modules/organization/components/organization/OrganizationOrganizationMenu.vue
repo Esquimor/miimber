@@ -1,6 +1,7 @@
 <template>
   <div class="OrganizationOrganizationMenu">
     <router-link
+      v-if="isPayed"
       :to="{ name: NAV.MEMBERS }"
       class="OrganizationOrganizationMenu-link"
       @click.native="setRouterAndNav(ROUTER.MEMBERS, NAV.MEMBERS)"
@@ -13,6 +14,7 @@
       <span>{{ $t("organization.members.title") }}</span>
     </router-link>
     <router-link
+      v-if="isPayed"
       :to="{ name: NAV.SESSIONS }"
       class="OrganizationOrganizationMenu-link"
       @click.native="setRouterAndNav(ROUTER.SESSIONS, NAV.SESSIONS)"
@@ -25,7 +27,7 @@
       <span>{{ $t("organization.sessions.title") }}</span>
     </router-link>
     <div
-      v-if="router === ROUTER.SESSIONS"
+      v-if="router === ROUTER.SESSIONS && isPayed"
       class="OrganizationOrganizationMenu-sublink"
     >
       <router-link
@@ -36,6 +38,19 @@
         <span>{{ $t("organization.typeSessions.title") }}</span>
       </router-link>
     </div>
+    <router-link
+      v-if="isPayed"
+      :to="{ name: NAV.FORUM }"
+      class="OrganizationOrganizationMenu-link"
+      @click.native="setRouterAndNav(ROUTER.FORUM, NAV.FORUM)"
+    >
+      <BIcon
+        size="is-small"
+        icon="forum"
+        class="OrganizationOrganizationMenu-link-icon"
+      />
+      <span>{{ $t("organization.forum.title") }}</span>
+    </router-link>
     <router-link
       :to="{ name: NAV.SETTINGS }"
       class="OrganizationOrganizationMenu-link"
@@ -55,16 +70,19 @@
       expanded
       v-model="nav"
     >
-      <option :value="NAV.MEMBERS">{{
+      <option v-if="isPayed" :value="NAV.MEMBERS">{{
         $t("organization.members.title")
       }}</option>
-      <option :value="NAV.SESSIONS">{{
+      <option v-if="isPayed" :value="NAV.SESSIONS">{{
         $t("organization.sessions.title")
       }}</option>
-      <option :value="NAV.SESSIONS_TYPES"
-        >{{ $t("organization.sessions.title") }} -
-        {{ $t("organization.typeSessions.title") }}</option
-      >
+      <option v-if="isPayed" :value="NAV.SESSIONS_TYPES">
+        {{ $t("organization.sessions.title") }} -
+        {{ $t("organization.typeSessions.title") }}
+      </option>
+      <option v-if="isPayed" :value="NAV.FORUM">{{
+        $t("organization.forum.title")
+      }}</option>
       <option :value="NAV.SETTINGS">{{
         $t("organization.settings.title")
       }}</option>
@@ -79,6 +97,7 @@ const ROUTER = {
   MEMBERS: "MEMBERS",
   SESSIONS: "SESSIONS",
   SETTINGS: "SETTINGS",
+  FORUM: "FORUM",
   NOT_FOUND: "NOT_FOUND"
 };
 
@@ -86,8 +105,11 @@ const NAV = {
   MEMBERS: "organization-manage-members",
   SESSIONS: "organization-manage-sessions",
   SESSIONS_TYPES: "organization-manage-sessions-types",
-  SETTINGS: "organization-manage-settings"
+  SETTINGS: "organization-manage-settings",
+  FORUM: "organization-manage-forum"
 };
+
+import { mapGetters } from "vuex";
 
 export default {
   name: "OrganizationOrganizationMenu",
@@ -98,6 +120,14 @@ export default {
       nav: "",
       NAV: NAV
     };
+  },
+  computed: {
+    ...mapGetters({
+      organization: "organization/organization"
+    }),
+    isPayed() {
+      return this.organization.isPayed || this.organization.isFree;
+    }
   },
   methods: {
     setRouterAndNav(router, nav) {
@@ -111,12 +141,12 @@ export default {
       case "organization-manage-members":
         this.router = ROUTER.MEMBERS;
         break;
-      case "organization-manage-sessions":
+      case NAV.SESSIONS:
       case "organization-manage-sessions-types":
         this.router = ROUTER.SESSIONS;
         break;
 
-      case "organization-manage-settings":
+      case NAV.SETTINGS:
         this.router = ROUTER.SETTINGS;
         break;
 

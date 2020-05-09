@@ -1,5 +1,6 @@
 package com.miimber.back.session.controller;
 
+import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -47,9 +48,6 @@ public class SessionController {
 	private SessionService sessionService;
 	
 	@Autowired
-	private RegisteredSessionService registeredService;
-	
-	@Autowired
 	private TypeSessionService typeSessionService;
 	
 	@Autowired
@@ -72,6 +70,10 @@ public class SessionController {
         
         if (session == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        
+        if (!session.getOrganization().isActif()) {
+        	return new ResponseEntity(HttpStatus.CONFLICT);
         }
         
         Member member = memberService.getMemberByOrganizationAndByUser(session.getOrganization(), user);

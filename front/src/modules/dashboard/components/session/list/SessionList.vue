@@ -20,25 +20,25 @@ import SessionItem from "@dashboard/components/session/list/SessionListItem";
 export default {
   name: "DashboardSessionList",
   components: {
-    SessionItem,
+    SessionItem
   },
   props: {
     date: {
       type: Object,
-      required: true,
+      required: true
     },
     hideOrganization: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   computed: {
     dateLabel() {
       return `${this.$t(`core.daysNumber.${this.date.day}`)} ${
         this.date.date
       } ${this.$t(`core.monthsNumber.${this.date.month}`)}`;
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -10,13 +10,15 @@ export default {
   state: {
     organization: null,
     typeSessions: [],
-    sessions: []
+    sessions: [],
+    categoriesForum: []
   },
   getters: {
     organization: state => state.organization,
     organizationMembers: state => state.organization.members,
     typeSessions: state => state.typeSessions,
-    sessions: state => state.sessions
+    sessions: state => state.sessions,
+    categoriesForum: state => state.categoriesForum
   },
   actions: {
     setOrganization({ commit, dispatch }, id) {
@@ -47,10 +49,10 @@ export default {
           return Promise.reject(e);
         });
     },
-    deleteOrganization({ state }) {
+    archiveOrganization({ state }) {
       return api
         .delete(
-          `organization/${state.organization.id}`,
+          `organization/${state.organization.id}/archive`,
           {},
           { errorMessage: true }
         )
@@ -291,6 +293,174 @@ export default {
         .catch(e => {
           return Promise.reject(e);
         });
+    },
+    setForum({ commit, state }) {
+      return api
+        .get(
+          `organization/${state.organization.id}/forum/category/`,
+          {},
+          { errorRedirect: true }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_SET_FORUM, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    addCategoryForum({ commit, state }, { title }) {
+      return api
+        .post(
+          `organization/${state.organization.id}/forum/category/`,
+          {
+            title
+          },
+          {
+            errorMessage: true
+          }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_ADD_FORUM_CATEGORY, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    editForumCategory({ commit, state }, { id, title, position }) {
+      return api
+        .put(
+          `organization/${state.organization.id}/forum/category/${id}`,
+          {
+            id,
+            title,
+            position
+          },
+          { errorMessage: true }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_EDIT_FORUM_CATEGORY, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    deleteForumCategory({ commit, state }, id) {
+      return api
+        .delete(
+          `organization/${state.organization.id}/forum/category/${id}`,
+          {},
+          { errorMessage: true }
+        )
+        .then(() => {
+          commit(types.ORG_DELETE_FORUM_CATEGORY, id);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    setPositionForumCategory({ commit, state }, categories) {
+      return api
+        .put(
+          `organization/${state.organization.id}/forum/category/`,
+          {
+            categories: categories.reduce((list, category, index) => {
+              return (list = [
+                ...list,
+                {
+                  id: category.id,
+                  title: category.title,
+                  position: index
+                }
+              ]);
+            }, [])
+          },
+          { errorMessage: true }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_EDIT_FORUM_CATEGORY_POSITION, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    addSubjectForum({ commit, state }, { title, idCat }) {
+      return api
+        .post(
+          `organization/${state.organization.id}/forum/subject/`,
+          {
+            title: title,
+            idCategory: idCat
+          },
+          {
+            errorMessage: true
+          }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_ADD_FORUM_CATEGORY_SUBJECT, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    editForumSubject({ commit, state }, { title, id, position }) {
+      return api
+        .put(
+          `organization/${state.organization.id}/forum/subject/${id}`,
+          {
+            id,
+            title,
+            position
+          },
+          { errorMessage: true }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_EDIT_FORUM_SUBJECT, data);
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    deleteForumSubject({ commit, state }, { idSubject, idCategory }) {
+      return api
+        .delete(
+          `organization/${state.organization.id}/forum/subject/${idSubject}`,
+          {},
+          { errorMessage: true }
+        )
+        .then(() => {
+          commit(types.ORG_DELETE_FORUM_SUBJECT, { idSubject, idCategory });
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
+    },
+    setPositionForumSubject({ commit, state }, { subjects, idCategory }) {
+      return api
+        .put(
+          `organization/${state.organization.id}/forum/subject/`,
+          {
+            subjects: subjects.reduce((list, subject, index) => {
+              return (list = [
+                ...list,
+                {
+                  id: subject.id,
+                  title: subject.title,
+                  position: index
+                }
+              ]);
+            }, [])
+          },
+          { errorMessage: true }
+        )
+        .then(({ data }) => {
+          commit(types.ORG_EDIT_FORUM_SUBJECT_POSITION, {
+            subjects: data,
+            idCategory
+          });
+        })
+        .catch(e => {
+          return Promise.reject(e);
+        });
     }
   },
   mutations: {
@@ -345,6 +515,78 @@ export default {
     },
     [types.ORG_DELETE_SESSION](state, id) {
       state.sessions = state.sessions.filter(s => s.id !== id);
+    },
+    [types.ORG_SET_FORUM](state, forum) {
+      state.categoriesForum = forum;
+    },
+    [types.ORG_ADD_FORUM_CATEGORY](state, category) {
+      state.categoriesForum.push(category);
+    },
+    [types.ORG_EDIT_FORUM_CATEGORY](state, { title, position, id }) {
+      const categoryForum = state.categoriesForum.find(t => t.id === id);
+      categoryForum.title = title;
+      categoryForum.position = position;
+    },
+    [types.ORG_DELETE_FORUM_CATEGORY](state, id) {
+      state.categoriesForum = state.categoriesForum.filter(c => c.id !== id);
+    },
+    [types.ORG_EDIT_FORUM_CATEGORY_POSITION](state, catogories) {
+      state.categoriesForum = state.categoriesForum.reduce((list, element) => {
+        const category = catogories.find(c => c.id === element.id);
+        return (list = [
+          ...list,
+          {
+            subjects: element.subjects,
+            id: element.id,
+            title: category.title,
+            position: category.position
+          }
+        ]);
+      }, []);
+    },
+    [types.ORG_ADD_FORUM_CATEGORY_SUBJECT](
+      state,
+      { id, title, position, idCategory }
+    ) {
+      const categoryForum = state.categoriesForum.find(
+        t => t.id === idCategory
+      );
+      categoryForum.subjects.push({ id, title, position });
+    },
+    [types.ORG_EDIT_FORUM_SUBJECT](state, { title, position, id, idCategory }) {
+      const categoryForum = state.categoriesForum.find(
+        t => t.id === idCategory
+      );
+      const subject = categoryForum.subjects.find(t => t.id === id);
+      subject.title = title;
+      subject.position = position;
+    },
+    [types.ORG_DELETE_FORUM_SUBJECT](state, { idSubject, idCategory }) {
+      const categoryForum = state.categoriesForum.find(
+        t => t.id === idCategory
+      );
+      categoryForum.subjects = categoryForum.subjects.filter(
+        c => c.id !== idSubject
+      );
+    },
+    [types.ORG_EDIT_FORUM_SUBJECT_POSITION](state, { subjects, idCategory }) {
+      const categoryForum = state.categoriesForum.find(
+        t => t.id === idCategory
+      );
+      categoryForum.subjects = categoryForum.subjects.reduce(
+        (list, element) => {
+          const subject = subjects.find(c => c.id === element.id);
+          return (list = [
+            ...list,
+            {
+              id: element.id,
+              title: subject.title,
+              position: subject.position
+            }
+          ]);
+        },
+        []
+      );
     }
   }
 };

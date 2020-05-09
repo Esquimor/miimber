@@ -7,9 +7,8 @@
         type="is-primary"
         icon-left="plus"
         @click="$emit('add')"
+        >{{ $t(addLabel) }}</BButton
       >
-        {{ $t("core.utils.add") }}
-      </BButton>
     </header>
     <main class="OrganizationTemplateList-main" ref="template">
       <slot />
@@ -30,6 +29,10 @@ export default {
     loading: {
       type: Boolean,
       default: true
+    },
+    addLabel: {
+      type: String,
+      default: "core.utils.add"
     }
   },
   data() {

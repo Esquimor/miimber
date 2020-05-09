@@ -12,4 +12,6 @@ public interface IOrganizationService extends TemplateService<Organization> {
 	List<Organization> getOrganizationByUser(User user);
 	
 	Organization getOrganizationByName(String name);
+	
+	Organization getOrganizationByStripe(String stripe);
 }

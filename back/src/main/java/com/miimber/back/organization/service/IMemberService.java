@@ -16,4 +16,6 @@ public interface IMemberService extends TemplateService<Member> {
 	Member getMemberByOrganizationAndByUser(Organization organization, User user);
 	
 	boolean existsMemberByUserAndOrganization(User user, Organization organization);
+	
+	Member getFirstMemberOwnerForOrganization(Organization organization);
 }

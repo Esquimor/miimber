@@ -1,6 +1,8 @@
 <template>
   <div class="DashboardSessionComment">
-    <h2 class="title is-5">{{ comments.length }} {{ $t("dashboard.session.comment.title") }}</h2>
+    <h2 class="title is-5">
+      {{ comments.length }} {{ $t("dashboard.session.comment.title") }}
+    </h2>
     <SessionCommentAdd />
     <div class="DashboardSessionComment-comments">
       <SessionCommentItem
