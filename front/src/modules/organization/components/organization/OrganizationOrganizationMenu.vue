@@ -1,18 +1,16 @@
 <template>
   <div class="OrganizationOrganizationMenu">
     <router-link
+      v-if="isPayed"
       :to="{ name: NAV.MEMBERS }"
       class="OrganizationOrganizationMenu-link"
       @click.native="setRouterAndNav(ROUTER.MEMBERS, NAV.MEMBERS)"
     >
-      <BIcon
-        size="is-small"
-        icon="account-group"
-        class="OrganizationOrganizationMenu-link-icon"
-      />
+      <BIcon size="is-small" icon="account-group" class="OrganizationOrganizationMenu-link-icon" />
       <span>{{ $t("organization.members.title") }}</span>
     </router-link>
     <router-link
+      v-if="isPayed"
       :to="{ name: NAV.SESSIONS }"
       class="OrganizationOrganizationMenu-link"
       @click.native="setRouterAndNav(ROUTER.SESSIONS, NAV.SESSIONS)"
@@ -24,10 +22,7 @@
       />
       <span>{{ $t("organization.sessions.title") }}</span>
     </router-link>
-    <div
-      v-if="router === ROUTER.SESSIONS"
-      class="OrganizationOrganizationMenu-sublink"
-    >
+    <div v-if="router === ROUTER.SESSIONS && isPayed" class="OrganizationOrganizationMenu-sublink">
       <router-link
         :to="{ name: NAV.SESSIONS_TYPES }"
         class="OrganizationOrganizationMenu-sublink-item"
@@ -37,15 +32,12 @@
       </router-link>
     </div>
     <router-link
+      v-if="isPayed"
       :to="{ name: NAV.FORUM }"
       class="OrganizationOrganizationMenu-link"
       @click.native="setRouterAndNav(ROUTER.FORUM, NAV.FORUM)"
     >
-      <BIcon
-        size="is-small"
-        icon="forum"
-        class="OrganizationOrganizationMenu-link-icon"
-      />
+      <BIcon size="is-small" icon="forum" class="OrganizationOrganizationMenu-link-icon" />
       <span>{{ $t("organization.forum.title") }}</span>
     </router-link>
     <router-link
@@ -53,11 +45,7 @@
       class="OrganizationOrganizationMenu-link"
       @click.native="setRouterAndNav(ROUTER.SETTINGS, NAV.SETTINGS)"
     >
-      <BIcon
-        size="is-small"
-        icon="settings"
-        class="OrganizationOrganizationMenu-link-icon"
-      />
+      <BIcon size="is-small" icon="settings" class="OrganizationOrganizationMenu-link-icon" />
       <span>{{ $t("organization.settings.title") }}</span>
     </router-link>
     <BSelect
@@ -67,20 +55,14 @@
       expanded
       v-model="nav"
     >
-      <option :value="NAV.MEMBERS">
-        {{ $t("organization.members.title") }}
-      </option>
-      <option :value="NAV.SESSIONS">
-        {{ $t("organization.sessions.title") }}
-      </option>
-      <option :value="NAV.SESSIONS_TYPES">
+      <option v-if="isPayed" :value="NAV.MEMBERS">{{ $t("organization.members.title") }}</option>
+      <option v-if="isPayed" :value="NAV.SESSIONS">{{ $t("organization.sessions.title") }}</option>
+      <option v-if="isPayed" :value="NAV.SESSIONS_TYPES">
         {{ $t("organization.sessions.title") }} -
         {{ $t("organization.typeSessions.title") }}
       </option>
-      <option :value="NAV.FORUM">{{ $t("organization.forum.title") }}</option>
-      <option :value="NAV.SETTINGS">
-        {{ $t("organization.settings.title") }}
-      </option>
+      <option v-if="isPayed" :value="NAV.FORUM">{{ $t("organization.forum.title") }}</option>
+      <option :value="NAV.SETTINGS">{{ $t("organization.settings.title") }}</option>
     </BSelect>
   </div>
 </template>
@@ -104,6 +86,8 @@ const NAV = {
   FORUM: "organization-manage-forum"
 };
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "OrganizationOrganizationMenu",
   data() {
@@ -113,6 +97,14 @@ export default {
       nav: "",
       NAV: NAV
     };
+  },
+  computed: {
+    ...mapGetters({
+      organization: "organization/organization"
+    }),
+    isPayed() {
+      return this.organization.isPayed || this.organization.isFree;
+    }
   },
   methods: {
     setRouterAndNav(router, nav) {

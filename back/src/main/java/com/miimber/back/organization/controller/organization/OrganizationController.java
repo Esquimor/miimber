@@ -1,5 +1,6 @@
 package com.miimber.back.organization.controller.organization;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.miimber.back.core.enums.StripeStatusEnum;
 import com.miimber.back.core.helper.Helper;
 import com.miimber.back.core.helper.StripeService;
 import com.miimber.back.organization.dto.organization.OrganizationAndMemberReadResponseDTO;
@@ -26,6 +28,7 @@ import com.miimber.back.organization.dto.organization.OrganizationTokenRequestDT
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.model.Organization;
 import com.miimber.back.organization.model.enums.RoleEnum;
+import com.miimber.back.organization.model.enums.StateOrganizationEnum;
 import com.miimber.back.organization.service.MemberService;
 import com.miimber.back.organization.service.OrganizationService;
 import com.miimber.back.session.model.TypeSession;
@@ -90,15 +93,28 @@ public class OrganizationController {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
         
-        Subscription subscription = null;
-        if (member.getOrganization().getStripe() != null) {
-        	subscription = stripeService.getSubscription(member.getOrganization().getStripe());
-        }
-        
         return ResponseEntity.ok(new OrganizationForManageReadResponseDTO(
-        		member.getOrganization(), 
-        		subscription
+        		member.getOrganization()
 			));
+	}
+	
+	@RequestMapping(value = "/organization/{id}/active", method = RequestMethod.GET)
+	public ResponseEntity<?> activeOrganization(@PathVariable Long id) throws Exception {
+		Organization organization = organizationService.get(id);
+		
+		if (organization == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		if (organization.getStripe() == null) {
+			return new ResponseEntity(HttpStatus.OK);
+		}
+		Subscription subscription = stripeService.getSubscription(organization.getStripe());
+		String statusStripe = subscription.getStatus();
+		if (statusStripe == StripeStatusEnum.TRIALING.getStatus() || statusStripe == StripeStatusEnum.ACTIVE.getStatus()) {
+			return new ResponseEntity(HttpStatus.OK);
+		} else {
+			return new ResponseEntity(HttpStatus.CONFLICT);
+		}
 	}
 	
 	/**
@@ -116,6 +132,10 @@ public class OrganizationController {
 		if (organization == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
+		
+        if (organization.getStripe() != null && organization.getStripeEnd().before(new Timestamp(System.currentTimeMillis()))) {
+        	return new ResponseEntity(HttpStatus.CONFLICT);
+        }
 		
 		Member member = memberService.getMemberByOrganizationAndByUser(organization, user);
 		
@@ -136,10 +156,13 @@ public class OrganizationController {
         Customer customer = stripeService.createCustomer(organizationDto.getTokenId(), user.getEmail());
         
         Subscription subscription = stripeService.createSubscription(customer, organizationDto.getSubscription(), 1L);
+        Timestamp stripeEnd = new Timestamp(subscription.getCurrentPeriodEnd() * 1000 + 3600 * 24 * 3);
         
         Organization newOrganization = new Organization(organizationDto.getName());
         newOrganization= organizationService.create(newOrganization);
         newOrganization.setStripe(subscription.getId());
+        newOrganization.setStripeEnd(stripeEnd);
+        newOrganization.setState(StateOrganizationEnum.ACTIVE);
         
         Member newMember = new Member();
         newMember.setOrganization(newOrganization);
@@ -191,7 +214,11 @@ public class OrganizationController {
         if (memberUser.getRole() != RoleEnum.OWNER) {
         	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
-        stripeService.updateCardForSubscription(memberUser.getOrganization().getStripe(), organizationDto.getToken());
+        Organization organization = memberUser.getOrganization();
+        stripeService.updateCardForSubscription(organization.getStripe(), organizationDto.getToken());
+
+        organization.setState(StateOrganizationEnum.ACTIVE);
+        organizationService.update(organization);
         return new ResponseEntity(HttpStatus.OK);
 	}
 	
@@ -240,6 +267,29 @@ public class OrganizationController {
             stripeService.deleteSubscription(organization.getStripe());
         }
         organizationService.delete(organization);
+        return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/organization/{id}/archive", method = RequestMethod.PUT)
+	public ResponseEntity<?> archiveOrganization(@PathVariable Long id) throws Exception {
+        User user = helper.getUserToken((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        
+        Member memberUser = memberService.getMemberByOrganizationIdAndByUser(id, user);
+        if (memberUser == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        if (memberUser.getRole() != RoleEnum.OWNER) {
+        	return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+        Organization organization = memberUser.getOrganization();
+        if (organization.getStripe() != null) {
+            stripeService.deleteSubscription(organization.getStripe());
+        }
+        organization.setState(StateOrganizationEnum.ARCHIVE);
+        organizationService.update(organization);
+        for(Member member: organization.getMembers()) {
+        	memberService.delete(member);
+        }
         return new ResponseEntity(HttpStatus.OK);
 	}
 }

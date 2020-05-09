@@ -6,7 +6,6 @@ import java.util.List;
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.model.Organization;
 import com.miimber.back.organization.model.enums.RoleEnum;
-import com.stripe.model.Subscription;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,35 +14,19 @@ import lombok.Setter;
 public class OrganizationForManageReadResponseDTO extends OrganizationCreateReadUpdateResponseDTO {
 
 	private List<MemberDTO> members;
-	private Long current_period_end;
-	private boolean cancel_at_period_end;
-	private String status;
 	private String plan;
+	private Boolean isPayed;
+	private Boolean isFree;
 	
-	public OrganizationForManageReadResponseDTO(long id, String name) {
-		super(id, name);
-	}
-	
-	public OrganizationForManageReadResponseDTO(Organization organization, Subscription subscription) {
-		super(organization.getId(), organization.getName());
+	public OrganizationForManageReadResponseDTO(Organization organization) {
+		super(organization);
 		this.setMembers(convertMembersDTO(organization.getMembers()));
-		if (subscription != null) {
-			this.setCurrent_period_end(subscription.getCurrentPeriodEnd());
-			this.cancel_at_period_end = subscription.getCancelAtPeriodEnd();
-			this.setStatus(subscription.getStatus());
-			this.setPlan(subscription.getPlan().getId());
-		}
-	}
-	
-	public OrganizationForManageReadResponseDTO(long id, String name, List<Member> members, Subscription subscription) {
-		super(id, name);
-		this.setMembers(convertMembersDTO(members));
-		if (subscription != null) {
-			this.setCurrent_period_end(subscription.getCurrentPeriodEnd());
-			this.cancel_at_period_end = subscription.getCancelAtPeriodEnd();
-			this.setStatus(subscription.getStatus());
-			this.setPlan(subscription.getPlan().getId());
-		}
+        this.isFree = organization.getStripe() == null;
+        if (organization.isActif()) {
+        	this.isPayed = true;
+        } else {
+        	this.isPayed = false;
+        }
 	}
 	
 	private List<MemberDTO> convertMembersDTO(List<Member> members) {

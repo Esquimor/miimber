@@ -55,12 +55,20 @@ export default {
     },
     settings: {
       title: "Settings",
-      delete: {
-        title: "Delete organization",
+      stripe: {
+        title: "Change payment method",
+        description: "You can change the payment method of your organization",
+        button: "Change",
+        success: "Modified payment method",
+        invalid:
+          "The current card is no longer valid. Please change to continue on Miimber.",
+      },
+      archive: {
+        title: "Archive organization",
         description:
-          "Once you delete your organization, there is no going back. Please be certain.",
-        button: "Delete your organization",
-        success: "Organization deleted",
+          "An archived organization is not recoverable. No more elements of the organization will be accessible. Payment stops before the next due date.",
+        button: "Archive your organization",
+        success: "Organization archived",
       },
     },
     sessions: {

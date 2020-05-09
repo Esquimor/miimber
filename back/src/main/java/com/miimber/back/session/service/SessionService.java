@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.miimber.back.organization.model.enums.StateOrganizationEnum;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.repository.SessionRepository;
 import com.miimber.back.user.model.User;
@@ -24,7 +25,7 @@ public class SessionService implements ISessionService {
 
 	@Override
 	public List<Session> getSessionByUserAndDate(User user, OffsetDateTime min, OffsetDateTime max) {
-		return sessionRepository.findByOrganizationMembersUserAndStartBetween(user, min, max);
+		return sessionRepository.findByOrganizationMembersUserAndStartBetweenAndOrganizationState(user, min, max, StateOrganizationEnum.ACTIVE);
 	}
 
 	@Override

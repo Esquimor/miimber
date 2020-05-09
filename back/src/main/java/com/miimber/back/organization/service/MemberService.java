@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.miimber.back.organization.model.Member;
 import com.miimber.back.organization.model.Organization;
+import com.miimber.back.organization.model.enums.RoleEnum;
 import com.miimber.back.organization.repository.MemberRepository;
 import com.miimber.back.user.model.User;
 
@@ -58,6 +59,11 @@ public class MemberService implements IMemberService {
 			return null;
 		}
 		return member.get();
+	}
+
+	@Override
+	public Member getFirstMemberOwnerForOrganization(Organization organization) {
+		return memberRepository.findFirstByOrganizationAndRole(organization, RoleEnum.OWNER);
 	}
 
 

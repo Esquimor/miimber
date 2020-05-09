@@ -70,7 +70,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      talk: "dashboard/organizationForumTalk"
+      talk: "dashboard/organizationForumTalk",
+      isMemberOrganization: "dashboard/isMemberOrganization",
+      isOrganizationArchived: "dashboard/isOrganizationArchived",
+      isOrganizationSuspended: "dashboard/isOrganizationSuspended"
     }),
     orderMessageByDate() {
       if (!this.talk.messages) return [];
@@ -116,6 +119,27 @@ export default {
     }
   },
   mounted() {
+    if (!this.isMemberOrganization) {
+      this.$router.push({ name: "error_404" });
+      this.loading = false;
+      return;
+    }
+    if (this.isOrganizationArchived) {
+      this.$router.push({
+        name: "dashboard-organization-archived",
+        params: { id: this.$route.params.id }
+      });
+      this.loading = false;
+      return;
+    }
+    if (this.isOrganizationSuspended) {
+      this.$router.push({
+        name: "dashboard-organization-suspended",
+        params: { id: this.$route.params.id }
+      });
+      this.loading = false;
+      return;
+    }
     this.$store
       .dispatch("dashboard/setForumTalk", this.$route.params.idTalk)
       .then(() => {
@@ -145,7 +169,7 @@ export default {
       });
   },
   beforeDestroy() {
-    this.message.destroy();
+    if (this.message) this.message.destroy();
   }
 };
 </script>

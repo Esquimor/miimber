@@ -1,21 +1,11 @@
 <template>
   <TemplateDefault class="OrganizationCreate">
     <form @submit.prevent="add">
-      <h1 class="title is-4 OrganizationCreate-title">
-        {{ $t("settings.organization.create") }}
-      </h1>
+      <h1 class="title is-4 OrganizationCreate-title">{{ $t("settings.organization.create") }}</h1>
       <div class="columns">
         <div class="column is-half is-offset-one-quarter">
-          <b-field
-            :label="$t('settings.organizationCreate.name')"
-            :message="message"
-          >
-            <b-input
-              v-model.trim="name"
-              @focus="focusName"
-              @blur="searchIfExit"
-              required
-            ></b-input>
+          <b-field :label="$t('settings.organizationCreate.name')" :message="message">
+            <b-input v-model.trim="name" @focus="focusName" @blur="searchIfExit" required></b-input>
           </b-field>
         </div>
       </div>
@@ -28,26 +18,18 @@
             :message="cardNumberElement.message"
             :type="cardNumberElement.type"
           >
-            <div
-              id="card-number-element"
-              class="OrganizationCreate-stripe-input"
-            ></div>
+            <div id="card-number-element" class="OrganizationCreate-stripe-input"></div>
           </b-field>
         </div>
       </div>
       <div class="columns">
-        <div
-          class="column is-3 is-offset-one-quarter OrganizationCreate-column"
-        >
+        <div class="column is-3 is-offset-one-quarter OrganizationCreate-column">
           <b-field
             :label="$t('settings.organizationCreate.expiry')"
             :message="cardExpiryElement.message"
             :type="cardExpiryElement.type"
           >
-            <div
-              id="card-expiry-element"
-              class="OrganizationCreate-stripe-input"
-            ></div>
+            <div id="card-expiry-element" class="OrganizationCreate-stripe-input"></div>
           </b-field>
         </div>
         <div class="column is-3 OrganizationCreate-column">
@@ -56,10 +38,7 @@
             :message="cardCvcElement.message"
             :type="cardCvcElement.type"
           >
-            <div
-              id="card-cvc-element"
-              class="OrganizationCreate-stripe-input"
-            ></div>
+            <div id="card-cvc-element" class="OrganizationCreate-stripe-input"></div>
           </b-field>
         </div>
       </div>
@@ -69,9 +48,7 @@
           :class="{ 'is-loading': loading }"
           type="submit"
           @click="add"
-        >
-          {{ $t("settings.organizationCreate.button") }}
-        </button>
+        >{{ $t("settings.organizationCreate.button") }}</button>
       </div>
     </form>
   </TemplateDefault>
@@ -161,6 +138,9 @@ export default {
               .then(() => {
                 that.loading = false;
                 that.$router.push({ name: "settings-organization" });
+              })
+              .catch(() => {
+                that.loading = false;
               });
           }
         });

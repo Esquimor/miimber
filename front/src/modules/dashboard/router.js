@@ -55,6 +55,18 @@ export default [
         component: () =>
           import("@dashboard/views/organization/OrganizationMembers"),
       },
+      {
+        path: "archived",
+        name: "dashboard-organization-archived",
+        component: () =>
+          import("@dashboard/views/organization/OrganizationArchived"),
+      },
+      {
+        path: "suspended",
+        name: "dashboard-organization-suspended",
+        component: () =>
+          import("@dashboard/views/organization/OrganizationSuspended"),
+      },
     ],
   },
 ];

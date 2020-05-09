@@ -63,7 +63,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      sessions: "dashboard/organizationSessions"
+      sessions: "dashboard/organizationSessions",
+      isOrganizationArchived: "dashboard/isOrganizationArchived",
+      isOrganizationSuspended: "dashboard/isOrganizationSuspended"
     }),
     reorderByDate() {
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -122,6 +124,22 @@ export default {
     }
   },
   mounted() {
+    if (this.isOrganizationArchived) {
+      this.$router.push({
+        name: "dashboard-organization-archived",
+        params: { id: this.$route.params.id }
+      });
+      this.loading = false;
+      return;
+    }
+    if (this.isOrganizationSuspended) {
+      this.$router.push({
+        name: "dashboard-organization-suspended",
+        params: { id: this.$route.params.id }
+      });
+      this.loading = false;
+      return;
+    }
     this.$store
       .dispatch("dashboard/setOrganizationSessions", {
         id: this.$route.params.id,

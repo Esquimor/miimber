@@ -5,13 +5,13 @@
         <div class="Organization-header-wrapper">
           <h1 class="is-size-3">{{ organization.name }}</h1>
           <BButton
+            v-if="organization.isFree || organization.isPayed"
             id="OrganizationOrganization-edit"
             icon-left="pencil"
             type="is-primary"
             @click="edit"
             outlined
-            >{{ $t("core.utils.edit") }}</BButton
-          >
+          >{{ $t("core.utils.edit") }}</BButton>
         </div>
       </header>
       <div class="Organization-content">
@@ -66,6 +66,12 @@ export default {
       .then(() => {
         loadingComponent.close();
         this.loading = false;
+        if (this.organization.isPayed === false) {
+          this.$router.push({
+            name: "organization-manage-settings",
+            params: { id: this.organization.id }
+          });
+        }
       })
       .catch(() => {
         loadingComponent.close();

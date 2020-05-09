@@ -15,4 +15,6 @@ public interface OrganizationRepository extends CrudRepository<Organization, Lon
 	List<Organization> findByMembersUser(User user);
 	
 	Organization findByName(String name);
+	
+	Organization findByStripe(String stripe);
 }

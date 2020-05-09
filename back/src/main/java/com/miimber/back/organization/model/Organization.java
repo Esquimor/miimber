@@ -1,5 +1,6 @@
 package com.miimber.back.organization.model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.miimber.back.forum.model.CategoryForum;
+import com.miimber.back.organization.model.enums.StateOrganizationEnum;
 import com.miimber.back.session.model.Session;
 import com.miimber.back.session.model.TypeSession;
 
@@ -35,6 +37,12 @@ public class Organization {
 	@Column(name = "stripe")
 	private String stripe;
 	
+	@Column(name = "stripeEnd")
+	private Timestamp stripeEnd;
+	
+	@Column(name = "state")
+	private StateOrganizationEnum state;
+	
 	@OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE)
     private List<Member> members;
 	
@@ -53,6 +61,7 @@ public class Organization {
 		this.typeSessions = new ArrayList<TypeSession>();
 		this.sessions = new ArrayList<Session>();
 		this.categoriesForum = new ArrayList<CategoryForum>();
+		this.state = StateOrganizationEnum.ACTIVE;
 	}
 	
 	public Organization(String name) {
@@ -61,9 +70,14 @@ public class Organization {
 		this.typeSessions = new ArrayList<TypeSession>();
 		this.sessions = new ArrayList<Session>();
 		this.categoriesForum = new ArrayList<CategoryForum>();
+		this.state = StateOrganizationEnum.ACTIVE;
 	}
 
 	public void addMember(Member newMember) {
 		this.members.add(newMember);
+	}
+	
+	public Boolean isActif() {
+		return this.state == StateOrganizationEnum.ACTIVE;
 	}
 }

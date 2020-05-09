@@ -1,7 +1,7 @@
 import api from "@/utils/api";
 import * as types from "@/utils/types";
 
-import { ROLE, STATUS_REGISTERED } from "@/utils/consts";
+import { ROLE, STATUS_REGISTERED, STATE_ORGANIZATION } from "@/utils/consts";
 
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -30,6 +30,18 @@ export default {
     organizationForumSubject: (state) => state.organizationForumSubject,
     organizationForumTalk: (state) => state.organizationForumTalk,
     sessions: (state) => state.sessions,
+    stateOrganization: (state) =>
+      state.organization
+        ? state.organization.state
+        : STATE_ORGANIZATION.UNDEFINED,
+    isOrganizationArchive: (state, getters) =>
+      getters.stateOrganization === STATE_ORGANIZATION.ARCHIVE,
+    isOrganizationActive: (state, getters) =>
+      getters.stateOrganization === STATE_ORGANIZATION.ACTIVE,
+    isOrganizationSuspended: (state, getters) =>
+      getters.stateOrganization === STATE_ORGANIZATION.SUSPENDED,
+    isMemberOrganization: (state) =>
+      state.organization ? state.organization.member !== null : false,
     canChangeOrganization: (state) => {
       return (
         !!state.organization &&

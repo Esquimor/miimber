@@ -61,4 +61,9 @@ public class OrganizationService implements IOrganizationService {
 		}
 		return organization.get();
 	}
+
+	@Override
+	public Organization getOrganizationByStripe(String stripe) {
+		return organizationRepository.findByStripe(stripe);
+	}
 }

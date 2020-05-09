@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      loadingComponent: this.loading
+      loadingComponent: null
     };
   },
   computed: {
@@ -33,9 +33,11 @@ export default {
   },
   methods: {
     startLoading() {
-      this.loadingComponent = this.$buefy.loading.open({
-        container: this.$refs.template.$el
-      });
+      if (this.$refs.template) {
+        this.loadingComponent = this.$buefy.loading.open({
+          container: this.$refs.template.$el
+        });
+      }
     },
     endLoading() {
       if (this.loadingComponent) {
@@ -49,9 +51,7 @@ export default {
       immediate: true,
       handler(newValue) {
         if (newValue) {
-          this.$nextTick(() => {
-            this.startLoading();
-          });
+          this.startLoading();
         } else {
           this.endLoading();
         }

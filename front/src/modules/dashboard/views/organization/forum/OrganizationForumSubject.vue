@@ -51,7 +51,10 @@ export default {
   },
   computed: {
     ...mapGetters({
-      subject: "dashboard/organizationForumSubject"
+      subject: "dashboard/organizationForumSubject",
+      isMemberOrganization: "dashboard/isMemberOrganization",
+      isOrganizationArchived: "dashboard/isOrganizationArchived",
+      isOrganizationSuspended: "dashboard/isOrganizationSuspended"
     }),
     orderTalks() {
       if (!this.subject.talks) return [];
@@ -69,6 +72,27 @@ export default {
     }
   },
   mounted() {
+    if (!this.isMemberOrganization) {
+      this.$router.push({ name: "error_404" });
+      this.loading = false;
+      return;
+    }
+    if (this.isOrganizationArchived) {
+      this.$router.push({
+        name: "dashboard-organization-archived",
+        params: { id: this.$route.params.id }
+      });
+      this.loading = false;
+      return;
+    }
+    if (this.isOrganizationSuspended) {
+      this.$router.push({
+        name: "dashboard-organization-suspended",
+        params: { id: this.$route.params.id }
+      });
+      this.loading = false;
+      return;
+    }
     this.$store
       .dispatch("dashboard/setForumSubject", this.$route.params.idSubject)
       .then(() => {

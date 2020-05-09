@@ -30,6 +30,14 @@ export default {
           placeholder: "Mon message",
         },
       },
+      archive: {
+        tag: "Archivé",
+        title: "Cette organisation n'est plus disponible.",
+      },
+      suspended: {
+        tag: "Suspendu",
+        title: "Cette organisation est momentanément indisponible.",
+      },
     },
     session: {
       label: {

@@ -49,10 +49,10 @@ export default {
           return Promise.reject(e);
         });
     },
-    deleteOrganization({ state }) {
+    archiveOrganization({ state }) {
       return api
         .delete(
-          `organization/${state.organization.id}`,
+          `organization/${state.organization.id}/archive`,
           {},
           { errorMessage: true }
         )
