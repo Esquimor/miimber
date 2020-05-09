@@ -1,6 +1,8 @@
 <template>
   <div class="DashboardOrganizationForumCategory">
-    <div class="DashboardOrganizationForumCategory-category text is-size-5">{{ category.title }}</div>
+    <div class="DashboardOrganizationForumCategory-category text is-size-5">
+      {{ category.title }}
+    </div>
     <div class="DashboardOrganizationForumCategory-subjects">
       <OrganizationForumSubjectItem
         v-for="subject in orderSubjects"

@@ -1,18 +1,21 @@
 <template>
   <div class="DashboardSessionCommentAdd">
-    <editor-content class="DashboardSessionCommentAdd-editor" :editor="editor" ref="editor" />
+    <editor-content
+      class="DashboardSessionCommentAdd-editor"
+      :editor="editor"
+      ref="editor"
+    />
     <div v-if="hasFocus" class="DashboardSessionCommentAdd-button">
       <BButton
         class="DashboardSessionCommentAdd-button-cancel"
         type="is-normal"
         @click.native="cancel"
         :disabled="loading"
-      >{{ $t("core.utils.cancel") }}</BButton>
-      <BButton
-        type="is-primary"
-        @click.native="add"
-        :loading="loading"
-      >{{ $t("dashboard.session.comment.add") }}</BButton>
+        >{{ $t("core.utils.cancel") }}</BButton
+      >
+      <BButton type="is-primary" @click.native="add" :loading="loading">{{
+        $t("dashboard.session.comment.add")
+      }}</BButton>
     </div>
   </div>
 </template>

@@ -7,7 +7,8 @@
         type="is-primary"
         icon-left="plus"
         @click="$emit('add')"
-      >{{ $t(addLabel) }}</BButton>
+        >{{ $t(addLabel) }}</BButton
+      >
     </header>
     <main class="OrganizationTemplateList-main" ref="template">
       <slot />

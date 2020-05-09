@@ -3,17 +3,21 @@
     <div v-if="loading === false">
       <header class="DashboardOrganization-header">
         <div class="DashboardOrganization-header-wrapper">
-          <h1 class="DashboardOrganization-header-title title is-3">{{ organization.name }}</h1>
+          <h1 class="DashboardOrganization-header-title title is-3">
+            {{ organization.name }}
+          </h1>
           <b-tag
             v-if="isOrganizationArchive"
             type="is-danger"
             class="DashboardOrganization-header-tag"
-          >{{ $t('dashboard.organization.archive.tag')}}</b-tag>
+            >{{ $t("dashboard.organization.archive.tag") }}</b-tag
+          >
           <b-tag
             v-if="isOrganizationSuspended"
             type="is-warning"
             class="DashboardOrganization-header-tag"
-          >{{ $t('dashboard.organization.suspended.tag')}}</b-tag>
+            >{{ $t("dashboard.organization.suspended.tag") }}</b-tag
+          >
         </div>
       </header>
       <nav class="DashboardOrganization-nav">
@@ -24,7 +28,8 @@
             name: 'dashboard-organization-sessions',
             params: { id: organization.id }
           }"
-        >{{ $t("dashboard.organization.label.sessions") }}</router-link>
+          >{{ $t("dashboard.organization.label.sessions") }}</router-link
+        >
         <router-link
           v-if="isMemberOrganization && isOrganizationActive"
           class="DashboardOrganization-nav-item"
@@ -32,7 +37,8 @@
             name: 'dashboard-organization-forum',
             params: { id: organization.id }
           }"
-        >{{ $t("dashboard.organization.label.forum") }}</router-link>
+          >{{ $t("dashboard.organization.label.forum") }}</router-link
+        >
         <router-link
           v-if="!isOrganizationArchive"
           class="DashboardOrganization-nav-item"
@@ -40,7 +46,8 @@
             name: 'dashboard-organization-members',
             params: { id: organization.id }
           }"
-        >{{ $t("dashboard.organization.label.members") }}</router-link>
+          >{{ $t("dashboard.organization.label.members") }}</router-link
+        >
       </nav>
       <main class="DashboardOrganization-main">
         <div class="DashboardOrganization-main-wrapper">

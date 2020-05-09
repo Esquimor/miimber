@@ -1,7 +1,11 @@
 <template>
   <TemplateOrganization :loading="loading">
     <div class="DashboardOrganizationMembers">
-      <SessionUserItem v-for="member in members" :key="member.id" :user="member" />
+      <SessionUserItem
+        v-for="member in members"
+        :key="member.id"
+        :user="member"
+      />
     </div>
   </TemplateOrganization>
 </template>

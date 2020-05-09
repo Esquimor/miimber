@@ -2,9 +2,13 @@
   <TemplateOrganization :loading="loading">
     <div class="DashboardOrganizationForumTalk">
       <router-link
-        :to="{name: 'dashboard-organization-forum-subject', params: {idSubject: $route.params.idSubject}}"
+        :to="{
+          name: 'dashboard-organization-forum-subject',
+          params: { idSubject: $route.params.idSubject }
+        }"
         class="DashboardOrganizationForumTalk-header title is-6"
-      >{{ talk.title }}</router-link>
+        >{{ talk.title }}</router-link
+      >
       <div class="DashboardOrganizationForumTalk-messages">
         <OrganizationForumMessageItem
           v-for="message in orderMessageByDate"
@@ -13,7 +17,9 @@
         />
       </div>
       <div class="DashboardOrganizationForumTalk-add">
-        <span class="DashboardOrganizationForumTalk-add-title">Ajouter un message</span>
+        <span class="DashboardOrganizationForumTalk-add-title"
+          >Ajouter un message</span
+        >
         <EditorContent
           :editor="message"
           ref="editor"
@@ -26,12 +32,14 @@
             @click.native="cancel"
             class="DashboardOrganizationForumTalk-add-buttons-cancel"
             :disabled="loadingMessage"
-          >{{ $t("core.utils.cancel") }}</BButton>
+            >{{ $t("core.utils.cancel") }}</BButton
+          >
           <BButton
             type="is-primary"
             @click.native="add"
             :loading="loadingMessage"
-          >{{ $t("core.utils.add") }}</BButton>
+            >{{ $t("core.utils.add") }}</BButton
+          >
         </div>
       </div>
     </div>

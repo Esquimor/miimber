@@ -49,18 +49,18 @@ export default {
   props: {
     subject: {
       type: Object,
-      required: true,
+      required: true
     },
     idCategory: {
       type: Number,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       mode: "view",
       titleEdit: "",
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -78,12 +78,12 @@ export default {
         .dispatch("organization/editForumSubject", {
           id: this.subject.id,
           title: this.titleEdit,
-          position: this.subject.position,
+          position: this.subject.position
         })
         .then(() => {
           this.$buefy.toast.open({
             message: this.$t("organization.subjectforum.edit.success"),
-            type: "is-primary",
+            type: "is-primary"
           });
           this.loading = false;
           this.mode = "view";
@@ -104,18 +104,18 @@ export default {
           this.$store
             .dispatch("organization/deleteForumSubject", {
               idSubject: this.subject.id,
-              idCategory: this.idCategory,
+              idCategory: this.idCategory
             })
             .then(() => {
               this.$buefy.toast.open({
                 message: this.$t("organization.subjectforum.delete.success"),
-                type: "is-primary",
+                type: "is-primary"
               });
             });
-        },
+        }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

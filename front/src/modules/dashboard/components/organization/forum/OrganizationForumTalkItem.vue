@@ -1,10 +1,15 @@
 <template>
   <router-link
-    :to="{name: 'dashboard-organization-forum-talk', params: {
-    idSubject: $route.params.idSubject, idTalk: talk.id
-  }}"
+    :to="{
+      name: 'dashboard-organization-forum-talk',
+      params: {
+        idSubject: $route.params.idSubject,
+        idTalk: talk.id
+      }
+    }"
     class="DashboardOrganizationForumTalkItem"
-  >{{ talk.title }}</router-link>
+    >{{ talk.title }}</router-link
+  >
 </template>
 
 <script>

@@ -14,7 +14,9 @@
     </div>
     <div class="columns">
       <div class="column">
-        <BField :label="$t('dashboard.organization.subjectForum.label.message')">
+        <BField
+          :label="$t('dashboard.organization.subjectForum.label.message')"
+        >
           <EditorContent
             :editor="message"
             ref="editor"

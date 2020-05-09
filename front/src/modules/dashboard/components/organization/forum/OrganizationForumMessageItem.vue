@@ -1,12 +1,17 @@
 <template>
   <div class="DashboardOrganizationForumMessageItem">
     <div class="DashboardOrganizationForumMessageItem-user">
-      <div
-        class="DashboardOrganizationForumMessageItem-user-name"
-      >{{ message.user.firstName }} {{ message.user.lastName }}</div>
-      <div class="DashboardOrganizationForumMessageItem-user-date">{{ dateMessage }}</div>
+      <div class="DashboardOrganizationForumMessageItem-user-name">
+        {{ message.user.firstName }} {{ message.user.lastName }}
+      </div>
+      <div class="DashboardOrganizationForumMessageItem-user-date">
+        {{ dateMessage }}
+      </div>
     </div>
-    <div class="DashboardOrganizationForumMessageItem-message" v-html="message.message" />
+    <div
+      class="DashboardOrganizationForumMessageItem-message"
+      v-html="message.message"
+    />
   </div>
 </template>
 

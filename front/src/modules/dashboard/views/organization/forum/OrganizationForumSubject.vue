@@ -5,21 +5,26 @@
         <div class="DashboardOrganizationForumSubject-header-left">
           <h2
             class="DashboardOrganizationForumSubject-header-left-title text is-size-5"
-          >{{ subject.title }}</h2>
+          >
+            {{ subject.title }}
+          </h2>
           <span
             class="DashboardOrganizationForumSubject-header-left-category text is-size-7"
-          >{{ subject.category && subject.category.title }}</span>
+            >{{ subject.category && subject.category.title }}</span
+          >
         </div>
         <div class="DashboardOrganizationForumSubject-header-right">
-          <BButton
-            type="is-primary"
-            icon-left="plus"
-            @click.native="addTalk"
-          >{{ $t('dashboard.organization.subjectForum.add.title') }}</BButton>
+          <BButton type="is-primary" icon-left="plus" @click.native="addTalk">{{
+            $t("dashboard.organization.subjectForum.add.title")
+          }}</BButton>
         </div>
       </header>
       <div class="DashboardOrganizationForumSubject-talks">
-        <OrganizationForumTalkItem v-for="talk in orderTalks" :key="talk.id" :talk="talk" />
+        <OrganizationForumTalkItem
+          v-for="talk in orderTalks"
+          :key="talk.id"
+          :talk="talk"
+        />
       </div>
     </div>
   </TemplateOrganization>

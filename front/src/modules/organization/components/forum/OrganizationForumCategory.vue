@@ -69,19 +69,19 @@ export default {
   name: "OrganizationForumCategory",
   components: {
     draggable,
-    OrganizationForumSubject,
+    OrganizationForumSubject
   },
   props: {
     category: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       mode: "view",
       titleEdit: "",
-      loading: false,
+      loading: false
     };
   },
   computed: {
@@ -95,7 +95,7 @@ export default {
         this.$store
           .dispatch("organization/setPositionForumSubject", {
             subjects: value,
-            idCategory: this.category.id,
+            idCategory: this.category.id
           })
           .then(() => {
             loading.close();
@@ -105,8 +105,8 @@ export default {
             loading.close();
             loading = null;
           });
-      },
-    },
+      }
+    }
   },
   methods: {
     passToEdit() {
@@ -123,12 +123,12 @@ export default {
         .dispatch("organization/editForumCategory", {
           id: this.category.id,
           title: this.titleEdit,
-          position: this.category.position,
+          position: this.category.position
         })
         .then(() => {
           this.$buefy.toast.open({
             message: this.$t("organization.forum.edit.success"),
-            type: "is-primary",
+            type: "is-primary"
           });
           this.loading = false;
           this.mode = "view";
@@ -151,19 +151,19 @@ export default {
             .then(() => {
               this.$buefy.toast.open({
                 message: this.$t("organization.forum.delete.success"),
-                type: "is-primary",
+                type: "is-primary"
               });
             });
-        },
+        }
       });
     },
     add() {
       this.$store.dispatch("core/openSideBar", {
         component: OrganizationForumSubjectAdd,
-        props: { idCat: this.category.id },
+        props: { idCat: this.category.id }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

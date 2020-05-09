@@ -6,10 +6,12 @@
           <div class="DashboardSession-header-left">
             <span class="DashboardSession-header-date">
               {{ dateLabel }} {{ session.start | formatHour }}-{{
-              session.end | formatHour
+                session.end | formatHour
               }}
             </span>
-            <h1 class="DashboardSession-header-title title is-3">{{ session.title }}</h1>
+            <h1 class="DashboardSession-header-title title is-3">
+              {{ session.title }}
+            </h1>
           </div>
           <SessionButtonRegistered
             class="DashboardSession-header-right"
@@ -24,7 +26,8 @@
         <router-link
           :to="{ name: 'dashboard-session-emerge', params: { id: session.id } }"
           class="button is-primary is-medium"
-        >{{ $t("dashboard.session.label.emerge") }}</router-link>
+          >{{ $t("dashboard.session.label.emerge") }}</router-link
+        >
       </div>
       <main class="DashboardSession-main">
         <div class="DashboardSession-main-wrapper">
@@ -59,13 +62,11 @@
           <div class="DashboardSession-bottom-info">
             <span class="DashboardSession-bottom-info-date text is-size-6">
               {{ dateLabel }} {{ session.start | formatHour }}-{{
-              session.end | formatHour
+                session.end | formatHour
               }}
             </span>
             <span class="DashboardSession-bottom-info-title text is-size-5">
-              {{
-              session.title
-              }}
+              {{ session.title }}
             </span>
           </div>
           <SessionButtonRegistered

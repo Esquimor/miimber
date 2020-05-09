@@ -1,7 +1,9 @@
 <template>
   <TemplateOrganization :loading="false">
     <div class="DashboardOrganizationSuspended">
-      <span class="text is-size-5">{{ $t('dashboard.organization.suspended.title') }}</span>
+      <span class="text is-size-5">{{
+        $t("dashboard.organization.suspended.title")
+      }}</span>
     </div>
   </TemplateOrganization>
 </template>
